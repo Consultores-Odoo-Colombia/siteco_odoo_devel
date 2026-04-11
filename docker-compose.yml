@@ -15,17 +15,33 @@ services:
       - db-data:/var/lib/postgresql/data
     restart: unless-stopped
 
+  redis:
+    image: redis:7-alpine
+    container_name: odoo18-redis
+    command: ["redis-server", "--appendonly", "yes"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
   odoo:
-    image: ${ODOO_IMAGE:-ghcr.io/siteco/odoo18-ce:siteco-v1}
+    image: ${ODOO_IMAGE:-ghcr.io/juanca2918/odoo18-ce:siteco-v1}
     container_name: odoo18-app
     depends_on:
       db:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     environment:
       ODOO_DB_HOST: ${ODOO_DB_HOST:-db}
       ODOO_DB_PORT: ${ODOO_DB_PORT:-5432}
       ODOO_DB_USER: ${ODOO_DB_USER:-odoo}
       ODOO_DB_PASSWORD: ${ODOO_DB_PASSWORD:-odoo}
+      ODOO_REDIS_URL: ${ODOO_REDIS_URL:-redis://redis:6379/0}
     volumes:
       - odoo-data:/var/lib/odoo
       - ./addons:/mnt/extra-addons
@@ -33,16 +49,6 @@ services:
     ports:
       - "8069:8069"
       - "8072:8072"
-    restart: unless-stopped
-
-  redis:
-    image: redis:7-alpine
-    container_name: odoo18-redis
-    command: ["redis-server", "--appendonly", "yes"]
-    volumes:
-      - redis-data:/data
-    profiles:
-      - with-redis
     restart: unless-stopped
 
 volumes:
