@@ -1,5 +1,6 @@
 [Unit]
-Description=Odoo 18 CE stack managed by Docker Compose
+Description=Odoo 18 CE — Docker Compose Production Stack
+Documentation=https://github.com/Consultores-Odoo-Colombia/siteco_odoo_devel
 Requires=docker.service
 After=docker.service network-online.target
 Wants=network-online.target
@@ -8,10 +9,26 @@ Wants=network-online.target
 Type=oneshot
 RemainAfterExit=yes
 WorkingDirectory=/opt/odoo18
-ExecStart=/usr/bin/docker compose up -d --build
-ExecStop=/usr/bin/docker compose down
-ExecReload=/usr/bin/docker compose up -d --build
-TimeoutStartSec=0
+EnvironmentFile=/opt/odoo18/.env
+
+# Pull latest images before starting (no accidental rebuilds)
+ExecStartPre=/usr/bin/docker compose pull --quiet
+ExecStart=/usr/bin/docker compose up -d --remove-orphans
+ExecStop=/usr/bin/docker compose down --timeout 30
+ExecReload=/usr/bin/docker compose up -d --remove-orphans
+
+# Reasonable timeouts
+TimeoutStartSec=300
+TimeoutStopSec=60
+
+# Restart policy
+Restart=on-failure
+RestartSec=30
+
+# Security hardening
+ProtectSystem=full
+ProtectHome=yes
+NoNewPrivileges=yes
 
 [Install]
 WantedBy=multi-user.target
