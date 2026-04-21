@@ -32,27 +32,44 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     postgresql-client \
     && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd -g 101 odoo && useradd -m -d /home/odoo -u 101 -g odoo -s /bin/bash odoo
+RUN groupadd -g 101 odoo && useradd -m -d /home/odoo -u 101 -g odoo -s /bin/bash odoo \
+    && mkdir -p ${ODOO_HOME} ${ODOO_VENV} \
+    && chown -R odoo:odoo ${ODOO_HOME}
 
 WORKDIR ${ODOO_HOME}
 
-COPY requirements.txt ./requirements.txt
+COPY --chown=odoo:odoo requirements.txt ./requirements.txt
 RUN sed -E "s/^cbor2==5\.4\.2(\s*;\s*python_version\s*<\s*'3\.12'.*)$/cbor2==5.4.6\1/" requirements.txt > /tmp/requirements-docker.txt
+
+# Cambiamos al usuario odoo ANTES de instalar dependencias para que todo el '.venv' y librerías nazcan siendo de odoo
+USER odoo
 RUN python -m venv "${ODOO_VENV}" \
     && "${ODOO_VENV}/bin/pip" install --upgrade "pip<25" "setuptools<81" "wheel<0.46" \
     && "${ODOO_VENV}/bin/pip" install --prefer-binary -r /tmp/requirements-docker.txt
 
-COPY . ${ODOO_HOME}
+COPY --chown=odoo:odoo . ${ODOO_HOME}
+
+# Volvemos a root un momento para los comandos que lo exigen y la configuración final
+USER root
 COPY scripts/container-entrypoint.sh /usr/local/bin/container-entrypoint.sh
 COPY scripts/odoo-venv.sh /usr/local/bin/odoo-venv
 COPY docker/README.container.md /README-container.md
 
-RUN chmod +x /usr/local/bin/container-entrypoint.sh /usr/local/bin/odoo-venv \
-    && chown -R odoo:odoo ${ODOO_HOME}
+RUN chmod +x /usr/local/bin/container-entrypoint.sh /usr/local/bin/odoo-venv
 
+# Crear configuración por defecto y directorio de datos con permisos correctos
+RUN mkdir -p /etc/odoo /var/lib/odoo \
+    && chown -R odoo:odoo /etc/odoo /var/lib/odoo
+COPY --chown=odoo:odoo docker/odoo.conf /etc/odoo/odoo.conf
+
+HEALTHCHECK --interval=30s --timeout=10s --retries=5 \
+  CMD curl -f http://localhost:8069/web/health || exit 1
+
+# Dejamos siempre el proceso por defecto bajado de privilegios
 USER odoo
 
 EXPOSE 8069 8072
 
 ENTRYPOINT ["/usr/local/bin/container-entrypoint.sh"]
 CMD ["odoo-bin", "-c", "/etc/odoo/odoo.conf"]
+

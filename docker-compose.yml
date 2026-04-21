@@ -1,51 +1,186 @@
+# =============================================================================
+# Odoo 18 — Production Docker Compose
+# =============================================================================
+# Usage:
+#   cp .env.example .env   # edit with real credentials
+#   docker compose up -d --build
+# =============================================================================
+
 services:
+  # ---------------------------------------------------------------------------
+  # PostgreSQL Database
+  # ---------------------------------------------------------------------------
   db:
-    image: postgres:16
-    container_name: odoo18-db
+    image: 'postgres:${PSQL_VERSION:-16}'
+    container_name: db-${COMPOSE_PROJECT_NAME:-odoo}
+    restart: always
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-postgres}
-      POSTGRES_USER: ${POSTGRES_USER:-odoo}
+      POSTGRES_DB: ${POSTGRES_DB:-odoo}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-odoo}
+      POSTGRES_USER: ${POSTGRES_USER:-odoo}
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_INITDB_ARGS: '--lc-collate=C'
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER:-odoo} -d ${POSTGRES_DB:-odoo}']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
     volumes:
       - db-data:/var/lib/postgresql/data
-    restart: unless-stopped
+    networks:
+      - backend
+    # PostgreSQL only listens on the internal network — no host ports exposed
+    logging:
+      driver: json-file
+      options:
+        max-size: '10m'
+        max-file: '3'
 
+  # ---------------------------------------------------------------------------
+  # Redis — Session Store & Cache
+  # ---------------------------------------------------------------------------
+  redis:
+    image: 'redis:${REDIS_VERSION:-7-alpine}'
+    container_name: redis-${COMPOSE_PROJECT_NAME:-odoo}
+    restart: always
+    command:
+      - redis-server
+      - '--appendonly'
+      - 'yes'
+      - '--maxmemory'
+      - '${REDIS_MAXMEMORY:-512mb}'
+      - '--maxmemory-policy'
+      - 'allkeys-lru'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - redis-data:/data
+    networks:
+      - backend
+    logging:
+      driver: json-file
+      options:
+        max-size: '5m'
+        max-file: '3'
+
+  # ---------------------------------------------------------------------------
+  # Odoo 18 Application Server
+  # ---------------------------------------------------------------------------
   odoo:
-    image: ${ODOO_IMAGE:-ghcr.io/siteco/odoo18-ce:siteco-v1}
-    container_name: odoo18-app
+    build: . # <--- MODIFICACIÓN: Obliga a leer el Dockerfile local
+    image: '${ODOO_IMAGE:-ghcr.io/juanca2918/odoo18-ce:siteco-odoo-v1.0}'
+    container_name: odoo-${COMPOSE_PROJECT_NAME:-odoo}
+    restart: always
+
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
+
     environment:
-      ODOO_DB_HOST: ${ODOO_DB_HOST:-db}
-      ODOO_DB_PORT: ${ODOO_DB_PORT:-5432}
-      ODOO_DB_USER: ${ODOO_DB_USER:-odoo}
-      ODOO_DB_PASSWORD: ${ODOO_DB_PASSWORD:-odoo}
-    volumes:
-      - odoo-data:/var/lib/odoo
-      - ./addons:/mnt/extra-addons
-      - ./docker/odoo.conf:/etc/odoo/odoo.conf:ro
-    ports:
-      - "8069:8069"
-      - "8072:8072"
-    restart: unless-stopped
+      # Database
+      DB_HOST: ${PGHOST:-db}
+      DB_PORT: ${PGPORT:-5432}
+      DB_USER: ${POSTGRES_USER:-odoo}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-odoo}
+      DBNAME: ${POSTGRES_DB:-odoo}
+      DBFILTER: ${DBFILTER:-.*}
 
-  redis:
-    image: redis:7-alpine
-    container_name: odoo18-redis
-    command: ["redis-server", "--appendonly", "yes"]
-    volumes:
-      - redis-data:/data
-    profiles:
-      - with-redis
-    restart: unless-stopped
+      # Redis
+      ODOO_SESSION_REDIS: '1'
+      ODOO_SESSION_REDIS_HOST: ${REDIS_HOST:-redis}
+      ODOO_SESSION_REDIS_PORT: ${REDIS_PORT:-6379}
+      ODOO_SESSION_REDIS_PREFIX: ${REDIS_PREFIX:-session}
 
+      # Server
+      HTTP_INTERFACE: ${HTTP_INTERFACE:-0.0.0.0}
+      HTTP_PORT: ${HTTP_PORT:-8069}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
+      PROXY_MODE: ${PROXY_MODE:-True}
+
+      # Logging
+      LOG_LEVEL: ${LOG_LEVEL:-info}
+      LOG_HANDLER: ${LOG_HANDLER:-:INFO}
+
+      # Production defaults
+      WITHOUT_DEMO: 'all'
+      LIST_DB: ${LIST_DB:-False}
+
+      # Performance
+      WORKERS: ${WORKERS:-4}
+      MAX_CRON_THREADS: ${MAX_CRON_THREADS:-2}
+      LIMIT_MEMORY_SOFT: ${LIMIT_MEMORY_SOFT:-2147483648}
+      LIMIT_MEMORY_HARD: ${LIMIT_MEMORY_HARD:-2684354560}
+      LIMIT_TIME_CPU: ${LIMIT_TIME_CPU:-60}
+      LIMIT_TIME_REAL: ${LIMIT_TIME_REAL:-120}
+
+    volumes:
+      # Persistent named volumes
+      - odoo-data:/var/lib/odoo/data
+      - odoo-logs:/var/lib/odoo/logs
+      - odoo-modules:/mnt/extra-addons
+
+    expose:
+      - '8069'
+      - '8072' # longpolling
+
+    labels:
+      - "traefik.enable=true"
+      
+      # --- Reglas para el tráfico web normal (Puerto 8069) ---
+      # Usamos ${DOMAIN} para la URL y ${COMPOSE_PROJECT_NAME} para que el router sea único
+      - "traefik.http.routers.odoo-${COMPOSE_PROJECT_NAME}.rule=Host(`${DOMAIN}`)&& PathPrefix(`/websocket`)"
+      - "traefik.http.routers.odoo-ws-${COMPOSE_PROJECT_NAME}.entrypoints=https"
+      - "traefik.http.routers.odoo-ws-${COMPOSE_PROJECT_NAME}.tls=true"
+      - "traefik.http.services.odoo-ws-svc-${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=8072"
+
+      # --- Reglas para WebSockets / Chat / POS (Puerto 8072) ---
+      - "traefik.http.routers.odoo-ws-${COMPOSE_PROJECT_NAME}.rule=Host(`${DOMAIN}`) && PathPrefix(`/websocket`)"
+      - "traefik.http.routers.odoo-ws-${COMPOSE_PROJECT_NAME}.entrypoints=https"
+      - "traefik.http.routers.odoo-ws-${COMPOSE_PROJECT_NAME}.tls=true"
+      - "traefik.http.services.odoo-ws-svc-${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=8072"
+
+    healthcheck:
+      test: ['CMD', 'curl', '-sf', 'http://127.0.0.1:8069/web/health']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+    stop_grace_period: 30s
+
+    networks:
+      - backend
+
+    logging:
+      driver: json-file
+      options:
+        max-size: '50m'
+        max-file: '5'
+
+# =============================================================================
+# Networks
+# =============================================================================
+networks:
+  backend:
+    driver: bridge
+
+# =============================================================================
+# Volumes
+# =============================================================================
 volumes:
   db-data:
-  odoo-data:
+    driver: local
   redis-data:
+    driver: local
+  odoo-data:
+    driver: local
+  odoo-logs:
+    driver: local
+  odoo-modules:
+    driver: local
