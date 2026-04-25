@@ -135,6 +135,7 @@ RUN pip3 install --prefix=/usr/local --no-cache-dir --upgrade \
     inotify \
     python-json-logger \
     redis \
+    python-escpos \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 
 # Clone Odoo source

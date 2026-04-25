@@ -1,0 +1,15 @@
+name: env_odoo18_devel
+channels:
+  - conda-forge  # <--- AÑADIR ESTE CANAL (arriba)
+  - defaults
+dependencies:
+  - python=3.12
+  - pip
+  - setuptools
+  - libsass=0.22.0
+  - psycopg2
+  - python-ldap
+  - pip:
+    - -r requirements.txt
+    - pypdf
+    - pdfminer.six

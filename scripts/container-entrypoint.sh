@@ -26,6 +26,14 @@ ODOO_BASEPATH="${ODOO_BASEPATH:-/opt/odoo}"
 DATA_DIR="/var/lib/odoo"
 CREDENTIALS_FILE="${DATA_DIR}/initial-credentials.txt"
 
+# Persistent runtime config — survives container restarts so Odoo's
+# master password hash (admin_passwd) is not overwritten on every boot.
+RUNTIME_CONF="${DATA_DIR}/odoo.conf"
+
+# Set FORCE_RECONFIG=1 to regenerate the config from the template,
+# e.g. after changing env vars. Default: only generate if missing.
+FORCE_RECONFIG="${FORCE_RECONFIG:-0}"
+
 # ---------------------------------------------------------------------------
 # Logging helper
 # ---------------------------------------------------------------------------
@@ -117,9 +125,15 @@ if [[ "${1:-}" == *"odoo-bin" ]]; then
   done
   log "PostgreSQL is ready"
 
-  # --- Expand env vars in config template → runtime config ---
-  RUNTIME_CONF="/tmp/odoo-runtime.conf"
-  _expand_conf "/etc/odoo/odoo.conf.template" "${RUNTIME_CONF}"
+  # --- Expand env vars in config template → persistent runtime config ---
+  # The runtime config is written to the persistent volume so that Odoo can
+  # save changes (e.g. hashed master password) and they survive restarts.
+  if [[ ! -f "${RUNTIME_CONF}" || "${FORCE_RECONFIG}" == "1" ]]; then
+    _expand_conf "/etc/odoo/odoo.conf.template" "${RUNTIME_CONF}"
+    log "Runtime config written to ${RUNTIME_CONF}"
+  else
+    log "Using existing runtime config at ${RUNTIME_CONF} (set FORCE_RECONFIG=1 to regenerate)"
+  fi
 
   # Unset ODOO_RC so Odoo's configmanager doesn't auto-read the raw template
   # (which contains unexpanded ${VAR} placeholders). The expanded config is

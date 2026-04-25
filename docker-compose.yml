@@ -71,7 +71,6 @@ services:
   # Odoo 18 Application Server
   # ---------------------------------------------------------------------------
   odoo:
-    build: . # <--- MODIFICACIÓN: Obliga a leer el Dockerfile local
     image: '${ODOO_IMAGE:-ghcr.io/juanca2918/odoo18-ce:siteco-odoo-v1.0}'
     container_name: odoo-${COMPOSE_PROJECT_NAME:-odoo}
     restart: always
@@ -103,6 +102,11 @@ services:
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-admin}
       PROXY_MODE: ${PROXY_MODE:-True}
 
+      # Config regeneration — set to '1' to force regenerating odoo.conf
+      # from the template (e.g. after changing env vars). The master password
+      # hash is preserved in the persistent volume; only regenerate when needed.
+      FORCE_RECONFIG: ${FORCE_RECONFIG:-0}
+
       # Logging
       LOG_LEVEL: ${LOG_LEVEL:-info}
       LOG_HANDLER: ${LOG_HANDLER:-:INFO}
@@ -133,11 +137,10 @@ services:
       - "traefik.enable=true"
       
       # --- Reglas para el tráfico web normal (Puerto 8069) ---
-      # Usamos ${DOMAIN} para la URL y ${COMPOSE_PROJECT_NAME} para que el router sea único
-      - "traefik.http.routers.odoo-${COMPOSE_PROJECT_NAME}.rule=Host(`${DOMAIN}`)&& PathPrefix(`/websocket`)"
-      - "traefik.http.routers.odoo-ws-${COMPOSE_PROJECT_NAME}.entrypoints=https"
-      - "traefik.http.routers.odoo-ws-${COMPOSE_PROJECT_NAME}.tls=true"
-      - "traefik.http.services.odoo-ws-svc-${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=8072"
+      - "traefik.http.routers.odoo-${COMPOSE_PROJECT_NAME}.rule=Host(`${DOMAIN}`)"
+      - "traefik.http.routers.odoo-${COMPOSE_PROJECT_NAME}.entrypoints=https"
+      - "traefik.http.routers.odoo-${COMPOSE_PROJECT_NAME}.tls=true"
+      - "traefik.http.services.odoo-svc-${COMPOSE_PROJECT_NAME}.loadbalancer.server.port=8069"
 
       # --- Reglas para WebSockets / Chat / POS (Puerto 8072) ---
       - "traefik.http.routers.odoo-ws-${COMPOSE_PROJECT_NAME}.rule=Host(`${DOMAIN}`) && PathPrefix(`/websocket`)"

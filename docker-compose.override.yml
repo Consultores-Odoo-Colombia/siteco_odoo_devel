@@ -25,8 +25,9 @@ services:
     volumes:
       # Mount local addons for hot-reload during development
       - './addons:/mnt/extra-addons:delegated'
-      # Mount config for easy editing
-      - './docker/odoo.conf:/etc/odoo/odoo.conf:ro'
+      # Mount config template — the entrypoint expands env vars into a
+      # writable persistent copy at /var/lib/odoo/odoo.conf
+      - './docker/odoo.conf:/etc/odoo/odoo.conf.template:ro'
 
     environment:
       # Single-threaded for debugging
@@ -36,3 +37,6 @@ services:
       # Enable demo data in dev
       WITHOUT_DEMO: 'False'
       LOG_LEVEL: debug
+      # Set to '1' to regenerate odoo.conf from template after changes,
+      # then set back to '0' and restart.
+      FORCE_RECONFIG: ${FORCE_RECONFIG:-0}
