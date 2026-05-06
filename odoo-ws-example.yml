@@ -1,0 +1,14 @@
+  http:                                                                     
+    routers:                                                                                                                                                                                   
+      ws-example:                                                                                                                                                             
+        entryPoints:                                                                                                                                                                           
+          - https                                                                                                                                                                              
+        rule: "Host(`example.siteco-soluciones.online`) && PathPrefix(`/websocket`)"                                                                                                    
+        service: ws-svc-example                                                                                                                                               
+        tls:
+          certResolver: letsencrypt                                                                                                                                                            
+    services:     
+      ws-svc-example:
+        loadBalancer:                                                                                                                                                                          
+          servers:
+            - url: "http://odoo-example:8072" 
