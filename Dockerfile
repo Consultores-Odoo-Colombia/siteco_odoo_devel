@@ -136,6 +136,7 @@ RUN pip3 install --prefix=/usr/local --no-cache-dir --upgrade \
     python-json-logger \
     redis \
     python-escpos \
+    xmlsig \
     && rm -rf /var/lib/apt/lists/* /tmp/*
 
 # Clone Odoo source
@@ -175,49 +176,50 @@ RUN addgroup --system --gid ${APP_GID} ${ODOO_USER} \
 
 # --- Odoo configuration defaults (overridable at runtime via env vars) ---
 ENV \
-    ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin} \
+    ADMIN_PASSWORD=admin \
     ODOO_DATA_DIR=/var/lib/odoo/data \
-    DB_HOST=${DB_HOST:-db} \
-    DB_PORT=${DB_PORT:-5432} \
-    DB_USER=${DB_USER:-odoo} \
-    DB_PASSWORD=${DB_PASSWORD:-odoo} \
-    DB_MAXCONN=${DB_MAXCONN:-64} \
-    DB_SSLMODE=${DB_SSLMODE:-prefer} \
-    DB_TEMPLATE=${DB_TEMPLATE:-template1} \
-    DBFILTER=${DBFILTER:-.*} \
-    DBNAME=${DBNAME:-} \
-    HTTP_INTERFACE=${HTTP_INTERFACE:-0.0.0.0} \
-    HTTP_PORT=${HTTP_PORT:-8069} \
-    LIMIT_REQUEST=${LIMIT_REQUEST:-8196} \
-    LIMIT_MEMORY_HARD=${LIMIT_MEMORY_HARD:-2684354560} \
-    LIMIT_MEMORY_SOFT=${LIMIT_MEMORY_SOFT:-2147483648} \
-    LIMIT_TIME_CPU=${LIMIT_TIME_CPU:-60} \
-    LIMIT_TIME_REAL=${LIMIT_TIME_REAL:-120} \
-    LIMIT_TIME_REAL_CRON=${LIMIT_TIME_REAL_CRON:-0} \
-    LIST_DB=${LIST_DB:-False} \
-    LOG_DB=${LOG_DB:-False} \
-    LOG_DB_LEVEL=${LOG_DB_LEVEL:-warning} \
-    LOG_HANDLER=${LOG_HANDLER:-:INFO} \
-    LOG_LEVEL=${LOG_LEVEL:-info} \
-    MAX_CRON_THREADS=${MAX_CRON_THREADS:-2} \
-    PROXY_MODE=${PROXY_MODE:-True} \
-    SERVER_WIDE_MODULES=${SERVER_WIDE_MODULES:-base,web} \
-    SMTP_PASSWORD=${SMTP_PASSWORD:-False} \
-    SMTP_PORT=${SMTP_PORT:-25} \
-    SMTP_SERVER=${SMTP_SERVER:-localhost} \
-    SMTP_SSL=${SMTP_SSL:-False} \
-    SMTP_USER=${SMTP_USER:-False} \
-    TEST_ENABLE=${TEST_ENABLE:-False} \
-    UNACCENT=${UNACCENT:-False} \
-    WITHOUT_DEMO=${WITHOUT_DEMO:-all} \
-    WORKERS=${WORKERS:-4}
+    DB_HOST=db \
+    DB_PORT=5432 \
+    DB_USER=odoo \
+    DB_PASSWORD=odoo \
+    DB_MAXCONN=64 \
+    DB_SSLMODE=prefer \
+    DB_TEMPLATE=template1 \
+    DBFILTER=.* \
+    DBNAME= \
+    HTTP_INTERFACE=0.0.0.0 \
+    HTTP_PORT=8069 \
+    LIMIT_REQUEST=8196 \
+    LIMIT_MEMORY_HARD=2684354560 \
+    LIMIT_MEMORY_SOFT=2147483648 \
+    LIMIT_TIME_CPU=60 \
+    LIMIT_TIME_REAL=120 \
+    LIMIT_TIME_REAL_CRON=0 \
+    LIST_DB=False \
+    LOG_DB=False \
+    LOG_DB_LEVEL=warning \
+    LOG_HANDLER=:INFO \
+    LOG_LEVEL=info \
+    MAX_CRON_THREADS=2 \
+    PROXY_MODE=True \
+    SERVER_WIDE_MODULES=base,web \
+    SMTP_PASSWORD=False \
+    SMTP_PORT=25 \
+    SMTP_SERVER=localhost \
+    SMTP_SSL=False \
+    SMTP_USER=False \
+    TEST_ENABLE=False \
+    UNACCENT=False \
+    WITHOUT_DEMO=all \
+    WORKERS=4
 
 # Redis session management
 ENV \
-    ODOO_SESSION_REDIS=${ODOO_SESSION_REDIS:-1} \
-    ODOO_SESSION_REDIS_HOST=${ODOO_SESSION_REDIS_HOST:-redis} \
-    ODOO_SESSION_REDIS_PORT=${ODOO_SESSION_REDIS_PORT:-6379} \
-    ODOO_SESSION_REDIS_PREFIX=${ODOO_SESSION_REDIS_PREFIX:-session}
+    ODOO_SESSION_REDIS=1 \
+    ODOO_SESSION_REDIS_HOST=redis \
+    ODOO_SESSION_REDIS_PORT=6379 \
+    ODOO_SESSION_REDIS_PREFIX=session \
+    ODOO_SESSION_REDIS_STORE=1
 
 # Define all needed directories
 ENV ODOO_DATA_DIR=/var/lib/odoo/data
@@ -226,11 +228,11 @@ ENV ODOO_EXTRA_ADDONS=/mnt/extra-addons
 ENV ODOO_ADDONS_BASEPATH=${ODOO_BASEPATH}/addons
 ENV ODOO_CMD=${ODOO_BASEPATH}/odoo-bin
 
-RUN mkdir -p ${ODOO_DATA_DIR} ${ODOO_LOGS_DIR} ${ODOO_EXTRA_ADDONS} /etc/odoo/
+RUN mkdir -p /var/lib/odoo ${ODOO_DATA_DIR} ${ODOO_LOGS_DIR} ${ODOO_EXTRA_ADDONS} /etc/odoo/
 
-# Own folders
+# Own folders — include /var/lib/odoo so the entrypoint can write odoo.conf there
 RUN chown -R ${APP_UID}:${APP_GID} \
-    ${ODOO_DATA_DIR} ${ODOO_LOGS_DIR} ${ODOO_EXTRA_ADDONS} \
+    /var/lib/odoo ${ODOO_EXTRA_ADDONS} \
     ${ODOO_BASEPATH} /etc/odoo
 
 # Named volumes

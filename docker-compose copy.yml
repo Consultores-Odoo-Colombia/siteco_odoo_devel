@@ -3,15 +3,15 @@ services:
     image: 'postgres:16'
     restart: always
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_DB
-      - PGDATA=/var/lib/postgresql/data/pgdata
-      - POSTGRES_INITDB_ARGS=--lc-collate=C
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD}'
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_INITDB_ARGS: '--lc-collate=C'
     healthcheck:
       test:
         - CMD-SHELL
-        - 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"'
+        - 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'
       interval: 30s
       timeout: 10s
       retries: 5
@@ -25,7 +25,6 @@ services:
       options:
         max-size: 10m
         max-file: '3'
-
   redis:
     image: 'redis:7-alpine'
     restart: always
@@ -34,7 +33,7 @@ services:
       - '--appendonly'
       - 'yes'
       - '--maxmemory'
-      - 512mb
+      - '512mb'
       - '--maxmemory-policy'
       - allkeys-lru
     healthcheck:
@@ -54,7 +53,6 @@ services:
       options:
         max-size: 5m
         max-file: '3'
-
   odoo:
     image: '${ODOO_IMAGE}'
     restart: always
@@ -64,34 +62,33 @@ services:
       redis:
         condition: service_healthy
     environment:
-      # --- Fixed runtime values (internal network) ---
-      - DB_HOST=db
-      - DB_PORT=5432
-      - ODOO_SESSION_REDIS=1
-      - ODOO_SESSION_REDIS_HOST=redis
-      - ODOO_SESSION_REDIS_PORT=6379
-      - HTTP_INTERFACE=0.0.0.0
-      - HTTP_PORT=8069
-      # --- Injected from Coolify env vars (defined in UI) ---
-      - DB_USER
-      - DB_PASSWORD
-      - DBNAME
-      - DBFILTER
-      - ADMIN_PASSWORD
-      - ODOO_SESSION_REDIS_PREFIX
-      - WORKERS
-      - MAX_CRON_THREADS
-      - LIMIT_MEMORY_SOFT
-      - LIMIT_MEMORY_HARD
-      - LIMIT_TIME_CPU
-      - LIMIT_TIME_REAL
-      - LOG_LEVEL
-      - LOG_HANDLER
-      - LIST_DB
-      - WITHOUT_DEMO
-      - PROXY_MODE
-      - ODOO_INIT_MODULES
-      - FORCE_RECONFIG
+      SERVICE_NAME: '${SERVICE_NAME}'
+      DOMAIN: '${DOMAIN}'
+      ODOO_IMAGE: '${ODOO_IMAGE}'
+      DB_HOST: db
+      DB_PORT: '5432'
+      DB_USER: '${DB_USER}'
+      DB_PASSWORD: '${POSTGRES_PASSWORD}'
+      DBNAME: '${DBNAME}'
+      DBFILTER: '^.*db$'
+      ODOO_SESSION_REDIS: '1'
+      ODOO_SESSION_REDIS_HOST: redis
+      ODOO_SESSION_REDIS_PORT: '6379'
+      ODOO_SESSION_REDIS_PREFIX: '${SERVICE_NAME}'
+      HTTP_INTERFACE: 0.0.0.0
+      HTTP_PORT: '8069'
+      PROXY_MODE: 'True'
+      ADMIN_PASSWORD: '${ADMIN_PASSWORD}'
+      WORKERS: '4'
+      MAX_CRON_THREADS: '2'
+      LIMIT_MEMORY_SOFT: '2147483648'
+      LIMIT_MEMORY_HARD: '2684354560'
+      LIMIT_TIME_CPU: '60'
+      LIMIT_TIME_REAL: '120'
+      LOG_LEVEL: info
+      LOG_HANDLER: ':INFO'
+      WITHOUT_DEMO: all
+      LIST_DB: 'True'
     volumes:
       - 'odoo-data:/var/lib/odoo/data'
       - 'odoo-logs:/var/lib/odoo/logs'
@@ -132,14 +129,12 @@ services:
       options:
         max-size: 50m
         max-file: '5'
-
 volumes:
-  db-data:
-  redis-data:
-  odoo-data:
-  odoo-logs:
-  odoo-modules:
-
+  db-data: null
+  redis-data: null
+  odoo-data: null
+  odoo-logs: null
+  odoo-modules: null
 networks:
   backend:
     driver: bridge

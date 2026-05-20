@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password123}
+      POSTGRES_DB: ${POSTGRES_DB:-mi_base_de_datos}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer_ui
+    restart: always
+    depends_on:
+      db:
+        condition: service_healthy # Solo levanta Adminer cuando la DB esté lista
+    healthcheck:
+      test: ["CMD", "php", "-r", "echo file_get_contents('http://localhost:8080') ? 0 : 1;"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    # Recuerda configurar el dominio adminersiteco.siteco-soluciones.online en Coolify
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres-data:
