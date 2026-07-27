@@ -1,17 +1,38 @@
+# =============================================================================
+# Odoo 18 CE + PostgreSQL 16 + Redis 7 — Despliegue en Coolify
+# =============================================================================
+# - Coolify autogenera las variables SERVICE_USER_*, SERVICE_PASSWORD_* y las
+#   inyecta como .env (env_file) al desplegar.
+# - El enrutado/TLS lo hace Traefik mediante los labels del servicio `odoo`.
+#   NO configures un "Domain" en la UI de Coolify para este servicio: crearía
+#   labels duplicados que chocan con los de abajo.
+# - Solo `odoo` se conecta a la red del proxy (`coolify`). `db` y `redis`
+#   quedan aislados en la red interna `odoo-net`.
+# =============================================================================
+
 services:
   db:
-    image: 'postgres:16'
-    restart: always
+    image: 'postgres:${PSQL_VERSION:-16}'
+    restart: unless-stopped
+    # /dev/shm por defecto (64MB) es insuficiente para restore/duplicado de BD
+    # grandes: provoca "could not resize shared memory segment".
+    shm_size: '${DB_SHM_SIZE:-512mb}'
     environment:
-      - POSTGRES_USER
-      - POSTGRES_PASSWORD
-      - POSTGRES_DB
-      - PGDATA=/var/lib/postgresql/data/pgdata
-      - POSTGRES_INITDB_ARGS=--lc-collate=C
+      POSTGRES_DB: '${POSTGRES_DB:-odoo}'
+      POSTGRES_USER: '${SERVICE_USER_POSTGRES}'
+      POSTGRES_PASSWORD: '${SERVICE_PASSWORD_POSTGRES}'
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_INITDB_ARGS: '--lc-collate=C'
+    command:
+      - postgres
+      # Holgura de conexiones: 4 workers Odoo + cron + duplicado/restore
+      # concurrente pueden superar el default de 100.
+      - '-c'
+      - 'max_connections=${DB_MAX_CONNECTIONS:-150}'
     healthcheck:
       test:
         - CMD-SHELL
-        - 'pg_isready -U "$$POSTGRES_USER" -d "$$POSTGRES_DB"'
+        - 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}'
       interval: 30s
       timeout: 10s
       retries: 5
@@ -19,119 +40,124 @@ services:
     volumes:
       - 'db-data:/var/lib/postgresql/data'
     networks:
-      - backend
-    logging:
-      driver: json-file
-      options:
-        max-size: 10m
-        max-file: '3'
+      - odoo-net
 
   redis:
-    image: 'redis:7-alpine'
-    restart: always
+    image: 'redis:${REDIS_VERSION:-7-alpine}'
+    restart: unless-stopped
     command:
       - redis-server
       - '--appendonly'
       - 'yes'
       - '--maxmemory'
-      - 512mb
+      - '${REDIS_MAXMEMORY:-512mb}'
       - '--maxmemory-policy'
       - allkeys-lru
     healthcheck:
-      test:
-        - CMD
-        - redis-cli
-        - ping
+      test: [CMD, redis-cli, ping]
       interval: 10s
       timeout: 5s
       retries: 5
     volumes:
       - 'redis-data:/data'
     networks:
-      - backend
-    logging:
-      driver: json-file
-      options:
-        max-size: 5m
-        max-file: '3'
+      - odoo-net
 
   odoo:
-    image: '${ODOO_IMAGE}'
-    restart: always
+    # Imagen publicada en GHCR. Define ODOO_IMAGE en el .env, p. ej.:
+    #   ODOO_IMAGE=ghcr.io/juanca2918/odoo18-ce:siteco-odoo-v2.4
+    image: '${ODOO_IMAGE:-ghcr.io/juanca2918/odoo18-ce:siteco-odoo-v2.4}'
+    restart: unless-stopped
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_healthy
     environment:
-      # --- Fixed runtime values (internal network) ---
-      - DB_HOST=db
-      - DB_PORT=5432
-      - ODOO_SESSION_REDIS=1
-      - ODOO_SESSION_REDIS_HOST=redis
-      - ODOO_SESSION_REDIS_PORT=6379
-      - HTTP_INTERFACE=0.0.0.0
-      - HTTP_PORT=8069
-      # --- Injected from Coolify env vars (defined in UI) ---
-      - DB_USER
-      - DB_PASSWORD
-      - DBNAME
-      - DBFILTER
-      - ADMIN_PASSWORD
-      - ODOO_SESSION_REDIS_PREFIX
-      - WORKERS
-      - MAX_CRON_THREADS
-      - LIMIT_MEMORY_SOFT
-      - LIMIT_MEMORY_HARD
-      - LIMIT_TIME_CPU
-      - LIMIT_TIME_REAL
-      - LOG_LEVEL
-      - LOG_HANDLER
-      - LIST_DB
-      - WITHOUT_DEMO
-      - PROXY_MODE
-      - ODOO_INIT_MODULES
-      - FORCE_RECONFIG
+      DB_HOST: db
+      DB_USER: '${SERVICE_USER_POSTGRES}'
+      DB_PASSWORD: '${SERVICE_PASSWORD_POSTGRES}'
+      DBNAME: '${POSTGRES_DB:-odoo}'
+      DBFILTER: '${DBFILTER:-.*}'
+      ODOO_SESSION_REDIS: '1'
+      ODOO_SESSION_REDIS_HOST: redis
+      ODOO_SESSION_REDIS_PORT: '6379'
+      ODOO_SESSION_REDIS_PREFIX: '${ODOO_SESSION_REDIS_PREFIX:-session}'
+      HTTP_INTERFACE: 0.0.0.0
+      HTTP_PORT: '8069'
+      # Auto-inicialización en el primer arranque: si la BD existe pero está                                                                                                                                                
+      # vacía (sin tabla ir_module_module), el entrypoint corre `-i                                                                                                                                                         
+      # ${ODOO_INIT_MODULES}` y fija la contraseña de admin. Evita el deadlock                                                                                                                                              
+      # de una BD pre-creada por POSTGRES_DB que el gestor no puede inicializar.                                                                                                                                            
+      ODOO_AUTO_INIT: '${ODOO_AUTO_INIT:-1}'                                                                                                                                                                                
+      ODOO_INIT_MODULES: '${ODOO_INIT_MODULES:-base}'                                                                                                                                                                       
+      # Contraseña del usuario `admin` que el entrypoint fija tras el auto-init.                                                                                                                                            
+      ODOO_ADMIN_PASSWORD: '${SERVICE_PASSWORD_ADMIN}'
+      PROXY_MODE: 'True'
+      FORCE_RECONFIG: '${FORCE_RECONFIG:-0}'
+      LOG_LEVEL: '${LOG_LEVEL:-info}'
+      LOG_HANDLER: ':INFO'
+      WITHOUT_DEMO: all
+      LIST_DB: '${LIST_DB:-False}'
+      WORKERS: '${WORKERS:-4}'
+      MAX_CRON_THREADS: '${MAX_CRON_THREADS:-2}'
+      LIMIT_MEMORY_SOFT: '${LIMIT_MEMORY_SOFT:-2147483648}'
+      LIMIT_MEMORY_HARD: '${LIMIT_MEMORY_HARD:-2684354560}'
+      # Backup/restore/duplicar son peticiones HTTP largas y síncronas: con los
+      # valores por defecto (60/120s) el worker mata la operación a la mitad y el
+      # ZIP queda corrupto. Subimos los límites para permitir BD/filestore grandes.
+      LIMIT_TIME_CPU: '${LIMIT_TIME_CPU:-600}'
+      LIMIT_TIME_REAL: '${LIMIT_TIME_REAL:-1200}'
     volumes:
       - 'odoo-data:/var/lib/odoo/data'
       - 'odoo-logs:/var/lib/odoo/logs'
       - 'odoo-modules:/mnt/extra-addons'
-    expose:
-      - '8069'
-      - '8072'
-    labels:
-      - traefik.enable=true
-      - 'traefik.http.routers.https-${SERVICE_NAME}.entryPoints=https'
-      - 'traefik.http.routers.https-${SERVICE_NAME}.rule=Host(`${DOMAIN}`)'
-      - 'traefik.http.routers.https-${SERVICE_NAME}.tls=true'
-      - 'traefik.http.routers.https-${SERVICE_NAME}.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.https-${SERVICE_NAME}.service=svc-${SERVICE_NAME}'
-      - 'traefik.http.routers.ws-${SERVICE_NAME}.entryPoints=https'
-      - 'traefik.http.routers.ws-${SERVICE_NAME}.rule=Host(`${DOMAIN}`) && PathPrefix(`/websocket`)'
-      - 'traefik.http.routers.ws-${SERVICE_NAME}.tls=true'
-      - 'traefik.http.routers.ws-${SERVICE_NAME}.tls.certresolver=letsencrypt'
-      - 'traefik.http.routers.ws-${SERVICE_NAME}.service=svc-ws-${SERVICE_NAME}'
-      - 'traefik.http.services.svc-${SERVICE_NAME}.loadbalancer.server.port=8069'
-      - 'traefik.http.services.svc-ws-${SERVICE_NAME}.loadbalancer.server.port=8072'
     healthcheck:
-      test:
-        - CMD
-        - curl
-        - '-sf'
-        - 'http://127.0.0.1:8069/web/health'
+      test: [CMD, curl, '-sf', 'http://127.0.0.1:8069/web/health']
       interval: 30s
       timeout: 10s
       retries: 5
       start_period: 60s
     stop_grace_period: 30s
     networks:
-      - backend
-      - traefik-public
-    logging:
-      driver: json-file
-      options:
-        max-size: 50m
-        max-file: '5'
+      - odoo-net
+      - coolify
+    labels:
+      - traefik.enable=true
+      # Red por la que Traefik alcanza este contenedor (la del proxy de Coolify).
+      - traefik.docker.network=coolify
+
+      # --- Redirección HTTP -> HTTPS ---
+      - 'traefik.http.routers.odoo-http.rule=Host(`${DOMAIN}`)'
+      - traefik.http.routers.odoo-http.entrypoints=http
+      - traefik.http.routers.odoo-http.service=odoo
+      - traefik.http.routers.odoo-http.middlewares=odoo-https-redirect
+      - traefik.http.middlewares.odoo-https-redirect.redirectscheme.scheme=https
+
+      # --- Web principal (backend 8069) ---
+      - 'traefik.http.routers.odoo.rule=Host(`${DOMAIN}`)'
+      - traefik.http.routers.odoo.entrypoints=https
+      - traefik.http.routers.odoo.tls=true
+      - traefik.http.routers.odoo.tls.certresolver=letsencrypt
+      - traefik.http.routers.odoo.service=odoo
+      - traefik.http.services.odoo.loadbalancer.server.port=8069
+
+      # --- Websocket / longpolling (backend gevent 8072) ---
+      - 'traefik.http.routers.odoo-ws.rule=Host(`${DOMAIN}`) && PathPrefix(`/websocket`)'
+      - traefik.http.routers.odoo-ws.entrypoints=https
+      - traefik.http.routers.odoo-ws.tls=true
+      - traefik.http.routers.odoo-ws.tls.certresolver=letsencrypt
+      - traefik.http.routers.odoo-ws.priority=100
+      - traefik.http.routers.odoo-ws.service=odoo-ws
+      - traefik.http.services.odoo-ws.loadbalancer.server.port=8072
+
+networks:
+  odoo-net:
+    driver: bridge
+  # Red del proxy de Coolify. Debe existir ya en el host (la crea Coolify).
+  # Si tu instalación usa otro nombre, ajústalo aquí y en el label traefik.docker.network.
+  coolify:
+    external: true
 
 volumes:
   db-data:
@@ -139,10 +165,3 @@ volumes:
   odoo-data:
   odoo-logs:
   odoo-modules:
-
-networks:
-  backend:
-    driver: bridge
-  traefik-public:
-    external: true
-    name: coolify

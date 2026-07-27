@@ -1,0 +1,125 @@
+# =============================================================================
+# Odoo 18 CE — Stack LOCAL de desarrollo (no usar en Coolify)
+# =============================================================================
+# Uso:
+#   docker compose -f docker-compose.local.yml up -d          # db + redis + adminer
+#   docker compose -f docker-compose.local.yml --profile full up -d --build
+#                                                             # + odoo en contenedor
+#
+# Diseñado para los dos flujos de desarrollo:
+#   1. Odoo en el host (.venv + ./odoo-bin -c odoo.conf): levanta solo db/redis;
+#      los puertos quedan publicados en 127.0.0.1 con las credenciales que ya
+#      espera odoo.conf (odoo / password123).
+#   2. Odoo dockerizado: agrega --profile full para construir la imagen local
+#      con hot-reload de ./addons.
+#
+# Al usar -f explícito, docker-compose.override.yml NO se auto-carga.
+# El docker-compose.yml de la raíz es exclusivo para Coolify (Traefik + red
+# externa `coolify`) y no debe usarse localmente.
+# =============================================================================
+
+services:
+  db:
+    image: 'postgres:${PSQL_VERSION:-16}'
+    restart: unless-stopped
+    shm_size: '${DB_SHM_SIZE:-512mb}'
+    environment:
+      # Alineado con odoo.conf del host (db_user/db_password).
+      POSTGRES_USER: '${POSTGRES_USER:-odoo}'
+      POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-password123}'
+      POSTGRES_DB: '${POSTGRES_DB:-postgres}'
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_INITDB_ARGS: '--lc-collate=C'
+    ports:
+      - '127.0.0.1:5432:5432'
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}'
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    volumes:
+      - 'db-data:/var/lib/postgresql/data'
+
+  redis:
+    image: 'redis:${REDIS_VERSION:-7-alpine}'
+    restart: unless-stopped
+    command:
+      - redis-server
+      - '--appendonly'
+      - 'yes'
+    ports:
+      - '127.0.0.1:6379:6379'
+    healthcheck:
+      test: [CMD, redis-cli, ping]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - 'redis-data:/data'
+
+  adminer:
+    image: adminer:latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - '127.0.0.1:8080:8080'
+
+  odoo:
+    # Solo con: --profile full
+    profiles: [full]
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PYTHON_VERSION: '${PYTHON_VERSION:-3.11-slim}'
+        OS_VARIANT: '${OS_VARIANT:-bookworm}'
+        ODOO_VERSION: '${ODOO_VERSION:-18.0}'
+        WKHTMLTOX_VERSION: '${WKHTMLTOX_VERSION:-0.12.6.1-3}'
+        ODOO_USER: '${ODOO_USER:-odoo}'
+        ODOO_BASEPATH: '${ODOO_BASEPATH:-/opt/odoo}'
+        APP_UID: '${APP_UID:-101}'
+        APP_GID: '${APP_GID:-101}'
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    ports:
+      - '127.0.0.1:8069:8069'
+      - '127.0.0.1:8072:8072'
+    environment:
+      DB_HOST: db
+      DB_USER: '${POSTGRES_USER:-odoo}'
+      DB_PASSWORD: '${POSTGRES_PASSWORD:-password123}'
+      DBNAME: '${POSTGRES_DB:-odoo}'
+      DBFILTER: '${DBFILTER:-.*}'
+      ODOO_SESSION_REDIS: '1'
+      ODOO_SESSION_REDIS_HOST: redis
+      ODOO_SESSION_REDIS_PORT: '6379'
+      HTTP_INTERFACE: 0.0.0.0
+      HTTP_PORT: '8069'
+      # Dev: monoproceso, gestor de BD visible, logs verbosos.
+      WORKERS: 0
+      LIST_DB: 'True'
+      WITHOUT_DEMO: 'False'
+      LOG_LEVEL: '${LOG_LEVEL:-debug}'
+      FORCE_RECONFIG: '${FORCE_RECONFIG:-0}'
+    volumes:
+      - 'odoo-data:/var/lib/odoo/data'
+      - 'odoo-logs:/var/lib/odoo/logs'
+      # Hot-reload de addons locales durante desarrollo.
+      - './addons:/mnt/extra-addons:delegated'
+      - './docker/odoo.conf:/etc/odoo/odoo.conf.template:ro'
+    stop_grace_period: 30s
+
+volumes:
+  db-data:
+  redis-data:
+  odoo-data:
+  odoo-logs:

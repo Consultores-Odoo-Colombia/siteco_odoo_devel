@@ -1,0 +1,92 @@
+{
+  "devices": [
+    {
+      "ip": "192.168.1.1",
+      "mac": "b2:d8:c5:e3:90:93",
+      "vendor": "desconocido (MAC aleatoria/local)",
+      "hostname": null,
+      "first_seen": "2026-07-12T13:04:06.464369458-05:00",
+      "last_seen": "2026-07-13T01:23:06.654477542-05:00"
+    },
+    {
+      "ip": "192.168.1.2",
+      "mac": "2e:fa:7f:78:8b:1a",
+      "vendor": "desconocido (MAC aleatoria/local)",
+      "hostname": null,
+      "first_seen": "2026-07-12T13:04:06.464369458-05:00",
+      "last_seen": "2026-07-13T01:23:06.654477542-05:00"
+    },
+    {
+      "ip": "192.168.1.4",
+      "mac": "88:bf:e4:87:bd:d9",
+      "vendor": "desconocido",
+      "hostname": null,
+      "first_seen": "2026-07-12T13:04:06.464369458-05:00",
+      "last_seen": "2026-07-13T01:23:06.654477542-05:00"
+    },
+    {
+      "ip": "192.168.1.5",
+      "mac": "6a:af:c1:df:36:cf",
+      "vendor": "desconocido (MAC aleatoria/local)",
+      "hostname": null,
+      "first_seen": "2026-07-12T13:04:06.464369458-05:00",
+      "last_seen": "2026-07-13T01:23:06.654477542-05:00"
+    },
+    {
+      "ip": "192.168.1.7",
+      "mac": "44:cb:8b:47:75:a8",
+      "vendor": "Technicolor/ISP",
+      "hostname": null,
+      "first_seen": "2026-07-12T13:04:06.464369458-05:00",
+      "last_seen": "2026-07-13T01:23:06.654477542-05:00"
+    },
+    {
+      "ip": "192.168.1.8",
+      "mac": "02:fb:b6:4b:78:27",
+      "vendor": "desconocido (MAC aleatoria/local)",
+      "hostname": null,
+      "first_seen": "2026-07-12T13:04:06.464369458-05:00",
+      "last_seen": "2026-07-12T13:11:06.493479879-05:00"
+    },
+    {
+      "ip": "192.168.1.252",
+      "mac": "00:00:ca:01:02:03",
+      "vendor": "desconocido",
+      "hostname": null,
+      "first_seen": "2026-07-12T13:04:06.464369458-05:00",
+      "last_seen": "2026-07-13T01:23:06.654477542-05:00"
+    },
+    {
+      "ip": "192.168.1.254",
+      "mac": "4c:12:65:5d:b9:1d",
+      "vendor": "Router/Gateway",
+      "hostname": "_gateway",
+      "first_seen": "2026-07-12T13:04:06.464369458-05:00",
+      "last_seen": "2026-07-13T01:23:06.654477542-05:00"
+    },
+    {
+      "ip": "192.168.1.17",
+      "mac": "12:76:bc:17:4d:79",
+      "vendor": "desconocido (MAC aleatoria/local)",
+      "hostname": null,
+      "first_seen": "2026-07-12T17:35:06.471490851-05:00",
+      "last_seen": "2026-07-12T20:40:06.465352145-05:00"
+    },
+    {
+      "ip": "192.168.1.10",
+      "mac": "9e:f4:87:99:78:a4",
+      "vendor": "desconocido (MAC aleatoria/local)",
+      "hostname": null,
+      "first_seen": "2026-07-12T18:30:06.461413957-05:00",
+      "last_seen": "2026-07-12T18:35:06.454225440-05:00"
+    },
+    {
+      "ip": "192.168.1.6",
+      "mac": "d6:27:a0:e0:d2:fc",
+      "vendor": "desconocido (MAC aleatoria/local)",
+      "hostname": null,
+      "first_seen": "2026-07-12T21:01:06.579542818-05:00",
+      "last_seen": "2026-07-13T00:08:06.469359157-05:00"
+    }
+  ]
+}

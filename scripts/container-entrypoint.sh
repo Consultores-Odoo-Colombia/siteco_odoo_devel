@@ -22,6 +22,12 @@ DB_NAME="${DBNAME:-${ODOO_DB_NAME:-${POSTGRES_DB:-odoo}}}"
 ODOO_INIT_MODULES="${ODOO_INIT_MODULES:-base}"
 ODOO_BASEPATH="${ODOO_BASEPATH:-/opt/odoo}"
 
+# ODOO_AUTO_INIT=1 makes the entrypoint create the database with --init on first
+# boot (legacy behavior). Default 0 = container starts with no DB and the
+# operator creates it interactively via /web/database/manager using the master
+# password (admin_passwd in odoo.conf, sourced from ADMIN_PASSWORD).
+ODOO_AUTO_INIT="${ODOO_AUTO_INIT:-0}"
+
 # Files persisted in the odoo-data volume
 DATA_DIR="/var/lib/odoo"
 CREDENTIALS_FILE="${DATA_DIR}/initial-credentials.txt"
@@ -69,7 +75,8 @@ def expand_vars(text):
         var_expr = match.group(1)
         if ':-' in var_expr:
             var_name, default = var_expr.split(':-', 1)
-            return os.environ.get(var_name, default)
+            # Match bash ${VAR:-default}: use default if unset OR empty string
+            return os.environ.get(var_name) or default
         else:
             return os.environ.get(var_expr, '')
     
@@ -141,36 +148,37 @@ if [[ "${1:-}" == *"odoo-bin" ]]; then
   unset ODOO_RC
   unset OPENERP_SERVER
 
-  # --- First-run initialization ---
-  TABLE_EXISTS=$(PGPASSWORD="${DB_PASSWORD}" psql \
-    -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" -d "${DB_NAME}" \
-    -tAc "SELECT 1 FROM information_schema.tables WHERE table_name='ir_module_module';" 2>/dev/null || echo "")
-
-  if [[ "${TABLE_EXISTS}" != "1" ]]; then
-    ADMIN_PASSWORD="${ODOO_ADMIN_PASSWORD:-admin}"
-
-    log "Database '${DB_NAME}' not initialized. Running --init ${ODOO_INIT_MODULES}..."
-
-    "${ODOO_BASEPATH}/odoo-bin" \
-      -c "${RUNTIME_CONF}" \
-      -d "${DB_NAME}" \
-      --db_host="${DB_HOST}" \
-      --db_port="${DB_PORT}" \
-      --db_user="${DB_USER}" \
-      --db_password="${DB_PASSWORD}" \
-      -i "${ODOO_INIT_MODULES}" \
-      --stop-after-init \
-      --without-demo=all
-
-    # Set admin password
-    log "Setting admin user password..."
-    HASHED_PASS=$(_hash_password "${ADMIN_PASSWORD}")
-    PGPASSWORD="${DB_PASSWORD}" psql \
+  # --- First-run initialization (ODOO_AUTO_INIT=1 to enable) ---
+  if [[ "${ODOO_AUTO_INIT}" == "1" ]]; then
+    TABLE_EXISTS=$(PGPASSWORD="${DB_PASSWORD}" psql \
       -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" -d "${DB_NAME}" \
-      -c "UPDATE res_users SET password = '${HASHED_PASS}' WHERE login = 'admin';"
+      -tAc "SELECT 1 FROM information_schema.tables WHERE table_name='ir_module_module';" 2>/dev/null || echo "")
 
-    # Write credentials file (readable only by owner)
-    cat > "${CREDENTIALS_FILE}" <<EOF
+    if [[ "${TABLE_EXISTS}" != "1" ]]; then
+      ADMIN_PASSWORD="${ODOO_ADMIN_PASSWORD:-admin}"
+
+      log "Database '${DB_NAME}' not initialized. Running --init ${ODOO_INIT_MODULES}..."
+
+      "${ODOO_BASEPATH}/odoo-bin" \
+        -c "${RUNTIME_CONF}" \
+        -d "${DB_NAME}" \
+        --db_host="${DB_HOST}" \
+        --db_port="${DB_PORT}" \
+        --db_user="${DB_USER}" \
+        --db_password="${DB_PASSWORD}" \
+        -i "${ODOO_INIT_MODULES}" \
+        --stop-after-init \
+        --without-demo=all
+
+      # Set admin password
+      log "Setting admin user password..."
+      HASHED_PASS=$(_hash_password "${ADMIN_PASSWORD}")
+      PGPASSWORD="${DB_PASSWORD}" psql \
+        -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" -d "${DB_NAME}" \
+        -c "UPDATE res_users SET password = '${HASHED_PASS}' WHERE login = 'admin';"
+
+      # Write credentials file (readable only by owner)
+      cat > "${CREDENTIALS_FILE}" <<EOF
 === Odoo Initial Credentials ===
 Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
 Database : ${DB_NAME}
@@ -179,15 +187,18 @@ User     : admin
 Password : ${ADMIN_PASSWORD}
 =================================
 EOF
-    chmod 600 "${CREDENTIALS_FILE}"
+      chmod 600 "${CREDENTIALS_FILE}"
 
-    log "================================================================"
-    log " INITIAL CREDENTIALS"
-    log " Odoo User : admin"
-    log " Password  : ${ADMIN_PASSWORD}"
-    log " (also saved in ${CREDENTIALS_FILE})"
-    log "================================================================"
-    log "Initialization completed."
+      log "================================================================"
+      log " INITIAL CREDENTIALS"
+      log " Odoo User : admin"
+      log " Password  : ${ADMIN_PASSWORD}"
+      log " (also saved in ${CREDENTIALS_FILE})"
+      log "================================================================"
+      log "Initialization completed."
+    fi
+  else
+    log "ODOO_AUTO_INIT=0 — skipping auto-init. Go to /web/database/manager to create the database (master password = ADMIN_PASSWORD)."
   fi
 
   # Strip any existing -c / --config args from $@ (e.g. from CMD) so we don't

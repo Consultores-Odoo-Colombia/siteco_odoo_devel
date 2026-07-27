@@ -94,6 +94,8 @@ xlrd==2.0.1 ; python_version >= '3.12'
 XlsxWriter==3.0.2 ; python_version < '3.12'  # (jammy)
 XlsxWriter==3.1.9 ; python_version >= '3.12'
 xlwt==1.3.0
+xmlsig==1.0.1  # Siteco: firma XAdES-EPES (siteco_fe_dian, siteco_ne_dian)
+xmltodict==1.0.4  # Siteco: parseo respuestas SOAP DIAN (siteco_fe_dian, siteco_ne_dian)
 zeep==4.1.0 ; python_version < '3.11'  # (jammy)
 zeep==4.2.1 ; python_version >= '3.11' and python_version < '3.13'
 zeep==4.3.1 ; python_version >= '3.13'
