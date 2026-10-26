@@ -19,10 +19,17 @@
 
 FROM python:3.11-slim-bookworm
 
+# Se pasan en el build (ver CHANGELOG.md) para que los labels digan lo que la imagen contiene.
+ARG IMAGE_VERSION=dev
+ARG VCS_REF=unknown
+ARG ODOO_UPSTREAM_COMMIT=unknown
+
 LABEL org.opencontainers.image.title="Siteco Odoo 18 CE" \
       org.opencontainers.image.description="Odoo 18 CE mutable-friendly: runtime addons and pip installs via persistent volumes" \
       org.opencontainers.image.source="https://github.com/juanca2918/siteco_odoo_devel" \
-      org.opencontainers.image.version="2.5.0"
+      org.opencontainers.image.version="${IMAGE_VERSION}" \
+      org.opencontainers.image.revision="${VCS_REF}" \
+      siteco.odoo.upstream_commit="${ODOO_UPSTREAM_COMMIT}"
 
 ENV DEBIAN_FRONTEND=noninteractive \
     ODOO_HOME=/opt/odoo \
@@ -108,6 +115,9 @@ RUN set -eux; \
 # 4. Copiar Odoo e instalar editable
 # -----------------------------------------------------------------------------
 COPY --chown=odoo:odoo . ${ODOO_HOME}
+
+# El build falla si el core copiado es más viejo de lo esperado (regresión de v2.4–v2.6.x).
+RUN bash "${ODOO_HOME}/scripts/verify-core.sh" "${ODOO_HOME}"
 
 RUN set -eux; \
     "${ODOO_VENV_BASE}/bin/pip" install --no-deps --editable "${ODOO_HOME}"; \
