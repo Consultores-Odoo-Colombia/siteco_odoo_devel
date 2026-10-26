@@ -1,0 +1,108 @@
+{
+  "NotoSans": [
+    {
+      "suffix": "Hai",
+      "filename": "NotoSans-Hai.ttf",
+      "source": "NotoSans-Thin.ttf"
+    },
+    {
+      "suffix": "HaiIta",
+      "filename": "NotoSans-HaiIta.ttf",
+      "source": "NotoSans-ThinItalic.ttf"
+    },
+    {
+      "suffix": "Lig",
+      "filename": "NotoSans-Lig.ttf",
+      "source": "NotoSans-Light.ttf"
+    },
+    {
+      "suffix": "LigIta",
+      "filename": "NotoSans-LigIta.ttf",
+      "source": "NotoSans-LightItalic.ttf"
+    },
+    {
+      "suffix": "Reg",
+      "filename": "NotoSans-Reg.ttf",
+      "source": "NotoSans-Regular.ttf"
+    },
+    {
+      "suffix": "RegIta",
+      "filename": "NotoSans-RegIta.ttf",
+      "source": "NotoSans-Italic.ttf"
+    },
+    {
+      "suffix": "Bol",
+      "filename": "NotoSans-Bol.ttf",
+      "source": "NotoSans-Bold.ttf"
+    },
+    {
+      "suffix": "BolIta",
+      "filename": "NotoSans-BolIta.ttf",
+      "source": "NotoSans-BoldItalic.ttf"
+    },
+    {
+      "suffix": "Bla",
+      "filename": "NotoSans-Bla.ttf",
+      "source": "NotoSans-Black.ttf"
+    },
+    {
+      "suffix": "BlaIta",
+      "filename": "NotoSans-BlaIta.ttf",
+      "source": "NotoSans-BlackItalic.ttf"
+    }
+  ],
+  "NotoSansArabic": [
+    {
+      "suffix": "Hai",
+      "filename": "NotoSansArabic-Hai.ttf",
+      "source": "NotoSansArabic-Thin.ttf"
+    },
+    {
+      "suffix": "Lig",
+      "filename": "NotoSansArabic-Lig.ttf",
+      "source": "NotoSansArabic-Light.ttf"
+    },
+    {
+      "suffix": "Reg",
+      "filename": "NotoSansArabic-Reg.ttf",
+      "source": "NotoSansArabic-Regular.ttf"
+    },
+    {
+      "suffix": "Bol",
+      "filename": "NotoSansArabic-Bol.ttf",
+      "source": "NotoSansArabic-Bold.ttf"
+    },
+    {
+      "suffix": "Bla",
+      "filename": "NotoSansArabic-Bla.ttf",
+      "source": "NotoSansArabic-Black.ttf"
+    }
+  ],
+  "NotoSansHebrew": [
+    {
+      "suffix": "Hai",
+      "filename": "NotoSansHebrew-Hai.ttf",
+      "source": "NotoSansHebrew-Thin.ttf"
+    },
+    {
+      "suffix": "Lig",
+      "filename": "NotoSansHebrew-Lig.ttf",
+      "source": "NotoSansHebrew-Light.ttf"
+    },
+    {
+      "suffix": "Reg",
+      "filename": "NotoSansHebrew-Reg.ttf",
+      "source": "NotoSansHebrew-Regular.ttf"
+    },
+    {
+      "suffix": "Bol",
+      "filename": "NotoSansHebrew-Bol.ttf",
+      "source": "NotoSansHebrew-Bold.ttf"
+    },
+    {
+      "suffix": "Bla",
+      "filename": "NotoSansHebrew-Bla.ttf",
+      "source": "NotoSansHebrew-Black.ttf"
+    }
+  ]
+}

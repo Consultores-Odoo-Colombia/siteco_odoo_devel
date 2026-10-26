@@ -13,14 +13,8 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        PYTHON_VERSION: ${PYTHON_VERSION:-3.11-slim}
-        OS_VARIANT: ${OS_VARIANT:-bookworm}
-        ODOO_VERSION: ${ODOO_VERSION:-18.0}
-        WKHTMLTOX_VERSION: ${WKHTMLTOX_VERSION:-0.12.6.1-3}
-        ODOO_USER: ${ODOO_USER:-odoo}
-        ODOO_BASEPATH: ${ODOO_BASEPATH:-/opt/odoo}
-        APP_UID: ${APP_UID:-101}
-        APP_GID: ${APP_GID:-101}
+        # Cliente PostgreSQL a instalar en la imagen. Debe coincidir con PG 16.
+        PG_MAJOR: ${PG_MAJOR:-16}
 
     volumes:
       # Mount local addons for hot-reload during development

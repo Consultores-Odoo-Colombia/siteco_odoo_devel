@@ -1,34 +1,68 @@
 # =============================================================================
-# Odoo 18 CE + PostgreSQL 16 + Redis 7 — Despliegue en Coolify
+# Siteco Odoo 18 CE + PostgreSQL 16 + Redis 7 — Coolify Production Compose
 # =============================================================================
-# - Coolify autogenera las variables SERVICE_USER_*, SERVICE_PASSWORD_* y las
-#   inyecta como .env (env_file) al desplegar.
-# - El enrutado/TLS lo hace Traefik mediante los labels del servicio `odoo`.
-#   NO configures un "Domain" en la UI de Coolify para este servicio: crearía
-#   labels duplicados que chocan con los de abajo.
-# - Solo `odoo` se conecta a la red del proxy (`coolify`). `db` y `redis`
-#   quedan aislados en la red interna `odoo-net`.
+# Modelo mutable-friendly:
+#   - La imagen Docker trae Odoo 18 CE base.
+#   - Las librerías Python adicionales y los addons custom se gestionan a
+#     posteriori desde volúmenes persistentes, sin necesidad de hacer rebuild
+#     ni redeploy de la imagen por cada cambio.
+#
+# Volúmenes persistentes:
+#   - odoo-data:/var/lib/odoo       → config, filestore, sessions, venv mutable
+#   - odoo-modules:/mnt/extra-addons → custom addons y requirements.txt
+#
+# Cómo agregar una librería Python después del despliegue:
+#   1. Opción rápida: setear ODOO_EXTRA_PIP="paquete1 paquete2" en Coolify y
+#      reiniciar el contenedor (se instala en /var/lib/odoo/venv).
+#   2. Opción persistente: subir un requirements.txt a /mnt/extra-addons/ y
+#      reiniciar (el entrypoint lo instala automáticamente).
+#
+# Cómo cambiar la master password:
+#   1. Cambiar SERVICE_PASSWORD_ADMIN en Coolify.
+#   2. Poner RESET_ADMIN_PASSWD=1 y reiniciar una vez.
+#   3. Volver RESET_ADMIN_PASSWD=0.
+#
+# Redis sessions:
+#   - Odoo CE 18 NO tiene soporte nativo de sesiones Redis.
+#   - Si deseas usar Redis para sesiones, instala el addon session_redis (OCA)
+#     en /mnt/extra-addons y añadelo a SERVER_WIDE_MODULES=base,web,session_redis.
+#   - Las variables ODOO_SESSION_REDIS_* de abajo serán usadas por ese addon.
+#
+# Coolify:
+#   - Autogenera SERVICE_USER_*, SERVICE_PASSWORD_* y las inyecta como .env.
+#   - Debes crear manualmente DOMAIN con el dominio de este servicio.
+#   - NO configures un "Domain" en la UI: los labels Traefik de abajo ya
+#     manejan el routing/TLS. Configurar un domain adicional crea labels
+#     duplicados que pueden fallar.
+#   - Traefik está gestionado por Coolify en la red externa `coolify`.
 # =============================================================================
+
+x-default-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "10m"
+    max-file: "3"
 
 services:
   db:
     image: 'postgres:${PSQL_VERSION:-16}'
     restart: unless-stopped
-    # /dev/shm por defecto (64MB) es insuficiente para restore/duplicado de BD
-    # grandes: provoca "could not resize shared memory segment".
     shm_size: '${DB_SHM_SIZE:-512mb}'
+    logging: *default-logging
     environment:
       POSTGRES_DB: '${POSTGRES_DB:-odoo}'
       POSTGRES_USER: '${SERVICE_USER_POSTGRES}'
       POSTGRES_PASSWORD: '${SERVICE_PASSWORD_POSTGRES}'
       PGDATA: /var/lib/postgresql/data/pgdata
-      POSTGRES_INITDB_ARGS: '--lc-collate=C'
+      POSTGRES_INITDB_ARGS: '--lc-collate=C --encoding=UTF8'
     command:
       - postgres
-      # Holgura de conexiones: 4 workers Odoo + cron + duplicado/restore
-      # concurrente pueden superar el default de 100.
       - '-c'
       - 'max_connections=${DB_MAX_CONNECTIONS:-150}'
+      - '-c'
+      - 'shared_buffers=${DB_SHARED_BUFFERS:-128MB}'
+      - '-c'
+      - 'effective_cache_size=${DB_EFFECTIVE_CACHE_SIZE:-512MB}'
     healthcheck:
       test:
         - CMD-SHELL
@@ -45,6 +79,7 @@ services:
   redis:
     image: 'redis:${REDIS_VERSION:-7-alpine}'
     restart: unless-stopped
+    logging: *default-logging
     command:
       - redis-server
       - '--appendonly'
@@ -53,6 +88,8 @@ services:
       - '${REDIS_MAXMEMORY:-512mb}'
       - '--maxmemory-policy'
       - allkeys-lru
+      - '--tcp-keepalive'
+      - '60'
     healthcheck:
       test: [CMD, redis-cli, ping]
       interval: 10s
@@ -64,77 +101,119 @@ services:
       - odoo-net
 
   odoo:
-    # Imagen publicada en GHCR. Define ODOO_IMAGE en el .env, p. ej.:
-    #   ODOO_IMAGE=ghcr.io/juanca2918/odoo18-ce:siteco-odoo-v2.4
-    image: '${ODOO_IMAGE:-ghcr.io/juanca2918/odoo18-ce:siteco-odoo-v2.4}'
+    image: '${ODOO_IMAGE:-ghcr.io/juanca2918/odoo18-ce:siteco-odoo-v2.6.1}'
     restart: unless-stopped
+    logging: *default-logging
     depends_on:
       db:
         condition: service_healthy
       redis:
         condition: service_healthy
     environment:
+      # --- PostgreSQL connection ---
       DB_HOST: db
       DB_USER: '${SERVICE_USER_POSTGRES}'
       DB_PASSWORD: '${SERVICE_PASSWORD_POSTGRES}'
       DBNAME: '${POSTGRES_DB:-odoo}'
       DBFILTER: '${DBFILTER:-.*}'
-      ODOO_SESSION_REDIS: '1'
-      ODOO_SESSION_REDIS_HOST: redis
-      ODOO_SESSION_REDIS_PORT: '6379'
+
+      # --- Redis sessions (requiere addon session_redis de OCA) ---
+      ODOO_SESSION_REDIS: '${ODOO_SESSION_REDIS:-1}'
+      ODOO_SESSION_REDIS_HOST: '${ODOO_SESSION_REDIS_HOST:-redis}'
+      ODOO_SESSION_REDIS_PORT: '${ODOO_SESSION_REDIS_PORT:-6379}'
       ODOO_SESSION_REDIS_PREFIX: '${ODOO_SESSION_REDIS_PREFIX:-session}'
+
+      # --- HTTP server ---
       HTTP_INTERFACE: 0.0.0.0
       HTTP_PORT: '8069'
-      # Auto-inicialización en el primer arranque: si la BD existe pero está                                                                                                                                                
-      # vacía (sin tabla ir_module_module), el entrypoint corre `-i                                                                                                                                                         
-      # ${ODOO_INIT_MODULES}` y fija la contraseña de admin. Evita el deadlock                                                                                                                                              
-      # de una BD pre-creada por POSTGRES_DB que el gestor no puede inicializar.                                                                                                                                            
-      ODOO_AUTO_INIT: '${ODOO_AUTO_INIT:-1}'                                                                                                                                                                                
-      ODOO_INIT_MODULES: '${ODOO_INIT_MODULES:-base}'                                                                                                                                                                       
-      # Contraseña del usuario `admin` que el entrypoint fija tras el auto-init.                                                                                                                                            
-      ODOO_ADMIN_PASSWORD: '${SERVICE_PASSWORD_ADMIN}'
       PROXY_MODE: 'True'
+
+      # --- Master password (database manager) ---
+      # Se regenera desde esta variable cuando RESET_ADMIN_PASSWD=1.
+      ADMIN_PASSWORD: '${SERVICE_PASSWORD_ADMIN}'
+      ODOO_ADMIN_PASSWORD: '${SERVICE_PASSWORD_ADMIN}'
+
+      # --- Config regeneration ---
+      # FORCE_RECONFIG=1 regenera /var/lib/odoo/odoo.conf desde template.
       FORCE_RECONFIG: '${FORCE_RECONFIG:-0}'
+      # RESET_ADMIN_PASSWD=1 fuerza regeneración de admin_passwd desde ADMIN_PASSWORD.
+      # Solo actúa cuando la conf runtime se (re)genera (primer boot o FORCE_RECONFIG=1):
+      # hashea ADMIN_PASSWORD en admin_passwd; sin esto el template deja la password
+      # en texto plano y /web/database/manager responde "Access Denied".
+      RESET_ADMIN_PASSWD: '${RESET_ADMIN_PASSWD:-1}'
+
+      # --- Logging ---
       LOG_LEVEL: '${LOG_LEVEL:-info}'
       LOG_HANDLER: ':INFO'
       WITHOUT_DEMO: all
-      LIST_DB: '${LIST_DB:-False}'
+
+      # --- Database manager ---
+      LIST_DB: '${LIST_DB:-True}'
+
+      # --- Server-wide modules ---
+      # Añade aquí session_redis si instalas ese addon de OCA.
+      SERVER_WIDE_MODULES: '${SERVER_WIDE_MODULES:-base,web}'
+
+      # --- Workers / performance ---
       WORKERS: '${WORKERS:-4}'
       MAX_CRON_THREADS: '${MAX_CRON_THREADS:-2}'
       LIMIT_MEMORY_SOFT: '${LIMIT_MEMORY_SOFT:-2147483648}'
       LIMIT_MEMORY_HARD: '${LIMIT_MEMORY_HARD:-2684354560}'
-      # Backup/restore/duplicar son peticiones HTTP largas y síncronas: con los
-      # valores por defecto (60/120s) el worker mata la operación a la mitad y el
-      # ZIP queda corrupto. Subimos los límites para permitir BD/filestore grandes.
+
+      # --- Timeouts (crítico para backup/restore/duplicate) ---
+      # Subir si tu BD/filestore es grande o la red es lenta.
       LIMIT_TIME_CPU: '${LIMIT_TIME_CPU:-600}'
       LIMIT_TIME_REAL: '${LIMIT_TIME_REAL:-1200}'
+
+      # --- Runtime pip installs ---
+      # Paquetes separados por espacio; se instalan en /var/lib/odoo/venv al arrancar.
+      ODOO_EXTRA_PIP: '${ODOO_EXTRA_PIP:-}'
+
+      # --- Auto-init (idempotente) ---
+      # El entrypoint solo inicializa si NO existe ir_module_module en la BD
+      # (scripts/container-entrypoint.sh), por lo que:
+      #   - Despliegue fresco (volúmenes nuevos, BD vacía) → instala
+      #     ODOO_INIT_MODULES y crea el usuario admin. Sin esto, Odoo arranca
+      #     contra una BD sin inicializar, el registry queda vacío y TODA
+      #     request muere con KeyError: 'ir.http' + HTTP 500 (healthcheck en
+      #     loop y contenedor unhealthy).
+      #   - BD ya inicializada o restaurada → no-op.
+      # Ponlo en 0 ANTES del primer arranque solo si vas a restaurar un backup
+      # en este servicio (para no gastar el init sobre una BD que se va a
+      # reemplazar); después del restore puedes dejarlo en 1 sin efecto.
+      ODOO_AUTO_INIT: '${ODOO_AUTO_INIT:-1}'
+      ODOO_INIT_MODULES: '${ODOO_INIT_MODULES:-base}'
     volumes:
-      - 'odoo-data:/var/lib/odoo/data'
-      - 'odoo-logs:/var/lib/odoo/logs'
+      # Todo el runtime mutable de Odoo (data + config + venv) en un solo volumen.
+      - 'odoo-data:/var/lib/odoo'
+      # Custom addons: puedes sincronizarlos aquí vía Coolify storage/SFTP/S3/git.
       - 'odoo-modules:/mnt/extra-addons'
     healthcheck:
       test: [CMD, curl, '-sf', 'http://127.0.0.1:8069/web/health']
       interval: 30s
       timeout: 10s
       retries: 5
-      start_period: 60s
+      # El primer arranque con ODOO_AUTO_INIT=1 ejecuta -i base ANTES de que
+      # Odoo sirva tráfico (1-3 min). start_period corto + init lento =
+      # contenedor marcado unhealthy a mitad del init. 300s cubre el init
+      # y el arranque de workers en hardware modesto.
+      start_period: 300s
     stop_grace_period: 30s
     networks:
       - odoo-net
       - coolify
     labels:
       - traefik.enable=true
-      # Red por la que Traefik alcanza este contenedor (la del proxy de Coolify).
       - traefik.docker.network=coolify
 
-      # --- Redirección HTTP -> HTTPS ---
+      # --- HTTP → HTTPS redirect ---
       - 'traefik.http.routers.odoo-http.rule=Host(`${DOMAIN}`)'
       - traefik.http.routers.odoo-http.entrypoints=http
       - traefik.http.routers.odoo-http.service=odoo
       - traefik.http.routers.odoo-http.middlewares=odoo-https-redirect
       - traefik.http.middlewares.odoo-https-redirect.redirectscheme.scheme=https
 
-      # --- Web principal (backend 8069) ---
+      # --- Main web backend (8069) ---
       - 'traefik.http.routers.odoo.rule=Host(`${DOMAIN}`)'
       - traefik.http.routers.odoo.entrypoints=https
       - traefik.http.routers.odoo.tls=true
@@ -142,7 +221,7 @@ services:
       - traefik.http.routers.odoo.service=odoo
       - traefik.http.services.odoo.loadbalancer.server.port=8069
 
-      # --- Websocket / longpolling (backend gevent 8072) ---
+      # --- WebSocket / longpolling backend (8072) ---
       - 'traefik.http.routers.odoo-ws.rule=Host(`${DOMAIN}`) && PathPrefix(`/websocket`)'
       - traefik.http.routers.odoo-ws.entrypoints=https
       - traefik.http.routers.odoo-ws.tls=true
@@ -154,8 +233,6 @@ services:
 networks:
   odoo-net:
     driver: bridge
-  # Red del proxy de Coolify. Debe existir ya en el host (la crea Coolify).
-  # Si tu instalación usa otro nombre, ajústalo aquí y en el label traefik.docker.network.
   coolify:
     external: true
 
@@ -163,5 +240,4 @@ volumes:
   db-data:
   redis-data:
   odoo-data:
-  odoo-logs:
   odoo-modules:

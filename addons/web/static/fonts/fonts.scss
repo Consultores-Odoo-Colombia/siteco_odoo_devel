@@ -1,40 +1,73 @@
 // ------------------------------------------------------------------
+// Noto (local fallback for the broken fonts.odoocdn.com CDN)
+// Issue: Odoo 18 emits NotoSans-{Hai,Lig,Reg,Bol,Bla}[Ita].woff2 names
+// that do not exist on fonts.odoocdn.com. We ship the real Google Noto
+// files under ./noto and reference them here.
+// ------------------------------------------------------------------
+$noto-font-path: './noto';
+
+// Noto Sans (Cyrillic)
+@mixin noto-sans($type, $weight, $style) {
+    @font-face {
+        font-family: 'Odoo Unicode Support Noto';
+        src: url('#{$noto-font-path}/NotoSans-#{$type}.ttf') format('truetype');
+        font-weight: $weight;
+        font-style: $style;
+        unicode-range: U+0400-04FF, U+0500-052F;
+    }
+}
+
+// Noto Sans Hebrew (no italic variants available)
+@mixin noto-hebrew($type, $weight) {
+    @font-face {
+        font-family: 'Odoo Unicode Support Noto';
+        src: url('#{$noto-font-path}/NotoSansHebrew-#{$type}.ttf') format('truetype');
+        font-weight: $weight;
+        font-style: normal;
+        unicode-range: U+0590-05FF, U+FB1D-FB4F;
+    }
+}
+
+// Noto Sans Arabic (no italic variants available)
+@mixin noto-arabic($type, $weight) {
+    @font-face {
+        font-family: 'Odoo Unicode Support Noto';
+        src: url('#{$noto-font-path}/NotoSansArabic-#{$type}.ttf') format('truetype');
+        font-weight: $weight;
+        font-style: normal;
+        unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF;
+    }
+}
+
+@mixin noto-font-pair($type, $weight) {
+    @include noto-sans('#{$type}', $weight, normal);
+    @include noto-sans('#{$type}Ita', $weight, italic);
+}
+
+@include noto-font-pair('Hai', 100);
+@include noto-font-pair('Lig', 300);
+@include noto-font-pair('Reg', 400);
+@include noto-font-pair('Bol', 700);
+@include noto-font-pair('Bla', 900);
+
+@include noto-hebrew('Hai', 100);
+@include noto-hebrew('Lig', 300);
+@include noto-hebrew('Reg', 400);
+@include noto-hebrew('Bol', 700);
+@include noto-hebrew('Bla', 900);
+
+@include noto-arabic('Hai', 100);
+@include noto-arabic('Lig', 300);
+@include noto-arabic('Reg', 400);
+@include noto-arabic('Bol', 700);
+@include noto-arabic('Bla', 900);
+
+// ------------------------------------------------------------------
 // Lato
 // ------------------------------------------------------------------
 $lato-font-path: './lato';
 
 @mixin lato-font($type, $weight, $style) {
-    // Cyrillic: U+0400-04FF, U+0500-052F
-    @font-face {
-        font-family: 'Odoo Unicode Support Noto';
-        src: url('https://fonts.odoocdn.com/fonts/noto/NotoSans-#{$type}.woff2') format('woff2'),
-             url('https://fonts.odoocdn.com/fonts/noto/NotoSans-#{$type}.woff') format('woff'),
-             url('https://fonts.odoocdn.com/fonts/noto/NotoSans-#{$type}.ttf') format('truetype');
-        font-weight: $weight;
-        font-style: $style;
-        unicode-range: U+0400-04FF, U+0500-052F;
-    }
-    // Hebrew: U+0590-05FF, U+FB1D-FB4F
-    @font-face {
-        font-family: 'Odoo Unicode Support Noto';
-        src: url('https://fonts.odoocdn.com/fonts/noto/NotoSansHebrew-#{$type}.woff2') format('woff2'),
-             url('https://fonts.odoocdn.com/fonts/noto/NotoSansHebrew-#{$type}.woff') format('woff'),
-             url('https://fonts.odoocdn.com/fonts/noto/NotoSansHebrew-#{$type}.ttf') format('truetype');
-        font-weight: $weight;
-        font-style: $style;
-        unicode-range: U+0590-05FF, U+FB1D-FB4F;
-    }
-    // Arabic: U+0600-06FF, U+0750-077F
-    @font-face {
-        font-family: 'Odoo Unicode Support Noto';
-        src: url('https://fonts.odoocdn.com/fonts/noto/NotoSansArabic-#{$type}.woff2') format('woff2'),
-             url('https://fonts.odoocdn.com/fonts/noto/NotoSansArabic-#{$type}.woff') format('woff'),
-             url('https://fonts.odoocdn.com/fonts/noto/NotoSansArabic-#{$type}.ttf') format('truetype');
-        font-weight: $weight;
-        font-style: $style;
-        unicode-range: U+0600-06FF, U+0750-077F, U+08A0-08FF;
-    }
-
     @font-face {
         font-family: 'Lato';
         src: url('#{$lato-font-path}/Lato-#{$type}-webfont.eot');
