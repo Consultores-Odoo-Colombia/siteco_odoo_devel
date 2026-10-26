@@ -38,10 +38,12 @@ class HrLeave(models.Model):
             def adjust_date_range(date_from, date_to, period, attendance_ids, employee_id):
                 period_ids_from = attendance_ids.filtered(lambda a: a.day_period in period
                                                                     and int(a.dayofweek) == date_from.weekday()
-                                                                    and (not a.two_weeks_calendar or int(a.week_type) == a.get_week_type(date_from)))
+                                                                    and (not a.two_weeks_calendar or int(a.week_type) == a.get_week_type(date_from))
+                                                                    and not a.display_type)
                 period_ids_to = attendance_ids.filtered(lambda a: a.day_period in period
                                                                     and int(a.dayofweek) == date_to.weekday()
-                                                                    and (not a.two_weeks_calendar or int(a.week_type) == a.get_week_type(date_to)))
+                                                                    and (not a.two_weeks_calendar or int(a.week_type) == a.get_week_type(date_to))
+                                                                    and not a.display_type)
                 if period_ids_from:
                     min_hour = min(attendance.hour_from for attendance in period_ids_from)
                     date_from = self._to_utc(date_from, min_hour, employee_id)
@@ -124,6 +126,9 @@ class HrLeave(models.Model):
                     ('date_from', '<', max(fr_leaves.mapped('date_to')) + relativedelta(days=1)),
                     ('date_to', '>', min(fr_leaves.mapped('date_from')) - relativedelta(days=1)),
                 ])
+            standard_duration = super(HrLeave, fr_leaves)._get_durations(
+                resource_calendar=resource_calendar,
+            )
             for company, leaves in fr_leaves_by_company.items():
                 company_cal = company.resource_calendar_id
                 holidays_days_list = []
@@ -161,7 +166,6 @@ class HrLeave(models.Model):
                         if company_cal._works_on_date(current):
                             legal_days += 1.0
                         current += relativedelta(days=1)
-                    standard_duration = super()._get_durations(resource_calendar=resource_calendar)
                     _, hours = standard_duration.get(leave.id, (0.0, 0.0))
 
                     duration_by_leave_id[leave.id] = (legal_days, hours)

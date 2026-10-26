@@ -8,14 +8,14 @@
 # Yoshi Tashiro (Quartile) <tashiro@roomsfor.hk>, 2025
 # Junko Augias, 2025
 # "Junko Augias (juau)" <juau@odoo.com>, 2025, 2026.
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2026-01-10 09:08+0000\n"
-"Last-Translator: \"Junko Augias (juau)\" <juau@odoo.com>\n"
+"POT-Creation-Date: 2026-04-10 18:38+0000\n"
+"PO-Revision-Date: 2026-10-20 12:10+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Japanese <https://translate.odoo.com/projects/odoo-18/product/"
 "ja/>\n"
 "Language: ja\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: product
 #. odoo-python
@@ -48,16 +48,6 @@ msgstr "プロダクトバリアント数"
 #: model:ir.model.fields,field_description:product.field_product_category__product_count
 msgid "# Products"
 msgstr "製品数"
-
-#. module: product
-#: model_terms:ir.ui.view,arch_db:product.report_pricelist_page
-msgid "$14.00"
-msgstr "$14.00"
-
-#. module: product
-#: model_terms:ir.ui.view,arch_db:product.report_pricelist_page
-msgid "$15.00"
-msgstr "$15.00"
 
 #. module: product
 #. odoo-python
@@ -144,8 +134,7 @@ msgstr "- %(amount)s 割引"
 #: code:addons/product/models/product_product.py:0
 msgid ""
 "- Barcode \"%(barcode)s\" already assigned to product(s): %(product_list)s"
-msgstr ""
-"- バーコード \"%(barcode)s\" は既にプロダクト: %(product_list)sに割当済です"
+msgstr "- バーコード \"%(barcode)s\" は既にプロダクト: %(product_list)sに割当済です"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_attribute__create_variant
@@ -157,8 +146,8 @@ msgid ""
 "        - Never: Variants are never created for the attribute.\n"
 "        Note: this cannot be changed once the attribute is used on a product."
 msgstr ""
-"- 即時： プロダクトに属性とその値が追加されると同時に、すべての可能なバリアン"
-"トが作成されます。\n"
+"- 即時： プロダクトに属性とその値が追加されると同時に、すべての可能な"
+"バリアントが作成されます。\n"
 "- 同時： 対応する属性と値が販売オーダに追加されたときのみ、各バリアントが作成"
 "されます。\n"
 "- 作成されない： 属性のバリアントは決して作成されません。\n"
@@ -176,19 +165,9 @@ msgid "1 year warranty extension"
 msgstr "1年保証延長"
 
 #. module: product
-#: model_terms:ir.ui.view,arch_db:product.report_packagingbarcode
-msgid "10"
-msgstr "10"
-
-#. module: product
 #: model_terms:ir.ui.view,arch_db:product.report_pricelist_page
 msgid "10 Units"
 msgstr "10ユニット"
-
-#. module: product
-#: model_terms:ir.ui.view,arch_db:product.report_packagingbarcode
-msgid "123456789012"
-msgstr "123456789012"
 
 #. module: product
 #: model:product.template,description_sale:product.product_product_4_product_template
@@ -239,8 +218,7 @@ msgstr ""
 msgid ""
 "<i class=\"fa fa-money\" role=\"img\" aria-label=\"Currency\" "
 "title=\"Currency\"/>"
-msgstr ""
-"<i class=\"fa fa-money\" role=\"img\" aria-label=\"通貨\" title=\"通貨\"/>"
+msgstr "<i class=\"fa fa-money\" role=\"img\" aria-label=\"通貨\" title=\"通貨\"/>"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_template_form_view
@@ -254,11 +232,11 @@ msgid ""
 "                                        </span>"
 msgstr ""
 "<span class=\"o_stat_text\" invisible=\"pricelist_item_count == 1\">\n"
-"                                            規則\n"
+"                                            ルール\n"
 "                                        </span>\n"
 "                                        <span class=\"o_stat_text\" "
 "invisible=\"pricelist_item_count != 1\">\n"
-"                                            規則\n"
+"                                            ルール\n"
 "                                        </span>"
 
 #. module: product
@@ -364,8 +342,7 @@ msgstr "コンボの選択肢には、少なくとも1つのプロダクトを�
 #. odoo-python
 #: code:addons/product/models/product_template.py:0
 msgid "A combo product must contain at least 1 combo choice."
-msgstr ""
-"コンボプロダクトには、少なくとも1つのコンボ選択肢を含める必要があります。"
+msgstr "コンボプロダクトには、少なくとも1つのコンボ選択肢を含める必要があります。"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_product__description_sale
@@ -375,8 +352,8 @@ msgid ""
 "This description will be copied to every Sales Order, Delivery Order and "
 "Customer Invoice/Credit Note"
 msgstr ""
-"顧客に見せたい製品の説明。この説明は販売注文、配送注文、顧客請求書/クレジット"
-"ノートにコピーされます。"
+"顧客に表示するプロダクトの説明。この説明は販売オーダ、出荷オーダ、顧客請求書/"
+"クレジットノートにコピーされます。"
 
 #. module: product
 #. odoo-python
@@ -394,7 +371,7 @@ msgid ""
 "discounts, etc."
 msgstr ""
 "価格は、プロダクト、プロダクトカテゴリ、日付、オーダ数量に基づいて販売オーダ"
-"明細の価格を計算するための一連の販売価格または規則です。\n"
+"明細の価格を計算するための一連の販売価格またはルールです。\n"
 "　　これは、いくつかの価格設定、シーズン値引などを処理するために最適なツール"
 "です。"
 
@@ -405,8 +382,8 @@ msgid ""
 "A pricelist item with \"Other Pricelist\" as base must have a "
 "base_pricelist_id."
 msgstr ""
-"「その他の価格表」 をベースとする価格表項目には base_pricelist_id が必要で"
-"す。"
+"「その他の価格表」 をベースとする価格表項目には base_pricelist_id が必要です"
+"。"
 
 #. module: product
 #. odoo-python
@@ -419,8 +396,8 @@ msgstr "プロダクトはすでにバーコードを使用しています。"
 #: code:addons/product/models/product_template.py:0
 msgid "A sellable combo product can only contain sellable products."
 msgstr ""
-"販売可能なコンボプロダクトには、販売可能なプロダクトのみ含めることができま"
-"す。"
+"販売可能なコンボプロダクトには、販売可能なプロダクトのみ含めることができます"
+"。"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_document__access_token
@@ -463,7 +440,7 @@ msgstr "要アクション"
 #: model_terms:ir.ui.view,arch_db:product.product_supplierinfo_search_view
 #: model_terms:ir.ui.view,arch_db:product.product_template_attribute_value_view_search
 msgid "Active"
-msgstr "アクティブ"
+msgstr "有効"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_supplierinfo_search_view
@@ -760,8 +737,8 @@ msgid ""
 "Barcode used for packaging identification. Scan this packaging barcode from "
 "a transfer in the Barcode app to move all the contained units"
 msgstr ""
-"パッケージング識別に使用されるバーコード。バーコードアプリで転送からこのパッ"
-"ケージングバーコードをスキャンし、含まれる全てのユニットを移動します。"
+"パッケージング識別に使用されるバーコード。バーコードアプリで転送からこの"
+"パッケージングバーコードをスキャンし、含まれる全てのユニットを移動します。"
 
 #. module: product
 #. odoo-python
@@ -947,8 +924,7 @@ msgstr "コンボプロダクトには属性を指定できません。"
 msgid ""
 "Combos allow to choose one product amongst a selection of choices per "
 "category."
-msgstr ""
-"コンボは、カテゴリごとの選択肢の中から1つのプロダクトを選ぶことができます。"
+msgstr "コンボは、カテゴリごとの選択肢の中から1つのプロダクトを選ぶことができます。"
 
 #. module: product
 #: model:ir.model,name:product.model_res_company
@@ -976,7 +952,7 @@ msgstr "会社設定"
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_category__complete_name
 msgid "Complete Name"
-msgstr "完全な名前"
+msgstr "完全名"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist_item__compute_price
@@ -996,7 +972,7 @@ msgstr "会議室テーブル"
 #. module: product
 #: model:ir.model,name:product.model_res_config_settings
 msgid "Config Settings"
-msgstr "コンフィグ設定"
+msgstr "構成設定"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_template_only_form_view
@@ -1270,7 +1246,7 @@ msgstr "削除"
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_supplierinfo__delay
 msgid "Delivery Lead Time"
-msgstr "配送リードタイム"
+msgstr "納品リードタイム"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_document__description
@@ -1477,8 +1453,7 @@ msgstr "エルゴノミック"
 #. odoo-javascript
 #: code:addons/product/static/src/js/pricelist_report/product_pricelist_report.js:0
 msgid "Error exporting file. Please try again."
-msgstr ""
-"ファイルのエクスポートにエラーが発生しました。もう一度やり直して下さい。"
+msgstr "ファイルのエクスポートにエラーが発生しました。もう一度やり直して下さい。"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_template_attribute_value__exclude_for
@@ -1489,7 +1464,7 @@ msgstr "除外"
 #: model:ir.model.fields,help:product.field_product_pricelist_item__name
 #: model:ir.model.fields,help:product.field_product_pricelist_item__price
 msgid "Explicit rule name for this pricelist line."
-msgstr "この価格表明細の明示的な規則名。"
+msgstr "この価格表明細の明示的なルール名。"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_label_layout__extra_html
@@ -1551,7 +1526,7 @@ msgstr "ファイルコンテンツ(base64)"
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_document__raw
 msgid "File Content (raw)"
-msgstr "フィールドの内容(生)"
+msgstr "ファイル内容 (raw)"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_document__file_size
@@ -1599,8 +1574,8 @@ msgid ""
 "the minimum quantity specified in this field.\n"
 "Expressed in the default unit of measure of the product."
 msgstr ""
-"規則を適用するには、購入/販売数量は、このフィールドで指定された最小量以上でな"
-"ければなりません。\n"
+"ルールを適用するには、購入/販売数量は、このフィールドで指定された最小量以上で"
+"なければなりません。\n"
 "これは製品のデフォルトの単位です。"
 
 #. module: product
@@ -1716,8 +1691,8 @@ msgid ""
 "Here you can set a specific HTML color index (e.g. #ff0000) to display the "
 "color if the attribute type is 'Color'."
 msgstr ""
-"ここでは、属性タイプが「色」である場合に表示される特定のHTMLカラーインデック"
-"ス（例えば#ff0000）を設定することができます。"
+"ここでは、属性タイプが「色」である場合に表示される特定のHTML"
+"カラーインデックス（例えば#ff0000）を設定することができます。"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_document_form
@@ -1780,7 +1755,7 @@ msgstr "チェックした場合は、新しいメッセージに注意が必要
 #: model:ir.model.fields,help:product.field_product_product__message_has_error
 #: model:ir.model.fields,help:product.field_product_template__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr "チェックした場合は、一部のメッセージに配信エラーが発生されました。"
+msgstr "チェックされている場合、一部のメッセージで送信エラーが発生しています。"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_supplierinfo__product_id
@@ -1883,7 +1858,7 @@ msgstr "仕入先価格表のテンプレートをインポート"
 #: model_terms:ir.ui.view,arch_db:product.product_attribute_search
 #: model_terms:ir.ui.view,arch_db:product.product_template_attribute_value_view_search
 msgid "Inactive"
-msgstr "無効"
+msgstr "非アクティブ"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_document__index_content
@@ -1962,6 +1937,11 @@ msgid "Kilograms"
 msgstr "キログラム"
 
 #. module: product
+#: model:product.attribute.value,name:product.size_attribute_l
+msgid "L"
+msgstr "L"
+
+#. module: product
 #: model:product.template,name:product.product_product_6_product_template
 msgid "Large Cabinet"
 msgstr "キャビネット大"
@@ -2024,7 +2004,7 @@ msgstr "最終更新日"
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_template_search_view
 msgid "Late Activities"
-msgstr "遅れた活動"
+msgstr "期限超過の活動"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_supplierinfo__delay
@@ -2074,6 +2054,11 @@ msgid ""
 "Looking for a custom bamboo stain to match existing furniture? Contact us "
 "for a quote."
 msgstr "既存の家具に合う特注の竹用塗料をお探しですか？お見積もりはこちらから。"
+
+#. module: product
+#: model:product.attribute.value,name:product.size_attribute_m
+msgid "M"
+msgstr "M"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_template_attribute_value__exclude_for
@@ -2180,8 +2165,7 @@ msgstr "複数チェックボックス"
 #: model:ir.model.constraint,message:product.constraint_product_attribute_check_multi_checkbox_no_variant
 msgid ""
 "Multi-checkbox display type is not compatible with the creation of variants"
-msgstr ""
-"マルチチェックボックス表示タイプはバリアントの作成と互換性がありません。"
+msgstr "マルチチェックボックス表示タイプはバリアントの作成と互換性がありません。"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist__my_activity_date_deadline
@@ -2313,7 +2297,7 @@ msgstr "エラー数"
 #: model:ir.model.fields,help:product.field_product_product__message_needaction_counter
 #: model:ir.model.fields,help:product.field_product_template__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr "アクションを必要とするメッセージの数"
+msgstr "対応が必要なメッセージ数"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_category__message_has_error_counter
@@ -2327,7 +2311,7 @@ msgstr "配信エラーが発生されたメッセージ数"
 #: model:ir.model.fields,field_description:product.field_product_product__pricelist_item_count
 #: model:ir.model.fields,field_description:product.field_product_template__pricelist_item_count
 msgid "Number of price rules"
-msgstr "価格規則の数"
+msgstr "価格ルールの数"
 
 #. module: product
 #: model:product.template,name:product.product_delivery_01_product_template
@@ -2477,20 +2461,20 @@ msgstr "まずプロダクトを選択して下さい。"
 #. odoo-python
 #: code:addons/product/models/product_pricelist_item.py:0
 msgid "Please specify the category for which this rule should be applied"
-msgstr "この規則を適用するカテゴリを指定して下さい。"
+msgstr "このルールを適用するカテゴリを指定して下さい。"
 
 #. module: product
 #. odoo-python
 #: code:addons/product/models/product_pricelist_item.py:0
 msgid "Please specify the product for which this rule should be applied"
-msgstr "この規則を適用するプロダクトを指定して下さい。"
+msgstr "このルールを適用するプロダクトを指定して下さい。"
 
 #. module: product
 #. odoo-python
 #: code:addons/product/models/product_pricelist_item.py:0
 msgid ""
 "Please specify the product variant for which this rule should be applied"
-msgstr "この規則を適用するプロダクトバリアントを指定して下さい。"
+msgstr "このルールを適用するプロダクトバリアントを指定して下さい。"
 
 #. module: product
 #: model:ir.model.fields.selection,name:product.selection__res_config_settings__product_weight_in_lbs__1
@@ -2531,7 +2515,7 @@ msgstr "価格の丸め"
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_item_tree_view
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_view
 msgid "Price Rules"
-msgstr "価格規則"
+msgstr "価格ルール"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_item_form_view
@@ -2596,14 +2580,14 @@ msgstr "価格表レポートプレビュー"
 #: model:ir.model,name:product.model_product_pricelist_item
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_item_form_view
 msgid "Pricelist Rule"
-msgstr "価格表規則"
+msgstr "価格票ルール"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist__item_ids
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_item_tree_view_from_product
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_view
 msgid "Pricelist Rules"
-msgstr "価格表規則"
+msgstr "価格票ルール"
 
 #. module: product
 #: model:ir.actions.act_window,name:product.product_pricelist_action2
@@ -2961,7 +2945,7 @@ msgstr "プロダクト価格表"
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_item_view_search
 msgid "Products Price Rules Search"
-msgstr "プロダクト価格規則検索"
+msgstr "プロダクト価格ルール検索"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_pricelist_view_search
@@ -3141,7 +3125,12 @@ msgstr "行"
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist_item__rule_tip
 msgid "Rule Tip"
-msgstr "規則ヒント"
+msgstr "ルールヒント"
+
+#. module: product
+#: model:product.attribute.value,name:product.size_attribute_s
+msgid "S"
+msgstr "S"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__sale_ok
@@ -3253,8 +3242,8 @@ msgid ""
 "Specify a product if this rule only applies to one product. Keep empty "
 "otherwise."
 msgstr ""
-"この規則が1つのプロダクトにのみ適用される場合、プロダクトを指定します。 それ"
-"以外の場合は空白にしておきます。"
+"このルールが1つのプロダクトにのみ適用される場合、プロダクトを指定します。 そ"
+"れ以外の場合は空白にしておきます。"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_pricelist_item__product_tmpl_id
@@ -3262,8 +3251,8 @@ msgid ""
 "Specify a template if this rule only applies to one product template. Keep "
 "empty otherwise."
 msgstr ""
-"この規則が1つのプロダクトテンプレートにのみ適用される場合は、テンプレートを指"
-"定します。 それ以外の場合は空白にしておきます。"
+"このルールが1つのプロダクトテンプレートにのみ適用される場合は、テンプレートを"
+"指定します。 それ以外の場合は空白にしておきます。"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_pricelist_item__price_surcharge
@@ -3506,8 +3495,8 @@ msgid ""
 "The sale price is managed from the product template. Click on the 'Configure "
 "Variants' button to set the extra attribute prices."
 msgstr ""
-"販売価格はプロダクトテンプレートから管理されます。追加属性価格を設定するに"
-"は、「バリアントを設定する」ボタンをクリックして下さい。"
+"販売価格はプロダクトテンプレートから管理されます。追加属性価格を設定するには"
+"、「バリアントを設定する」ボタンをクリックして下さい。"
 
 #. module: product
 #. odoo-python
@@ -3546,8 +3535,8 @@ msgid ""
 "intended."
 msgstr ""
 "プロダクトの属性、値、除外のこのコンフィギュレータは、可能なバリアントを導き"
-"ません。それが意図的な場合は、プロダクトを直接アーカイブするか削除して下さ"
-"い。"
+"ません。それが意図的な場合は、プロダクトを直接アーカイブするか削除して下さい"
+"。"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_product__price_extra
@@ -3627,7 +3616,7 @@ msgstr "3人掛けソファ"
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_template_search_view
 msgid "Today Activities"
-msgstr "本日の活動"
+msgstr "今日の活動"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_document__type
@@ -3639,7 +3628,7 @@ msgstr "タイプ"
 #: model:ir.model.fields,help:product.field_product_product__activity_exception_decoration
 #: model:ir.model.fields,help:product.field_product_template__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "記録上の例外活動の種類。"
+msgstr "レコード上の例外の活動タイプ。"
 
 #. module: product
 #. odoo-python
@@ -3751,7 +3740,7 @@ msgstr "URL"
 msgid ""
 "Use the discount rules and activate the discount settings in order to show "
 "discount to customer."
-msgstr "割引規則を使用し、顧客に割引を表示するために割引設定を有効化します。"
+msgstr "割引ルールを使用し、顧客に割引を表示するために割引設定を有効化します。"
 
 #. module: product
 #. odoo-python
@@ -3831,7 +3820,7 @@ msgstr "バリアント"
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_supplierinfo__product_variant_count
 msgid "Variant Count"
-msgstr "種別カウント"
+msgstr "バリアント数"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_attribute__create_variant
@@ -4078,8 +4067,7 @@ msgstr ""
 #: model:ir.model.fields,help:product.field_product_pricelist_item__percent_price
 #: model:ir.model.fields,help:product.field_product_pricelist_item__price_discount
 msgid "You can apply a mark-up by setting a negative discount."
-msgstr ""
-"マイナスの割引(負の値)を設定することで、上乗せ(マークアップ)を適用できます。"
+msgstr "マイナスの割引(負の値)を設定することで、上乗せ(マークアップ)を適用できます。"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_pricelist_item__price_markup
@@ -4142,8 +4130,8 @@ msgid ""
 "because it is used on the following products:\n"
 "%(products)s"
 msgstr ""
-"属性%(attribute)sのバリアント作成モードは以下のプロダクトで使用されているた"
-"め、変更できません：%(products)s"
+"属性%(attribute)sのバリアント作成モードは以下のプロダクトで使用されているため"
+"、変更できません：%(products)s"
 
 #. module: product
 #. odoo-python
@@ -4185,8 +4173,7 @@ msgstr "再帰カテゴリを作成することはできません。"
 msgid ""
 "You cannot define the decimal precision of 'Account' as greater than the "
 "rounding factor of the company's main currency"
-msgstr ""
-"'会計'の10進精度を会社の主要通貨の丸め係数より大きく定義することはできません"
+msgstr "'会計'の10進精度を会社の主要通貨の丸め係数より大きく定義することはできません"
 
 #. module: product
 #. odoo-python
@@ -4436,10 +4423,22 @@ msgstr "プロダクトテンプレート"
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_supplierinfo_form_view
 msgid "to"
-msgstr "to"
+msgstr "~"
 
 #. module: product
 #. odoo-javascript
 #: code:addons/product/static/src/js/pricelist_report/product_pricelist_report.xml:0
 msgid "xlsx"
 msgstr "xlsx"
+
+#~ msgid "$14.00"
+#~ msgstr "$14.00"
+
+#~ msgid "$15.00"
+#~ msgstr "$15.00"
+
+#~ msgid "10"
+#~ msgstr "10"
+
+#~ msgid "123456789012"
+#~ msgstr "123456789012"

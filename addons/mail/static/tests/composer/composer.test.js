@@ -13,6 +13,7 @@ import {
     openFormView,
     pasteFiles,
     patchUiSize,
+    registerArchs,
     scroll,
     start,
     startServer,
@@ -31,6 +32,8 @@ import {
 
 import { Composer } from "@mail/core/common/composer";
 import { edit, press, queryFirst } from "@odoo/hoot-dom";
+import { MailComposerFormController } from "@mail/chatter/web/mail_composer_form";
+import { useSubEnv } from "@odoo/owl";
 
 describe.current.tags("desktop");
 defineMailModels();
@@ -725,6 +728,45 @@ test("Replying on a channel should focus composer initially", async () => {
     await contains(".o-mail-Composer-input:focus");
 });
 
+test("removing attachment from composer should not delete it from template", async () => {
+    patchWithCleanup(MailComposerFormController.prototype, {
+        setup() {
+            if (!this.env.dialogData) {
+                useSubEnv({ dialogData: {} });
+            }
+            super.setup();
+        },
+    });
+    const pyEnv = await startServer();
+    const attachmentId = pyEnv["ir.attachment"].create({
+        name: "TemplateAttachment",
+        res_model: "mail.template", // Attachment of mail.template
+    });
+    const templateId = pyEnv["mail.template"].create({
+        name: "TestTemplate",
+        attachment_ids: [attachmentId],
+    });
+    registerArchs({
+        "mail.compose.message,false,form": `
+            <form string="Compose Email" js_class="mail_composer_form">
+                <field name="attachment_ids" widget="mail_composer_attachment_list"/>
+            </form>`,
+    });
+    await start();
+    const composer = pyEnv["mail.compose.message"].create({
+        model: "res.partner",
+        attachment_ids: [attachmentId],
+    });
+    await openFormView("mail.compose.message", composer);
+    await contains(".o_field_mail_composer_attachment_list", { text: "TemplateAttachment" });
+    await click(".o_field_mail_composer_attachment_list button");
+    await contains(".o_field_mail_composer_attachment_list li", { count: 0 });
+    const [updatedTemplate] = pyEnv["mail.template"].read([templateId]);
+    expect(updatedTemplate.attachment_ids).toEqual([attachmentId], {
+        message: "The attachment must remain on the template after being removed from the composer",
+    });
+});
+
 test("remove an uploading attachment", async () => {
     const pyEnv = await startServer();
     const channelId = pyEnv["discuss.channel"].create({ name: "test" });
@@ -1092,13 +1134,17 @@ test("TAB/ARROW focuses 1st canned response suggestion", async () => {
     await contains(".o-mail-NavigableList-active", { text: "GoodbyeGoodbye! See you soon!" });
     await triggerHotkey("Escape");
     await contains(".o-mail-NavigableList-item", { count: 0 });
-    await insertText(".o-mail-Composer-input", ":", { replace: true });
+    await insertText(".o-mail-Composer-input", "", { replace: true });
+    await animationFrame(); // wait for the cleared search
+    await insertText(".o-mail-Composer-input", ":");
     await contains(".o-mail-NavigableList-item", { count: 2 });
     await triggerHotkey("ArrowDown");
     await contains(".o-mail-NavigableList-active", { text: "GoodbyeGoodbye! See you soon!" });
     await triggerHotkey("Escape");
     await contains(".o-mail-NavigableList-active", { count: 0 });
-    await insertText(".o-mail-Composer-input", ":", { replace: true });
+    await insertText(".o-mail-Composer-input", "", { replace: true });
+    await animationFrame(); // wait for the cleared search
+    await insertText(".o-mail-Composer-input", ":");
     await contains(".o-mail-NavigableList-item", { count: 2 });
     await triggerHotkey("ArrowUp");
     await contains(".o-mail-NavigableList-active", { text: "GoodbyeGoodbye! See you soon!" });

@@ -172,7 +172,7 @@ class SaleOrderLine(models.Model):
     price_unit = fields.Float(
         string="Unit Price",
         compute='_compute_price_unit',
-        digits='Product Price',
+        min_display_digits='Product Price',
         store=True, readonly=False, required=True, precompute=True)
     technical_price_unit = fields.Float()
 
@@ -729,15 +729,20 @@ class SaleOrderLine(models.Model):
             ) for combo_id in combo_line.product_template_id.combo_ids
         }
         total_combo_base_price = sum(combo_base_prices.values())
-        # Compute the prorated combo prices.
-        combo_prices = {
-            combo_id: self.currency_id.round(
-                # Don't divide by total_combo_base_price if it's 0. This will make the prorating
-                # wrong, but the delta will be fixed by combo_price_delta below.
-                base_price * combo_product_price / (total_combo_base_price or 1)
-            )
-            for (combo_id, base_price) in combo_base_prices.items()
-        }
+        # Compute the prorated combo prices. When all combos have a zero base price, prorating by
+        # base price would assign the whole combo product's price to a single combo (via
+        # combo_price_delta below), making one combo item show the full price while the others
+        # show 0. Distribute the price evenly instead.
+        if total_combo_base_price:
+            combo_prices = {
+                combo_id: self.currency_id.round(
+                    base_price * combo_product_price / total_combo_base_price
+                )
+                for (combo_id, base_price) in combo_base_prices.items()
+            }
+        else:
+            even_share = self.currency_id.round(combo_product_price / len(combo_base_prices))
+            combo_prices = {combo_id: even_share for combo_id in combo_base_prices}
         # Compute the delta between the combo product's price and the sum of its combo prices.
         # Ideally, this should be 0, but division in python isn't perfect, so we may need to adjust
         # the combo prices to make the delta 0.
@@ -746,13 +751,16 @@ class SaleOrderLine(models.Model):
             combo_prices[combo_line.product_template_id.combo_ids[-1]] += combo_price_delta
         # Add the extra price of this combo item, as well as the extra prices of any `no_variant`
         # attributes to the combo price.
-        return (
-            combo_prices[self.combo_item_id.combo_id]
-            + self.combo_item_id.extra_price
-            + self.product_id._get_no_variant_attributes_price_extra(
-                self.product_no_variant_attribute_value_ids
-            )
+        extra_price = self.combo_item_id.currency_id._convert(
+            from_amount=self.combo_item_id.extra_price
+                        + self.product_id._get_no_variant_attributes_price_extra(
+                            self.product_no_variant_attribute_value_ids
+                        ),
+            to_currency=self.currency_id,
+            company=self.company_id,
+            date=self.order_id.date_order,
         )
+        return (combo_prices[self.combo_item_id.combo_id] + extra_price)
 
     @api.depends('product_id', 'product_uom', 'product_uom_qty')
     def _compute_discount(self):
@@ -798,6 +806,7 @@ class SaleOrderLine(models.Model):
             self,
             **{
                 'tax_ids': self.tax_id,
+                'product_uom_id': self.product_uom,
                 'quantity': self.product_uom_qty,
                 'partner_id': self.order_id.partner_id,
                 'currency_id': self.order_id.currency_id or self.order_id.company_id.currency_id,
@@ -944,7 +953,14 @@ class SaleOrderLine(models.Model):
         """
         for line in self:
             qty_invoiced = 0.0
-            for invoice_line in line._get_invoice_lines():
+            invoice_lines = line._get_invoice_lines()
+            if line.is_downpayment:
+                if not line.currency_id.is_zero(sum(invoice_lines.filtered(lambda l: l.move_id.state != 'cancel' or l.move_id.payment_state == 'invoicing_legacy').mapped('balance'))):
+                    line.qty_invoiced = 1
+                else:
+                    line.qty_invoiced = 0
+                continue
+            for invoice_line in invoice_lines:
                 if invoice_line.move_id.state != 'cancel' or invoice_line.move_id.payment_state == 'invoicing_legacy':
                     if invoice_line.move_id.move_type == 'out_invoice':
                         qty_invoiced += invoice_line.product_uom_id._compute_quantity(invoice_line.quantity, line.product_uom, round=False)
@@ -1134,12 +1150,12 @@ class SaleOrderLine(models.Model):
 
             line.untaxed_amount_to_invoice = amount_to_invoice
 
-    @api.depends('discount', 'price_total', 'product_uom_qty', 'qty_delivered', 'qty_invoiced_posted')
+    @api.depends('discount', 'price_total', 'product_uom_qty', 'qty_invoiced_posted')
     def _compute_amount_to_invoice(self):
         for line in self:
             if line.product_uom_qty:
-                uom_qty_to_consider = line.qty_delivered if line.product_id.invoice_policy == 'delivery' else line.product_uom_qty
-                qty_to_invoice = uom_qty_to_consider - line.qty_invoiced_posted
+                # The ordered quantity is what the customer committed to, delivered or not.
+                qty_to_invoice = line.product_uom_qty - line.qty_invoiced_posted
                 unit_price_total = line.price_total / line.product_uom_qty
                 line.amount_to_invoice = unit_price_total * qty_to_invoice
             else:
@@ -1241,6 +1257,10 @@ class SaleOrderLine(models.Model):
                         ),
                     },
                 }
+
+    @api.onchange('product_packaging_qty')
+    def _onchange_product_packaging_qty(self):
+        self.env.remove_to_compute(self._fields['product_packaging_id'], self)
 
     #=== CRUD METHODS ===#
 
@@ -1434,10 +1454,18 @@ class SaleOrderLine(models.Model):
                 'sale_line_ids': [Command.link(self.id)],
                 **optional_values,
             }
+        product = self.product_id.with_context(
+            lang=self.order_id._get_lang(),
+            partner_id=self.order_id.partner_id.id,
+            company_id=self.company_id.id,
+        )
+        display_name = product.with_context(partner_id=False, seller_id=False).display_name
+        if not display_name or display_name not in self.name:
+            display_name = product.display_name
         res = {
             'display_type': self.display_type or 'product',
             'sequence': self.sequence,
-            'name': self.env['account.move.line']._get_journal_items_full_name(self.name, self.product_id.display_name),
+            'name': self.env['account.move.line']._get_journal_items_full_name(self.name, display_name),
             'product_id': self.product_id.id,
             'product_uom_id': self.product_uom.id,
             'quantity': self.qty_to_invoice,

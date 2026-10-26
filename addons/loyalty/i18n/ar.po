@@ -5,14 +5,14 @@
 # Translators:
 # Wil Odoo, 2024
 # Malaz Abuidris <msea@odoo.com>, 2025
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
-# "Malaz Siddig Elsayed Abuidris (msea)" <msea@odoo.com>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
+# "Malaz Siddig Elsayed Abuidris (msea)" <msea@odoo.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2025-12-19 14:44+0000\n"
+"POT-Creation-Date: 2026-04-10 18:38+0000\n"
+"PO-Revision-Date: 2026-10-20 10:39+0000\n"
 "Last-Translator: \"Malaz Siddig Elsayed Abuidris (msea)\" <msea@odoo.com>\n"
 "Language-Team: Arabic <https://translate.odoo.com/projects/odoo-18/loyalty/"
 "ar/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: loyalty
 #: model:ir.model.fields,help:loyalty.field_loyalty_program__trigger
@@ -37,8 +37,8 @@ msgstr ""
 "\n"
 "        تلقائي: سيكون بوسع العملاء الحصول على مكافأة تلقائياً في عربات "
 "تسوقهم.\n"
-"        باستخدام الكود: سيكون بوسع العملاء الحصول على مكافأة إذا قاموا "
-"بإدخال كود.\n"
+"        باستخدام الكود: سيكون بوسع العملاء الحصول على مكافأة إذا قاموا بإدخال "
+"كود.\n"
 "        "
 
 #. module: loyalty
@@ -70,11 +70,6 @@ msgstr ""
 #: code:addons/loyalty/models/loyalty_reward.py:0
 msgid " (Max %s)"
 msgstr " (الحد الأقصى %s) "
-
-#. module: loyalty
-#: model_terms:ir.ui.view,arch_db:loyalty.loyalty_report
-msgid "$100"
-msgstr "$100"
 
 #. module: loyalty
 #. odoo-python
@@ -133,25 +128,10 @@ msgid "10% on your order"
 msgstr "10% من طلبك "
 
 #. module: loyalty
-#: model_terms:ir.ui.view,arch_db:loyalty.gift_card_report
-msgid "1000"
-msgstr "1000"
-
-#. module: loyalty
 #. odoo-python
 #: code:addons/loyalty/models/loyalty_program.py:0
 msgid "2+1 Free"
 msgstr "2+1 مجاناً "
-
-#. module: loyalty
-#: model_terms:ir.ui.view,arch_db:loyalty.loyalty_report
-msgid "2023-08-20"
-msgstr "2023-08-20"
-
-#. module: loyalty
-#: model_terms:ir.ui.view,arch_db:loyalty.gift_card_report
-msgid "2023-12-31"
-msgstr "2023-12-31"
 
 #. module: loyalty
 #: model:mail.template,body_html:loyalty.mail_template_gift_card
@@ -243,11 +223,11 @@ msgstr ""
 "                    <h3 style=\"margin:0px; line-height:17px; font-"
 "family:arial, 'helvetica neue', helvetica, sans-serif; font-size:14px; font-"
 "style:normal; font-weight:normal; color:#A9A9A9; text-align:center\">تاريخ "
-"انتهاء صلاحية البطاقة <t t-out=\"format_date(object.expiration_date) or "
-"''\">05/05/2021</t></h3>\n"
+"انتهاء صلاحية البطاقة <t t-out=\"format_date(object.expiration_date) or ''\">"
+"05/05/2021</t></h3>\n"
 "                </div>\n"
-"                <div style=\"padding:20px; margin:0px; text-align:center;"
-"\">\n"
+"                <div style=\"padding:20px; margin:0px; text-align:center;\">"
+"\n"
 "                    <span style=\"background-color:#999999; display:inline-"
 "block; width:auto; border-radius:5px;\">\n"
 "                        <a t-attf-href=\"{{ object.get_base_url() }}/shop\" "
@@ -469,12 +449,12 @@ msgstr ""
 "<tr>\n"
 "    <td valign=\"top\" style=\"text-align: center; font-size: 14px;\">\n"
 "        <t t-if=\"object._get_mail_partner().name\">\n"
-"            تهانينا <t t-out=\"object._get_mail_partner().name or "
-"''\">براندن فريمان</t>،<br/>\n"
+"            تهانينا <t t-out=\"object._get_mail_partner().name or ''\">"
+"براندن فريمان</t>،<br/>\n"
 "        </t>\n"
 "\n"
-"        إليك مكافأتك من <t t-out=\"object.program_id.company_id.name or "
-"''\">YourCompany</t>.<br/>\n"
+"        إليك مكافأتك من <t t-out=\"object.program_id.company_id.name or ''\">"
+"YourCompany</t>.<br/>\n"
 "\n"
 "        <t t-foreach=\"object.program_id.reward_ids\" t-as=\"reward\">\n"
 "            <t t-if=\"reward.required_points &lt;= object.points\">\n"
@@ -489,19 +469,19 @@ msgstr ""
 "    <td valign=\"top\" style=\"text-align: center; font-size: 14px;\">\n"
 "        استخدم هذا الكود الترويجي\n"
 "        <t t-if=\"object.expiration_date\">\n"
-"            قبل <t t-out=\"format_date(object.expiration_date) or "
-"''\">2021-06-16</t>\n"
+"            قبل <t t-out=\"format_date(object.expiration_date) or ''\">2021-"
+"06-16</t>\n"
 "        </t>\n"
 "        <p style=\"margin-top: 16px;\">\n"
 "            <strong style=\"padding: 16px 8px 16px 8px; border-radius: 3px; "
-"background-color: #F1F1F1;\" t-out=\"object.code or "
-"''\">15637502648479132902</strong>\n"
+"background-color: #F1F1F1;\" t-out=\"object.code or ''\">"
+"15637502648479132902</strong>\n"
 "        </p>\n"
 "        <t t-foreach=\"object.program_id.rule_ids\" t-as=\"rule\">\n"
 "            <t t-if=\"rule.minimum_qty not in [0, 1]\">\n"
 "                <span style=\"font-size: 14px;\">\n"
-"                    الحد الأدنى للشراء هو <t t-out=\"rule.minimum_qty or "
-"''\">10</t> منتجات\n"
+"                    الحد الأدنى للشراء هو <t t-out=\"rule.minimum_qty or ''\">"
+"10</t> منتجات\n"
 "                </span><br/>\n"
 "            </t>\n"
 "            <t t-if=\"rule.minimum_amount != 0.00\">\n"
@@ -972,8 +952,7 @@ msgid ""
 "Define Discount codes on conditional rules then share it with your customers "
 "for rewards."
 msgstr ""
-"قم بتحديد أكواد الخصم في القواعد الشرطية، ثم قم بمشاركتها مع عملائك "
-"للمكافآت. "
+"قم بتحديد أكواد الخصم في القواعد الشرطية، ثم قم بمشاركتها مع عملائك للمكافآت. "
 
 #. module: loyalty
 #. odoo-python
@@ -1976,8 +1955,7 @@ msgstr "التقسيم حسب الوحدة "
 #. odoo-python
 #: code:addons/loyalty/models/loyalty_rule.py:0
 msgid "Split per unit is not allowed for Loyalty and eWallet programs."
-msgstr ""
-"خاصية التقسيم حسب الوحدة غير متاحة لبرامج الولاء والمحفظة الإلكترونية. "
+msgstr "خاصية التقسيم حسب الوحدة غير متاحة لبرامج الولاء والمحفظة الإلكترونية. "
 
 #. module: loyalty
 #: model:ir.model.fields,field_description:loyalty.field_loyalty_program__date_from
@@ -2257,8 +2235,8 @@ msgid ""
 "You cannot delete %(name)s as it is used in 'Coupons & Loyalty'. Please "
 "archive it instead."
 msgstr ""
-"لا يمكنك حذف %(name)s حيث إنه مستخدَم في 'الكوبونات والولاء'. يرجى أرشفته "
-"عوضاً عن ذلك. "
+"لا يمكنك حذف %(name)s حيث إنه مستخدَم في 'الكوبونات والولاء'. يرجى أرشفته عوضاً "
+"عن ذلك. "
 
 #. module: loyalty
 #. odoo-python
@@ -2425,10 +2403,27 @@ msgid "used)"
 msgstr "مستخدمة)"
 
 #. module: loyalty
+#: model_terms:ir.ui.view,arch_db:loyalty.loyalty_reward_view_kanban
+msgid "x"
+msgstr "x"
+
+#. module: loyalty
 #. odoo-python
 #: code:addons/loyalty/models/loyalty_reward.py:0
 msgid "your order"
 msgstr "طلبك "
+
+#~ msgid "$100"
+#~ msgstr "$100"
+
+#~ msgid "1000"
+#~ msgstr "1000"
+
+#~ msgid "2023-08-20"
+#~ msgstr "2023-08-20"
+
+#~ msgid "2023-12-31"
+#~ msgstr "2023-12-31"
 
 #~ msgid ""
 #~ "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" "

@@ -9,6 +9,7 @@ from odoo.exceptions import ValidationError, UserError
 from datetime import date
 
 from collections import defaultdict
+from unittest.mock import patch
 
 @tagged('post_install', '-at_install')
 class TestAccountMoveInInvoiceOnchanges(AccountTestInvoicingCommon):
@@ -952,6 +953,41 @@ class TestAccountMoveInInvoiceOnchanges(AccountTestInvoicingCommon):
             'amount_total': 1127.95,
         })
 
+    def test_biggest_tax_rounding_with_invoice_address(self):
+        """
+        Test that we can post an invoice with partner_id != commercial_partner_id
+        and a cash rounding with the 'biggest tax' strategy
+        """
+        original_write = self.env.registry['account.move.line'].write
+
+        def _patch_write(self, vals):
+            # Some extension of the write method call the super() before using self
+            # In our case, the rounding line was deleted during the sync_tax_lines process
+            # leading to a MissingError
+            res = original_write(self, vals)
+            self.filtered(lambda line: line.move_id.move_type == 'in_invoice')
+            return res
+
+        self.env['res.config.settings'].write({'group_sale_delivery_address': True})
+
+        invoice_address = self.env['res.partner'].create({
+            'name': 'test invoice address',
+            'type': 'invoice',
+            'parent_id': self.partner_a.id,
+        })
+
+        invoice = self._create_invoice(
+            move_type='in_invoice',
+            partner_id=invoice_address,
+            invoice_cash_rounding_id=self.cash_rounding_b,
+            invoice_line_ids=[
+                self._prepare_invoice_line(price_unit=100.03, tax_ids=self.company_data['default_tax_sale'])
+            ]
+        )
+
+        with patch.object(self.env.registry['account.move.line'], 'write', _patch_write):
+            invoice.action_post()
+
     def test_in_invoice_line_onchange_currency_1(self):
         self.other_currency.rounding = 0.001
 
@@ -1050,7 +1086,7 @@ class TestAccountMoveInInvoiceOnchanges(AccountTestInvoicingCommon):
             {
                 **self.product_line_vals_1,
                 'quantity': 0.1,
-                'price_unit': 0.05,
+                'price_unit': 0.045,
                 'price_subtotal': 0.005,
                 'price_total': 0.006,
                 'currency_id': self.other_currency.id,
@@ -1099,11 +1135,11 @@ class TestAccountMoveInInvoiceOnchanges(AccountTestInvoicingCommon):
             {
                 **self.product_line_vals_1,
                 'quantity': 0.1,
-                'price_unit': 0.05,
-                'price_subtotal': 0.01,
-                'price_total': 0.01,
-                'amount_currency': 0.01,
-                'debit': 0.01,
+                'price_unit': 0.045,
+                'price_subtotal': 0.0,
+                'price_total': 0.0,
+                'amount_currency': 0.0,
+                'debit': 0.0,
             },
             self.product_line_vals_2,
             {
@@ -1114,17 +1150,17 @@ class TestAccountMoveInInvoiceOnchanges(AccountTestInvoicingCommon):
             self.tax_line_vals_2,
             {
                 **self.term_line_vals_1,
-                'amount_currency': -208.01,
-                'credit': 208.01,
+                'amount_currency': -208.0,
+                'credit': 208.0,
                 'date_maturity': fields.Date.from_string('2016-01-01'),
             },
         ], {
             **self.move_vals,
             'currency_id': self.company_data['currency'].id,
             'date': fields.Date.from_string('2016-01-01'),
-            'amount_untaxed': 160.01,
+            'amount_untaxed': 160.0,
             'amount_tax': 48.0,
-            'amount_total': 208.01,
+            'amount_total': 208.0,
         })
 
     def test_in_invoice_onchange_past_invoice_1(self):
@@ -1156,6 +1192,7 @@ class TestAccountMoveInInvoiceOnchanges(AccountTestInvoicingCommon):
         bank1 = self.env['res.partner.bank'].create({
             'acc_number': 'BE43798822936101',
             'partner_id': self.company_data['company'].partner_id.id,
+            'allow_out_payment': True,
         })
 
         move_reversal = self.env['account.move.reversal'].with_context(active_model="account.move", active_ids=self.invoice.ids).create({
@@ -1202,7 +1239,7 @@ class TestAccountMoveInInvoiceOnchanges(AccountTestInvoicingCommon):
             },
             {
                 **self.term_line_vals_1,
-                'name': False,
+                'name': 'Reversal of: %s, %s' % (self.invoice.name, move_reversal.reason),
                 'amount_currency': 1128.0,
                 'debit': 1128.0,
                 'credit': 0.0,
@@ -1332,7 +1369,7 @@ class TestAccountMoveInInvoiceOnchanges(AccountTestInvoicingCommon):
             },
             {
                 **self.term_line_vals_1,
-                'name': False,
+                'name': 'Reversal of: %s, %s' % (self.invoice.name, move_reversal.reason),
                 'amount_currency': 1128.0,
                 'currency_id': self.other_currency.id,
                 'debit': 564.0,
@@ -2585,6 +2622,15 @@ class TestAccountMoveInInvoiceOnchanges(AccountTestInvoicingCommon):
         self.assertEqual(invoice.currency_id, chf,
                          "Changing to a journal with a set currency should change invoice currency")
 
+    def test_onchange_ref(self):
+        """
+        Ensure that updating the ref field updates the payment term line name when payment reference is empty.
+        """
+        payment_term_line = self.invoice.line_ids.filtered(lambda l: l.display_type == 'payment_term')
+        with Form(self.invoice) as move_form:
+            move_form.ref = 'temp'
+        self.assertEqual(payment_term_line.name, 'temp')
+
     def test_taxes_onchange_product_uom_and_price_unit(self):
         """
         Ensure that taxes are recomputed correctly when product uom and
@@ -2813,3 +2859,43 @@ class TestAccountMoveInInvoiceOnchanges(AccountTestInvoicingCommon):
         action = credit_note_wizard.reverse_moves()
         credit_note = self.env['account.move'].browse(action['res_id'])
         self.assertEqual(credit_note.amount_total, invoice.amount_total)
+
+    def test_search_status_in_payment(self):
+        def get_ids(status, operator='='):
+            return self.env['account.move'].search([('status_in_payment', operator, status)]).ids
+
+        # --- Draft state ---
+        self.assertIn(self.invoice.id, get_ids('draft'))
+        self.assertNotIn(self.invoice.id, get_ids('not_paid'))
+
+        # --- is set / is not set (bool domain) ---
+        self.assertIn(self.invoice.id, get_ids(False, '!='))
+        self.assertNotIn(self.invoice.id, get_ids(False, '='))
+
+        # not in / != checks
+        self.assertIn(self.invoice.id, get_ids('not_paid', '!='))
+        self.assertIn(self.invoice.id, get_ids(['not_paid', 'paid'], 'not in'))
+        self.assertNotIn(self.invoice.id, get_ids('draft', '!='))
+
+        # --- Posted (not_paid) ---
+        self.invoice.action_post()
+        self.assertNotIn(self.invoice.id, get_ids('draft'))
+        self.assertIn(self.invoice.id, get_ids('not_paid'))
+
+        # in/not in operator
+        self.assertIn(self.invoice.id, get_ids(['not_paid', 'paid'], 'in'))
+        self.assertNotIn(self.invoice.id, get_ids(['paid', 'in_payment'], 'in'))
+        self.assertNotIn(self.invoice.id, get_ids(['not_paid', 'paid'], 'not in'))
+        self.assertIn(self.invoice.id, get_ids(['paid', 'in_payment'], 'not in'))
+
+        # --- Registered payment (in_payment) ---
+        self._register_payment(self.invoice)
+        self.assertIn(self.invoice.id, get_ids(self.invoice._get_invoice_in_payment_state()))
+        self.assertNotIn(self.invoice.id, get_ids('not_paid'))
+        self.assertIn(self.invoice.id, get_ids(['in_payment', 'paid'], 'in'))
+        self.assertNotIn(self.invoice.id, get_ids(['in_payment', 'paid'], 'not in'))
+
+        # --- Cancelled state ---
+        self.invoice.button_cancel()
+        self.assertIn(self.invoice.id, get_ids('cancel'))
+        self.assertIn(self.invoice.id, get_ids(['not_paid', 'paid'], 'not in'))

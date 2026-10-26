@@ -24,17 +24,17 @@
 # Cristian Cruz, 2025
 # Adrià Navarro PYMING, 2025
 # EstudiTIC - estuditic.com <odoo@estuditic.com>, 2025
-# Santiago Payà <santiagopim@gmail.com>, 2025
+# Santiago Payà <santiagopim@gmail.com>, 2025, 2026.
 # marcescu, 2025
 # Noemi Pla, 2025
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:38+0000\n"
-"PO-Revision-Date: 2025-11-17 13:59+0000\n"
-"Last-Translator: Santiago Payà <santiagopim@gmail.com>\n"
+"POT-Creation-Date: 2026-04-24 17:39+0000\n"
+"PO-Revision-Date: 2026-10-20 12:59+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Catalan <https://translate.odoo.com/projects/odoo-18/"
 "spreadsheet/ca/>\n"
 "Language: ca\n"
@@ -42,7 +42,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -278,38 +278,21 @@ msgstr "%s coincidències en tots els fulls"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
-"(0) Exact match. \n"
-"        (-1) Return next smaller item if no match. \n"
-"        (1) Return next greater item if no match. \n"
-"        (2) Wildcard match."
+"(0) Exact match.         (-1) Return next smaller item if no match.         "
+"(1) Return next greater item if no match.         (2) Wildcard match."
 msgstr ""
-"(0) coincidència exacta. \n"
-"        (-1) Mostrar el següent element més petit si no hi ha "
-"coincidència. \n"
-"        (1) Mostrar el següent element més gran si no hi ha coincidència. \n"
-"        (2) Coincidència amb comodí."
 
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
-"(1) Search starting at first item. \n"
-"      (-1) Search starting at last item. \n"
-"      (2) Perform a binary search that relies on lookup_array being sorted "
-"in ascending order. If not sorted, invalid results will be returned. \n"
-"      (-2) Perform a binary search that relies on lookup_array being sorted "
-"in descending order. If not sorted, invalid results will be returned.\n"
-"      "
+"(1) Search starting at first item.       (-1) Search starting at last "
+"item.       (2) Perform a binary search that relies on lookup_array being "
+"sorted in ascending order. If not sorted, invalid results will be "
+"returned.       (-2) Perform a binary search that relies on lookup_array "
+"being sorted in descending order. If not sorted, invalid results will be "
+"returned.      "
 msgstr ""
-"(1) Cerca a partir del primer element. \n"
-"      (-1) Cerca a partir de l'últim element. \n"
-"      (2) Realitza una cerca binària que depèn que lookup_array estigui "
-"ordenat en ordre ascendent. Si no està ordenat, es retornaran resultats no "
-"vàlids. \n"
-"      (-2) Realitza una cerca binària que depèn que lookup_array estigui "
-"ordenat en ordre descendent. Si no està ordenat, es retornaran resultats no "
-"vàlids.\n"
-"      "
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -370,6 +353,12 @@ msgstr "2 columnes"
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "2 rows"
 msgstr "2 fileres"
+
+#. module: spreadsheet
+#. odoo-javascript
+#: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
+msgid "A"
+msgstr ""
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -628,6 +617,12 @@ msgstr "Valor absolut"
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Absolute value of a number."
 msgstr "Valor absolut d'un nombre."
+
+#. module: spreadsheet
+#. odoo-javascript
+#: code:addons/spreadsheet/static/src/actions/spreadsheet_download_action.js:0
+msgid "Access Error"
+msgstr "Error d'accés"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -1033,14 +1028,6 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "An unexpected error occurred during the image transfer"
-msgstr ""
-
-#. module: spreadsheet
-#. odoo-javascript
-#: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
-msgid ""
-"An unexpected error occurred while pasting content.\n"
-"          This is probably due to a spreadsheet version mismatch."
 msgstr ""
 
 #. module: spreadsheet
@@ -3073,8 +3060,6 @@ msgid "Doughnut"
 msgstr "Doughnut"
 
 #. module: spreadsheet
-#. odoo-javascript
-#: code:addons/spreadsheet/static/src/public_readonly_app/public_readonly.js:0
 #: model_terms:ir.ui.view,arch_db:spreadsheet.public_spreadsheet_layout
 msgid "Download"
 msgstr "Descarregar"
@@ -3616,25 +3601,6 @@ msgstr "La funció [[FUNCTIONNAME]] no ha trobat cap resultat."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
-"Function [[FUNCTION_NAME]] expects criteria_range and criterion to be in "
-"pairs."
-msgstr ""
-"La funció [[FUNCTION_NAME]] espera que criteria_range i criteri estiguin en "
-"parells"
-
-#. module: spreadsheet
-#. odoo-javascript
-#: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
-msgid ""
-"Function [[FUNCTION_NAME]] expects criteria_range to have the same dimension"
-msgstr ""
-"La funció [[FUNCTION_NAME]] espera que criteria_range tingui la mateixa "
-"dimensió"
-
-#. module: spreadsheet
-#. odoo-javascript
-#: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
-msgid ""
 "Function [[FUNCTION_NAME]] expects number values for %s, but got a boolean."
 msgstr ""
 
@@ -4057,8 +4023,7 @@ msgstr "En [[FUNCTION_NAME]] avaluació, no es pot trobar '%s' dins '%s'."
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
 "In [[FUNCTION_NAME]], the number of columns of the first matrix (%s) must be "
-"equal to the \n"
-"        number of rows of the second matrix (%s)."
+"equal to the         number of rows of the second matrix (%s)."
 msgstr ""
 
 #. module: spreadsheet
@@ -5216,6 +5181,12 @@ msgstr "Data del cupó següent després de la data de liquidació."
 
 #. module: spreadsheet
 #. odoo-javascript
+#: code:addons/spreadsheet/static/src/hooks.js:0
+msgid "No"
+msgstr "No"
+
+#. module: spreadsheet
+#. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "No Color"
 msgstr ""
@@ -5354,8 +5325,7 @@ msgstr "Nombre de cupons entre liquidació i maduresa."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Number of days between two dates on a 360-day year (months of 30 days)."
-msgstr ""
-"Nombre de dies entre dues dates en un any de 360 dies (mes de 30 dies)."
+msgstr "Nombre de dies entre dues dates en un any de 360 dies (mes de 30 dies)."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -8072,8 +8042,8 @@ msgid ""
 "The function [[FUNCTION_NAME]] result must be greater than or equal "
 "01/01/1900."
 msgstr ""
-"El resultat de la funció [[FUNCTION_NAME]] ha de ser superior o igual a "
-"01/01/1900."
+"El resultat de la funció [[FUNCTION_NAME]] ha de ser superior o igual a 01/"
+"01/1900."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -8462,8 +8432,7 @@ msgstr "El nombre de caràcters del text que cal substituir."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "The number of characters to return from the left side of string."
-msgstr ""
-"El nombre de caràcters a retornar des del costat esquerre de la cadena."
+msgstr "El nombre de caràcters a retornar des del costat esquerre de la cadena."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -8584,8 +8553,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "The number of periods by year (%s) must strictly greater than 0."
-msgstr ""
-"El nombre de períodes per any (%s) ha de ser estrictament superior a 0."
+msgstr "El nombre de períodes per any (%s) ha de ser estrictament superior a 0."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -10324,8 +10292,8 @@ msgstr ""
 msgid ""
 "The weekend (%s) must be a string or a number in the range 1-7 or 11-17."
 msgstr ""
-"El cap de setmana (%s) ha de ser una cadena o un nombre en el rang 1-7 o "
-"11-17."
+"El cap de setmana (%s) ha de ser una cadena o un nombre en el rang 1-7 o 11-"
+"17."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -10954,8 +10922,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Variable declining balance. WARNING : does not handle decimal periods."
-msgstr ""
-"Balanç de disminució variable. AVÍS: no gestiona els períodes decimals."
+msgstr "Balanç de disminució variable. AVÍS: no gestiona els períodes decimals."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11175,9 +11142,8 @@ msgstr ""
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
 "Whether or not to remove empty text messages from the split results. The "
-"default behavior is to treat \n"
-"        consecutive delimiters as one (if TRUE). If FALSE, empty cells "
-"values are added between consecutive delimiters."
+"default behavior is to treat         consecutive delimiters as one (if "
+"TRUE). If FALSE, empty cells values are added between consecutive delimiters."
 msgstr ""
 
 #. module: spreadsheet
@@ -11192,8 +11158,7 @@ msgstr ""
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
 "Whether the array should be scanned by column. True scans the array by "
-"column and false (default) \n"
-"      scans the array by row."
+"column and false (default)       scans the array by row."
 msgstr ""
 
 #. module: spreadsheet
@@ -11303,8 +11268,7 @@ msgstr "Crida a funció errònia"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Wrong number of arguments. Expected an even number of arguments."
-msgstr ""
-"Nombre incorrecte d'arguments. S'esperava un nombre parell d'arguments."
+msgstr "Nombre incorrecte d'arguments. S'esperava un nombre parell d'arguments."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11346,6 +11310,12 @@ msgstr ""
 
 #. module: spreadsheet
 #. odoo-javascript
+#: code:addons/spreadsheet/static/src/hooks.js:0
+msgid "Yes"
+msgstr "Sí"
+
+#. module: spreadsheet
+#. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "You can't merge cells inside of an existing filter."
 msgstr "No podeu combinar cel·les dins d'un filtre existent."
@@ -11355,6 +11325,21 @@ msgstr "No podeu combinar cel·les dins d'un filtre existent."
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "You cannot create overlapping tables."
 msgstr ""
+
+#. module: spreadsheet
+#. odoo-javascript
+#: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
+msgid ""
+"You copied content from a different version of the application. Only text "
+"content will be pasted."
+msgstr ""
+
+#. module: spreadsheet
+#. odoo-javascript
+#: code:addons/spreadsheet/static/src/actions/spreadsheet_download_action.js:0
+msgid ""
+"You don't have the rights to export data. Please contact an Administrator."
+msgstr "No teniu permisos per exportar informació. Parla amb un administrador"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11627,6 +11612,12 @@ msgstr "demà"
 
 #. module: spreadsheet
 #. odoo-javascript
+#: code:addons/spreadsheet/static/src/public_readonly_app/public_readonly.xml:0
+msgid "x"
+msgstr ""
+
+#. module: spreadsheet
+#. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "yesterday"
 msgstr "ahir"
@@ -11636,3 +11627,51 @@ msgstr "ahir"
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "zero"
 msgstr "zero"
+
+#~ msgid ""
+#~ "(0) Exact match. \n"
+#~ "        (-1) Return next smaller item if no match. \n"
+#~ "        (1) Return next greater item if no match. \n"
+#~ "        (2) Wildcard match."
+#~ msgstr ""
+#~ "(0) coincidència exacta. \n"
+#~ "        (-1) Mostrar el següent element més petit si no hi ha "
+#~ "coincidència. \n"
+#~ "        (1) Mostrar el següent element més gran si no hi ha "
+#~ "coincidència. \n"
+#~ "        (2) Coincidència amb comodí."
+
+#~ msgid ""
+#~ "(1) Search starting at first item. \n"
+#~ "      (-1) Search starting at last item. \n"
+#~ "      (2) Perform a binary search that relies on lookup_array being "
+#~ "sorted in ascending order. If not sorted, invalid results will be "
+#~ "returned. \n"
+#~ "      (-2) Perform a binary search that relies on lookup_array being "
+#~ "sorted in descending order. If not sorted, invalid results will be "
+#~ "returned.\n"
+#~ "      "
+#~ msgstr ""
+#~ "(1) Cerca a partir del primer element. \n"
+#~ "      (-1) Cerca a partir de l'últim element. \n"
+#~ "      (2) Realitza una cerca binària que depèn que lookup_array estigui "
+#~ "ordenat en ordre ascendent. Si no està ordenat, es retornaran resultats "
+#~ "no vàlids. \n"
+#~ "      (-2) Realitza una cerca binària que depèn que lookup_array estigui "
+#~ "ordenat en ordre descendent. Si no està ordenat, es retornaran resultats "
+#~ "no vàlids.\n"
+#~ "      "
+
+#~ msgid ""
+#~ "Function [[FUNCTION_NAME]] expects criteria_range and criterion to be in "
+#~ "pairs."
+#~ msgstr ""
+#~ "La funció [[FUNCTION_NAME]] espera que criteria_range i criteri estiguin "
+#~ "en parells"
+
+#~ msgid ""
+#~ "Function [[FUNCTION_NAME]] expects criteria_range to have the same "
+#~ "dimension"
+#~ msgstr ""
+#~ "La funció [[FUNCTION_NAME]] espera que criteria_range tingui la mateixa "
+#~ "dimensió"

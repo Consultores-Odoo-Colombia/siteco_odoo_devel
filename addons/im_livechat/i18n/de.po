@@ -7,13 +7,14 @@
 # Larissa Manderfeld, 2025
 #
 # "Larissa Manderfeld (lman)" <lman@odoo.com>, 2025, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2026-01-17 09:04+0000\n"
-"Last-Translator: \"Larissa Manderfeld (lman)\" <lman@odoo.com>\n"
+"POT-Creation-Date: 2026-04-03 18:39+0000\n"
+"PO-Revision-Date: 2026-10-20 10:40+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: German <https://translate.odoo.com/projects/odoo-18/"
 "im_livechat/de/>\n"
 "Language: de\n"
@@ -21,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: im_livechat
 #. odoo-python
@@ -207,8 +208,8 @@ msgid ""
 "                                       If the visitor is also the operator, "
 "the session will always be answered."
 msgstr ""
-"Eine Sitzung ist unbeantwortet, wenn der Mitarbeiter nicht geantwortet "
-"hat.  \n"
+"Eine Sitzung ist unbeantwortet, wenn der Mitarbeiter nicht geantwortet hat.  "
+"\n"
 "                                       Wenn der Besucher auch der "
 "Mitarbeiter ist, wird die Sitzung immer beantwortet."
 
@@ -237,7 +238,7 @@ msgstr "Administrator"
 msgid ""
 "Alternatively, share this URL with your customers or suppliers via email:"
 msgstr ""
-"Teilen Sie aternativ diese URL mit Ihren Kunden oder Lieferanten per E-Mail:"
+"Teilen Sie alternativ diese URL mit Ihren Kunden oder Lieferanten per E-Mail:"
 
 #. module: im_livechat
 #. odoo-javascript
@@ -328,8 +329,7 @@ msgstr ""
 #. module: im_livechat
 #: model:ir.model.fields,help:im_livechat.field_im_livechat_report_operator__time_to_answer
 msgid "Average time to give the first answer to the visitor"
-msgstr ""
-"Durchschnittliche Zeit, bis dem Besucher das erste Mal geantwortet wird"
+msgstr "Durchschnittliche Zeit, bis dem Besucher das erste Mal geantwortet wird"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.discuss_channel_view_search
@@ -521,12 +521,6 @@ msgstr "Kontakt"
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_report_operator__channel_id
 msgid "Conversation"
 msgstr "Unterhaltung"
-
-#. module: im_livechat
-#. odoo-javascript
-#: code:addons/im_livechat/static/src/embed/common/chatbot/chatbot_service.js:0
-msgid "Conversation ended..."
-msgstr "Unterhaltung beendet..."
 
 #. module: im_livechat
 #. odoo-python
@@ -1466,6 +1460,11 @@ msgid "Question"
 msgstr "Frage"
 
 #. module: im_livechat
+#: model:ir.model,name:im_livechat.model_ir_qweb
+msgid "Qweb"
+msgstr "Qweb"
+
+#. module: im_livechat
 #. odoo-python
 #: code:addons/im_livechat/controllers/main.py:0
 #: model:ir.model,name:im_livechat.model_rating_rating
@@ -1847,6 +1846,12 @@ msgid "This Week"
 msgstr "Diese Woche"
 
 #. module: im_livechat
+#. odoo-javascript
+#: code:addons/im_livechat/static/src/embed/common/chatbot/chatbot_service.js:0
+msgid "This conversation has ended."
+msgstr "Diese Unterhaltung wurde beendet."
+
+#. module: im_livechat
 #: model:ir.model.fields,help:im_livechat.field_im_livechat_channel__default_message
 msgid ""
 "This is an automated 'welcome' message that your visitor will see when they "
@@ -2143,3 +2148,6 @@ msgstr "Sekunden"
 #: model_terms:ir.ui.view,arch_db:im_livechat.livechat_email_template
 msgid "{{author_name}}"
 msgstr "{{author_name}}"
+
+#~ msgid "Conversation ended..."
+#~ msgstr "Unterhaltung beendet..."

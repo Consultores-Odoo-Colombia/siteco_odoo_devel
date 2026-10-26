@@ -143,7 +143,8 @@ class AccountMove(models.Model):
             'res_model': 'purchase.bill.line.match',
             'domain': [
                 ('partner_id', 'in', (self.partner_id | self.partner_id.commercial_partner_id).ids),
-                ('company_id', 'in', self.env.company.ids),
+                ('company_id', 'in', self.env.companies.ids),
+                ('company_id', 'child_of', self.company_id.ids),
                 ('account_move_id', 'in', [self.id, False]),
             ],
             'views': [(self.env.ref('purchase.purchase_bill_line_match_tree').id, 'list')],
@@ -194,6 +195,8 @@ class AccountMove(models.Model):
 
     def _add_purchase_order_lines(self, purchase_order_lines):
         """ Creates new invoice lines from purchase order lines """
+        if not purchase_order_lines:
+            return
         self.ensure_one()
         new_line_ids = self.env['account.move.line']
 
@@ -539,6 +542,6 @@ class AccountMoveLine(models.Model):
     def _related_analytic_distribution(self):
         # EXTENDS 'account'
         vals = super()._related_analytic_distribution()
-        if self.purchase_line_id and not self.analytic_distribution:
+        if self.purchase_line_id:
             vals |= self.purchase_line_id.analytic_distribution or {}
         return vals

@@ -10,13 +10,14 @@
 # Wil Odoo, 2025
 # Manon Rondou, 2025
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
+# Bren Driesen <brdri@odoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:38+0000\n"
-"PO-Revision-Date: 2025-12-09 17:36+0000\n"
+"POT-Creation-Date: 2026-04-24 17:39+0000\n"
+"PO-Revision-Date: 2026-10-20 13:59+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Dutch <https://translate.odoo.com/projects/odoo-18/"
 "spreadsheet/nl/>\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -261,37 +262,30 @@ msgstr "%s komt overeen in alle bladen"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
-"(0) Exact match. \n"
-"        (-1) Return next smaller item if no match. \n"
-"        (1) Return next greater item if no match. \n"
-"        (2) Wildcard match."
+"(0) Exact match.         (-1) Return next smaller item if no match.         "
+"(1) Return next greater item if no match.         (2) Wildcard match."
 msgstr ""
-"(0) Exacte match. \n"
-"        (-1) Retourneer volgend kleiner item indien er geen match is. \n"
-"        (1) Retourneer volgend groter item indien er geen match is. \n"
-"        (2) Wildcard match."
+"(0) Exacte overeenkomst.         (-1) Geef het volgende kleinere item als er "
+"geen overeenkomst is.         (1) Geef het volgende grotere item als er geen "
+"overeenkomst is.         (2) Overeenkomst met jokertekens."
 
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
-"(1) Search starting at first item. \n"
-"      (-1) Search starting at last item. \n"
-"      (2) Perform a binary search that relies on lookup_array being sorted "
-"in ascending order. If not sorted, invalid results will be returned. \n"
-"      (-2) Perform a binary search that relies on lookup_array being sorted "
-"in descending order. If not sorted, invalid results will be returned.\n"
-"      "
+"(1) Search starting at first item.       (-1) Search starting at last "
+"item.       (2) Perform a binary search that relies on lookup_array being "
+"sorted in ascending order. If not sorted, invalid results will be "
+"returned.       (-2) Perform a binary search that relies on lookup_array "
+"being sorted in descending order. If not sorted, invalid results will be "
+"returned.      "
 msgstr ""
-"(1) Zoeken vanaf het eerste item. \n"
-"      (-1) Zoeken vanaf het laatste item. \n"
-"      (2) Voer een binaire zoekopdracht uit die afhankelijk is van de "
+"(1) Zoeken vanaf het eerste item.       (-1) Zoeken vanaf het laatste "
+"item.       (2) Binaire zoekopdracht uitvoeren die afhankelijk is van de "
 "oplopende sortering van de lookup_array. Indien niet gesorteerd, worden "
-"ongeldige resultaten geretourneerd. \n"
-"      (-2) Voer een binaire zoekopdracht uit die afhankelijk is van de "
-"aflopende sortering van lookup_array. Indien niet gesorteerd, worden "
-"ongeldige resultaten geretourneerd.\n"
-"      "
+"ongeldige resultaten geretourneerd.       (-2) Voer een binaire zoekopdracht "
+"uit die afhankelijk is van de aflopende sortering van lookup_array. Indien "
+"niet gesorteerd, worden ongeldige resultaten geretourneerd.      "
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -352,6 +346,12 @@ msgstr "2 kolommen"
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "2 rows"
 msgstr "2 rijen"
+
+#. module: spreadsheet
+#. odoo-javascript
+#: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
+msgid "A"
+msgstr "A"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -615,6 +615,12 @@ msgstr "Absolute waarde van een getal."
 
 #. module: spreadsheet
 #. odoo-javascript
+#: code:addons/spreadsheet/static/src/actions/spreadsheet_download_action.js:0
+msgid "Access Error"
+msgstr "Toegangsfout"
+
+#. module: spreadsheet
+#. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
 "Access to the clipboard denied by the browser. Please enable clipboard "
@@ -687,8 +693,7 @@ msgstr "Filters toevoegen"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Add new columns to avoid overwriting cells"
-msgstr ""
-"Voeg nieuwe kolommen toe om te vermijden dat cellen overschreven worden"
+msgstr "Voeg nieuwe kolommen toe om te vermijden dat cellen overschreven worden"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -773,8 +778,7 @@ msgstr "Extra tekst item(s)"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Additional values or ranges in which to count the number of blanks."
-msgstr ""
-"Extra waarden of bereiken waarin het aantal spaties moet worden geteld."
+msgstr "Extra waarden of bereiken waarin het aantal spaties moet worden geteld."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -838,8 +842,7 @@ msgstr "Extra waarden of bereiken die in de populatie moeten worden opgenomen."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Additional values or ranges to include in the sample."
-msgstr ""
-"Extra waarden of bereiken die in de steekproef moeten worden opgenomen."
+msgstr "Extra waarden of bereiken die in de steekproef moeten worden opgenomen."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -1064,16 +1067,6 @@ msgstr ""
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
-msgid ""
-"An unexpected error occurred while pasting content.\n"
-"          This is probably due to a spreadsheet version mismatch."
-msgstr ""
-"Er is een onverwachte fout opgetreden tijdens het plakken van inhoud.\n"
-"          Dit komt waarschijnlijk door een versieverschil van de spreadsheet."
-
-#. module: spreadsheet
-#. odoo-javascript
-#: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "An unexpected error occurred. Submit a support ticket at odoo.com/help."
 msgstr ""
 "Er is een onverwachte fout opgetreden. Dien een ondersteuningsticket in bij "
@@ -1155,8 +1148,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Any real value to calculate the hyperbolic sine of."
-msgstr ""
-"Elke reëele waarde waarvan de hyperbolische sinus moet berekend worden."
+msgstr "Elke reëele waarde waarvan de hyperbolische sinus moet berekend worden."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -1763,7 +1755,7 @@ msgstr "Celwaarden"
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Center"
-msgstr "Centreer"
+msgstr "Gecentreerd"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -1852,7 +1844,7 @@ msgstr "Wis kolommen %s - %s"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Clear formatting"
-msgstr "Wis opmaak"
+msgstr "Opmaak wissen"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -1876,7 +1868,7 @@ msgstr "Wis rijen %s - %s"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Clip"
-msgstr "Clip"
+msgstr "Afkappen"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -2485,7 +2477,7 @@ msgstr "Donker"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Data"
-msgstr "Data"
+msgstr "Gegevens"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -2758,7 +2750,7 @@ msgstr "December"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Decrease decimal places"
-msgstr "Decimaaltekens verkleinen"
+msgstr "Aantal decimalen verkleinen"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -2783,13 +2775,13 @@ msgstr "Verwijderen"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Delete cell and shift left"
-msgstr "Verwijderen cel en naar links verplaatsen"
+msgstr "Cel verwijderen en naar links schuiven"
 
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Delete cell and shift up"
-msgstr "Verwijderen cel en omhoog verplaatsen"
+msgstr "Cel verwijderen en omhoog schuiven"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -2801,7 +2793,7 @@ msgstr "Cellen verwijderen"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Delete column %s"
-msgstr "Verwijder kolom %s"
+msgstr "Kolom %s verwijderen"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -2813,13 +2805,13 @@ msgstr "Kolommen verwijderen"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Delete columns %s - %s"
-msgstr "Verwijder kolommen %s - %s"
+msgstr "Kolommen %s - %s verwijderen"
 
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Delete row %s"
-msgstr "Verwijder rij %s"
+msgstr "Rij %s verwijderen"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -2831,14 +2823,14 @@ msgstr "Rijen verwijderen"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Delete rows %s - %s"
-msgstr "Verwijder rijen %s - %s"
+msgstr "Rijen %s - %s verwijderen"
 
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Delete table"
-msgstr "Verwijder tabel"
+msgstr "Tabel verwijderen"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -2976,7 +2968,7 @@ msgstr "Weergegeven als % differentie van \"%s\""
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Displayed as % of \"%s\""
-msgstr "Weergegeven als % of \"%s\""
+msgstr "Weergegeven als % van \"%s\""
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -3168,8 +3160,6 @@ msgid "Doughnut"
 msgstr "Donut"
 
 #. module: spreadsheet
-#. odoo-javascript
-#: code:addons/spreadsheet/static/src/public_readonly_app/public_readonly.js:0
 #: model_terms:ir.ui.view,arch_db:spreadsheet.public_spreadsheet_layout
 msgid "Download"
 msgstr "Downloaden"
@@ -3434,13 +3424,13 @@ msgstr "Financieel"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Find and Replace"
-msgstr "Zoek en vervang"
+msgstr "Zoeken en vervangen"
 
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Find and replace"
-msgstr "Zoek en vervang"
+msgstr "Zoeken en vervangen"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -3517,8 +3507,7 @@ msgstr "Vast aantal"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Flattens all the values from one or more ranges into a single column."
-msgstr ""
-"Vlakt alle waarden af van een of meerdere bereiken in een enkele kolom."
+msgstr "Vlakt alle waarden af van een of meerdere bereiken in een enkele kolom."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -3555,13 +3544,13 @@ msgstr "Forceer"
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Format"
-msgstr "Formatteer"
+msgstr "Opmaak"
 
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Format as percent"
-msgstr "Formaat als percentage"
+msgstr "Opmaken als percentage"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -3700,8 +3689,7 @@ msgstr "Functie PIVOT heeft een even aantal argumenten."
 msgid ""
 "Function [[FUNCTION_NAME]] A regression of order less than 1 cannot be "
 "possible."
-msgstr ""
-"Functie [[FUNCTION_NAME]] Een regressie kleiner dan 1 is niet mogelijk."
+msgstr "Functie [[FUNCTION_NAME]] Een regressie kleiner dan 1 is niet mogelijk."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -3719,27 +3707,10 @@ msgstr "Functie [[FUNCTION_NAME]] heeft geen resultaat gevonden."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
-"Function [[FUNCTION_NAME]] expects criteria_range and criterion to be in "
-"pairs."
-msgstr ""
-"Functie [[FUNCTION_NAME]] verwacht dat criteria_bereik en criterium in paren "
-"zijn."
-
-#. module: spreadsheet
-#. odoo-javascript
-#: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
-msgid ""
-"Function [[FUNCTION_NAME]] expects criteria_range to have the same dimension"
-msgstr ""
-"Functie [[FUNCTION_NAME]] verwacht dat criteria_bereik dezelfde dimensie "
-"heeft"
-
-#. module: spreadsheet
-#. odoo-javascript
-#: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
-msgid ""
 "Function [[FUNCTION_NAME]] expects number values for %s, but got a boolean."
 msgstr ""
+"Functie [[FUNCTION_NAME]] verwacht numerieke waarden voor %s, maar kreeg een "
+"booleaanse waarde."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -3747,6 +3718,8 @@ msgstr ""
 msgid ""
 "Function [[FUNCTION_NAME]] expects number values for %s, but got a string."
 msgstr ""
+"Functie [[FUNCTION_NAME]] verwacht numerieke waarden voor %s, maar kreeg een "
+"tekenreeks."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -3755,6 +3728,8 @@ msgid ""
 "Function [[FUNCTION_NAME]] expects number values for %s, but got an empty "
 "value."
 msgstr ""
+"Functie [[FUNCTION_NAME]] verwacht numerieke waarden voor %s, maar kreeg een "
+"lege waarde."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -3926,7 +3901,7 @@ msgstr "Rasterlijnen"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Group"
-msgstr "Groep"
+msgstr "Groeperen"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -4119,13 +4094,13 @@ msgstr "ISO-weeknummer van het jaar."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Icon set"
-msgstr "Pictogrammenset"
+msgstr "Iconenset"
 
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Icons"
-msgstr "Pictogrammen"
+msgstr "Iconen"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -4176,10 +4151,9 @@ msgstr "Kan in de evaluatie van [[FUNCTION_NAME]] '%s' niet vinden in '%s'."
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
 "In [[FUNCTION_NAME]], the number of columns of the first matrix (%s) must be "
-"equal to the \n"
-"        number of rows of the second matrix (%s)."
+"equal to the         number of rows of the second matrix (%s)."
 msgstr ""
-"In [[FUNCTION_NAME]], het aantal kolommen van de eerste matrix (%s) moet "
+"In [[FUNCTION_NAME]] moet het aantal kolommen van de eerste matrix (%s) "
 "gelijk zijn aan het \n"
 "        aantal rijen van de tweede matrix (%s)."
 
@@ -4193,7 +4167,7 @@ msgstr "Incompatibele maateenheden ('%s' vs '%s')"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Increase decimal places"
-msgstr "Decimaaltekens vergroten"
+msgstr "Aantal decimalen vergroten"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -5289,13 +5263,13 @@ msgstr "Meer waarden om toe te voegen door middel van een scheidingsteken."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Move left"
-msgstr "Ga naar links"
+msgstr "Naar links verplaatsen"
 
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Move right"
-msgstr "Ga naar rechts"
+msgstr "Naar rechts verplaatsen"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -5350,6 +5324,12 @@ msgstr "Nieuw draaitabel"
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Next coupon date after the settlement date."
 msgstr "Volgende datum kortingsbon na de datum van afrekening."
+
+#. module: spreadsheet
+#. odoo-javascript
+#: code:addons/spreadsheet/static/src/hooks.js:0
+msgid "No"
+msgstr "Nee"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -5441,8 +5421,7 @@ msgstr "Niet gelijk."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Not implemented operator %s for kind of conditional formatting:  %s"
-msgstr ""
-"Niet geïmplementeerde operator %s voor soort voorwaardelijke opmaak: %s"
+msgstr "Niet geïmplementeerde operator %s voor soort voorwaardelijke opmaak: %s"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -5468,7 +5447,7 @@ msgstr "N-de kleinste element in een gegevensset."
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Number"
-msgstr "Nummer"
+msgstr "Getal"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -5646,7 +5625,7 @@ msgstr "Overloop"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Paint Format"
-msgstr "Verf-indeling"
+msgstr "Opmaak kopiëren"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -5676,7 +5655,7 @@ msgstr "Alleen formaat plakken"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Paste special"
-msgstr "Plakken speciaal"
+msgstr "Speciaal plakken"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -5777,7 +5756,7 @@ msgstr ""
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Plain text"
-msgstr "Gewone tekst"
+msgstr "Platte tekst"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -6346,7 +6325,7 @@ msgstr "Geeft als resultaat de waarde afhankelijk van logische expressie."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.xml:0
 msgid "Reverse icons"
-msgstr "Pictogrammen omkeren"
+msgstr "Iconen omkeren"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -6779,7 +6758,7 @@ msgstr "Aflopend sorteren (Z ⟶ A)"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Sort range"
-msgstr "Sorteerbereik"
+msgstr "Bereik sorteren"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -7285,8 +7264,7 @@ msgstr "De jaarlijkse rentevoet."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "The argument %s is not a valid measure. Here are the measures: %s"
-msgstr ""
-"Het argument %s is geen geldige meetwaarde. Dit zijn de meetwaarden: %s"
+msgstr "Het argument %s is geen geldige meetwaarde. Dit zijn de meetwaarden: %s"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -7763,8 +7741,7 @@ msgstr "De datum vanaf wanneer er geteld moet worden."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "The date from which to calculate the end of quarter."
-msgstr ""
-"De datum vanaf wanneer het eind van het trimester moet worden berekend."
+msgstr "De datum vanaf wanneer het eind van het trimester moet worden berekend."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -8075,6 +8052,8 @@ msgid ""
 "The first and second arguments of [[FUNCTION_NAME]] must be non-empty "
 "matrices."
 msgstr ""
+"Het eerste en tweede argument van [[FUNCTION_NAME]] moeten niet-lege "
+"matrices zijn."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -8378,7 +8357,7 @@ msgstr "De future_value (%s) moet strikt positief zijn."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "The header row of a table can't be moved."
-msgstr ""
+msgstr "De koprij van een tabel kan niet worden verplaatst."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -9342,8 +9321,7 @@ msgstr "De prijsofferte wordt weergegeven met gebruik van decimale conventies."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "The provided anchor is invalid. The cell must be part of the zone."
-msgstr ""
-"Het opgegeven anker is ongeldig. De cel moet deel uitmaken van de zone."
+msgstr "Het opgegeven anker is ongeldig. De cel moet deel uitmaken van de zone."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -9800,8 +9778,7 @@ msgstr "De tweede waarde."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "The settlement (%s) must be greater than or equal to the issue (%s)."
-msgstr ""
-"De afrekening (%s) moet groter dan of gelijk zijn aan de uitgifte (%s)."
+msgstr "De afrekening (%s) moet groter dan of gelijk zijn aan de uitgifte (%s)."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -10489,8 +10466,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "The value the function returns if logical_expression is FALSE."
-msgstr ""
-"De waarde die de functie teruggeeft indien logical_expression FALSE is."
+msgstr "De waarde die de functie teruggeeft indien logical_expression FALSE is."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -10532,8 +10508,7 @@ msgstr "De af te kappen waarde."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "The value to be verified as a logical TRUE or FALSE."
-msgstr ""
-"De waarde die moet worden gecontroleerd als een logische TRUE of FALSE."
+msgstr "De waarde die moet worden gecontroleerd als een logische TRUE of FALSE."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -10679,8 +10654,7 @@ msgstr "De waarde die moet worden getest als groter dan waarde2."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "The value to test as being less than or equal to value2."
-msgstr ""
-"De waarde die moet worden getest als kleiner dan of gelijk aan waarde2."
+msgstr "De waarde die moet worden getest als kleiner dan of gelijk aan waarde2."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11227,7 +11201,7 @@ msgstr "Waardewijziging van sleutelwaarde"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Value for parameter %s is missing in [[FUNCTION_NAME]]."
-msgstr ""
+msgstr "De waarde voor de parameter %s ontbreekt in [[FUNCTION_NAME]]."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11441,7 +11415,7 @@ msgstr "Verticaal opzoeken."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "View"
-msgstr "Bekijk"
+msgstr "Weergave"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11593,14 +11567,13 @@ msgstr ""
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
 "Whether or not to remove empty text messages from the split results. The "
-"default behavior is to treat \n"
-"        consecutive delimiters as one (if TRUE). If FALSE, empty cells "
-"values are added between consecutive delimiters."
+"default behavior is to treat         consecutive delimiters as one (if "
+"TRUE). If FALSE, empty cells values are added between consecutive delimiters."
 msgstr ""
 "Of lege berichten wel of niet uit de splitsingsresultaten moeten worden "
-"verwijderd. Het standaardgedrag is om \n"
-"        opeenvolgende scheidingstekens als één (indien TRUE). Indien FALSE, "
-"worden lege celwaarden toegevoegd tussen opeenvolgende scheidingstekens."
+"verwijderd. Het standaardgedrag is om opeenvolgende scheidingstekens als één "
+"te behandelen (indien TRUE). Indien FALSE, worden lege celwaarden toegevoegd "
+"tussen opeenvolgende scheidingstekens."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11616,12 +11589,10 @@ msgstr ""
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid ""
 "Whether the array should be scanned by column. True scans the array by "
-"column and false (default) \n"
-"      scans the array by row."
+"column and false (default)       scans the array by row."
 msgstr ""
-"Of de matrix per kolom moet worden gescand. Waar scant de matrix per kolom "
-"en onwaar (standaard)\n"
-"scant de matrix per rij."
+"Of de matrix per kolom moet worden gescand. 'Waar' scant de matrix per kolom "
+"en onwaar (standaard) scant de matrix per rij."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11709,7 +11680,7 @@ msgstr "Tekstterugloop"
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Wrapping"
-msgstr "Overlopen"
+msgstr "Terugloop"
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11747,8 +11718,7 @@ msgstr "Verkeerd aantal argumenten. Had een even aantal argumenten verwacht."
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "Wrong size for %s. Expected a range of size 1x%s. Got %sx%s."
-msgstr ""
-"Verkeerde grootte voor %s. Verwachtte een bereik van 1x%s. Kreeg %sx%s."
+msgstr "Verkeerde grootte voor %s. Verwachtte een bereik van 1x%s. Kreeg %sx%s."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11786,6 +11756,12 @@ msgstr "Jaar tot nu toe"
 
 #. module: spreadsheet
 #. odoo-javascript
+#: code:addons/spreadsheet/static/src/hooks.js:0
+msgid "Yes"
+msgstr "Ja"
+
+#. module: spreadsheet
+#. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "You can't merge cells inside of an existing filter."
 msgstr "Je kunt geen cellen samenvoegen binnen een bestaand filter."
@@ -11795,6 +11771,25 @@ msgstr "Je kunt geen cellen samenvoegen binnen een bestaand filter."
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "You cannot create overlapping tables."
 msgstr "Je kunt geen overlappende tabellen maken."
+
+#. module: spreadsheet
+#. odoo-javascript
+#: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
+msgid ""
+"You copied content from a different version of the application. Only text "
+"content will be pasted."
+msgstr ""
+"Je hebt inhoud gekopieerd uit een andere versie van de applicatie. Alleen "
+"tekstinhoud wordt geplakt."
+
+#. module: spreadsheet
+#. odoo-javascript
+#: code:addons/spreadsheet/static/src/actions/spreadsheet_download_action.js:0
+msgid ""
+"You don't have the rights to export data. Please contact an Administrator."
+msgstr ""
+"Je hebt geen rechten om gegevens te exporteren. Neem contact op met een "
+"beheerder."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -11828,13 +11823,14 @@ msgid ""
 "[[FUNCTION_NAME]] expects the provided values of %(argName)s to be a non-"
 "empty matrix."
 msgstr ""
+"[[FUNCTION_NAME]] verwacht dat de opgegeven waarden van %(argName)s een niet-"
+"lege matrix zijn."
 
 #. module: spreadsheet
 #. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "[[FUNCTION_NAME]] expects the weight to be positive or equal to 0."
-msgstr ""
-"[[FUNCTION_NAME]] verwacht dat het gewicht positief of gelijk aan 0 is."
+msgstr "[[FUNCTION_NAME]] verwacht dat het gewicht positief of gelijk aan 0 is."
 
 #. module: spreadsheet
 #. odoo-javascript
@@ -12072,6 +12068,12 @@ msgstr "morgen"
 
 #. module: spreadsheet
 #. odoo-javascript
+#: code:addons/spreadsheet/static/src/public_readonly_app/public_readonly.xml:0
+msgid "x"
+msgstr "x"
+
+#. module: spreadsheet
+#. odoo-javascript
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "yesterday"
 msgstr "gisteren"
@@ -12081,6 +12083,90 @@ msgstr "gisteren"
 #: code:addons/spreadsheet/static/src/o_spreadsheet/o_spreadsheet.js:0
 msgid "zero"
 msgstr "geen"
+
+#~ msgid ""
+#~ "(0) Exact match. \n"
+#~ "        (-1) Return next smaller item if no match. \n"
+#~ "        (1) Return next greater item if no match. \n"
+#~ "        (2) Wildcard match."
+#~ msgstr ""
+#~ "(0) Exacte match. \n"
+#~ "        (-1) Retourneer volgend kleiner item indien er geen match is. \n"
+#~ "        (1) Retourneer volgend groter item indien er geen match is. \n"
+#~ "        (2) Wildcard match."
+
+#~ msgid ""
+#~ "(1) Search starting at first item. \n"
+#~ "      (-1) Search starting at last item. \n"
+#~ "      (2) Perform a binary search that relies on lookup_array being "
+#~ "sorted in ascending order. If not sorted, invalid results will be "
+#~ "returned. \n"
+#~ "      (-2) Perform a binary search that relies on lookup_array being "
+#~ "sorted in descending order. If not sorted, invalid results will be "
+#~ "returned.\n"
+#~ "      "
+#~ msgstr ""
+#~ "(1) Zoeken vanaf het eerste item. \n"
+#~ "      (-1) Zoeken vanaf het laatste item. \n"
+#~ "      (2) Voer een binaire zoekopdracht uit die afhankelijk is van de "
+#~ "oplopende sortering van de lookup_array. Indien niet gesorteerd, worden "
+#~ "ongeldige resultaten geretourneerd. \n"
+#~ "      (-2) Voer een binaire zoekopdracht uit die afhankelijk is van de "
+#~ "aflopende sortering van lookup_array. Indien niet gesorteerd, worden "
+#~ "ongeldige resultaten geretourneerd.\n"
+#~ "      "
+
+#~ msgid ""
+#~ "An unexpected error occurred while pasting content.\n"
+#~ "          This is probably due to a spreadsheet version mismatch."
+#~ msgstr ""
+#~ "Er is een onverwachte fout opgetreden tijdens het plakken van inhoud.\n"
+#~ "          Dit komt waarschijnlijk door een versieverschil van de "
+#~ "spreadsheet."
+
+#~ msgid ""
+#~ "Function [[FUNCTION_NAME]] expects criteria_range and criterion to be in "
+#~ "pairs."
+#~ msgstr ""
+#~ "Functie [[FUNCTION_NAME]] verwacht dat criteria_bereik en criterium in "
+#~ "paren zijn."
+
+#~ msgid ""
+#~ "Function [[FUNCTION_NAME]] expects criteria_range to have the same "
+#~ "dimension"
+#~ msgstr ""
+#~ "Functie [[FUNCTION_NAME]] verwacht dat criteria_bereik dezelfde dimensie "
+#~ "heeft"
+
+#~ msgid ""
+#~ "In [[FUNCTION_NAME]], the number of columns of the first matrix (%s) must "
+#~ "be equal to the \n"
+#~ "        number of rows of the second matrix (%s)."
+#~ msgstr ""
+#~ "In [[FUNCTION_NAME]], het aantal kolommen van de eerste matrix (%s) moet "
+#~ "gelijk zijn aan het \n"
+#~ "        aantal rijen van de tweede matrix (%s)."
+
+#~ msgid ""
+#~ "Whether or not to remove empty text messages from the split results. The "
+#~ "default behavior is to treat \n"
+#~ "        consecutive delimiters as one (if TRUE). If FALSE, empty cells "
+#~ "values are added between consecutive delimiters."
+#~ msgstr ""
+#~ "Of lege berichten wel of niet uit de splitsingsresultaten moeten worden "
+#~ "verwijderd. Het standaardgedrag is om \n"
+#~ "        opeenvolgende scheidingstekens als één (indien TRUE). Indien "
+#~ "FALSE, worden lege celwaarden toegevoegd tussen opeenvolgende "
+#~ "scheidingstekens."
+
+#~ msgid ""
+#~ "Whether the array should be scanned by column. True scans the array by "
+#~ "column and false (default) \n"
+#~ "      scans the array by row."
+#~ msgstr ""
+#~ "Of de matrix per kolom moet worden gescand. Waar scant de matrix per "
+#~ "kolom en onwaar (standaard)\n"
+#~ "scant de matrix per rij."
 
 #~ msgid ""
 #~ "Function [[FUNCTION_NAME]] expects number values for %s, but got a %s."

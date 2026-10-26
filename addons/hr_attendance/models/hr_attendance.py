@@ -5,15 +5,16 @@ import pytz
 from calendar import monthrange
 from collections import defaultdict
 from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
+from dateutil.relativedelta import relativedelta, MO, SU
 from operator import itemgetter
 from pytz import timezone
 from random import randint
 
 from odoo.http import request
 from odoo import models, fields, api, exceptions, _
-from odoo.addons.resource.models.utils import Intervals
+from odoo.addons.resource.models.utils import Intervals, sum_intervals
 from odoo.osv.expression import AND, OR
+from odoo.osv import expression
 from odoo.tools.float_utils import float_is_zero
 from odoo.exceptions import AccessError
 from odoo.tools import convert, format_duration, format_time, format_datetime
@@ -42,11 +43,11 @@ class HrAttendance(models.Model):
     check_out = fields.Datetime(string="Check Out", tracking=True)
     worked_hours = fields.Float(string='Worked Hours', compute='_compute_worked_hours', store=True, readonly=True)
     color = fields.Integer(compute='_compute_color')
-    overtime_hours = fields.Float(string="Over Time", compute='_compute_overtime_hours', store=True)
+    overtime_hours = fields.Float(string="Worked Extra Hours", compute='_compute_overtime_hours', store=True)
     overtime_status = fields.Selection(selection=[('to_approve', "To Approve"),
                                                   ('approved', "Approved"),
                                                   ('refused', "Refused")], compute="_compute_overtime_status", store=True, tracking=True, readonly=False)
-    validated_overtime_hours = fields.Float(string="Extra Hours", compute='_compute_validated_overtime_hours', store=True, readonly=False, tracking=True)
+    validated_overtime_hours = fields.Float(string="Validated Extra Hours", compute='_compute_validated_overtime_hours', store=True, readonly=False, tracking=True)
     no_validated_overtime_hours = fields.Boolean(compute='_compute_no_validated_overtime_hours')
     in_latitude = fields.Float(string="Latitude", digits=(10, 7), readonly=True, aggregator=None)
     in_longitude = fields.Float(string="Longitude", digits=(10, 7), readonly=True, aggregator=None)
@@ -74,7 +75,7 @@ class HrAttendance(models.Model):
                                            ('auto_check_out', 'Automatic Check-Out')],
                                 readonly=True,
                                 default='manual')
-    expected_hours = fields.Float(compute="_compute_expected_hours", store=True, aggregator="sum")
+    expected_hours = fields.Float(string="Regular Hours", compute="_compute_expected_hours", store=True, aggregator="sum")
 
     @api.depends("worked_hours", "overtime_hours")
     def _compute_expected_hours(self):
@@ -212,19 +213,33 @@ class HrAttendance(models.Model):
             between check_in and check_out, without taking into account the lunch_interval"""
         for attendance in self:
             if attendance.check_out and attendance.check_in and attendance.employee_id:
-                calendar = attendance._get_employee_calendar()
-                resource = attendance.employee_id.resource_id
-                tz = timezone(resource.tz) if not calendar else timezone(calendar.tz)
-                check_in_tz = attendance.check_in.astimezone(tz)
-                check_out_tz = attendance.check_out.astimezone(tz)
-                lunch_intervals = []
-                if not attendance.employee_id.is_flexible:
-                    lunch_intervals = attendance.employee_id._employee_attendance_intervals(check_in_tz, check_out_tz, lunch=True)
-                attendance_intervals = Intervals([(check_in_tz, check_out_tz, attendance)]) - lunch_intervals
-                delta = sum((i[1] - i[0]).total_seconds() for i in attendance_intervals)
-                attendance.worked_hours = delta / 3600.0
+                attendance.worked_hours = attendance._get_worked_hours_in_range(attendance.check_in, attendance.check_out)
             else:
                 attendance.worked_hours = False
+
+    def _get_worked_hours_in_range(self, start_dt, end_dt):
+        """Returns the amount of hours worked because of this attendance during the
+        interval defined by [start_dt, end_dt]
+
+        :param start_dt: datetime starting the interval.
+        :param end_dt: datetime ending the interval.
+        :returns: float, hours worked
+        """
+        self.ensure_one()
+        calendar = self._get_employee_calendar()
+        resource = self.employee_id.resource_id
+        tz = timezone(resource.tz) if not calendar else timezone(calendar.tz)
+        start_dt_tz = max(self.check_in, start_dt).astimezone(tz)
+        end_dt_tz = min(self.check_out, end_dt).astimezone(tz)
+
+        if end_dt_tz < start_dt_tz:
+            return 0.0
+
+        lunch_intervals = []
+        if not self.employee_id.is_flexible:
+            lunch_intervals = self.employee_id._employee_attendance_intervals(start_dt_tz, end_dt_tz, lunch=True)
+        attendance_intervals = Intervals([(start_dt_tz, end_dt_tz, self)]) - lunch_intervals
+        return sum_intervals(attendance_intervals)
 
     @api.constrains('check_in', 'check_out')
     def _check_validity_check_in_check_out(self):
@@ -285,7 +300,7 @@ class HrAttendance(models.Model):
             date_employee_tz = pytz.utc.localize(dt).astimezone(pytz.timezone(employee._get_tz()))
         else:
             date_employee_tz = dt
-        start_day_employee_tz = date_employee_tz.replace(hour=0, minute=0, second=0)
+        start_day_employee_tz = date_employee_tz.replace(hour=0, minute=0, second=0, microsecond=0)
         return (start_day_employee_tz.astimezone(pytz.utc).replace(tzinfo=None), start_day_employee_tz.date())
 
     def _get_attendances_dates(self):
@@ -305,6 +320,55 @@ class HrAttendance(models.Model):
     def _update_overtime(self, employee_attendance_dates=None):
         if employee_attendance_dates is None:
             employee_attendance_dates = self._get_attendances_dates()
+        employee_attendance_dates = {
+            employee: attendance_dates
+            for employee, attendance_dates in employee_attendance_dates.items()
+            if not employee.is_fully_flexible
+        }
+        expanded_attendance_dates = dict(employee_attendance_dates)
+        # Collect week boundaries per flexible employee, then fetch all attendances in a single query
+        flexible_emp_data = {}
+        for emp in list(employee_attendance_dates.keys()):
+            calendar = emp.resource_calendar_id or emp.company_id.resource_calendar_id
+            if calendar and calendar.flexible_hours and calendar.full_time_required_hours:
+                employee_tz = pytz.timezone(emp._get_tz())
+                week_starts = set()
+                for attendance_tuple in employee_attendance_dates[emp]:
+                    attendance_date = attendance_tuple[1]
+                    week_starts.add(attendance_date + relativedelta(weekday=MO(-1)))
+
+                if week_starts:
+                    min_week_start = min(week_starts)
+                    max_week_start = max(week_starts)
+                    min_week_start_utc = employee_tz.localize(datetime.combine(min_week_start, datetime.min.time())).astimezone(pytz.utc).replace(tzinfo=None)
+                    max_week_end_utc = employee_tz.localize(datetime.combine(max_week_start + relativedelta(weekday=SU(1)), datetime.max.time())).astimezone(pytz.utc).replace(tzinfo=None)
+                    flexible_emp_data[emp] = {
+                        'week_starts': week_starts,
+                        'min_utc': min_week_start_utc,
+                        'max_utc': max_week_end_utc,
+                    }
+
+        if flexible_emp_data:
+            att_groups = self.env['hr.attendance']._read_group(
+                domain=[
+                    ('employee_id', 'in', [emp.id for emp in flexible_emp_data]),
+                    ('check_in', '>=', min(d['min_utc'] for d in flexible_emp_data.values())),
+                    ('check_in', '<=', max(d['max_utc'] for d in flexible_emp_data.values())),
+                ],
+                groupby=['employee_id'],
+                aggregates=['id:recordset'],
+            )
+            att_by_emp = dict(att_groups)
+            for emp, emp_data in flexible_emp_data.items():
+                week_dates_to_add = set()
+                for att in att_by_emp.get(emp, self.browse()):
+                    day_start_tuple = att._get_day_start_and_day(emp, att.check_in)
+                    week_start = day_start_tuple[1] + relativedelta(weekday=MO(-1))
+                    if week_start in emp_data['week_starts']:
+                        week_dates_to_add.add(day_start_tuple)
+                expanded_attendance_dates[emp] = expanded_attendance_dates.get(emp, set()) | week_dates_to_add
+
+        employee_attendance_dates = expanded_attendance_dates
 
         overtime_to_unlink = self.env['hr.attendance.overtime']
         overtime_vals_list = []
@@ -312,7 +376,7 @@ class HrAttendance(models.Model):
         for emp, attendance_dates in employee_attendance_dates.items():
             # get_attendances_dates returns the date translated from the local timezone without tzinfo,
             # and contains all the date which we need to check for overtime
-            attendance_domain = []
+            attendance_domain = expression.FALSE_DOMAIN
             for attendance_date in attendance_dates:
                 attendance_domain = OR([attendance_domain, [
                     ('check_in', '>=', attendance_date[0]), ('check_in', '<', attendance_date[0] + timedelta(hours=24)),
@@ -349,7 +413,14 @@ class HrAttendance(models.Model):
             company_threshold = emp.company_id.overtime_company_threshold / 60.0
             employee_threshold = emp.company_id.overtime_employee_threshold / 60.0
 
-            for day_data in attendance_dates:
+            is_flexible = bool(calendar and calendar.flexible_hours)
+            has_weekly_cap = bool(calendar and calendar.full_time_required_hours)
+            is_weekly_flexible = is_flexible and has_weekly_cap
+            weekly_limit = calendar.full_time_required_hours if is_weekly_flexible else 0.0
+
+            weekly_expected_hours = defaultdict(float)
+
+            for day_data in sorted(attendance_dates, key=lambda x: x[1]):
                 attendance_date = day_data[1]
                 attendances = attendances_per_day.get(attendance_date, self.browse())
                 unfinished_shifts = attendances.filtered(lambda a: not a.check_out)
@@ -358,17 +429,34 @@ class HrAttendance(models.Model):
                 # Overtime is not counted if any shift is not closed or if there are no attendances for that day,
                 # this could happen when deleting attendances.
 
-                # No overtime computed for fully flexible employees
-                if emp.is_fully_flexible:
-                    continue
-
                 if not unfinished_shifts and attendances:
-                    # The employee usually doesn't work on that day
-                    if not working_times[attendance_date]:
+                    if is_weekly_flexible:
+                        # For flexible schedules with weekly limits, calculate overtime based on weekly cap
+                        week_key = attendance_date + relativedelta(weekday=MO(-1))
+                        expected_hours_so_far_this_week = weekly_expected_hours[week_key]
+                        hours_today = sum(attendances.mapped('worked_hours'))
+
+                        # Calculate expected hours for today based on:
+                        # 1. hours_per_day from calendar
+                        # 2. remaining weekly hours allowed - weekly cap based on expected hours
+                        # Expected is the minimum of these two (what they should work, capped by weekly limit)
+                        hours_per_day = calendar.hours_per_day or 0.0
+                        hours_remaining_this_week = max(0.0, weekly_limit - expected_hours_so_far_this_week)
+                        expected_hours_today = min(hours_per_day, hours_remaining_this_week)
+                        weekly_expected_hours[week_key] = expected_hours_so_far_this_week + expected_hours_today
+                        overtime_duration = hours_today - expected_hours_today
+                        overtime_duration_real = overtime_duration
+                    # For flexible schedules without weekly limits, calculate based on hours_per_day
+                    elif is_flexible:
+                        hours_today = sum(attendances.mapped('worked_hours'))
+                        hours_per_day = calendar.hours_per_day or 8.0
+                        overtime_duration = hours_today - hours_per_day
+                        overtime_duration_real = overtime_duration
+                    # For non-flexible schedules: check if it's a weekend/non-working day
+                    elif not working_times[attendance_date]:
                         # User does not have any resource_calendar_attendance for that day (week-end for example)
                         overtime_duration = sum(attendances.mapped('worked_hours'))
                         overtime_duration_real = overtime_duration
-                    # The employee usually work on that day
                     else:
                         # Count time before, during and after 'working hours'
                         pre_work_time, work_duration, post_work_time, planned_work_duration = attendances._get_pre_post_work_time(emp, working_times, attendance_date)
@@ -486,8 +574,8 @@ class HrAttendance(models.Model):
     def write(self, vals):
         if vals.get('employee_id') and \
             vals['employee_id'] not in self.env.user.employee_ids.ids and \
-            not self.env.user.has_group('hr_attendance.group_hr_attendance_officer') or \
-            vals.get('employee_id') and self.env['hr.employee'].sudo().browse(vals['employee_id']).attendance_manager_id.id != self.env.user.id:
+            not self.env.user.has_group('hr_attendance.group_hr_attendance_manager') and \
+            self.env['hr.employee'].sudo().browse(vals['employee_id']).attendance_manager_id.id != self.env.user.id:
             raise AccessError(_("Do not have access, user cannot edit the attendances that are not their own or if they are not the attendance manager of the employee."))
         attendances_dates = self._get_attendances_dates()
 
@@ -495,7 +583,7 @@ class HrAttendance(models.Model):
             vals.update({'out_mode': 'manual'})
         if vals.get('check_in') and self.in_mode == 'technical':
             vals.update({'in_mode': 'manual'})
-        result = super(HrAttendance, self).write(vals)
+        result = super().write(vals)
         if any(field in vals for field in ['employee_id', 'check_in', 'check_out']):
             # Merge attendance dates before and after write to recompute the
             # overtime if the attendances have been moved to another day
@@ -750,11 +838,12 @@ class HrAttendance(models.Model):
                 current_attendance_duration = (now_datetime - check_in_datetime).total_seconds() / 3600
                 previous_attendances_duration = mapped_previous_duration[att.employee_id][check_in_datetime.date()]
 
-                expected_worked_hours = sum(
-                    att.employee_id.resource_calendar_id.attendance_ids.filtered(
-                        lambda a: a.dayofweek == str(check_in_datetime.weekday())
-                            and (not a.two_weeks_calendar or a.week_type == str(a.get_week_type(check_in_datetime.date())))
-                    ).mapped("duration_hours")
+                check_in_day_start = check_in_datetime.replace(hour=0, minute=0, second=0, microsecond=0)
+                expected_worked_hours = sum_intervals(
+                    att.employee_id._get_expected_attendances(
+                        check_in_day_start,
+                        check_in_day_start + timedelta(days=1),
+                    )
                 )
 
                 # Attendances where Last open attendance time + previously worked time on that day + tolerance greater than the attendances hours (including lunch) in his calendar
@@ -786,11 +875,14 @@ class HrAttendance(models.Model):
                                                            ('company_id', 'in', companies.ids),
                                                            ('resource_calendar_id.flexible_hours', '=', False)])
 
-        for emp in absent_employees:
-            local_day_start = pytz.utc.localize(yesterday).astimezone(pytz.timezone(emp._get_tz()))
+        filtered_employees = absent_employees.filter_valid(fields.Date.today() - relativedelta(days=1))
+
+        for emp in filtered_employees:
+            local_day_start = pytz.timezone(emp._get_tz()).localize(yesterday)
+            check_in_utc = local_day_start.astimezone(pytz.utc)
             technical_attendances_vals.append({
-                'check_in': local_day_start.strftime('%Y-%m-%d %H:%M:%S'),
-                'check_out': (local_day_start + relativedelta(seconds=1)).strftime('%Y-%m-%d %H:%M:%S'),
+                'check_in': check_in_utc.strftime('%Y-%m-%d %H:%M:%S'),
+                'check_out': (check_in_utc + relativedelta(seconds=1)).strftime('%Y-%m-%d %H:%M:%S'),
                 'in_mode': 'technical',
                 'out_mode': 'technical',
                 'employee_id': emp.id

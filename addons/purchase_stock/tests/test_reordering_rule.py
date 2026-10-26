@@ -3,9 +3,10 @@
 
 from datetime import datetime as dt, time
 from datetime import timedelta as td
+from dateutil.relativedelta import relativedelta
 from json import loads
 
-from odoo import SUPERUSER_ID, Command
+from odoo import SUPERUSER_ID, Command, fields
 from odoo.fields import Date
 from odoo.tests import Form, tagged, freeze_time
 from odoo.tests.common import TransactionCase
@@ -1448,6 +1449,56 @@ class TestReorderingRule(TransactionCase):
         self.assertTrue(po_line)
         self.assertEqual(po_line.order_id.currency_id, foreign_currency)
 
+    def test_partners_validity_dates(self):
+        """
+        Check that the expiry dates of suppliers is taken into accounts for MTO + Buy products.
+        """
+        company = self.env.company
+        warehouse = self.env['stock.warehouse'].search([('company_id', '=', company.id)], limit=1)
+        route_mto = self.env.ref('stock.route_warehouse0_mto')
+        route_mto.active = True
+        route_buy = warehouse.buy_pull_id.route_id
+        supplier = self.env["res.partner"].create({
+            "name": "John",
+        })
+        product = self.env['product.product'].create({
+            'name': 'mto buy product',
+            'purchase_ok': True,
+            'is_storable': True,
+            'seller_ids': [Command.create({
+                'company_id': company.id,
+                'partner_id': self.partner.id,
+                'date_start': fields.Date.today() - relativedelta(days=2),
+                'date_end': fields.Date.today() - relativedelta(days=1),
+            }), Command.create({
+                'company_id': company.id,
+                'partner_id': supplier.id,
+                'date_start': fields.Date.today() - relativedelta(days=2),
+                'date_end': fields.Date.today() + relativedelta(days=1),
+            })],
+            'route_ids': [Command.link(route_mto.id), Command.link(route_buy.id)]
+        })
+        proc_group = self.env["procurement.group"].create({
+            "partner_id": supplier.id
+        })
+
+        procurement = self.env["procurement.group"].Procurement(
+            product, 1, product.uom_id,
+            supplier.property_stock_customer,
+            "Test default vendor",
+            "/",
+            self.env.company,
+            {
+                "warehouse_id": warehouse,
+                "date_planned": fields.Date.today(),
+                "group_id": proc_group,
+                "route_ids": [],
+            }
+        )
+        self.env["procurement.group"].run([procurement])
+        po_line = self.env["purchase.order.line"].search([("product_id", "=", product.id)], limit=1)
+        self.assertEqual(po_line.order_id.partner_id.id, supplier.id)
+
     def test_intercompany_reordering_rules(self):
         """
         Have 2 companies, create a procurment to fulfil a demand in COMP1 using custom route
@@ -1557,3 +1608,49 @@ class TestReorderingRule(TransactionCase):
         self.assertRecordValues(purchase_order_line, [
             {'product_uom_qty': 100, 'move_dest_ids': [delivery.move_ids.id, delivery.backorder_ids.move_ids.id]}
         ])
+
+    def test_replenish_expired_seller(self):
+        self.product_01.standard_price = 50.0
+        self.product_01.seller_ids.price = 100.0
+        warehouse = self.env['stock.warehouse'].search([('company_id', '=', self.env.company.id)], limit=1)
+        orderpoint = self.env['stock.warehouse.orderpoint'].with_user(2).create({
+            'warehouse_id': warehouse.id,
+            'location_id': warehouse.lot_stock_id.id,
+            'product_id': self.product_01.id,
+            'product_min_qty': 0.0,
+            'product_max_qty': 10.0,
+            'trigger': 'manual',
+        })
+        orderpoint.qty_to_order = 5.0
+        orderpoint.action_replenish()
+        po = self.env['purchase.order'].search([('partner_id', '=', self.partner.id)], order='id desc', limit=1)
+        self.assertRecordValues(po.order_line, [{
+            'product_id': self.product_01.id,
+            'product_qty': 5.0,
+            'price_unit': 100.0,
+        }])
+
+        # Expire the seller
+        self.product_01.seller_ids.date_end = Date.today() - td(days=1)
+        # Second replenishment with expired seller using the same orderpoint
+        orderpoint.qty_to_order = 1.0
+        orderpoint.action_replenish()
+        self.assertRecordValues(po.order_line, [{
+            'product_id': self.product_01.id,
+            'product_qty': 6.0,
+            'price_unit': 100.0,
+        }])
+
+    def test_set_supplier_in_orderpoint_uses_buy_route(self):
+        """ Set as Supplier on an orderpoint should assign the warehouse's Buy route """
+        warehouse = self.env['stock.warehouse'].search([('company_id', '=', self.env.company.id)], limit=1)
+        orderpoint = self.env['stock.warehouse.orderpoint'].create({
+            'warehouse_id': warehouse.id,
+            'location_id': warehouse.lot_stock_id.id,
+            'product_id': self.product_01.id,
+            'product_min_qty': 0,
+            'product_max_qty': 0,
+        })
+        self.assertFalse(orderpoint.route_id)
+        self.product_01.seller_ids.with_context(orderpoint_id=orderpoint.id).action_set_supplier()
+        self.assertEqual(orderpoint.route_id, warehouse.buy_pull_id.route_id, 'Buy route should be selected')

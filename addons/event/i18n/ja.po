@@ -8,12 +8,13 @@
 # Junko Augias, 2025
 #
 # "Junko Augias (juau)" <juau@odoo.com>, 2025, 2026.
+# Ryoko Tsuda <ryoko@quartile.co>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2026-01-10 09:03+0000\n"
+"POT-Creation-Date: 2026-04-10 18:38+0000\n"
+"PO-Revision-Date: 2026-10-20 18:08+0000\n"
 "Last-Translator: \"Junko Augias (juau)\" <juau@odoo.com>\n"
 "Language-Team: Japanese <https://translate.odoo.com/projects/odoo-18/event/"
 "ja/>\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_res_partner__event_count
@@ -119,18 +120,13 @@ msgid ""
 "'Full Page Ticket - %s - %s' % ((object.event_id.name or "
 "'Event').replace('/',''), (object.name or '').replace('/',''))"
 msgstr ""
-"'フルページチケット - %s - %s' % ((object.event_id.name or "
-"'Event').replace('/',''), (object.name or '').replace('/',''))"
+"'フルページチケット - %s - %s' % ((object.event_id.name or 'Event').replace"
+"('/',''), (object.name or '').replace('/',''))"
 
 #. module: event
 #: model:ir.actions.report,print_report_name:event.action_report_event_event_full_page_ticket
 msgid "'Full Page Ticket - %s' % (object.name or 'Event').replace('/','')"
 msgstr "'フルページチケット - %s' % (object.name or 'Event').replace('/','')"
-
-#. module: event
-#: model_terms:ir.ui.view,arch_db:event.event_report_full_page_ticket_layout
-msgid "+123456789"
-msgstr "+123456789"
 
 #. module: event
 #. odoo-python
@@ -145,13 +141,8 @@ msgid ""
 "- the ticket \"%(ticket_name)s\" (%(event_name)s): Missing %(nb_too_many)i "
 "seats."
 msgstr ""
-"- チケット\"%(ticket_name)s\" (%(event_name)s): %(nb_too_many)i 席足りませ"
-"ん。"
-
-#. module: event
-#: model:event.tag,name:event.event_tag_category_1_tag_2
-msgid "10-14"
-msgstr "10-14"
+"- チケット\"%(ticket_name)s\" (%(event_name)s): %(nb_too_many)i 席足りません"
+"。"
 
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.event_report_template_formatted_event_address
@@ -159,24 +150,9 @@ msgid "1000 Brussels"
 msgstr "1000 ブリュッセル"
 
 #. module: event
-#: model:event.tag,name:event.event_tag_category_1_tag_3
-msgid "15-18"
-msgstr "15-18"
-
-#. module: event
-#: model:event.tag,name:event.event_tag_category_1_tag_4
-msgid "18+"
-msgstr "18+"
-
-#. module: event
 #: model:ir.model.fields.selection,name:event.selection__event_event__badge_format__four_per_sheet
 msgid "4 per sheet"
 msgstr "シート毎に4"
-
-#. module: event
-#: model:event.tag,name:event.event_tag_category_1_tag_1
-msgid "5-10"
-msgstr "5-10"
 
 #. module: event
 #: model:ir.model.fields.selection,name:event.selection__event_event__badge_format__96x134
@@ -231,10 +207,11 @@ msgid ""
 "contribute, there is a free ticket, therefore, catering and access to "
 "evening events aren't included."
 msgstr ""
-"<b>イベントは全て一般公開されています！</b><br>参加費は3日間の費用(コーヒーブ"
-"レイク、ケータリング、ドリンク、サプライズコンサートとビアパーティー)として"
-"49.50ユーロ頂いております。<br>参加費を払いたくない方には、無料チケットをご用"
-"意しておりますが、ケータリングと夜のイベントへのアクセスは含まれません。"
+"<b>イベントは全て一般公開されています！</b><br>参加費は3日間の費用"
+"(コーヒーブレイク、ケータリング、ドリンク、サプライズコンサートと"
+"ビアパーティー)として49.50ユーロ頂いております。<br>参加費を払いたくない方に"
+"は、無料チケットをご用意しておりますが、ケータリングと夜のイベントへの"
+"アクセスは含まれません。"
 
 #. module: event
 #: model_terms:event.event,description:event.event_0
@@ -268,7 +245,7 @@ msgid ""
 msgstr ""
 "<br/>\n"
 "                                        <span class=\"text-muted\">Youtubeと"
-"の連携によるトラックのオンライン配信</span>"
+"の連携によるセッションのオンライン配信</span>"
 
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.res_config_settings_view_form
@@ -290,11 +267,11 @@ msgid ""
 "community module, a case study, methodology feedback, technical, etc. Each "
 "presentation must be in English.</em>"
 msgstr ""
-"<em>プレゼンテーションを希望する場合は、Mr. Famke Jenssensから承認するよう"
-"に、話題の提案をできるだけ早くngh (a)yourcompany(dot)comに送ってください。プ"
-"レゼンテーション、例、コミュニティモジュールの提示、ケーススタディ、方法論の"
-"フィードバック、技術的なものなどであるべきである。各プレゼンテーションは日本"
-"語でなければなりません</em>"
+"<em>プレゼンテーションを希望する場合は、Mr. Famke Jenssensから承認するように"
+"、話題の提案をできるだけ早くngh (a)yourcompany(dot)comに送ってください。"
+"プレゼンテーション、例、コミュニティモジュールの提示、ケーススタディ、方法論"
+"のフィードバック、技術的なものなどであるべきである。各プレゼンテーションは日"
+"本語でなければなりません</em>"
 
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.event_registration_view_kanban
@@ -376,8 +353,7 @@ msgstr "<span class=\"me-1\">から</span>"
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.event_report_template_badge_card
 msgid "<span class=\"o_event_badge_font_faded\">My Placeholder Company</span>"
-msgstr ""
-"<span class=\"o_event_badge_font_faded\">プレースホルダーカンパニー</span>"
+msgstr "<span class=\"o_event_badge_font_faded\">プレースホルダーカンパニー</span>"
 
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.view_event_form
@@ -1513,7 +1489,7 @@ msgstr "要アクション"
 #: model:ir.model.fields,field_description:event.field_event_event__active
 #: model:ir.model.fields,field_description:event.field_event_registration__active
 msgid "Active"
-msgstr "アクティブ"
+msgstr "有効"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_event__activity_ids
@@ -1555,8 +1531,8 @@ msgid ""
 "Add a navigation menu to your event web pages with schedule, tracks, a track "
 "proposal form, etc."
 msgstr ""
-"スケジュール、トラック、トラック提案書などを含むイベントWebページにナビゲー"
-"ションメニューを追加する。"
+"スケジュール、トラック、トラック提案書などを含むイベントWebページに"
+"ナビゲーションメニューを追加する。"
 
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.view_event_form
@@ -1694,10 +1670,10 @@ msgid ""
 "founded TinyERP. This was the first phase of OpenERP which would later "
 "became Odoo, the most installed open-source business software worldwide."
 msgstr ""
-"わずか13歳にして、ジョン・ドーはすでに顧客向けの最初のビジネス・アプリケー"
-"ションを開発し始めていました。土木工学を学んだ後、TinyERPを設立。これは、後に"
-"世界で最もインストールされるオープンソースのビジネスソフトウェアであるOdooと"
-"なるOpenERPの初期段階でした。"
+"わずか13歳にして、ジョン・ドーはすでに顧客向けの最初のビジネス・"
+"アプリケーションを開発し始めていました。土木工学を学んだ後、TinyERPを設立。こ"
+"れは、後に世界で最もインストールされるオープンソースのビジネスソフトウェアで"
+"あるOdooとなるOpenERPの初期段階でした。"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_event__message_attachment_count
@@ -1715,7 +1691,7 @@ msgstr "出席"
 #: model_terms:ir.ui.view,arch_db:event.view_event_registration_form
 #: model_terms:ir.ui.view,arch_db:event.view_registration_search
 msgid "Attended"
-msgstr "出席済"
+msgstr "参加済"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_registration__date_closed
@@ -1743,7 +1719,7 @@ msgstr "参加者リスト"
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_registration__name
 msgid "Attendee Name"
-msgstr "出席者名"
+msgstr "参加者名"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_registration__registration_answer_choice_ids
@@ -1766,7 +1742,7 @@ msgstr "参加者リスト"
 #: model_terms:ir.ui.view,arch_db:event.view_event_kanban
 #: model_terms:ir.ui.view,arch_db:event.view_event_type_form
 msgid "Attendees"
-msgstr "出席者"
+msgstr "参加者"
 
 #. module: event
 #. odoo-javascript
@@ -1839,7 +1815,7 @@ msgstr "バーコードインターフェイス"
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.res_config_settings_view_form
 msgid "Barcode Nomenclature"
-msgstr "バーコード表現規則"
+msgstr "バーコード表現ルール"
 
 #. module: event
 #: model:ir.model.constraint,message:event.constraint_event_registration_barcode_event_uniq
@@ -1862,7 +1838,7 @@ msgstr "イベント前"
 #: model:event.stage,legend_blocked:event.event_stage_new
 #: model:ir.model.fields.selection,name:event.selection__event_event__kanban_state__blocked
 msgid "Blocked"
-msgstr "不許可"
+msgstr "ブロック中"
 
 #. module: event
 #: model:res.partner,website_short_description:event.res_partner_event_1
@@ -1896,8 +1872,8 @@ msgid ""
 "Bring your outdoor field hockey season to the next level by taking the field "
 "at this 9th annual Field Hockey tournament."
 msgstr ""
-"この第9回フィールドホッケー大会でフィールドに立ち、屋外フィールドホッケーシー"
-"ズンを次のレベルに引き上げましょう。"
+"この第9回フィールドホッケー大会でフィールドに立ち、屋外"
+"フィールドホッケーシーズンを次のレベルに引き上げましょう。"
 
 #. module: event
 #: model:event.event,name:event.event_4
@@ -1957,8 +1933,8 @@ msgid ""
 "Choose a template to auto-fill tickets, communications, descriptions and "
 "other fields."
 msgstr ""
-"チケット、コミュニケーション、説明、その他のフィールドを自動入力するテンプ"
-"レートを選択します。"
+"チケット、コミュニケーション、説明、その他のフィールドを自動入力する"
+"テンプレートを選択します。"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_event_ticket__color
@@ -1986,7 +1962,7 @@ msgstr "ライブを見に来てください、お会いできるのを楽しみ
 #: model_terms:ir.ui.view,arch_db:event.view_event_form
 #: model_terms:ir.ui.view,arch_db:event.view_event_type_form
 msgid "Communication"
-msgstr "通信費"
+msgstr "連絡"
 
 #. module: event
 #: model:ir.model.fields,help:event.field_event_mail__mail_registration_ids
@@ -2046,7 +2022,7 @@ msgstr "会議、ワークショップ、トレーニングは6室で開催さ�
 #. module: event
 #: model:ir.model,name:event.model_res_config_settings
 msgid "Config Settings"
-msgstr "コンフィグ設定"
+msgstr "構成設定"
 
 #. module: event
 #: model:ir.ui.menu,name:event.menu_event_configuration
@@ -2078,7 +2054,7 @@ msgstr "連絡先"
 #. odoo-javascript
 #: code:addons/event/static/src/client_action/event_registration_summary_dialog.xml:0
 msgid "Continue"
-msgstr "次へ進む"
+msgstr "続行"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_event__country_id
@@ -2189,8 +2165,8 @@ msgid ""
 "as unlimited."
 msgstr ""
 "利用なチケットの枚数を定義します。登録数が多すぎる場合、チケットを販売するこ"
-"とができなくなります。この規則を無視して、無制限に設定する場合は0に設定して下"
-"さい。"
+"とができなくなります。このルールを無視して、無制限に設定する場合は0に設定して"
+"下さい。"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_event__description
@@ -2214,7 +2190,7 @@ msgstr "当社のエキスパートと共に持続可能なビジネス成長の
 #: model_terms:res.partner,website_description:event.res_partner_event_3
 #: model_terms:res.partner,website_description:event.res_partner_event_4
 msgid "Discover more"
-msgstr "詳細をご覧ください"
+msgstr "さらに詳しく"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_res_config_settings__module_website_event_meet
@@ -2265,8 +2241,8 @@ msgid ""
 "During this conference, our team will give a detailed overview of our "
 "business applications. You’ll know all the benefits of using it."
 msgstr ""
-"この会議で、私たちのチームはビジネスアプリケーションの詳細な概要を説明しま"
-"す。 あなたはそれを使うことのすべての利点を知るでしょう。"
+"この会議で、私たちのチームはビジネスアプリケーションの詳細な概要を説明します"
+"。 あなたはそれを使うことのすべての利点を知るでしょう。"
 
 #. module: event
 #. odoo-javascript
@@ -2537,8 +2513,8 @@ msgid ""
 "                \"Roadshow\", \"Online Webinar\", etc)."
 msgstr ""
 "ベントテンプレートは、よく使う設定を組み合わせたもので、\n"
-"                通常開催するイベントのタイプに基づいています。 (例: \"ワーク"
-"ショップ\"、\n"
+"                通常開催するイベントのタイプに基づいています。 (例: "
+"\"ワークショップ\"、\n"
 "                \"ロードショー\"、 \"オンラインウェビナー\"など)"
 
 #. module: event
@@ -2638,8 +2614,8 @@ msgid ""
 "source the features of the new version!"
 msgstr ""
 "毎年、コミュニティ、パートナー、エンドユーザを招待しています！新機能、将来の"
-"バージョンのロードマップ、ソフトウェアの成果、ワークショップ、トレーニング"
-"セッションなどを紹介する理想的なイベントです。\n"
+"バージョンのロードマップ、ソフトウェアの成果、ワークショップ、"
+"トレーニングセッションなどを紹介する理想的なイベントです。\n"
 "　　このイベントは、パートナーのケーススタディ、方法論、開発などを紹介する機"
 "会でもあります。新バージョンの機能をソースから直接ご覧下さい！"
 
@@ -2651,9 +2627,9 @@ msgid ""
 "of future versions, achievements of the software, workshops, training "
 "sessions, etc...."
 msgstr ""
-"毎年、私たちはコミュニティ、パートナー、エンドユーザを招待しています！新機"
-"能、将来のバージョンのロードマップ、ソフトウェアの成果、ワークショップ、ト"
-"レーニングセッションなどを発表する理想的なイベントです。"
+"毎年、私たちはコミュニティ、パートナー、エンドユーザを招待しています！新機能"
+"、将来のバージョンのロードマップ、ソフトウェアの成果、ワークショップ、"
+"トレーニングセッションなどを発表する理想的なイベントです。"
 
 #. module: event
 #: model:event.type,name:event.event_type_0
@@ -2677,7 +2653,7 @@ msgstr ""
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_stage__fold
 msgid "Folded in Kanban"
-msgstr "かんばんで折り込む"
+msgstr "かんばんで折りたたむ"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_event__message_follower_ids
@@ -2713,7 +2689,7 @@ msgid ""
 "For each event you can define a maximum registration of seats(number of "
 "attendees), above this numbers the registrations are not accepted."
 msgstr ""
-"各イベントについて、最大座席数(出席者数)を定義することができます。この数を超"
+"各イベントについて、最大座席数(参加者数)を定義することができます。この数を超"
 "えると、登録は受け付けられません。"
 
 #. module: event
@@ -2850,7 +2826,7 @@ msgstr "ゲスト数"
 #: model_terms:res.partner,website_description:event.res_partner_event_3
 #: model_terms:res.partner,website_description:event.res_partner_event_4
 msgid "Happy to be Sponsor"
-msgstr "スポンサーになりたい"
+msgstr "スポンサーとして協賛しています"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_event__has_message
@@ -2948,7 +2924,7 @@ msgid ""
 "propagated to every attendees.If not it will be asked for every attendee of "
 "a reservation."
 msgstr ""
-"チェックを付けた場合、この質問は一度だけ行われ、その値はすべての出席者に伝わ"
+"チェックを付けた場合、この質問は一度だけ行われ、その値はすべての参加者に伝わ"
 "ります。そうでない場合は、予約の参加者全員に対して質問されます。"
 
 #. module: event
@@ -2963,14 +2939,13 @@ msgstr "チェックした場合は、新しいメッセージに注意が必要
 #: model:ir.model.fields,help:event.field_event_registration__message_has_error
 #: model:ir.model.fields,help:event.field_event_registration__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "チェックした場合は、一部のメッセージに配信エラーが発生されました。"
+msgstr "チェックされている場合、一部のメッセージで送信エラーが発生しています。"
 
 #. module: event
 #: model:ir.model.fields,help:event.field_event_event__start_sale_datetime
 msgid ""
 "If ticketing is used, contains the earliest starting sale date of tickets."
-msgstr ""
-"チケット販売を利用する場合は、チケットの最も早い販売開始日を記載します。"
+msgstr "チケット販売を利用する場合は、チケットの最も早い販売開始日を記載します。"
 
 #. module: event
 #: model_terms:event.event,ticket_instructions:event.event_0
@@ -3161,7 +3136,7 @@ msgstr "過去30日間"
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_mail__last_registration_id
 msgid "Last Attendee"
-msgstr "最後の出席者"
+msgstr "最後の参加者"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_event__write_uid
@@ -3203,7 +3178,7 @@ msgstr "最終更新日"
 #: model_terms:ir.ui.view,arch_db:event.view_event_search
 #: model_terms:ir.ui.view,arch_db:event.view_registration_search
 msgid "Late Activities"
-msgstr "遅れた活動"
+msgstr "期限超過の活動"
 
 #. module: event
 #. odoo-javascript
@@ -3324,7 +3299,7 @@ msgstr "最大"
 #: model:ir.model.fields,field_description:event.field_event_event_ticket__seats_max
 #: model:ir.model.fields,field_description:event.field_event_type_ticket__seats_max
 msgid "Maximum Attendees"
-msgstr "最大出席者数"
+msgstr "最大参加者数"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_type__seats_max
@@ -3433,7 +3408,7 @@ msgstr "まだ参加予定者がいません！"
 #: model_terms:ir.actions.act_window,help:event.event_registration_action_kanban
 #: model_terms:ir.actions.act_window,help:event.event_registration_action_stats_from_event
 msgid "No Attendees yet!"
-msgstr "出席者はまだいません！"
+msgstr "参加者はまだいません！"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_res_config_settings__barcode_nomenclature_id
@@ -3463,8 +3438,7 @@ msgstr "まだ予定がありません！"
 #. odoo-javascript
 #: code:addons/event/static/src/js/tours/event_tour.js:0
 msgid "Now that your event is ready, click here to move it to another stage."
-msgstr ""
-"イベントの準備が整いました。ここをクリックして別のステージに移動して下さい。"
+msgstr "イベントの準備が整いました。ここをクリックして別のステージに移動して下さい。"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_event__message_needaction_counter
@@ -3497,7 +3471,7 @@ msgstr "エラー数"
 #: model:ir.model.fields,help:event.field_event_event__message_needaction_counter
 #: model:ir.model.fields,help:event.field_event_registration__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr "アクションを必要とするメッセージの数"
+msgstr "対応が必要なメッセージ数"
 
 #. module: event
 #: model:ir.model.fields,help:event.field_event_event__message_has_error_counter
@@ -3561,8 +3535,7 @@ msgstr "未設定の場合オンライン"
 #. odoo-javascript
 #: code:addons/event/static/src/js/tours/event_tour.js:0
 msgid "Open date range picker.<br/>Pick a Start and End date for your event."
-msgstr ""
-"日付範囲ピッカーを開きます。<br/>イベントの開始日・終了日を選択します。"
+msgstr "日付範囲ピッカーを開きます。<br/>イベントの開始日・終了日を選択します。"
 
 #. module: event
 #: model_terms:event.event,description:event.event_0
@@ -3588,7 +3561,7 @@ msgstr "操作はサポートされていません。"
 #: model:ir.model.fields,field_description:event.field_event_event__organizer_id
 #: model_terms:ir.ui.view,arch_db:event.view_registration_search
 msgid "Organizer"
-msgstr "オーガナイザ"
+msgstr "主催者"
 
 #. module: event
 #: model:event.event,subtitle:event.event_7
@@ -3927,7 +3900,7 @@ msgstr "実行中"
 #: model:ir.model.fields,field_description:event.field_event_event__message_has_sms_error
 #: model:ir.model.fields,field_description:event.field_event_registration__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr "SMS送信エラー"
+msgstr "SMS配信エラー"
 
 #. module: event
 #. odoo-javascript
@@ -3938,7 +3911,7 @@ msgstr "スキャンまたはタップ"
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.res_config_settings_view_form
 msgid "Schedule & Tracks"
-msgstr "スケジュールとトラック"
+msgstr "スケジュールとセッション"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_mail__scheduled_date
@@ -3951,13 +3924,13 @@ msgid ""
 "Schedule and organize your events: handle registrations, send automated "
 "confirmation emails, sell tickets, etc."
 msgstr ""
-"イベントのスケジュール管理：登録処理、自動確認メールの送信、チケット販売な"
-"ど。"
+"イベントのスケジュール管理：登録処理、自動確認メールの送信、チケット販売など"
+"。"
 
 #. module: event
 #: model:ir.model.fields.selection,name:event.selection__event_mail__mail_state__scheduled
 msgid "Scheduled"
-msgstr "予定"
+msgstr "スケジュール済"
 
 #. module: event
 #: model:ir.model.fields,field_description:event.field_event_mail_registration__scheduled_date
@@ -3985,7 +3958,7 @@ msgstr "シークレット"
 #. odoo-javascript
 #: code:addons/event/static/src/client_action/event_barcode.xml:0
 msgid "Select Attendee"
-msgstr "出席者を選択"
+msgstr "参加者を選択"
 
 #. module: event
 #. odoo-javascript
@@ -4040,8 +4013,7 @@ msgstr "送信日"
 #: model:mail.template,description:event.event_reminder
 msgid ""
 "Sent automatically to attendees if there is a reminder defined on the event"
-msgstr ""
-"イベントにリマインダが定義されている場合、出席者に自動的に送信されます。"
+msgstr "イベントにリマインダが定義されている場合、参加者に自動的に送信されます。"
 
 #. module: event
 #: model:mail.template,description:event.event_registration_mail_template_badge
@@ -4272,8 +4244,7 @@ msgstr "Great Reno気球レースは世界最大の無料熱気球イベント�
 msgid ""
 "The best Hockey teams of the country will compete for the national Hockey "
 "trophy."
-msgstr ""
-"国内最高峰のホッケーチームが、全国ホッケートロフィーをかけて競い合います。"
+msgstr "国内最高峰のホッケーチームが、全国ホッケートロフィーをかけて競い合います。"
 
 #. module: event
 #: model_terms:event.event,description:event.event_1
@@ -4416,8 +4387,8 @@ msgstr "この演算子は対応されていません"
 #: model_terms:ir.ui.view,arch_db:event.event_stage_view_form
 msgid "This step is done. Click to block or set in progress."
 msgstr ""
-"このステップは完了です。ブロックまたは進行中に設定するにはクリックして下さ"
-"い。"
+"このステップは完了です。ブロックまたは進行中に設定するにはクリックして下さい"
+"。"
 
 #. module: event
 #. odoo-javascript
@@ -4474,7 +4445,7 @@ msgid ""
 "Ticket types allow you to distinguish your attendees. Let's <b>create</b> a "
 "new one."
 msgstr ""
-"チケットの種類によって、出席者を区別することができます。新しいものを<b>作成</"
+"チケットの種類によって、参加者を区別することができます。新しいものを<b>作成</"
 "b>しましょう。"
 
 #. module: event
@@ -4516,7 +4487,7 @@ msgstr "件名"
 #: model_terms:ir.ui.view,arch_db:event.view_event_search
 #: model_terms:ir.ui.view,arch_db:event.view_registration_search
 msgid "Today Activities"
-msgstr "本日の活動"
+msgstr "今日の活動"
 
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.event_event_ticket_view_tree_from_event
@@ -4574,7 +4545,7 @@ msgstr "タイプ"
 #: model:ir.model.fields,help:event.field_event_event__activity_exception_decoration
 #: model:ir.model.fields,help:event.field_event_registration__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "記録上の例外活動の種類。"
+msgstr "レコード上の例外の活動タイプ。"
 
 #. module: event
 #: model:ir.model.fields.selection,name:event.selection__event_registration__state__draft
@@ -4593,7 +4564,7 @@ msgid ""
 msgstr ""
 "未確認: アクション(特定のケース、特に販売ステータス)を有する保留状態の登録\n"
 "登録済: 顧客によって登録されたとみなされる登録\n"
-"出席済: 出席者がイベントに出席した登録\n"
+"参加済: 参加者がイベントに参加した登録\n"
 "キャンセル済: 手動でキャンセルされた登録"
 
 #. module: event
@@ -4938,19 +4909,18 @@ msgstr "organizer@email.com"
 msgid ""
 "registrations have started if the current datetime is after the earliest "
 "starting date of tickets."
-msgstr ""
-"現在の日付がチケットの最も早い開始日以降であれば、登録は開始されています。"
+msgstr "現在の日付がチケットの最も早い開始日以降であれば、登録は開始されています。"
 
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.event_event_ticket_view_kanban_from_event
 msgid "reserved"
-msgstr "引当済"
+msgstr "予約済"
 
 #. module: event
 #: model_terms:ir.ui.view,arch_db:event.view_event_form
 #: model_terms:ir.ui.view,arch_db:event.view_event_type_form
 msgid "to"
-msgstr "to"
+msgstr "~"
 
 #. module: event
 #. odoo-python
@@ -4968,6 +4938,21 @@ msgstr "明日"
 #: model:mail.template,subject:event.event_reminder
 msgid "{{ object.event_id.name }}: {{ object.event_date_range }}"
 msgstr "{{ object.event_id.name }}: {{ object.event_date_range }}"
+
+#~ msgid "+123456789"
+#~ msgstr "+123456789"
+
+#~ msgid "10-14"
+#~ msgstr "10-14"
+
+#~ msgid "15-18"
+#~ msgstr "15-18"
+
+#~ msgid "18+"
+#~ msgstr "18+"
+
+#~ msgid "5-10"
+#~ msgstr "5-10"
 
 #~ msgid ""
 #~ "<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" style=\"padding-"

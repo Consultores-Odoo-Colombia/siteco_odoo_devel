@@ -50,12 +50,8 @@ class IapAccount(models.Model):
                 ))
 
     def web_read(self, *args, **kwargs):
-        if not self.env.context.get('disable_iap_fetch'):
-            self._get_account_information_from_iap()
+        self._get_account_information_from_iap()
         return super().web_read(*args, **kwargs)
-
-    def web_save(self, *args, **kwargs):
-        return super(IapAccount, self.with_context(disable_iap_fetch=True)).web_save(*args, **kwargs)
 
     def write(self, values):
         res = super().write(values)
@@ -103,6 +99,11 @@ class IapAccount(models.Model):
             accounts_information = iap_tools.iap_jsonrpc(url=url, params=params)
         except AccessError as e:
             _logger.warning("Fetch of the IAP accounts information has failed: %s", str(e))
+            self.env.user._bus_send("simple_notification", {
+                'type': 'danger',
+                'message': _("The IAP server is unreachable and the information may not be up to date. Please try again later."),
+                'sticky': True,
+            })
             return
 
         for token, information in accounts_information.items():

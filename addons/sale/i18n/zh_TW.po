@@ -7,14 +7,15 @@
 # Wil Odoo, 2025
 # Tony Ng, 2025
 #
-# "Tony Ng (ngto)" <ngto@odoo.com>, 2025.
-# "Junko Augias (juau)" <juau@odoo.com>, 2025.
+# "Tony Ng (ngto)" <ngto@odoo.com>, 2025, 2026.
+# "Junko Augias (juau)" <juau@odoo.com>, 2025, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2025-12-26 14:00+0000\n"
+"POT-Creation-Date: 2026-04-10 18:38+0000\n"
+"PO-Revision-Date: 2026-10-20 13:16+0000\n"
 "Last-Translator: \"Junko Augias (juau)\" <juau@odoo.com>\n"
 "Language-Team: Chinese (Traditional Han script) <https://translate.odoo.com/"
 "projects/odoo-18/sale/zh_Hant/>\n"
@@ -23,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_payment_provider_onboarding_wizard___data_fetched
@@ -75,21 +76,6 @@ msgid ""
 msgstr ""
 "(object.state in ('draft', 'sent') and '報價單 － %s' % (object.name)) or '銷"
 "售訂單 － %s' % (object.name)"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "2023-12-31"
-msgstr "2023 年 12 月 31 日"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "27.00"
-msgstr "27.00"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "31.05"
-msgstr "31.05"
 
 #. module: sale
 #. odoo-javascript
@@ -160,6 +146,63 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 12px;\">\n"
+"        <t t-set=\"transaction_sudo\" t-"
+"value=\"object.get_portal_last_transaction()\"/>\n"
+"        你好！\n"
+"        <br/><br/>\n"
+"        一筆付款（參考編號：\n"
+"        <span style=\"font-weight:bold;\" t-out=\"transaction_sudo.reference "
+"or ''\">SOOO49</span>\n"
+"        ，金額為\n"
+"        <span style=\"font-weight:bold;\" t-out=\"format_amount"
+"(transaction_sudo.amount, object.currency_id) or ''\">$ 10.00</span>\n"
+"        ，你的相關訂單為\n"
+"        <span style=\"font-weight:bold;\" t-out=\"object.name or ''\">"
+"S00049</span>）\n"
+"        <t t-if=\"transaction_sudo and transaction_sudo.state == 'pending'\">"
+"\n"
+"            正等待處理。\n"
+"            <br/>\n"
+"            <t t-if=\"object.currency_id.compare_amounts(object.amount_paid "
+"+ transaction_sudo.amount, object.amount_total) &gt;= 0 and object.state in "
+"('draft', 'sent')\">\n"
+"                付款確認後，你的訂單會即時確認。\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                確認後，仍有\n"
+"                <span style=\"font-weight:bold;\" t-out=\"format_amount"
+"(object.amount_total - object.amount_paid - transaction_sudo.amount, "
+"object.currency_id) or ''\">$ 10.00</span>\n"
+"                款項待付。\n"
+"            </t>\n"
+"        </t>\n"
+"        <t t-else=\"\">\n"
+"            已獲確認。\n"
+"            <t t-if=\"object.currency_id.compare_amounts(object.amount_paid, "
+"object.amount_total) &lt; 0\">\n"
+"                <br/>\n"
+"                訂單仍有 <span style=\"font-weight:bold;\" t-"
+"out=\"format_amount(object.amount_total - object.amount_paid, "
+"object.currency_id) or ''\">$ 10.00</span>\n"
+"                款項待付。\n"
+"            </t>\n"
+"        </t>\n"
+"        <br/><br/>\n"
+"        感謝你的信任！\n"
+"        <br/>\n"
+"        如有任何疑問，歡迎聯絡我們。\n"
+"        <t t-if=\"not is_html_empty(object.user_id.signature)\" data-o-mail-"
+"quote-container=\"1\">\n"
+"            <br/><br/>\n"
+"            <t t-out=\"object.user_id.signature or ''\" data-o-mail-"
+"quote=\"1\">--<br data-o-mail-quote=\"1\"/>Mitchell Admin</t>\n"
+"        </t>\n"
+"        <br/><br/>\n"
+"    </p>\n"
+"</div>\n"
+"            "
 
 #. module: sale
 #: model:mail.template,body_html:sale.mail_template_sale_confirmation
@@ -508,8 +551,8 @@ msgstr ""
 "            </t>\n"
 "        </t>\n"
 "        <br/>\n"
-"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/"
-">\n"
+"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/>"
+"\n"
 "        <t t-if=\"documents\">\n"
 "            <br/> \n"
 "            <t t-if=\"len(documents)&gt;1\">\n"
@@ -543,16 +586,16 @@ msgstr ""
 "        <table width=\"100%\" style=\"color: #454748; font-size: 12px; "
 "border-collapse: collapse; white-space: nowrap;\">\n"
 "            <tr style=\"border-bottom: 2px solid #dee2e6;\">\n"
-"                <td style=\"width: 150px;\"><span style=\"font-weight:bold;"
-"\">產品</span></td>\n"
+"                <td style=\"width: 150px;\"><span style=\"font-"
+"weight:bold;\">產品</span></td>\n"
 "                <td/>\n"
 "                <td width=\"15%\" align=\"center\"><span style=\"font-"
 "weight:bold;\">數量</span></td>\n"
 "                <td width=\"20%\" align=\"right\">\n"
 "                    <span style=\"font-weight:bold;\">\n"
 "                        <t t-"
-"if=\"object.website_id.show_line_subtotals_tax_selection == "
-"'tax_excluded'\">\n"
+"if=\"object.website_id.show_line_subtotals_tax_selection == 'tax_excluded'\">"
+"\n"
 "                            未連稅金額\n"
 "                        </t>\n"
 "                        <t t-else=\"\">\n"
@@ -567,8 +610,8 @@ msgstr ""
 "            <t t-set=\"line_subtotal\" t-value=\"                     "
 "line.price_subtotal                     if "
 "object.website_id.show_line_subtotals_tax_selection == "
-"'tax_excluded'                     else line.price_total                 \"/"
-">\n"
+"'tax_excluded'                     else line.price_total                 \"/>"
+"\n"
 "            <t t-set=\"current_subtotal\" t-value=\"current_subtotal + "
 "line_subtotal\"/>\n"
 "            <t t-if=\"(not hasattr(line, 'is_delivery') or not "
@@ -590,12 +633,12 @@ msgstr ""
 "out=\"line.name or ''\">樹木護理課程</span>\n"
 "                                <t t-set=\"current_section\" t-"
 "value=\"line\"/>\n"
-"                                <t t-set=\"current_subtotal\" t-value=\"0\"/"
-">\n"
+"                                <t t-set=\"current_subtotal\" t-value=\"0\"/>"
+"\n"
 "                            </t>\n"
 "                            <t t-elif=\"line.display_type == 'line_note'\">\n"
-"                                <i t-out=\"line.name or ''\">樹木護理課程</"
-"i>\n"
+"                                <i t-out=\"line.name or ''\">樹木護理課程</i>"
+"\n"
 "                            </t>\n"
 "                        </td>\n"
 "                    </tr>\n"
@@ -612,9 +655,9 @@ msgstr ""
 "                        <t t-set=\"loop_cycle_number\" t-"
 "value=\"loop_cycle_number + 1\"/>\n"
 "                        <td style=\"width: 150px;\">\n"
-"                            <img t-attf-src=\"/web/image/product.product/"
-"{{ line.product_id.id }}/image_128\" style=\"width: 64px; height: 64px; "
-"object-fit: contain;\" alt=\"產品圖片\"/>\n"
+"                            <img t-attf-src=\"/web/image/product.product/{{ "
+"line.product_id.id }}/image_128\" style=\"width: 64px; height: 64px; object-"
+"fit: contain;\" alt=\"產品圖片\"/>\n"
 "                        </td>\n"
 "                        <td align=\"left\" t-out=\"line.product_id.name or "
 "''\">樹木護理課程</td>\n"
@@ -623,30 +666,26 @@ msgstr ""
 "                        <td width=\"20%\" align=\"right\"><span style=\"font-"
 "weight:bold; white-space: nowrap;\">\n"
 "                        <t t-"
-"if=\"object.website_id.show_line_subtotals_tax_selection == "
-"'tax_excluded'\">\n"
-"                            <t t-"
-"out=\"format_amount(line.price_reduce_taxexcl, object.currency_id) or ''\">$ "
-"10.00</t>\n"
+"if=\"object.website_id.show_line_subtotals_tax_selection == 'tax_excluded'\">"
+"\n"
+"                            <t t-out=\"format_amount"
+"(line.price_reduce_taxexcl, object.currency_id) or ''\">$ 10.00</t>\n"
 "                        </t>\n"
 "                        <t t-else=\"\">\n"
-"                            <t t-"
-"out=\"format_amount(line.price_reduce_taxinc, object.currency_id) or ''\">$ "
-"10.00</t>\n"
+"                            <t t-out=\"format_amount"
+"(line.price_reduce_taxinc, object.currency_id) or ''\">$ 10.00</t>\n"
 "                        </t>\n"
 "                        </span></td>\n"
 "                    </tr>\n"
 "                </table>\n"
 "            </t>\n"
-"            <t t-if=\"current_section and "
-"(                     line_last                     or "
-"object.order_line[line_index+1].display_type == "
+"            <t t-if=\"current_section and (                     line_last"
+"                     or object.order_line[line_index+1].display_type == "
 "'line_section'                     or "
 "object.order_line[line_index+1].product_type == 'combo'                     "
 "or (                         line.combo_item_id                         and "
-"not "
-"object.order_line[line_index+1].combo_item_id                     )                 ) "
-"and not line.is_downpayment\">\n"
+"not object.order_line[line_index+1].combo_item_id                     )"
+"                 ) and not line.is_downpayment\">\n"
 "                <t t-set=\"current_section\" t-value=\"無\"/>\n"
 "                <table width=\"100%\" style=\"color: #454748; font-size: "
 "12px; border-collapse: collapse;\">\n"
@@ -657,8 +696,8 @@ msgstr ""
 "                        <t t-set=\"loop_cycle_number\" t-"
 "value=\"loop_cycle_number + 1\"/>\n"
 "                        <td style=\"width: 100%\" align=\"right\">\n"
-"                            <span style=\"font-weight: bold;\">小計：</"
-"span>\n"
+"                            <span style=\"font-weight: bold;\">小計：</span>"
+"\n"
 "                            <span t-out=\"format_amount(current_subtotal, "
 "object.currency_id) or ''\">$ 10.00</span>\n"
 "                        </td>\n"
@@ -748,8 +787,8 @@ msgstr ""
 "                        <t t-out=\"tx_sudo.token_id.display_name or ''\"/>\n"
 "                    </t>\n"
 "                    <t t-else=\"\">\n"
-"                        <t t-out=\"tx_sudo.provider_id.sudo().name or ''\"/"
-">\n"
+"                        <t t-out=\"tx_sudo.provider_id.sudo().name or ''\"/>"
+"\n"
 "                    </t>\n"
 "                    （金額 <t t-out=\"format_amount(tx_sudo.amount, "
 "object.currency_id) or ''\">$ 10.00</t>）\n"
@@ -764,8 +803,8 @@ msgstr ""
 "                <td>\n"
 "                    <br/>\n"
 "                    <span style=\"font-weight:bold;\">送貨地址：</span>\n"
-"                    <t t-out=\"object.partner_shipping_id.street or "
-"''\">1201 S Figueroa St</t>\n"
+"                    <t t-out=\"object.partner_shipping_id.street or ''\">"
+"1201 S Figueroa St</t>\n"
 "                    <t t-out=\"object.partner_shipping_id.city or ''\">Los "
 "Angeles</t>\n"
 "                    <t t-out=\"object.partner_shipping_id.state_id.name or "
@@ -787,9 +826,8 @@ msgstr ""
 "                        （免運費）\n"
 "                    </t>\n"
 "                    <t t-else=\"\">\n"
-"                        （運費 <t t-"
-"out=\"format_amount(object.amount_delivery, object.currency_id) or ''\">$ "
-"10.00</t>）\n"
+"                        （運費 <t t-out=\"format_amount"
+"(object.amount_delivery, object.currency_id) or ''\">$ 10.00</t>）\n"
 "                    </t>\n"
 "                </td>\n"
 "            </tr>\n"
@@ -870,6 +908,66 @@ msgid ""
 "</div>\n"
 "            "
 msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"    <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"        <t t-set=\"doc_name\" t-value=\"'quotation' if object.state in "
+"('draft', 'sent') else 'order'\"/>\n"
+"        你好！\n"
+"        <br/><br/>\n"
+"        你的\n"
+"        <t t-if=\"ctx.get('proforma')\">\n"
+"            形式發票，相關<t t-out=\"doc_name or ''\">報價單</t>為 <span "
+"style=\"font-weight: bold;\" t-out=\"object.name or ''\">S00052</span> \n"
+"            <t t-if=\"object.origin\">\n"
+"                (參考編號：<t t-out=\"object.origin or ''\"/>)\n"
+"            </t>\n"
+"            ，金額為 <span style=\"font-weight: bold;\" t-out=\"format_amount"
+"(object.amount_total, object.currency_id) or ''\">$ 10.00</span>，現可供查閱"
+"。\n"
+"        </t>\n"
+"        <t t-else=\"\">\n"
+"            <t t-out=\"doc_name or ''\">報價單</t> <span style=\"font-"
+"weight: bold;\" t-out=\"object.name or ''\">S00052</span> \n"
+"            <t t-if=\"object.origin\">\n"
+"                (參考編號：<t t-out=\"object.origin or ''\">S00052</t>)\n"
+"            </t>\n"
+"            ，金額為 <span style=\"font-weight: bold;\" t-out=\"format_amount"
+"(object.amount_total, object.currency_id) or ''\">$ 10.00</span>，現可供查閱"
+"。\n"
+"        </t>\n"
+"        <br/>\n"
+"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/>"
+"\n"
+"        <t t-if=\"documents\">\n"
+"            <br/> \n"
+"            <t t-if=\"len(documents)&gt;1\">\n"
+"                以下是你可能會感興趣的一些其他文件：\n"
+"            </t>\n"
+"            <t t-else=\"\">\n"
+"                以下是你可能會感興趣的另一份文件：\n"
+"            </t>\n"
+"            <ul style=\"margin-bottom: 0;\">\n"
+"                <t t-foreach=\"documents\" t-as=\"document\">\n"
+"                    <li style=\"font-size: 13px;\">\n"
+"                        <a t-out=\"document.ir_attachment_id.name\" t-att-"
+"href=\"object.get_portal_url('/document/' + str(document.id))\" t-att-"
+"target=\"target\"/>\n"
+"                    </li>\n"
+"                </t>\n"
+"            </ul>\n"
+"        </t>\n"
+"        <br/>\n"
+"        如有任何疑問，歡迎隨時聯絡我們。\n"
+"        <t t-if=\"not is_html_empty(object.user_id.signature)\" data-o-mail-"
+"quote-container=\"1\">\n"
+"            <br/><br/>\n"
+"            <t t-out=\"object.user_id.signature or ''\" data-o-mail-"
+"quote=\"1\">--<br data-o-mail-quote=\"1\"/>Mitchell Admin</t>\n"
+"        </t>\n"
+"        <br/><br/>\n"
+"    </p>\n"
+"</div>\n"
+"            "
 
 #. module: sale
 #: model:mail.template,body_html:sale.mail_template_sale_cancellation
@@ -955,8 +1053,7 @@ msgstr "<i class=\"fa fa-fw fa-clock-o\"/> 等待付款"
 #: model_terms:ir.ui.view,arch_db:sale.utm_campaign_view_kanban
 msgid ""
 "<i class=\"fa fa-fw fa-money me-1\" aria-label=\"Quotations\" role=\"img\"/>"
-msgstr ""
-"<i class=\"fa fa-fw fa-money me-1\" aria-label=\"報價單\" role=\"img\"/>"
+msgstr "<i class=\"fa fa-fw fa-money me-1\" aria-label=\"報價單\" role=\"img\"/>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.portal_my_quotations
@@ -1020,15 +1117,6 @@ msgstr ""
 "<span class=\"fa fa-exclamation-triangle text-warning me-1\" title=\"此產品已"
 "封存\" invisible=\"state not in ['draft', 'sent'] or not "
 "is_product_archived\"/>"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-building-o p-2\" title=\"Values set here are "
-"company-specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-"<span class=\"fa fa-lg fa-building-o p-2\" title=\"此處設定的值是特定於每間公"
-"司的。\" groups=\"base.group_multi_company\"/>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.crm_team_salesteams_view_form
@@ -1438,8 +1526,8 @@ msgstr ""
 "「確認訂單時」：文件將傳送給客戶，供客戶存取查閱。\n"
 "例如：若想傳送使用手冊，或交付在電子商務平台購買的數碼/電子內容，此選項便很有"
 "用。\n"
-"「報價單內夾附」：文件會加入報價單及銷售訂單的 pdf 中，放在標題頁與報價表之"
-"間。"
+"「報價單內夾附」：文件會加入報價單及銷售訂單的 pdf 中，放在標題頁與報價表之間"
+"。"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_payment_link_wizard__amount_paid
@@ -1485,8 +1573,7 @@ msgid ""
 "An order is to upsell when delivered quantities are above initially\n"
 "            ordered quantities, and the invoicing policy is based on ordered "
 "quantities."
-msgstr ""
-"當交付數量高於最初訂購數量時，訂單將追加銷售，並且應收憑單策略基於訂購數量."
+msgstr "當交付數量高於最初訂購數量時，訂單將追加銷售，並且應收憑單策略基於訂購數量."
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order_line__analytic_distribution
@@ -1516,7 +1603,7 @@ msgstr "分析精度"
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order_line__analytic_line_ids
 msgid "Analytic lines"
-msgstr "分析明細"
+msgstr "分析資料行"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_line_wizard_form
@@ -1529,8 +1616,8 @@ msgid ""
 "Apply manual discounts on sales order lines or display discounts computed "
 "from pricelists (option to activate in the pricelist configuration)."
 msgstr ""
-"對銷售訂單明細應用手動折扣或顯示從價格表計算的折扣 (在價格表組態中啟動的選"
-"項)."
+"對銷售訂單明細應用手動折扣或顯示從價格表計算的折扣 (在價格表組態中啟動的選項)"
+"."
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.mass_cancel_orders_view_form
@@ -1756,8 +1843,8 @@ msgstr ""
 "   - 產品的發票策略配置正確。\n"
 "\n"
 "如果您想根據訂購數量開具發票，請執行以下操作：\n"
-"   - 對於易耗品或可儲存產品，打開產品，轉到 \"常規資料\"選項卡，將 \"開票策略"
-"\"從 \"已交付數量\"更改為 \"已訂購數量\"。\n"
+"   - 對於易耗品或可儲存產品，打開產品，轉到 \"常規資料\"選項卡，將 \"開票策"
+"略\"從 \"已交付數量\"更改為 \"已訂購數量\"。\n"
 "   - 對於服務(和其他產品）,將 \"開票策略 \"改為 \"預付/固定價格\"。\n"
 
 #. module: sale
@@ -1867,11 +1954,14 @@ msgid ""
 "                                    <strong>(please go to Home&gt;Apps to "
 "install)</strong>"
 msgstr ""
+"以 DHL 計算運費及發貨<br/>\n"
+"                                    <strong>（請前往主頁 &gt; 應用程式以安裝"
+"）</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Compute shipping costs and ship with Easypost"
-msgstr "計算運輸成本並用Easypost裝運"
+msgstr "以 Easypost 計算運費及發貨"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -1880,21 +1970,24 @@ msgid ""
 "                                    <strong>(please go to Home&gt;Apps to "
 "install)</strong>"
 msgstr ""
+"以 FedEx 計算運費及發貨<br/>\n"
+"                                    <strong>（請前往主頁 &gt; 應用程式以安裝"
+"）</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Compute shipping costs and ship with Sendcloud"
-msgstr "計算運輸成本並用Sendcloud裝運"
+msgstr "以 Sendcloud 計算運費及發貨"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Compute shipping costs and ship with Shiprocket"
-msgstr "使用Shiprocket計算運輸成本及發貨"
+msgstr "以 Shiprocket 計算運費及發貨"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Compute shipping costs and ship with Starshipit"
-msgstr "計算運送成本，並以 Starshipit 送貨"
+msgstr "以 Starshipit 計算運費及發貨"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -1903,6 +1996,9 @@ msgid ""
 "                                    <strong>(please go to Home&gt;Apps to "
 "install)</strong>"
 msgstr ""
+"以 UPS 計算運費及發貨<br/>\n"
+"                                    <strong>（請前往主頁 &gt; 應用程式以安裝"
+"）</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -1911,11 +2007,14 @@ msgid ""
 "                                    <strong>(please go to Home&gt;Apps to "
 "install)</strong>"
 msgstr ""
+"以美國郵政署（USPS）計算運費及發貨<br/>\n"
+"                                    <strong>（請前往主頁 &gt; 應用程式以安裝"
+"）</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Compute shipping costs and ship with bpost"
-msgstr "計算運輸成本並用bpost裝運"
+msgstr "以 bpost 計算運費及發貨"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -2195,7 +2294,7 @@ msgstr "客戶"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "DHL Connector"
-msgstr ""
+msgstr "DHL 連接器"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_delivery_dhl
@@ -2289,6 +2388,11 @@ msgstr "收貨地址"
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "Delivery Date"
 msgstr "交貨日期"
+
+#. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_content
+msgid "Delivery Date:"
+msgstr ""
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_delivery
@@ -2637,7 +2741,7 @@ msgstr "帶有 %s 的其他明細"
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_delivery_fedex
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "FedEx Connector"
-msgstr "FedEx連接器"
+msgstr "FedEx 連接器"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__fiscal_position_id
@@ -2661,7 +2765,7 @@ msgstr "固定金額"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.portal_my_home_sale
 msgid "Follow, view or pay your orders"
-msgstr "關注、查看或支付您的訂單"
+msgstr "關注、查看或支付你的訂單"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__message_follower_ids
@@ -2761,7 +2865,7 @@ msgstr ""
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Grant discounts on sales order lines"
-msgstr "在銷售訂單明細授予折扣"
+msgstr "在銷售單資料行給予折扣"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_report__weight
@@ -2853,8 +2957,7 @@ msgstr "勾選代表有訊息發生傳送錯誤。"
 msgid ""
 "If set, the SO will invoice in this journal; otherwise the sales journal "
 "with the lowest sequence is used."
-msgstr ""
-"如果設置, 則 銷售訂單將在此日記賬中開票；否則將使用順序最低的銷售日記賬。"
+msgstr "如果設置, 則 銷售訂單將在此日記賬中開票；否則將使用順序最低的銷售日記賬。"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
@@ -3551,16 +3654,14 @@ msgstr ""
 msgid ""
 "Once the quotation is confirmed by the customer, it becomes a sales order."
 "<br> You will be able to create an invoice and collect the payment."
-msgstr ""
-"一旦客戶確認報價，報價單即變為銷售訂單.<br>您可以建立一張應收憑單來進行收款."
+msgstr "一旦客戶確認報價，報價單即變為銷售訂單.<br>您可以建立一張應收憑單來進行收款."
 
 #. module: sale
 #: model_terms:ir.actions.act_window,help:sale.action_orders
 msgid ""
 "Once the quotation is confirmed, it becomes a sales order.<br> You will be "
 "able to create an invoice and collect the payment."
-msgstr ""
-"一旦報價確認，報價單即變為銷售訂單.<br>您可以建立一張應收憑單來進行收款."
+msgstr "一旦報價確認，報價單即變為銷售訂單.<br>您可以建立一張應收憑單來進行收款."
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_company__portal_confirmation_pay
@@ -4100,7 +4201,7 @@ msgstr "產品"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Promotions, Loyalty & Gift Card"
-msgstr "促銷、忠誠度及禮品卡"
+msgstr "促銷推廣、會員、顧客忠誠度及禮品卡"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_line_tree
@@ -4752,7 +4853,7 @@ msgstr "可在每個包裝中多個單位銷售產品"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Sell variants of a product using attributes (size, color, etc.)"
-msgstr "使用屬性(尺寸、顏色等)建立銷售產品的變體"
+msgstr "設定屬性（尺寸、顏色等），為產品建立不同款式變體"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
@@ -4820,7 +4921,7 @@ msgstr "序列號"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Set multiple prices per product, automated discounts, etc."
-msgstr "設定每個產品的多個價格，自動折扣等。"
+msgstr "為同一項產品設定多個價格、自動折扣等。"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
@@ -5001,7 +5102,7 @@ msgstr "總和"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_report_view_tree
 msgid "Sum of Untaxed Total"
-msgstr "未稅總額"
+msgstr "未連稅總額"
 
 #. module: sale
 #: model:ir.model.fields,help:sale.field_sale_order__amount_paid
@@ -5145,8 +5246,7 @@ msgstr ""
 msgid ""
 "The Sales Order %(order)s to be reinvoiced is cancelled. You cannot register "
 "an expense on a cancelled Sales Order."
-msgstr ""
-"要重新開立發票的銷售訂單 %(order)s 已取消。你不可為已取消的銷售訂單登記開支。"
+msgstr "要重新開立發票的銷售訂單 %(order)s 已取消。你不可為已取消的銷售訂單登記開支。"
 
 #. module: sale
 #. odoo-python
@@ -5308,6 +5408,13 @@ msgstr "提供的參數無效。"
 
 #. module: sale
 #. odoo-python
+#: code:addons/sale/controllers/portal.py:0
+#: code:addons/sale/wizard/payment_link_wizard.py:0
+msgid "The sale order has expired."
+msgstr ""
+
+#. module: sale
+#. odoo-python
 #: code:addons/sale/wizard/sale_make_invoice_advance.py:0
 msgid "The value of the down payment amount must be positive."
 msgstr "訂金必須為正數."
@@ -5357,16 +5464,14 @@ msgstr "這個預設值是適用於建立任何新產品.這可以在產品細�
 msgid ""
 "This is a name that helps you keep track of your different campaign efforts, "
 "e.g. Fall_Drive, Christmas_Special"
-msgstr ""
-"這是一個幫助您追蹤不同行銷活動的名稱，例如，Fall_Drive、Christmas_Special"
+msgstr "這是一個幫助您追蹤不同行銷活動的名稱，例如，Fall_Drive、Christmas_Special"
 
 #. module: sale
 #: model:ir.model.fields,help:sale.field_sale_order__commitment_date
 msgid ""
 "This is the delivery date promised to the customer. If set, the delivery "
 "order will be scheduled based on this date rather than product lead times."
-msgstr ""
-"這是承諾給客戶的交貨日期.一經設定後，訂單將根據此日期而非產品提前期安排交貨."
+msgstr "這是承諾給客戶的交貨日期.一經設定後，訂單將根據此日期而非產品提前期安排交貨."
 
 #. module: sale
 #: model:ir.model.fields,help:sale.field_account_bank_statement_line__medium_id
@@ -5403,8 +5508,8 @@ msgid ""
 "This product is packaged by %(pack_size).2f %(pack_name)s. You should sell %"
 "(quantity).2f %(unit)s."
 msgstr ""
-"此產品由 %(pack_size).2f %(pack_name)s.包裝.你應該賣 %(quantity).2f %(unit)s."
-"單位."
+"此產品由 %(pack_size).2f %(pack_name)s.包裝.你應該賣 %(quantity).2f %(unit)"
+"s.單位."
 
 #. module: sale
 #: model_terms:ir.actions.act_window,help:sale.action_order_report_all
@@ -5484,8 +5589,8 @@ msgid ""
 "list view and click on 'Portal Access Management' option in the dropdown "
 "menu *Action*."
 msgstr ""
-"若要在 B2B 模式中傳送邀請，請開啟一個聯絡人，或在列表檢視畫面中選擇多個聯絡"
-"人，然後在 *動作* 下拉式選單中，按一下「門戶網站存取管理」選項。"
+"若要在 B2B 模式中傳送邀請，請開啟一個聯絡人，或在列表檢視畫面中選擇多個聯絡人"
+"，然後在 *動作* 下拉式選單中，按一下「門戶網站存取管理」選項。"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_sales_order_filter
@@ -5581,7 +5686,7 @@ msgstr "UPS 連接器"
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_delivery_usps
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "USPS Connector"
-msgstr "USPS 連接器"
+msgstr "美國郵政署（USPS）連接器"
 
 #. module: sale
 #: model:ir.model,name:sale.model_utm_campaign
@@ -5660,7 +5765,7 @@ msgstr "未連稅總額"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "UoM"
-msgstr "計量單位"
+msgstr "量度單位"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
@@ -5708,8 +5813,8 @@ msgid ""
 "Validated expenses, vendor bills, or stock pickings (set up to track costs) "
 "can be invoiced to the customer at either cost or sales price."
 msgstr ""
-"已驗證的開支、供應商賬單或庫存提取（若已設置為追蹤成本），可按成本或銷售價"
-"格，向客戶開立發票。"
+"已驗證的開支、供應商賬單或庫存提取（若已設置為追蹤成本），可按成本或銷售價格"
+"，向客戶開立發票。"
 
 #. module: sale
 #: model:ir.model.fields,help:sale.field_sale_order__validity_date
@@ -5717,6 +5822,11 @@ msgid ""
 "Validity of the order, after that you will not able to sign & pay the "
 "quotation."
 msgstr "訂單有效期限，之後將無法簽名及支付報價。"
+
+#. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Values set here are company-specific."
+msgstr "此處設定的值是特定於每間公司的。"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -5855,8 +5965,7 @@ msgstr "您不能更改產品的類型，因為它已在銷售訂單中使用."
 msgid ""
 "You cannot change the type of a sale order line. Instead you should delete "
 "the current line and create a new line of the proper type."
-msgstr ""
-"您不能更改銷售訂單明細的類型. 相反，您應該刪除目前明細並建立正確類型的新明細."
+msgstr "您不能更改銷售訂單明細的類型. 相反，您應該刪除目前明細並建立正確類型的新明細."
 
 #. module: sale
 #. odoo-python
@@ -6003,6 +6112,12 @@ msgid "units"
 msgstr "單位"
 
 #. module: sale
+#. odoo-javascript
+#: code:addons/sale/static/src/xml/sale_product_field.xml:0
+msgid "x"
+msgstr "x"
+
+#. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template
 msgid "you confirm acceptance on the behalf of"
 msgstr "表示你代表他們，確認接納："
@@ -6016,8 +6131,8 @@ msgid ""
 "a' }})"
 msgstr ""
 "{{ object.company_id.name }} {{ (object.get_portal_last_transaction().state "
-"== 'pending') and '待處理訂單' or '訂單' }} （參考： {{ object.name or '不適"
-"用' }}）"
+"== 'pending') and '待處理訂單' or '訂單' }} (參考編號：{{ object.name or '不"
+"適用' }})"
 
 #. module: sale
 #: model:mail.template,subject:sale.email_template_edi_sale
@@ -6027,8 +6142,8 @@ msgid ""
 "{{ object.name or 'n/a' }})"
 msgstr ""
 "{{ object.company_id.name }} {{ object.state in ('draft', 'sent') and "
-"(ctx.get('proforma') and '形式訂單' or '報價單') or '訂單' }} （參考： "
-"{{ object.name or '不適用' }}）"
+"(ctx.get('proforma') and '形式訂單' or '報價單') or '訂單' }} (參考編號：{{ "
+"object.name or '不適用' }})"
 
 #. module: sale
 #: model:mail.template,subject:sale.mail_template_sale_cancellation
@@ -6036,5 +6151,21 @@ msgid ""
 "{{ object.company_id.name }} {{ object.type_name }} Cancelled (Ref "
 "{{ object.name or 'n/a' }})"
 msgstr ""
-"{{ object.company_id.name }} {{ object.type_name }} 已取消 （參考： "
-"{{ object.name or 'n/a' }}）"
+"{{ object.company_id.name }} {{ object.type_name }} 已取消 （參考： {{ "
+"object.name or 'n/a' }}）"
+
+#~ msgid "2023-12-31"
+#~ msgstr "2023 年 12 月 31 日"
+
+#~ msgid "27.00"
+#~ msgstr "27.00"
+
+#~ msgid "31.05"
+#~ msgstr "31.05"
+
+#~ msgid ""
+#~ "<span class=\"fa fa-lg fa-building-o p-2\" title=\"Values set here are "
+#~ "company-specific.\" groups=\"base.group_multi_company\"/>"
+#~ msgstr ""
+#~ "<span class=\"fa fa-lg fa-building-o p-2\" title=\"此處設定的值是特定於每"
+#~ "間公司的。\" groups=\"base.group_multi_company\"/>"

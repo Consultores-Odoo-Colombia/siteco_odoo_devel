@@ -34,7 +34,7 @@ import {
 
 import { OutOfFocusService } from "@mail/core/common/out_of_focus_service";
 import { rpc } from "@web/core/network/rpc";
-import { runAllTimers } from "@odoo/hoot-dom";
+import { press } from "@odoo/hoot-dom";
 
 describe.current.tags("desktop");
 defineMailModels();
@@ -1344,6 +1344,48 @@ test("out-of-focus notif takes new inbox messages into account", async () => {
     expect(titleService.current).toBe("(1) Inbox");
 });
 
+test("out-of-focus notif respects push subscription eligibility", async () => {
+    const pyEnv = await startServer();
+    pyEnv["res.users"].write(serverState.userId, { notification_type: "inbox" });
+    const partnerId = pyEnv["res.partner"].create({ name: "Hagrid" });
+    const userId = pyEnv["res.users"].create({ partner_id: partnerId });
+    patchWithCleanup(OutOfFocusService.prototype, {
+        async notify() {
+            expect.step("notification handled");
+            await super.notify(...arguments);
+        },
+        async hasServiceWorkInstalledAndPushSubscriptionActive() {
+            return true;
+        },
+        sendNotification() {
+            expect.step("send_notification");
+        },
+    });
+    onRpcBefore("/mail/data", async (args) => {
+        if (args.init_messaging) {
+            expect.step("init_messaging");
+        }
+    });
+    await start();
+    await openDiscuss();
+    await expect.waitForSteps(["init_messaging"]);
+    const adminId = serverState.partnerId;
+    const post = (author, message_type) =>
+        withUser(author, () =>
+            rpc("/mail/message/post", {
+                post_data: { body: "hello", partner_ids: [adminId], message_type },
+                thread_id: partnerId,
+                thread_model: "res.partner",
+            })
+        );
+    await post(userId, "comment");
+    await expect.waitForSteps(["notification handled"]);
+    await post(userId, "auto_comment");
+    await expect.waitForSteps(["notification handled", "send_notification"]);
+    await post(serverState.userId, "comment");
+    await expect.waitForSteps(["notification handled", "send_notification"]);
+});
+
 test("out-of-focus notif on needaction message in group chat contributes only once", async () => {
     const pyEnv = await startServer();
     pyEnv["res.users"].write(serverState.userId, { notification_type: "inbox" });
@@ -2002,7 +2044,6 @@ test("restore thread scroll position", async () => {
 });
 
 test("Message shows up even if channel data is incomplete", async () => {
-    // Pass in only but not when bulk running tests
     const pyEnv = await startServer();
     await start();
     await openDiscuss();
@@ -2023,9 +2064,9 @@ test("Message shows up even if channel data is incomplete", async () => {
         ],
         channel_type: "chat",
     });
+    const subscribePromise = waitUntilSubscribe();
     getService("bus_service").forceUpdateChannels();
-    await runAllTimers();
-    await waitUntilSubscribe();
+    await subscribePromise;
     await withUser(correspondentUserId, () =>
         rpc("/discuss/channel/notify_typing", {
             is_typing: true,
@@ -2132,7 +2173,7 @@ test("Escape key should close the channel selector and focus the composer", asyn
     await contains(".o-mail-Composer-input:focus");
     await click("[title='Add or join a channel']");
     await contains(".o-discuss-ChannelSelector");
-    await triggerHotkey("escape");
+    await press("escape");
     await contains(".o-discuss-ChannelSelector", { count: 0 });
     await contains(".o-mail-Composer-input:focus");
 });

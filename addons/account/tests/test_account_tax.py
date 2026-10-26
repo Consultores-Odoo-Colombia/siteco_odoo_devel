@@ -3,7 +3,7 @@
 from odoo import Command
 from odoo.addons.account.tests.common import AccountTestInvoicingCommon
 from odoo.tests import tagged
-from odoo.exceptions import UserError
+from odoo.exceptions import UserError, ValidationError
 
 
 @tagged('post_install', '-at_install')
@@ -223,7 +223,6 @@ class TestAccountTax(AccountTestInvoicingCommon):
                 }),
             ],
         })
-        tax_invoice.invalidate_model(fnames=['is_used'])
         self.assertTrue(tax_invoice.is_used)
 
         # Account.reconcile is another of transaction
@@ -240,7 +239,6 @@ class TestAccountTax(AccountTestInvoicingCommon):
                 'tax_ids': [Command.set(tax_reconciliation.ids)],
             })],
         })
-        tax_reconciliation.invalidate_model(fnames=['is_used'])
         self.assertTrue(tax_reconciliation.is_used)
 
     def test_tax_no_duplicate_in_repartition_line(self):
@@ -310,3 +308,104 @@ class TestAccountTax(AccountTestInvoicingCommon):
             {'display_type': 'tax',             'tax_ids': [],          'balance': 15.0,    'account_id': account_2.id},
             {'display_type': 'payment_term',    'tax_ids': [],          'balance': 100.0,   'account_id': self.company_data['default_account_receivable'].id},
         ])
+
+    def test_negative_factor_percent(self):
+        account_1 = self.company_data['default_account_tax_sale'].copy()
+        with self.assertRaisesRegex(ValidationError, r"Invoice and credit note distribution should have a total factor \(\+\) equals to 100\."):
+            self.env['account.tax'].create({
+                'name': "tax",
+                'amount': 15.0,
+                'include_base_amount': True,
+                'invoice_repartition_line_ids': [
+                    Command.create({
+                        'repartition_type': 'base',
+                    }),
+                    Command.create({
+                        'factor_percent': -100,
+                        'repartition_type': 'tax',
+                        'account_id': account_1.id,
+                    }),
+                ],
+                'refund_repartition_line_ids': [
+                    Command.create({
+                        'repartition_type': 'base',
+                    }),
+                    Command.create({
+                        'factor_percent': -100,
+                        'repartition_type': 'tax',
+                        'account_id': account_1.id,
+                    }),
+                ],
+            })
+
+    def test_import_retrieve_tax_from_fixed_allowance_charge(self):
+        """ Test fuzzy matching of fixed taxes like Recupel and Bebat """
+        company = self.company_data['company']
+
+        tax_recupel = self.env['account.tax'].create({
+            'name': 'REC 0.12',
+            'amount_type': 'fixed',
+            'amount': 0.12,
+            'type_tax_use': 'purchase',
+            'company_id': company.id,
+        })
+        tax_bebat = self.env['account.tax'].create({
+            'name': 'Bebat 0.13',
+            'amount_type': 'fixed',
+            'amount': 0.13,
+            'type_tax_use': 'purchase',
+            'company_id': company.id,
+        })
+        random = self.env['account.tax'].create({
+            'name': 'random 0.50',
+            'amount_type': 'fixed',
+            'amount': 0.50,
+            'type_tax_use': 'purchase',
+            'company_id': company.id,
+        })
+
+        dummy_invoice = self.env['account.move'].create({
+            'move_type': 'in_invoice',
+            'company_id': company.id,
+        })
+
+        def get_search_method(amount, name, amount_type='fixed'):
+            tax_values = {
+                'amount_type': amount_type,
+                'type_tax_use': 'purchase',
+                'amount': amount,
+                'name': name,
+                'invoice_predictive': {'invoice': dummy_invoice},
+            }
+            plan = self.env['account.tax']._import_retrieve_tax_from_fixed_allowance_charge(tax_values)
+            return plan['criteria'][0]['search_method'] if plan else None
+
+        # multiple candidate taxes matching
+        search_method_recupel = get_search_method(0.125, 'REC 0.12 (Kopie)')
+        search_method_bebat = get_search_method(0.125, 'BEBAT')
+
+        self.assertEqual(search_method_recupel({}), tax_recupel)
+        self.assertEqual(search_method_bebat({}), tax_bebat)
+
+        # single candidate tax match, even if the name doesnt match
+        search_method_fallback = get_search_method(0.505, 'Unknown Eco Tax')
+        self.assertEqual(search_method_fallback({}), random)
+
+        # multiple candidate taxes matching, but name doesnt match
+        search_method_not_found = get_search_method(0.125, 'Unknown Eco Tax')
+        self.assertFalse(search_method_not_found({}))
+
+        # percentage tax, early exit
+        search_method_ignored = get_search_method(0.125, 'REC 0.12 (Kopie)', amount_type='percent')
+        self.assertIsNone(search_method_ignored)
+
+    def test_quick_create_purchase_tax(self):
+        """ Test that quick-creating a tax preserves the default purchase type. """
+        tax_id, _ = self.env['account.tax'].with_context(
+            default_type_tax_use='purchase',
+        ).name_create('New Purchase Tax')
+        tax = self.env['account.tax'].browse(tax_id)
+
+        self.assertEqual(tax.type_tax_use, 'purchase')
+        self.product.supplier_taxes_id = tax
+        self.assertEqual(self.product.supplier_taxes_id, tax)

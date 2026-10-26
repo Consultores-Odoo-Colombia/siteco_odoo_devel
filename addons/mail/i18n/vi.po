@@ -8,13 +8,15 @@
 # Thi Huong Nguyen, 2025
 # Duy BQ <duybq86@gmail.com>, 2025
 # "Thi Huong Nguyen (thng)" <thng@odoo.com>, 2025, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
+# Deleted User <noreply+31@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-15 18:38+0000\n"
-"PO-Revision-Date: 2026-01-10 09:09+0000\n"
-"Last-Translator: \"Thi Huong Nguyen (thng)\" <thng@odoo.com>\n"
+"POT-Creation-Date: 2026-07-17 17:37+0000\n"
+"PO-Revision-Date: 2026-10-20 12:50+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Vietnamese <https://translate.odoo.com/projects/odoo-18/mail/"
 "vi/>\n"
 "Language: vi\n"
@@ -22,7 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: mail
 #. odoo-python
@@ -83,8 +85,7 @@ msgstr "\"%(hostname)s\" yêu cầu quyền truy cập micrô"
 #. odoo-python
 #: code:addons/mail/wizard/mail_activity_schedule.py:0
 msgid "%(activity)s, assigned to %(name)s, due on the %(deadline)s"
-msgstr ""
-"%(activity)s, được phân công cho %(name)s, có thời hạn vào %(deadline)s"
+msgstr "%(activity)s, được phân công cho %(name)s, có thời hạn vào %(deadline)s"
 
 #. module: mail
 #. odoo-javascript
@@ -171,9 +172,9 @@ msgstr ""
 "%(new_line)s%(new_line)sNhập %(bold_start)s@username%(bold_end)s để nhắc đến "
 "ai đó và thu hút sự chú ý của họ.%(new_line)sNhập %(bold_start)s#channel%"
 "(bold_end)s để nhắc đến một nhóm chat.%(new_line)sNhập %(bold_start)s/"
-"command%(bold_end)s để thực thi một lệnh. %(new_line)sNhập %"
-"(bold_start)s:shortcut%(bold_end)s để chèn một câu trả lời soạn sẵn trong "
-"nội dung của bạn."
+"command%(bold_end)s để thực thi một lệnh. %(new_line)sNhập %(bold_start)"
+"s:shortcut%(bold_end)s để chèn một câu trả lời soạn sẵn trong nội dung của "
+"bạn."
 
 #. module: mail
 #. odoo-javascript
@@ -192,8 +193,8 @@ msgid ""
 "(open_em)sto %(open_save)ssave%(close_save)s%(close_em)s"
 msgstr ""
 "%(open_samp)sThoát%(close_samp)s %(open_em)sđể %(open_cancel)shuỷ%"
-"(close_cancel)s%(close_em)s, %(open_samp)sCTRL-Enter%(close_samp)s %"
-"(open_em)sđể %(open_save)slưu%(close_save)s%(close_em)s"
+"(close_cancel)s%(close_em)s, %(open_samp)sCTRL-Enter%(close_samp)s %(open_em)"
+"sđể %(open_save)slưu%(close_save)s%(close_em)s"
 
 #. module: mail
 #. odoo-javascript
@@ -217,7 +218,7 @@ msgstr "Thêm %(recipientCount)s "
 #. odoo-javascript
 #: code:addons/mail/static/src/discuss/core/web/discuss_core_web_service.js:0
 msgid "%(user)s just connected for the first time. Wish them luck!"
-msgstr ""
+msgstr "%(user)s vừa mới kết nối lần đầu. Chúc họ may mắn!"
 
 #. module: mail
 #. odoo-python
@@ -444,8 +445,8 @@ msgid ""
 msgstr ""
 "<p><b>Viết một thông điệp</b> đến thành viên của nhóm ở đây.</p> <p>Bạn có "
 "thể \"chộp\" ai đó vào thảo luận bằng cách gõ <i>'@'</i> hoặc liên kết một "
-"nhóm khác vào bằng cách gõ <i>'#'</i>. Bắt đầu thông điệp của bạn bằng "
-"<i>'/'</i> để nhận danh sách các lệnh khả dụng.</p>"
+"nhóm khác vào bằng cách gõ <i>'#'</i>. Bắt đầu thông điệp của bạn bằng <i>'/"
+"'</i> để nhận danh sách các lệnh khả dụng.</p>"
 
 #. module: mail
 #. odoo-javascript
@@ -550,8 +551,8 @@ msgstr ""
 #: model_terms:web_tour.tour,rainbow_man_message:mail.discuss_channel_tour
 msgid "<span><b>Good job!</b> You went through all steps of this tour.</span>"
 msgstr ""
-"<span><b>Tốt lắm!</b> Bạn đã xem qua tất cả các bước của tour hướng dẫn này."
-"</span>"
+"<span><b>Tốt lắm!</b> Bạn đã xem qua tất cả các bước của tour hướng dẫn "
+"này.</span>"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.account_security_setting_update
@@ -600,8 +601,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/mail/models/mail_scheduled_message.py:0
 msgid "A Scheduled Message cannot be scheduled in the past"
-msgstr ""
-"Không thể lên lịch Tin nhắn đã lên lịch vào một thời điểm trong quá khứ"
+msgstr "Không thể lên lịch Tin nhắn đã lên lịch vào một thời điểm trong quá khứ"
 
 #. module: mail
 #: model:ir.model.constraint,message:mail.constraint_bus_presence_partner_or_guest_exists
@@ -638,8 +638,7 @@ msgstr "Một tin nhắn chỉ có thể được lên lịch ở chế độ b�
 #: code:addons/mail/models/mail_scheduled_message.py:0
 msgid ""
 "A message cannot be scheduled on a model that does not have a mail thread."
-msgstr ""
-"Không thể lên lịch gửi tin nhắn trên một mô hình không có chủ đề email."
+msgstr "Không thể lên lịch gửi tin nhắn trên một mô hình không có chủ đề email."
 
 #. module: mail
 #: model:ir.model.constraint,message:mail.constraint_mail_message_reaction_partner_or_guest_exists
@@ -963,24 +962,27 @@ msgid "Add Reaction"
 msgstr "Thêm biểu tượng cảm xúc"
 
 #. module: mail
-#. odoo-javascript
-#: code:addons/mail/static/src/core/common/message_actions.js:0
-msgid "Add a Reaction"
-msgstr "Thêm phản ứng"
-
-#. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Add a Tenor GIF API key to enable GIFs support."
-msgstr "Thêm mã khóa API Tenor GIF để bật hỗ trợ GIF."
+msgid ""
+"Add a Klipy GIF API key to enable GIFs support. If you were using a Tenor "
+"GIF API key (service shutdown on June 30, 2026), please replace it here with "
+"a Klipy GIF API key"
+msgstr ""
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_res_config_settings__tenor_api_key
 msgid ""
-"Add a Tenor GIF API key to enable GIFs support. https://"
-"developers.google.com/tenor/guides/quickstart#setup"
+"Add a Klipy GIF API key to enable GIFs support. https://docs.klipy.com/"
+"getting-started\n"
+"If you were using a Tenor GIF API key (service shutdown on June 30, 2026), "
+"please replace it here with a Klipy GIF API key"
 msgstr ""
-"Thêm mã khóa API Tenor GIF để bật hỗ trợ GIF. https://developers.google.com/"
-"tenor/guides/quickstart#setup"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/message_actions.js:0
+msgid "Add a Reaction"
+msgstr "Thêm phản ứng"
 
 #. module: mail
 #. odoo-javascript
@@ -1827,9 +1829,8 @@ msgid ""
 "Bounce/Catchall '%(matching_alias_name)s' is already used by %"
 "(document_name)s. Choose another alias or change it on the other document."
 msgstr ""
-"Bí danh trả về/nhận tất cả '%(matching_alias_name)s' đã được %"
-"(document_name)s sử dụng. Chọn bí danh khác hoặc thay đổi bí danh này trong "
-"tài liệu kia."
+"Bí danh trả về/nhận tất cả '%(matching_alias_name)s' đã được %(document_name)"
+"s sử dụng. Chọn bí danh khác hoặc thay đổi bí danh này trong tài liệu kia."
 
 #. module: mail
 #. odoo-python
@@ -3982,19 +3983,22 @@ msgstr "Đăng nội dung không thành công. Nhấp để thử lại"
 #. odoo-python
 #: code:addons/mail/models/mail_render_mixin.py:0
 msgid ""
-"Failed to render QWeb template: %(template_src)s\n"
+"Failed to render QWeb template for %(template_label)s\n"
+"Target Model: %(model_name)s\n"
+"Language context: %(lang_context)s\n"
+"Error: %(error_details)s\n"
 "\n"
-"%(template_traceback)s)"
+"Template Source Snippet:\n"
+"%(template_src)s"
 msgstr ""
-"Không thể kết xuất mẫu QWeb: %(template_src)s\n"
-"\n"
-"%(template_traceback)s)"
 
 #. module: mail
 #. odoo-python
 #: code:addons/mail/models/mail_render_mixin.py:0
-msgid "Failed to render inline_template template: %(template_txt)s"
-msgstr "Không thể kết xuất mẫu inline_template: %(template_txt)s"
+msgid ""
+"Failed to render inline_template template: %(template_txt)s\n"
+"Error details: %(error)s"
+msgstr ""
 
 #. module: mail
 #. odoo-python
@@ -4899,6 +4903,14 @@ msgid "If you want to use twilio as TURN/STUN server provider"
 msgstr "Nếu bạn muốn sử dụng twilio làm nhà cung cấp máy chủ TURN/STUN"
 
 #. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
+msgid ""
+"If you were using a Tenor API key, please replace it with a Klipy API key in "
+"the General Settings."
+msgstr ""
+
+#. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_resend_message_view_form
 msgid "Ignore all"
 msgstr "Bỏ qua tất cả"
@@ -5469,6 +5481,32 @@ msgid "Kind Regards"
 msgstr "Trân trọng"
 
 #. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_api_key
+msgid "Klipy API key"
+msgstr ""
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Klipy GIF API key"
+msgstr ""
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Klipy GIF content filter"
+msgstr ""
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_gif_limit
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Klipy GIF limits"
+msgstr ""
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_content_filter
+msgid "Klipy content filter"
+msgstr ""
+
+#. module: mail
 #. odoo-javascript
 #: code:addons/mail/static/src/discuss/call/common/call_participant_card.xml:0
 #: code:addons/mail/static/src/discuss/call/public_web/discuss_sidebar_call_participants.xml:0
@@ -5914,6 +5952,12 @@ msgid "Mail Template Reset"
 msgstr "Đặt lại mẫu email"
 
 #. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Mail Template: '%(name)s' (ID: %(record_id)s)"
+msgstr ""
+
+#. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.model_search_view
 msgid "Mail Thread"
 msgstr "Chủ đề email"
@@ -6060,6 +6104,12 @@ msgstr "Đánh dấu là chưa đọc"
 #: code:addons/mail/static/src/core/web/activity_list_popover_item.xml:0
 msgid "Mark as done"
 msgstr "Đánh dấu xong"
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Mass Mailing Template: '%(name)s' (ID: %(record_id)s)"
+msgstr ""
 
 #. module: mail
 #. odoo-javascript
@@ -6486,8 +6536,7 @@ msgstr "Tắt thông báo cho đến"
 #. odoo-javascript
 #: code:addons/mail/static/src/discuss/core/common/discuss_notification_settings.xml:0
 msgid "Muting prevents unread indicators and notifications from appearing."
-msgstr ""
-"Việc tắt thông báo sẽ ngăn các chỉ báo và thông báo chưa đọc xuất hiện."
+msgstr "Việc tắt thông báo sẽ ngăn các chỉ báo và thông báo chưa đọc xuất hiện."
 
 #. module: mail
 #: model:ir.actions.act_window,name:mail.mail_activity_action_my
@@ -6706,6 +6755,12 @@ msgstr "Chưa có cuộc trò chuyện nào..."
 #: code:addons/mail/static/src/core/web/thread_patch.xml:0
 msgid "No history messages"
 msgstr "Không có lịch sử tin nhắn"
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "No language detected in context"
+msgstr ""
 
 #. module: mail
 #. odoo-python
@@ -8326,8 +8381,7 @@ msgstr "Công cụ xoá email khỏi danh sách hạn chế"
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.email_template_form
 msgid "Remove the contextual action to use this template on related documents"
-msgstr ""
-"Xóa tác vụ theo ngữ cảnh để sử dụng mẫu này trên các tài liệu liên quan"
+msgstr "Xóa tác vụ theo ngữ cảnh để sử dụng mẫu này trên các tài liệu liên quan"
 
 #. module: mail
 #. odoo-javascript
@@ -8737,6 +8791,12 @@ msgstr "Tìm máy chủ thư đến"
 
 #. module: mail
 #. odoo-javascript
+#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
+msgid "Search Klipy"
+msgstr ""
+
+#. module: mail
+#. odoo-javascript
 #: code:addons/mail/static/src/core/common/search_messages_panel.js:0
 msgid "Search Message"
 msgstr "Tìm kiếm tin nhắn"
@@ -8778,12 +8838,6 @@ msgstr "Nút tìm kiếm"
 #: code:addons/mail/static/src/discuss/core/public_web/sub_channel_list.xml:0
 msgid "Search by name"
 msgstr "Tìm kiếm theo tên"
-
-#. module: mail
-#. odoo-javascript
-#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
-msgid "Search for a GIF"
-msgstr "Tìm kiếm một GIF"
 
 #. module: mail
 #. odoo-javascript
@@ -8912,6 +8966,8 @@ msgstr "Chọn bộ lọc nội dung được sử dụng để lọc GIF"
 #: code:addons/mail/wizard/mail_activity_schedule.py:0
 msgid "Selected user '%(user)s' cannot upload documents on model '%(model)s'"
 msgstr ""
+"Người dùng '%(user)s' đã chọn không thể tải lên tài liệu trên mô hình '%"
+"(model)s'"
 
 #. module: mail
 #. odoo-javascript
@@ -9380,8 +9436,7 @@ msgstr "Dừng trả lời"
 #. module: mail
 #: model:ir.model.fields.selection,name:mail.selection__mail_compose_message__reply_to_mode__update
 msgid "Store email and replies in the chatter of each record"
-msgstr ""
-"Lưu trữ email và email trả lời trong cửa sổ trò chuyện của từng bản ghi"
+msgstr "Lưu trữ email và email trả lời trong cửa sổ trò chuyện của từng bản ghi"
 
 #. module: mail
 #: model:ir.model,name:mail.model_mail_link_preview
@@ -9594,6 +9649,12 @@ msgstr "Việc tạo mẫu từ trình soạn thảo yêu cầu một mô hình 
 #. module: mail
 #. odoo-python
 #: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Template name not identified"
+msgstr ""
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
 msgid ""
 "Template rendering should only be called with a list of IDs. Received “%"
 "(res_ids)s” instead."
@@ -9618,36 +9679,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mail.view_email_template_search
 msgid "Templates"
 msgstr "Mẫu"
-
-#. module: mail
-#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_api_key
-msgid "Tenor API key"
-msgstr "Mã khóa API Tenor"
-
-#. module: mail
-#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Tenor GIF API key"
-msgstr "Khoá API Tenor GIF"
-
-#. module: mail
-#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Tenor GIF content filter"
-msgstr "Bộ lọc nội dung Tenor GIF"
-
-#. module: mail
-#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Tenor GIF limits"
-msgstr "Giới hạn Tenor GIF"
-
-#. module: mail
-#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_gif_limit
-msgid "Tenor Gif Limit"
-msgstr "Giới hạn Tenor GIF"
-
-#. module: mail
-#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_content_filter
-msgid "Tenor content filter"
-msgstr "Bộ lọc nội dung Tenor"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.view_email_server_form
@@ -9730,8 +9761,8 @@ msgid ""
 "(activity_type_model)s\"."
 msgstr ""
 "Loại hoạt động \"%(activity_type_name)s\" không tương thích với kế hoạch \"%"
-"(plan_name)s\" bởi vì nó bị giới hạn trong mô hình \"%"
-"(activity_type_model)s\"."
+"(plan_name)s\" bởi vì nó bị giới hạn trong mô hình \"%(activity_type_model)"
+"s\"."
 
 #. module: mail
 #. odoo-python
@@ -10584,9 +10615,27 @@ msgid "Unmute Conversation"
 msgstr "Bật lại thông báo cuộc trò chuyện"
 
 #. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/message.js:0
+msgid "Unnamed"
+msgstr "Chưa đặt tên"
+
+#. module: mail
 #. odoo-python
 #: code:addons/mail/models/mail_tracking_value.py:0
 msgid "Unnamed %(record_model_name)s (%(record_id)s)"
+msgstr ""
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Unnamed Mail Template"
+msgstr ""
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Unnamed Mailing"
 msgstr ""
 
 #. module: mail
@@ -11332,8 +11381,7 @@ msgstr "Bạn không còn theo dõi \"%(thread_name)s\"."
 #. odoo-python
 #: code:addons/mail/models/mail_scheduled_message.py:0
 msgid "You are not allowed to change the target record of a scheduled message."
-msgstr ""
-"Bạn không được phép thay đổi bản ghi mục tiêu của tin nhắn đã lên lịch."
+msgstr "Bạn không được phép thay đổi bản ghi mục tiêu của tin nhắn đã lên lịch."
 
 #. module: mail
 #. odoo-python
@@ -11391,6 +11439,12 @@ msgstr "Bạn chỉ có thể chat với đối tác có tài khoản người d
 #: model_terms:ir.ui.view,arch_db:mail.account_security_setting_update
 msgid "You can safely ignore this message"
 msgstr "Bạn có thể yên tâm bỏ qua thông báo này."
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_alias_domain.py:0
+msgid "You cannot assign an empty domain name."
+msgstr ""
 
 #. module: mail
 #. odoo-python
@@ -11540,8 +11594,8 @@ msgstr "Của bạn"
 msgid ""
 "Your account email has been changed from %(old_email)s to %(new_email)s."
 msgstr ""
-"Email tài khoản của bạn đã được thay đổi từ %(old_email)s thành %"
-"(new_email)s."
+"Email tài khoản của bạn đã được thay đổi từ %(old_email)s thành %(new_email)"
+"s."
 
 #. module: mail
 #. odoo-python
@@ -11774,8 +11828,8 @@ msgstr "VD: \"Email chào mừng\""
 msgid ""
 "e.g. \"Welcome to MyCompany\" or \"Nice to meet you, {{ object.name }}\""
 msgstr ""
-"VD: \"Chào mừng đến với MyCompany\" hoặc \"Rất vui được gặp gỡ bạn, "
-"{{ object.name }}\""
+"VD: \"Chào mừng đến với MyCompany\" hoặc \"Rất vui được gặp gỡ bạn, {{ "
+"object.name }}\""
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_alias_domain_view_form
@@ -11896,8 +11950,8 @@ msgstr "vừa phân công cho bạn hoạt động sau:"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_res_config_settings__tenor_content_filter
-msgid "https://developers.google.com/tenor/guides/content-filtering"
-msgstr "https://developers.google.com/tenor/guides/content-filtering"
+msgid "https://docs.klipy.com/migrate-from-tenor/content-filtering"
+msgstr ""
 
 #. module: mail
 #. odoo-javascript
@@ -12079,8 +12133,7 @@ msgstr ""
 msgid ""
 "reply to model %s that does not accept document update, fall back on "
 "document creation"
-msgstr ""
-"mô hình %s không chấp nhận cập nhật tài liệu, hãy quay lại tạo tài liệu"
+msgstr "mô hình %s không chấp nhận cập nhật tài liệu, hãy quay lại tạo tài liệu"
 
 #. module: mail
 #. odoo-python
@@ -12208,6 +12261,55 @@ msgstr "{{ object.partner_id.lang }}"
 #: code:addons/mail/models/discuss/discuss_channel_member.py:0
 msgid "“%(member_name)s” in “%(channel_name)s”"
 msgstr "“%(member_name)s” trong “%(channel_name)s”"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/web/activity.js:0
+msgid "“%s”"
+msgstr ""
+
+#~ msgid "Search for a GIF"
+#~ msgstr "Tìm kiếm một GIF"
+
+#~ msgid "Add a Tenor GIF API key to enable GIFs support."
+#~ msgstr "Thêm mã khóa API Tenor GIF để bật hỗ trợ GIF."
+
+#~ msgid ""
+#~ "Add a Tenor GIF API key to enable GIFs support. https://"
+#~ "developers.google.com/tenor/guides/quickstart#setup"
+#~ msgstr ""
+#~ "Thêm mã khóa API Tenor GIF để bật hỗ trợ GIF. https://"
+#~ "developers.google.com/tenor/guides/quickstart#setup"
+
+#~ msgid "Tenor API key"
+#~ msgstr "Mã khóa API Tenor"
+
+#~ msgid "Tenor GIF API key"
+#~ msgstr "Khoá API Tenor GIF"
+
+#~ msgid "Tenor GIF content filter"
+#~ msgstr "Bộ lọc nội dung Tenor GIF"
+
+#~ msgid "Tenor GIF limits"
+#~ msgstr "Giới hạn Tenor GIF"
+
+#~ msgid "Tenor Gif Limit"
+#~ msgstr "Giới hạn Tenor GIF"
+
+#~ msgid "Tenor content filter"
+#~ msgstr "Bộ lọc nội dung Tenor"
+
+#~ msgid "https://developers.google.com/tenor/guides/content-filtering"
+#~ msgstr "https://developers.google.com/tenor/guides/content-filtering"
+
+#~ msgid ""
+#~ "Failed to render QWeb template: %(template_src)s\n"
+#~ "\n"
+#~ "%(template_traceback)s)"
+#~ msgstr ""
+#~ "Không thể kết xuất mẫu QWeb: %(template_src)s\n"
+#~ "\n"
+#~ "%(template_traceback)s)"
 
 #~ msgid "%(user)s connected. This is their first connection. Wish them luck."
 #~ msgstr ""

@@ -9,13 +9,13 @@
 # Jaisal Shah <jaisal13shah@gmail.com>, 2025
 # Manav Shah, 2025
 # Ujjawal Pathak, 2025
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:36+0000\n"
-"PO-Revision-Date: 2025-11-13 16:24+0000\n"
+"POT-Creation-Date: 2026-04-10 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 10:17+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Hindi <https://translate.odoo.com/projects/odoo-18/hr_expense/"
 "hi/>\n"
@@ -24,27 +24,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.12.2\n"
-
-#. module: hr_expense
-#: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
-msgid "$100.00"
-msgstr "100.00 डॉलर"
-
-#. module: hr_expense
-#: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
-msgid "$120.00"
-msgstr ""
-
-#. module: hr_expense
-#: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
-msgid "$500.00"
-msgstr ""
-
-#. module: hr_expense
-#: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
-msgid "$600.00"
-msgstr ""
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: hr_expense
 #. odoo-python
@@ -62,7 +42,8 @@ msgstr ""
 #. odoo-python
 #: code:addons/hr_expense/models/hr_expense.py:0
 msgid "%(user)s confirms this expense is not a duplicate with similar expense."
-msgstr "%(user)s पुष्टि करता है कि यह खर्च किसी समान खर्च के साथ डुप्लिकेट नहीं है।"
+msgstr ""
+"%(user)s पुष्टि करता है कि यह खर्च किसी समान खर्च के साथ डुप्लिकेट नहीं है।"
 
 #. module: hr_expense
 #. odoo-python
@@ -99,11 +80,6 @@ msgstr "(शामिल है"
 #: code:addons/hr_expense/models/hr_expense.py:0
 msgid "1 %(exp_cur)s = %(rate)s %(comp_cur)s"
 msgstr ""
-
-#. module: hr_expense
-#: model_terms:ir.ui.view,arch_db:hr_expense.report_expense_sheet
-msgid "2023-08-11"
-msgstr "11-08-2023"
 
 #. module: hr_expense
 #. odoo-javascript
@@ -462,7 +438,7 @@ msgstr "कैटगरी: नहीं मिला"
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__message_main_attachment_checksum
 msgid "Checksum/SHA1"
-msgstr ""
+msgstr "Checksum/SHA1"
 
 #. module: hr_expense
 #: model:product.template,name:hr_expense.expense_product_communication_product_template
@@ -1196,7 +1172,7 @@ msgstr "जर्नल आइटम"
 #. odoo-python
 #: code:addons/hr_expense/models/hr_expense_sheet.py:0
 msgid "Journal entries"
-msgstr ""
+msgstr "जर्नल एंट्रीज़"
 
 #. module: hr_expense
 #: model:mail.message.subtype,description:hr_expense.mt_expense_entry_delete
@@ -1242,13 +1218,15 @@ msgstr "लेट एक्टिविटी"
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_res_config_settings__hr_expense_use_mailgateway
 msgid "Let your employees record expenses by email"
-msgstr "कर्मचारियों को यह सुविधा दें कि वे ईमेल के माध्यम से अपने खर्चों को रिकॉर्ड कर सकें"
+msgstr ""
+"कर्मचारियों को यह सुविधा दें कि वे ईमेल के माध्यम से अपने खर्चों को रिकॉर्ड कर सकें"
 
 #. module: hr_expense
 #. odoo-javascript
 #: code:addons/hr_expense/static/src/js/tours/hr_expense.js:0
 msgid "Let's check out where you can manage all your employees expenses"
-msgstr "आइए देखें कि आप अपने सभी कर्मचारियों के खर्चों का मैनेज कहां कर सकते हैं"
+msgstr ""
+"आइए देखें कि आप अपने सभी कर्मचारियों के खर्चों का मैनेज कहां कर सकते हैं"
 
 #. module: hr_expense
 #. odoo-javascript
@@ -2021,7 +1999,16 @@ msgstr "टीम अप्रूवर"
 #: model:ir.model.fields,help:hr_expense.field_res_config_settings__expense_outstanding_account_id
 msgid ""
 "The account used to record the outstanding amount of the company expenses."
-msgstr "कंपनी के बकाया खर्च की राशि को रिकॉर्ड करने के लिए इस्तेमाल किया गया खाता।"
+msgstr ""
+"कंपनी के बकाया खर्च की राशि को रिकॉर्ड करने के लिए इस्तेमाल किया गया खाता।"
+
+#. module: hr_expense
+#. odoo-python
+#: code:addons/hr_expense/models/ir_actions_report.py:0
+msgid ""
+"The attachment (%(attachment_name)s) has not been added to the report due to "
+"the following error: '%(error)s'"
+msgstr ""
 
 #. module: hr_expense
 #: model:ir.model.fields,help:hr_expense.field_res_company__expense_journal_id
@@ -2066,8 +2053,8 @@ msgstr ""
 #: model:ir.model.fields,help:hr_expense.field_hr_expense_sheet__employee_journal_id
 msgid "The journal used when the expense is paid by employee."
 msgstr ""
-"वह जर्नल जिसका इस्तेमाल तब किया जाता है जब खर्च का भुगतान कर्मचारी द्वारा किया जाता "
-"है।"
+"वह जर्नल जिसका इस्तेमाल तब किया जाता है जब खर्च का भुगतान कर्मचारी द्वारा किया जाता है"
+"।"
 
 #. module: hr_expense
 #: model:ir.model.fields,help:hr_expense.field_hr_expense_sheet__payment_method_line_id
@@ -2181,7 +2168,8 @@ msgstr "करेंसी में वह कुल योग जिस पर
 #. module: hr_expense
 #: model:ir.model.fields,help:hr_expense.field_hr_expense_split_wizard__total_amount_currency_original
 msgid "Total amount of the original Expense that we are splitting"
-msgstr "उस मूल खर्च (ओरिजिनल एक्सपेंस) की कुल राशि जिसे अलग-अलग हिस्सों में बांटा जा रहा है"
+msgstr ""
+"उस मूल खर्च (ओरिजिनल एक्सपेंस) की कुल राशि जिसे अलग-अलग हिस्सों में बांटा जा रहा है"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense_split_wizard__total_amount_currency_original
@@ -2304,8 +2292,8 @@ msgstr ""
 "वाला उपयोगकर्ता खर्च की राशि नहीं बदल पाएगा, सिर्फ़ मात्रा बदल "
 "पाएगा.                                             . उन खर्च कैटगरी के लिए शून्य "
 "से अलग मूल्य का इस्तेमाल करें जिनका                                              "
-"भुगतान कंपनी निश्चित दर पर करती है, जैसे कि माइलेज, दैनिक भत्ता, ठहरने या भोजन के "
-"लिए                                              दिए जाने वाले भत्ते।"
+"भुगतान कंपनी निश्चित दर पर करती है, जैसे कि माइलेज, दैनिक भत्ता, ठहरने या भोजन के लिए"
+"                                              दिए जाने वाले भत्ते।"
 
 #. module: hr_expense
 #: model:ir.model.fields,field_description:hr_expense.field_hr_expense__product_has_tax
@@ -2614,3 +2602,9 @@ msgstr "बिल की तस्वीर से डेटा भरने क
 #: model_terms:ir.ui.view,arch_db:hr_expense.hr_expense_view_form
 msgid "with the same receipt already exists."
 msgstr "वही रसीद पहले से मौजूद है।"
+
+#~ msgid "$100.00"
+#~ msgstr "100.00 डॉलर"
+
+#~ msgid "2023-08-11"
+#~ msgstr "11-08-2023"

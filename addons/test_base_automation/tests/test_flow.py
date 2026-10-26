@@ -402,6 +402,40 @@ else:
         self.assertNotEqual(lead.deadline, False)
         self.assertEqual(send_mail_count, 1)
 
+    def test_014_recompute_on_create(self):
+        stage_field = self.env.ref("test_base_automation.field_base_automation_lead_test__stage_id")
+        create_automation(
+            self,
+            model_id=self.env['ir.model']._get_id('base.automation.lead.thread.test'),
+            trigger='on_create_or_write',
+            trigger_field_ids=[Command.link(stage_field.id)],
+            filter_domain="[('stage_id', '!=', False)]",
+            _actions={
+                'state': 'mail_post',
+                'mail_post_method': 'email',
+                'template_id': self.test_mail_template_automation.id,
+            },
+        )
+
+        send_mail_count = 0
+
+        def _patched_send_mail(*args, **kwargs):
+            nonlocal send_mail_count
+            send_mail_count += 1
+
+        patcher = patch('odoo.addons.mail.models.mail_template.MailTemplate.send_mail', _patched_send_mail)
+        self.startPatcher(patcher)
+
+        lead = self.env['base.automation.lead.thread.test'].with_context(
+            test_base_automation_read_stage_on_create=True,
+        ).create({
+            'name': "Lead Test",
+            'user_id': self.user_root.id,
+        })
+        self.addCleanup(lead.unlink)
+        self.assertTrue(lead.stage_id)
+        self.assertEqual(send_mail_count, 1)
+
     def test_020_recursive(self):
         """ Check that a rule is executed recursively by a secondary change. """
         create_automation(
@@ -927,6 +961,30 @@ if env.context.get('old_values', None):  # on write
         self.assertEqual(len(copy_action_ids), len(action_ids))
         self.assertNotEqual(copy_action_ids, action_ids)
 
+    def test_150_on_write_recompute_without_write_access(self):
+        """ A user may trigger an automation on records they can only read,
+        through the recomputation of a stored field without compute_sudo. """
+        tag = self.env['test_base_automation.tag'].create({'name': 'Tag'})
+        record = self.env['base.automation.readonly.test'].create({'tag_id': tag.id})
+        create_automation(
+            self,
+            model_id=self.env['ir.model']._get_id('base.automation.readonly.test'),
+            trigger='on_create_or_write',
+            _actions={'state': 'code', 'code': "records.write({'name': 'Processed'})"},
+        )
+        self.assertFalse(record.date_automation_last)
+
+        # sanity check: user demo can read the record, but not write on it
+        self.assertTrue(record.with_user(self.user_demo).has_access('read'))
+        self.assertFalse(record.with_user(self.user_demo).has_access('write'))
+
+        tag.with_user(self.user_demo).name = 'New Tag'
+        # recompute 'tag_name' as user demo, like when flushing their request
+        record.with_user(self.user_demo).flush_model()
+        self.assertEqual(record.tag_name, 'New Tag')
+        self.assertEqual(record.name, 'Processed')
+        self.assertTrue(record.date_automation_last)
+
 
 @common.tagged('post_install', '-at_install')
 class TestCompute(common.TransactionCase):
@@ -936,6 +994,10 @@ class TestCompute(common.TransactionCase):
         cls.env.ref('base.user_admin').write({
             'email': 'mitchell.admin@example.com',
         })
+
+    def tearDown(self):
+        self.env['base.automation']._unregister_hook()
+        super().tearDown()
 
     def test_automation_form_view(self):
         automation_form = Form(self.env['base.automation'], view='base_automation.view_base_automation_form')

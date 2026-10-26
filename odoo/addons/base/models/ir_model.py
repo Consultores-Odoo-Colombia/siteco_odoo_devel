@@ -171,9 +171,17 @@ def upsert_en(model, fnames, rows, conflict):
         excluded=comma(
             (
                 SQL(
-                    "COALESCE(%s, '{}'::jsonb) || EXCLUDED.%s",
-                    SQL.identifier(model._table, fname),
-                    SQL.identifier(fname),
+                    """CASE
+                        WHEN %(old)s ->> 'en_US' IS DISTINCT FROM %(new)s ->> 'en_US'
+                            -- the source text changed: existing translations were
+                            -- made for a source that no longer exists, drop them so
+                            -- they get reloaded fresh instead of being kept as if
+                            -- they still applied to the current source
+                            THEN %(new)s
+                        ELSE COALESCE(%(old)s, '{}'::jsonb) || %(new)s
+                       END""",
+                    old=SQL.identifier(model._table, fname),
+                    new=SQL("EXCLUDED.%s", SQL.identifier(fname)),
                 )
                 if model._fields[fname].translate is True
                 else SQL("EXCLUDED.%s", SQL.identifier(fname))
@@ -1117,6 +1125,11 @@ class IrModelFields(models.Model):
             if column_name in vals:
                 del vals[column_name]
 
+        if column_rename and self.state == 'manual':
+            # renaming a studio field, remove inherits fields
+            # we need to set the uninstall flag to allow removing them
+            (self._prepare_update() - self).with_context(**{MODULE_UNINSTALL_FLAG: True}).unlink()
+
         res = super(IrModelFields, self).write(vals)
 
         self.env.flush_all()
@@ -1778,6 +1791,10 @@ class IrModelSelection(models.Model):
             if not field or not field.store or not Model._auto:
                 continue
 
+            # Field changed its type, skip it.
+            if field.type not in ('selection', 'reference'):
+                continue
+
             ondelete = (field.ondelete or {}).get(selection.value)
             # special case for custom fields
             if ondelete is None and field.manual and not field.required:
@@ -1786,33 +1803,53 @@ class IrModelSelection(models.Model):
             if ondelete is None:
                 # nothing to do, the selection does not come from a field extension
                 continue
-            elif callable(ondelete):
-                ondelete(selection._get_records())
-            elif ondelete == 'set null':
-                safe_write(selection._get_records(), field.name, False)
-            elif ondelete == 'set default':
-                value = field.convert_to_write(field.default(Model), Model)
-                safe_write(selection._get_records(), field.name, value)
-            elif ondelete.startswith('set '):
-                safe_write(selection._get_records(), field.name, ondelete[4:])
-            elif ondelete == 'cascade':
-                selection._get_records().unlink()
-            else:
-                # this shouldn't happen... simply a sanity check
-                raise ValueError(_(
-                    'The ondelete policy "%(policy)s" is not valid for field "%(field)s"',
-                    policy=ondelete, field=selection,
-                ))
+
+            companies = self.env.companies if self.field_id.company_dependent else [self.env.company]
+            for company in companies:
+                # make a company-specific env for the Model and selection
+                Model = Model.with_company(company.id)
+                selection = selection.with_company(company.id)
+                if callable(ondelete):
+                    ondelete(selection._get_records())
+                elif ondelete == 'set null':
+                    safe_write(selection._get_records(), field.name, False)
+                elif ondelete == 'set default':
+                    value = field.convert_to_write(field.default(Model), Model)
+                    safe_write(selection._get_records(), field.name, value)
+                elif ondelete.startswith('set '):
+                    safe_write(selection._get_records(), field.name, ondelete[4:])
+                elif ondelete == 'cascade':
+                    selection._get_records().unlink()
+                else:
+                    # this shouldn't happen... simply a sanity check
+                    raise ValueError(_(
+                        'The ondelete policy "%(policy)s" is not valid for field "%(field)s"',
+                        policy=ondelete, field=selection,
+                    ))
 
     def _get_records(self):
         """ Return the records having 'self' as a value. """
         self.ensure_one()
         Model = self.env[self.field_id.model]
         Model.flush_model([self.field_id.name])
-        query = 'SELECT id FROM "{table}" WHERE "{field}"=%s'.format(
-            table=Model._table, field=self.field_id.name,
-        )
-        self.env.cr.execute(query, [self.value])
+        if self.field_id.company_dependent:
+            # company-dependent fields are stored as jsonb (e.g; {company_id: value})
+            query = SQL(
+                "SELECT id FROM %s WHERE %s ->> %s = %s",
+                SQL.identifier(Model._table),
+                SQL.identifier(self.field_id.name),
+                str(self.env.company.id),
+                self.value,
+            )
+        else:
+            # normal selection fields are stored as general datatype
+            query = SQL(
+                "SELECT id FROM %s WHERE %s = %s",
+                SQL.identifier(Model._table),
+                SQL.identifier(self.field_id.name),
+                self.value,
+            )
+        self.env.cr.execute(query)
         return Model.browse(r[0] for r in self.env.cr.fetchall())
 
 
@@ -2329,6 +2366,7 @@ class IrModelData(models.Model):
 
         # query xml_ids by prefix
         result = []
+        self.flush_model()
         cr = self.env.cr
         for prefix, suffixes in bymodule.items():
             query = """
@@ -2490,7 +2528,10 @@ class IrModelData(models.Model):
                         field_.setup(model)
                         has_shared_field = True
         if has_shared_field:
-            lazy_property.reset_all(self.env.registry)
+            registry = self.env.registry
+            lazy_property.reset_all(registry)
+            registry._field_trigger_trees.clear()
+            registry._is_modifying_relations.clear()
 
         # to collect external ids of records that cannot be deleted
         undeletable_ids = []

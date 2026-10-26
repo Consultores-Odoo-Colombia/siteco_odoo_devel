@@ -33,12 +33,12 @@ function commonParentGet(node1, node2, root = undefined) {
 //--------------------------------------------------------------------------
 
 const RE_COL_MATCH = /(^| )col(-[\w\d]+)*( |$)/;
-const RE_COMMAS_OUTSIDE_PARENTHESES = /,(?![^(]*?\))/g;
 const RE_OFFSET_MATCH = /(^| )offset(-[\w\d]+)*( |$)/;
 const RE_PADDING_MATCH = /[ ]*padding[^;]*;/g;
 const RE_PADDING = /([\d.]+)/;
 const RE_WHITESPACE = /[\s\u200b]*/;
 const SELECTORS_IGNORE = /(^\*$|:hover|:before|:after|:active|:link|::|'|\([^(),]+[,(])|@page/;
+const RE_THEME_COLOR_CLASS = /^bg-o-color-\d+$/;
 // CSS properties relating to font, which Outlook seem to have trouble inheriting.
 const FONT_PROPERTIES_TO_INHERIT = [
     "color",
@@ -61,7 +61,8 @@ export const TABLE_ATTRIBUTES = {
 };
 // Cancel tables default styles.
 export const TABLE_STYLES = {
-    "border-collapse": "collapse",
+    "border-collapse": "separate",
+    "border-spacing": "0px",
     "text-align": "inherit",
     "font-size": "unset",
     "line-height": "inherit",
@@ -441,6 +442,7 @@ export function cardToTable(element) {
                 col.append(child);
             }
             const subTable = _createTable();
+            subTable.style.height = "100%";
             const superRow = document.createElement("tr");
             const superCol = document.createElement("td");
             row.append(col);
@@ -512,8 +514,13 @@ export function classToStyle(element, cssRules) {
         // Flexbox
         for (const styleName of node.style) {
             if (styleName.includes("flex") || `${node.style[styleName]}`.includes("flex")) {
+                // inline-flex falls back to inline-block so inline elements (e.g. buttons) keep their box
+                const fallback =
+                    styleName === "display" && node.style[styleName] === "inline-flex"
+                        ? "inline-block"
+                        : "";
                 writes.push(() => {
-                    node.style[styleName] = "";
+                    node.style[styleName] = fallback;
                 });
             }
         }
@@ -537,6 +544,18 @@ export function classToStyle(element, cssRules) {
                 node.setAttribute("style", style);
                 if (node.style.width) {
                     node.setAttribute("width", node.style.width.replace("px", "").trim());
+                }
+            });
+        }
+
+        const themeColorClasses = [...node.classList].filter((c) => RE_THEME_COLOR_CLASS.test(c));
+        if (themeColorClasses.length) {
+            writes.push(() => {
+                for (const cls of themeColorClasses) {
+                    node.classList.remove(cls);
+                }
+                if (!node.classList.length) {
+                    node.removeAttribute("class");
                 }
             });
         }
@@ -834,6 +853,7 @@ export async function toInline(element, cssRules) {
     attachmentThumbnailToLinkImg(element);
     fontToImg(element);
     await svgToPng(element);
+    await webpToPng(element);
 
     // Fix img-fluid for Outlook.
     for (const image of element.querySelectorAll("img.img-fluid")) {
@@ -1211,6 +1231,26 @@ export function formatTables(element) {
         }
     }
 }
+export function splitSelectors(str) {
+    const result = [];
+    let current = "";
+    let depth = 0;
+    for (const char of str) {
+        if (char === "(") {
+            depth++;
+        } else if (char === ")") {
+            depth--;
+        }
+        if (char === "," && depth === 0) {
+            result.push(current.trim());
+            current = "";
+        } else {
+            current += char;
+        }
+    }
+    result.push(current.trim());
+    return result;
+}
 /**
  * Parse through the given document's stylesheets, preprocess(*) them and return
  * the result as an array of objects, each containing a selector string , a
@@ -1253,7 +1293,7 @@ export function getCSSRules(doc) {
             for (const subRule of subRules) {
                 const selectorText = subRule.selectorText || "";
                 // Split selectors, making sure not to split at commas in parentheses.
-                for (const selector of selectorText.split(RE_COMMAS_OUTSIDE_PARENTHESES)) {
+                for (const selector of splitSelectors(selectorText)) {
                     if (selector && !SELECTORS_IGNORE.test(selector)) {
                         cssRules.push({ selector: selector.trim(), rawRule: subRule });
                         if (selector === "body") {
@@ -1414,38 +1454,73 @@ function responsiveToStaticForOutlook(element) {
     }
 }
 /**
+ * Convert image element to an image element with type png
+ *
+ * @param {HTMLElement} img
+ */
+async function convertToPng(img) {
+    // Make sure the image is loaded before we convert it.
+    await new Promise((resolve) => {
+        img.onload = () => resolve();
+        if (img.complete) {
+            resolve();
+        }
+    });
+    const image = document.createElement("img");
+    const canvas = document.createElement("CANVAS");
+    const width = _getWidth(img);
+    const height = _getHeight(img);
+
+    canvas.setAttribute("width", width);
+    canvas.setAttribute("height", height);
+    canvas.getContext("2d").drawImage(img, 0, 0, width, height);
+
+    for (const attribute of img.attributes) {
+        image.setAttribute(attribute.name, attribute.value);
+    }
+
+    image.setAttribute("src", canvas.toDataURL("png"));
+    image.setAttribute("width", width);
+    image.setAttribute("height", height);
+    return image;
+}
+/**
  * Convert images of type svg to png.
  *
- * @param {HTMLElement} element
+ * @param {HTMLElement} editable
  */
-async function svgToPng(element) {
-    for (const svg of element.querySelectorAll('img[src*=".svg"]')) {
-        // Make sure the svg is loaded before we convert it.
-        await new Promise((resolve) => {
-            svg.onload = () => resolve();
-            if (svg.complete) {
-                resolve();
-            }
-        });
-        const image = document.createElement("img");
-        const canvas = document.createElement("CANVAS");
-        const width = _getWidth(svg);
-        const height = _getHeight(svg);
-
-        canvas.setAttribute("width", width);
-        canvas.setAttribute("height", height);
-        canvas.getContext("2d").drawImage(svg, 0, 0, width, height);
-
-        for (const attribute of svg.attributes) {
-            image.setAttribute(attribute.name, attribute.value);
-        }
-
-        image.setAttribute("src", canvas.toDataURL("png"));
-        image.setAttribute("width", width);
-        image.setAttribute("height", height);
-
+async function svgToPng(editable) {
+    for (const svg of editable.querySelectorAll('img[src*=".svg"]')) {
+        const image = await convertToPng(svg);
         svg.before(image);
         svg.remove();
+    }
+}
+/**
+ * Convert images of type webp to png.
+ *
+ * @param {HTMLElement} editable
+ */
+async function webpToPng(editable) {
+    for (const webp of editable.querySelectorAll('img[src*=".webp"]')) {
+        const image = await convertToPng(webp);
+        webp.before(image);
+        webp.remove();
+    }
+
+    for (const webp of editable.querySelectorAll('[style*="background-image"][style*=".webp"]')) {
+        // Create an image element with the background image and replace the url
+        // with the png converted image url
+        const width = _getWidth(webp);
+        const height = _getHeight(webp);
+        const tempImage = document.createElement("img");
+        tempImage.setAttribute("src", webp.style.backgroundImage.slice(5, -2));
+        tempImage.setAttribute("width", width);
+        tempImage.setAttribute("height", height);
+        webp.before(tempImage);
+        const image = await convertToPng(tempImage);
+        webp.style.backgroundImage = `url(${image.getAttribute("src")})`;
+        tempImage.remove();
     }
 }
 
@@ -1832,7 +1907,12 @@ function _getMatchedCSSRules(node, cssRules) {
     // flexboxes are not supported in Windows Outlook
     for (const styleName in processedStyle) {
         if (styleName.includes("flex") || `${processedStyle[styleName]}`.includes("flex")) {
-            delete processedStyle[styleName];
+            if (styleName === "display" && processedStyle[styleName] === "inline-flex") {
+                // inline-flex falls back to inline-block so inline elements (e.g. buttons) keep their box
+                processedStyle[styleName] = "inline-block";
+            } else {
+                delete processedStyle[styleName];
+            }
         }
     }
 

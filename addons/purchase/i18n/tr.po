@@ -33,13 +33,14 @@
 # Melih Melik Sonmez, 2025
 # Hakan Türkün, 2025
 # Deniz Guvener_Odoo <degu@odoo.com>, 2025
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
+# "Deniz Guvener Unal (degu)" <degu@odoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:36+0000\n"
-"PO-Revision-Date: 2025-11-25 09:48+0000\n"
+"POT-Creation-Date: 2026-04-10 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 12:38+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Turkish <https://translate.odoo.com/projects/odoo-18/purchase/"
 "tr/>\n"
@@ -48,7 +49,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: purchase
 #: model:ir.actions.report,print_report_name:purchase.action_report_purchase_order
@@ -172,17 +173,16 @@ msgstr ""
 "Interior</t>)\n"
 "        </t>\n"
 "        <br/><br/>\n"
-"        <span style=\"font-weight:bold;\" t-out=\"object.name or "
-"''\">P00015</span> numaralı satın alma siparişinin teslimatının\n"
+"        <span style=\"font-weight:bold;\" t-out=\"object.name or ''\">"
+"P00015</span> numaralı satın alma siparişinin teslimatının\n"
 "        <t t-if=\"object.partner_ref\">\n"
 "            <span style=\"font-weight:bold;\">(<t t-out=\"object.partner_ref "
 "or ''\">REF_XXX</t>)</span>\n"
 "        </t>\n"
 "        beklendiği tarihin \n"
 "        <t t-if=\"object.date_planned\">\n"
-"            <span style=\"font-weight:bold;\" t-"
-"out=\"format_date(object.date_planned) or ''\">05/05/2021</span> olduğunu "
-"hatırlatırız.\n"
+"            <span style=\"font-weight:bold;\" t-out=\"format_date"
+"(object.date_planned) or ''\">05/05/2021</span> olduğunu hatırlatırız.\n"
 "        </t>\n"
 "         <t t-else=\"\">\n"
 "            <span style=\"font-weight:bold;\">tanımlanmamış</span>.\n"
@@ -247,12 +247,11 @@ msgstr ""
 "        Ekte, Satın Alma Siparişi <span style=\"font-weight:bold;\" t-"
 "out=\"object.name or ''\">P00015</span>\n"
 "        <t t-if=\"object.partner_ref\">\n"
-"            referans numarası: <t t-out=\"object.partner_ref or "
-"''\">REF_XXX</t>\n"
+"            referans numarası: <t t-out=\"object.partner_ref or ''\">"
+"REF_XXX</t>\n"
 "        </t>\n"
-"        tutar: <span style=\"font-weight:bold;\" t-"
-"out=\"format_amount(object.amount_total, object.currency_id) or ''\">$ "
-"10.00</span>\n"
+"        tutar: <span style=\"font-weight:bold;\" t-out=\"format_amount"
+"(object.amount_total, object.currency_id) or ''\">$ 10.00</span>\n"
 "        gönderen <t t-out=\"object.company_id.name or ''\">YourCompany</t>ni "
 "bulabilirsiniz. \n"
 "        <br/><br/>\n"
@@ -327,11 +326,11 @@ msgstr ""
 "        Ekte, Fiyatlandırma Talebi <span style=\"font-weight:bold;\" t-"
 "out=\"object.name or ''\">P00015</span>\n"
 "        <t t-if=\"object.partner_ref\">\n"
-"            referans numarası: <t t-out=\"object.partner_ref or "
-"''\">REF_XXX</t>\n"
+"            referans numarası: <t t-out=\"object.partner_ref or ''\">"
+"REF_XXX</t>\n"
 "        </t>\n"
-"        gönderen: <t t-out=\"object.company_id.name or ''\">YourCompany</"
-"t>ni bulabilirsiniz.\n"
+"        gönderen: <t t-out=\"object.company_id.name or ''\">YourCompany</t>"
+"ni bulabilirsiniz.\n"
 "        <br/><br/>\n"
 "        Herhangi bir sorunuz olursa lütfen bizimle iletişime geçmekten "
 "çekinmeyin.\n"
@@ -452,8 +451,8 @@ msgid ""
 "                        <span class=\"o_form_label\" invisible=\"state in "
 "('draft', 'sent')\">Purchase Order </span>"
 msgstr ""
-"<span class=\"o_form_label\" invisible=\"state not in ('draft', 'sent')"
-"\">Fiyatlandırma Talebi </span>\n"
+"<span class=\"o_form_label\" invisible=\"state not in ('draft', 'sent')\">"
+"Fiyatlandırma Talebi </span>\n"
 "                        <span class=\"o_form_label\" invisible=\"state in "
 "('draft', 'sent')\">Satın Alma Siparişi </span>"
 
@@ -1977,6 +1976,12 @@ msgstr "Adı"
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Name, TIN, Email, or Reference"
 msgstr "Adı, VKN, E-posta veya Referans"
+
+#. module: purchase
+#. odoo-python
+#: code:addons/purchase/models/purchase_order.py:0
+msgid "New"
+msgstr "Yeni"
 
 #. module: purchase
 #. odoo-python
@@ -3850,8 +3855,7 @@ msgstr ""
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order
 msgid "You don't use a good CRM software?"
-msgstr ""
-"İyi bir Müşteri İlişkileri Yönetimi (CRM) yazılımı kullanmıyor musunuz?"
+msgstr "İyi bir Müşteri İlişkileri Yönetimi (CRM) yazılımı kullanmıyor musunuz?"
 
 #. module: purchase
 #: model_terms:ir.actions.act_window,help:purchase.product_product_action
@@ -3869,8 +3873,8 @@ msgid ""
 "You must define a product for everything you sell or purchase,\n"
 "            whether it's a storable product, a consumable or a service."
 msgstr ""
-"Sattığınız veya satın aldığınız her şey için bir ürün tanımlamanız "
-"gerekir, \n"
+"Sattığınız veya satın aldığınız her şey için bir ürün tanımlamanız gerekir, "
+"\n"
 "           ister depolanabilir bir ürün, ister sarf malzemesi veya hizmet "
 "olsun."
 

@@ -9,23 +9,24 @@
 # Betty Keresztesi, 2025
 # Wil Odoo, 2025
 # Larisa_nexterp, 2025
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
+# Odoo Translation Bot <c3p@odoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-15 18:38+0000\n"
-"PO-Revision-Date: 2025-11-25 09:48+0000\n"
-"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
-"Language-Team: Romanian <https://translate.odoo.com/projects/odoo-18/mail/ro/"
-">\n"
+"POT-Creation-Date: 2026-07-17 17:37+0000\n"
+"PO-Revision-Date: 2026-10-20 12:28+0000\n"
+"Last-Translator: Odoo Translation Bot <c3p@odoo.com>\n"
+"Language-Team: Romanian <https://translate.odoo.com/projects/odoo-18/mail/"
+"ro/>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
 "20)) ? 1 : 2;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: mail
 #. odoo-python
@@ -51,8 +52,8 @@ msgstr ""
 "            </p><p>\n"
 "                Pentru a vă proteja de spam și bucle de răspuns, Odoo "
 "blochează automat e-mailurile\n"
-"                care ajung la gateway-ul dvs. după un prag de <b>%"
-"(threshold)i</b> e-mailuri la fiecare <b>%(minutes)i</b>\n"
+"                care ajung la gateway-ul dvs. după un prag de <b>%(threshold)"
+"i</b> e-mailuri la fiecare <b>%(minutes)i</b>\n"
 "                minute. Dacă există adrese de la care trebuie să primiți "
 "actualizări foarte frecvente,\n"
 "                le puteți adăuga mai jos și Odoo le va permite să treacă.\n"
@@ -168,11 +169,11 @@ msgid ""
 "(bold_end)s to insert a canned response in your message."
 msgstr ""
 "%(new_line)s%(new_line)sScrieți %(bold_start)s@username%(bold_end)s pentru a "
-"menționa pe cineva și a-i atrage atenția.%(new_line)sScrieți %"
-"(bold_start)s#channel%(bold_end)s pentru a menționa un canal.%"
-"(new_line)sScrieți %(bold_start)s/command%(bold_end)s pentru a executa o "
-"comandă.%(new_line)sScrieți %(bold_start)s:shortcut%(bold_end)s pentru a "
-"insera un răspuns predefinit în mesajul dvs."
+"menționa pe cineva și a-i atrage atenția.%(new_line)sScrieți %(bold_start)"
+"s#channel%(bold_end)s pentru a menționa un canal.%(new_line)sScrieți %"
+"(bold_start)s/command%(bold_end)s pentru a executa o comandă.%(new_line)"
+"sScrieți %(bold_start)s:shortcut%(bold_end)s pentru a insera un răspuns "
+"predefinit în mesajul dvs."
 
 #. module: mail
 #. odoo-javascript
@@ -192,8 +193,8 @@ msgid ""
 "(open_em)sto %(open_save)ssave%(close_save)s%(close_em)s"
 msgstr ""
 "%(open_samp)sEscape%(close_samp)s %(open_em)spentru %(open_cancel)sanula%"
-"(close_cancel)s%(close_em)s, %(open_samp)sCTRL-Enter%(close_samp)s %"
-"(open_em)spentru %(open_save)ssalva%(close_save)s%(close_em)s"
+"(close_cancel)s%(close_em)s, %(open_samp)sCTRL-Enter%(close_samp)s %(open_em)"
+"spentru %(open_save)ssalva%(close_save)s%(close_em)s"
 
 #. module: mail
 #. odoo-javascript
@@ -204,8 +205,8 @@ msgid ""
 "(open_save)ssave%(close_save)s%(close_em)s"
 msgstr ""
 "%(open_samp)sEscape%(close_samp)s %(open_em)spentru %(open_cancel)sanula%"
-"(close_cancel)s%(close_em)s, %(open_samp)sEnter%(close_samp)s %"
-"(open_em)spentru %(open_save)ssalva%(close_save)s%(close_em)s"
+"(close_cancel)s%(close_em)s, %(open_samp)sEnter%(close_samp)s %(open_em)"
+"spentru %(open_save)ssalva%(close_save)s%(close_em)s"
 
 #. module: mail
 #. odoo-javascript
@@ -430,9 +431,9 @@ msgid ""
 "<p><b>Chat with coworkers</b> in real-time using direct messages.</"
 "p><p><i>You might need to invite users from the Settings app first.</i></p>"
 msgstr ""
-"<p><b>Discutați cu colegii</b> în timp real folosind mesaje directe.</"
-"p><p><i>Este posibil să trebuiască să invitați utilizatori din aplicația "
-"Setări mai întâi.</i></p>"
+"<p><b>Discutați cu colegii</b> în timp real folosind mesaje directe.</p><p>"
+"<i>Este posibil să trebuiască să invitați utilizatori din aplicația Setări "
+"mai întâi.</i></p>"
 
 #. module: mail
 #. odoo-javascript
@@ -634,8 +635,7 @@ msgstr "Un mesaj poate fi programat doar în modul monocomentariu"
 #: code:addons/mail/models/mail_scheduled_message.py:0
 msgid ""
 "A message cannot be scheduled on a model that does not have a mail thread."
-msgstr ""
-"Un mesaj nu poate fi programat pe un model care nu are fir de discuție."
+msgstr "Un mesaj nu poate fi programat pe un model care nu are fir de discuție."
 
 #. module: mail
 #: model:ir.model.constraint,message:mail.constraint_mail_message_reaction_partner_or_guest_exists
@@ -960,24 +960,27 @@ msgid "Add Reaction"
 msgstr "Adaugă reacție"
 
 #. module: mail
-#. odoo-javascript
-#: code:addons/mail/static/src/core/common/message_actions.js:0
-msgid "Add a Reaction"
-msgstr "Adaugă o reacție"
-
-#. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Add a Tenor GIF API key to enable GIFs support."
-msgstr "Adaugă o cheie API Tenor GIF pentru a activa suportul pentru GIF-uri."
+msgid ""
+"Add a Klipy GIF API key to enable GIFs support. If you were using a Tenor "
+"GIF API key (service shutdown on June 30, 2026), please replace it here with "
+"a Klipy GIF API key"
+msgstr ""
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_res_config_settings__tenor_api_key
 msgid ""
-"Add a Tenor GIF API key to enable GIFs support. https://"
-"developers.google.com/tenor/guides/quickstart#setup"
+"Add a Klipy GIF API key to enable GIFs support. https://docs.klipy.com/"
+"getting-started\n"
+"If you were using a Tenor GIF API key (service shutdown on June 30, 2026), "
+"please replace it here with a Klipy GIF API key"
 msgstr ""
-"Adaugă o cheie API Tenor GIF pentru a activa suportul pentru GIF-uri. "
-"https://developers.google.com/tenor/guides/quickstart#setup"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/message_actions.js:0
+msgid "Add a Reaction"
+msgstr "Adaugă o reacție"
 
 #. module: mail
 #. odoo-javascript
@@ -2375,8 +2378,7 @@ msgstr "Adresele destinatarilor separate prin virgulă"
 #. module: mail
 #: model:ir.model.fields,help:mail.field_mail_template__email_to
 msgid "Comma-separated recipient addresses (placeholders may be used here)"
-msgstr ""
-"Adresele destinatarilor separate prin virgulă (se pot folosi variabile)"
+msgstr "Adresele destinatarilor separate prin virgulă (se pot folosi variabile)"
 
 #. module: mail
 #: model:ir.model.fields.selection,name:mail.selection__mail_compose_message__message_type__comment
@@ -3978,19 +3980,22 @@ msgstr "Nu s-a putut posta mesajul. Click pentru a reîncerca"
 #. odoo-python
 #: code:addons/mail/models/mail_render_mixin.py:0
 msgid ""
-"Failed to render QWeb template: %(template_src)s\n"
+"Failed to render QWeb template for %(template_label)s\n"
+"Target Model: %(model_name)s\n"
+"Language context: %(lang_context)s\n"
+"Error: %(error_details)s\n"
 "\n"
-"%(template_traceback)s)"
+"Template Source Snippet:\n"
+"%(template_src)s"
 msgstr ""
-"Redarea șablonului QWeb a eșuat: %(template_src)s\n"
-"\n"
-"%(template_traceback)s)"
 
 #. module: mail
 #. odoo-python
 #: code:addons/mail/models/mail_render_mixin.py:0
-msgid "Failed to render inline_template template: %(template_txt)s"
-msgstr "Redarea șablonului inline_template a eșuat: %(template_txt)s"
+msgid ""
+"Failed to render inline_template template: %(template_txt)s\n"
+"Error details: %(error)s"
+msgstr ""
 
 #. module: mail
 #. odoo-python
@@ -4897,6 +4902,14 @@ msgid "If you want to use twilio as TURN/STUN server provider"
 msgstr "Dacă doriți să folosiți twilio ca furnizor de server TURN/STUN"
 
 #. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
+msgid ""
+"If you were using a Tenor API key, please replace it with a Klipy API key in "
+"the General Settings."
+msgstr ""
+
+#. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_resend_message_view_form
 msgid "Ignore all"
 msgstr "Ignoră tot"
@@ -5179,8 +5192,8 @@ msgstr ""
 msgid ""
 "Invalid template or view source reference %(svalue)s, is %(model)s instead"
 msgstr ""
-"Șablon sau sursă de vizualizare invalidă referință %(svalue)s, este %"
-"(model)s în loc"
+"Șablon sau sursă de vizualizare invalidă referință %(svalue)s, este %(model)"
+"s în loc"
 
 #. module: mail
 #. odoo-python
@@ -5380,8 +5393,7 @@ msgstr ""
 #. module: mail
 #: model:ir.model.fields,help:mail.field_mail_tracking_duration_mixin__duration_tracking
 msgid "JSON that maps ids from a many2one field to seconds spent"
-msgstr ""
-"JSON care asociază id-urile dintr-un câmp many2one cu secunde petrecute"
+msgstr "JSON care asociază id-urile dintr-un câmp many2one cu secunde petrecute"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.discuss_channel_view_kanban
@@ -5462,6 +5474,32 @@ msgstr "Cheie"
 #: model_terms:ir.ui.view,arch_db:mail.message_notification_limit_email
 msgid "Kind Regards"
 msgstr "Cu stimă"
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_api_key
+msgid "Klipy API key"
+msgstr ""
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Klipy GIF API key"
+msgstr ""
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Klipy GIF content filter"
+msgstr ""
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_gif_limit
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Klipy GIF limits"
+msgstr ""
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_content_filter
+msgid "Klipy content filter"
+msgstr ""
 
 #. module: mail
 #. odoo-javascript
@@ -5909,6 +5947,12 @@ msgid "Mail Template Reset"
 msgstr "Resetare șablon e-mail"
 
 #. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Mail Template: '%(name)s' (ID: %(record_id)s)"
+msgstr ""
+
+#. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.model_search_view
 msgid "Mail Thread"
 msgstr "Fir e-mail"
@@ -6058,6 +6102,12 @@ msgstr "Marchează ca necitit"
 #: code:addons/mail/static/src/core/web/activity_list_popover_item.xml:0
 msgid "Mark as done"
 msgstr "Marchează ca efectuat"
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Mass Mailing Template: '%(name)s' (ID: %(record_id)s)"
+msgstr ""
 
 #. module: mail
 #. odoo-javascript
@@ -6706,6 +6756,12 @@ msgstr "Nu există mesaje istorice"
 
 #. module: mail
 #. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "No language detected in context"
+msgstr ""
+
+#. module: mail
+#. odoo-python
 #: code:addons/mail/wizard/mail_resend_message.py:0
 msgid "No message_id found in context"
 msgstr "Nu s-a găsit message_id în context"
@@ -7304,8 +7360,8 @@ msgid ""
 msgstr ""
 "Limbă de traducere opțională (cod ISO) pentru trimiterea e-mailului. Dacă nu "
 "este setată, se va folosi versiunea în engleză. De obicei, ar trebui să fie "
-"o expresie de tip placeholder care furnizează limba potrivită, ex. "
-"{{ object.partner_id.lang }}."
+"o expresie de tip placeholder care furnizează limba potrivită, ex. {{ "
+"object.partner_id.lang }}."
 
 #. module: mail
 #. odoo-javascript
@@ -8744,6 +8800,12 @@ msgstr "Caută servere de e-mail primite"
 
 #. module: mail
 #. odoo-javascript
+#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
+msgid "Search Klipy"
+msgstr ""
+
+#. module: mail
+#. odoo-javascript
 #: code:addons/mail/static/src/core/common/search_messages_panel.js:0
 msgid "Search Message"
 msgstr "Caută mesaj"
@@ -8785,12 +8847,6 @@ msgstr "Buton de căutare"
 #: code:addons/mail/static/src/discuss/core/public_web/sub_channel_list.xml:0
 msgid "Search by name"
 msgstr "Caută după nume"
-
-#. module: mail
-#. odoo-javascript
-#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
-msgid "Search for a GIF"
-msgstr "Caută un GIF"
 
 #. module: mail
 #. odoo-javascript
@@ -9604,6 +9660,12 @@ msgstr "Crearea șablonului din compozitor necesită un model valid."
 #. module: mail
 #. odoo-python
 #: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Template name not identified"
+msgstr ""
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
 msgid ""
 "Template rendering should only be called with a list of IDs. Received “%"
 "(res_ids)s” instead."
@@ -9628,36 +9690,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mail.view_email_template_search
 msgid "Templates"
 msgstr "Șabloane"
-
-#. module: mail
-#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_api_key
-msgid "Tenor API key"
-msgstr "Cheie API Tenor"
-
-#. module: mail
-#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Tenor GIF API key"
-msgstr "Cheie API Tenor GIF"
-
-#. module: mail
-#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Tenor GIF content filter"
-msgstr "Filtru de conținut Tenor GIF"
-
-#. module: mail
-#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Tenor GIF limits"
-msgstr "Limite GIF Tenor"
-
-#. module: mail
-#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_gif_limit
-msgid "Tenor Gif Limit"
-msgstr "Limită GIF Tenor"
-
-#. module: mail
-#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_content_filter
-msgid "Tenor content filter"
-msgstr "Filtru de conținut Tenor"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.view_email_server_form
@@ -9741,8 +9773,8 @@ msgid ""
 "(activity_type_model)s\"."
 msgstr ""
 "Tipul de activitate \"%(activity_type_name)s\" nu este compatibil cu planul "
-"\"%(plan_name)s\" deoarece este limitat la modelul \"%"
-"(activity_type_model)s\"."
+"\"%(plan_name)s\" deoarece este limitat la modelul \"%(activity_type_model)"
+"s\"."
 
 #. module: mail
 #. odoo-python
@@ -10595,9 +10627,27 @@ msgid "Unmute Conversation"
 msgstr "Dezactivează mutarea conversației"
 
 #. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/message.js:0
+msgid "Unnamed"
+msgstr "Fără nume"
+
+#. module: mail
 #. odoo-python
 #: code:addons/mail/models/mail_tracking_value.py:0
 msgid "Unnamed %(record_model_name)s (%(record_id)s)"
+msgstr ""
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Unnamed Mail Template"
+msgstr ""
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Unnamed Mailing"
 msgstr ""
 
 #. module: mail
@@ -10802,8 +10852,7 @@ msgstr "Folosește în lot"
 #. odoo-python
 #: code:addons/mail/models/mail_thread.py:0
 msgid "Use message_notify to send a notification to an user."
-msgstr ""
-"Folosește message_notify pentru a trimite o notificare unui utilizator."
+msgstr "Folosește message_notify pentru a trimite o notificare unui utilizator."
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_compose_message__template_id
@@ -11198,8 +11247,8 @@ msgid ""
 msgstr ""
 "La tipărirea documentelor și exportul/importul datelor, valorile de timp "
 "sunt calculate conform acestui fus orar.\n"
-"Dacă fusul orar nu este setat, se folosește UTC (Coordinated Universal "
-"Time).\n"
+"Dacă fusul orar nu este setat, se folosește UTC (Coordinated Universal Time)"
+".\n"
 "În rest, valorile de timp sunt calculate conform diferenței de fus orar a "
 "clientului web."
 
@@ -11405,6 +11454,12 @@ msgstr "Puteți discuta doar cu parteneri care au un utilizator dedicat."
 #: model_terms:ir.ui.view,arch_db:mail.account_security_setting_update
 msgid "You can safely ignore this message"
 msgstr "Puteți ignora acest mesaj în siguranță"
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_alias_domain.py:0
+msgid "You cannot assign an empty domain name."
+msgstr ""
 
 #. module: mail
 #. odoo-python
@@ -11658,8 +11713,8 @@ msgid ""
 "                <br/>\n"
 "                Please try again later."
 msgstr ""
-"pentru că ați contactat-o de prea multe ori în ultimele minute.<br/"
-">Încercați din nou mai târziu."
+"pentru că ați contactat-o de prea multe ori în ultimele minute.<br/>"
+"Încercați din nou mai târziu."
 
 #. module: mail
 #. odoo-javascript
@@ -11786,8 +11841,8 @@ msgstr "de exemplu, „E-mail de întâmpinare”"
 msgid ""
 "e.g. \"Welcome to MyCompany\" or \"Nice to meet you, {{ object.name }}\""
 msgstr ""
-"de exemplu, „Bine ați venit la MyCompany” sau „Mă bucur să vă cunosc, "
-"{{ object.name }}”"
+"de exemplu, „Bine ați venit la MyCompany” sau „Mă bucur să vă cunosc, {{ "
+"object.name }}”"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_alias_domain_view_form
@@ -11908,8 +11963,8 @@ msgstr "tocmai v-a atribuit următoarea activitate:"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_res_config_settings__tenor_content_filter
-msgid "https://developers.google.com/tenor/guides/content-filtering"
-msgstr "https://developers.google.com/tenor/guides/content-filtering"
+msgid "https://docs.klipy.com/migrate-from-tenor/content-filtering"
+msgstr ""
 
 #. module: mail
 #. odoo-javascript
@@ -12219,6 +12274,56 @@ msgstr "{{ object.partner_id.lang }}"
 #: code:addons/mail/models/discuss/discuss_channel_member.py:0
 msgid "“%(member_name)s” in “%(channel_name)s”"
 msgstr "„%(member_name)s” în „%(channel_name)s”"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/web/activity.js:0
+msgid "“%s”"
+msgstr ""
+
+#~ msgid "Search for a GIF"
+#~ msgstr "Caută un GIF"
+
+#~ msgid "Add a Tenor GIF API key to enable GIFs support."
+#~ msgstr ""
+#~ "Adaugă o cheie API Tenor GIF pentru a activa suportul pentru GIF-uri."
+
+#~ msgid ""
+#~ "Add a Tenor GIF API key to enable GIFs support. https://"
+#~ "developers.google.com/tenor/guides/quickstart#setup"
+#~ msgstr ""
+#~ "Adaugă o cheie API Tenor GIF pentru a activa suportul pentru GIF-uri. "
+#~ "https://developers.google.com/tenor/guides/quickstart#setup"
+
+#~ msgid "Tenor API key"
+#~ msgstr "Cheie API Tenor"
+
+#~ msgid "Tenor GIF API key"
+#~ msgstr "Cheie API Tenor GIF"
+
+#~ msgid "Tenor GIF content filter"
+#~ msgstr "Filtru de conținut Tenor GIF"
+
+#~ msgid "Tenor GIF limits"
+#~ msgstr "Limite GIF Tenor"
+
+#~ msgid "Tenor Gif Limit"
+#~ msgstr "Limită GIF Tenor"
+
+#~ msgid "Tenor content filter"
+#~ msgstr "Filtru de conținut Tenor"
+
+#~ msgid "https://developers.google.com/tenor/guides/content-filtering"
+#~ msgstr "https://developers.google.com/tenor/guides/content-filtering"
+
+#~ msgid ""
+#~ "Failed to render QWeb template: %(template_src)s\n"
+#~ "\n"
+#~ "%(template_traceback)s)"
+#~ msgstr ""
+#~ "Redarea șablonului QWeb a eșuat: %(template_src)s\n"
+#~ "\n"
+#~ "%(template_traceback)s)"
 
 #~ msgid "%(user)s connected. This is their first connection. Wish them luck."
 #~ msgstr ""

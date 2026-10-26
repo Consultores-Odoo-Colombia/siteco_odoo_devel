@@ -8,7 +8,7 @@ from werkzeug.exceptions import Forbidden, NotFound
 from werkzeug.urls import url_decode, url_encode, url_parse
 
 from odoo import fields
-from odoo.exceptions import ValidationError
+from odoo.exceptions import UserError, ValidationError
 from odoo.fields import Command
 from odoo.http import request, route
 from odoo.osv import expression
@@ -865,6 +865,16 @@ class WebsiteSale(payment_portal.PaymentPortal):
                 int(ptav_data['value']) for ptav_data in no_variants_attribute_values_data
             ]
 
+        # Combo item lines are updated together with their combo
+        if line_id:
+            target_line = order.order_line.filtered(lambda sol: sol.id == line_id)
+            if target_line.combo_item_id:
+                return {
+                    "warning": _(
+                        "This product is part of a combo and can't be updated individually."
+                    )
+                }
+
         values = order._cart_update(
             product_id=product_id,
             line_id=line_id,
@@ -1292,8 +1302,11 @@ class WebsiteSale(payment_portal.PaymentPortal):
             partner_sudo = request.env['res.partner'].sudo().with_context(
                 create_context
             ).create(address_values)
-        elif not self._are_same_addresses(address_values, partner_sudo):
-            partner_sudo.write(address_values)  # Keep the same partner if nothing changed.
+        elif not self._are_same_addresses(address_values, partner_sudo):  # Keep the same partner if nothing changed.
+            write_values = address_values.copy()
+            if partner_sudo.parent_id:
+                write_values.pop('company_name', None)  # Avoid hiding parent link in partner form UI.
+            partner_sudo.write(write_values)
 
         partner_fnames = set()
         if is_main_address:  # Main address updated.
@@ -1393,15 +1406,8 @@ class WebsiteSale(payment_portal.PaymentPortal):
             elif value:  # The value cannot be saved on the `res.partner` model.
                 extra_form_data[key] = value
 
-        if (
-            hasattr(ResPartner, 'check_vat')  # The `base_vat` module is installed.
-            and address_values.get('vat')
-            and address_values.get('country_id')
-        ):
-            address_values['vat'] = ResPartner.fix_eu_vat_number(
-                address_values['country_id'],
-                address_values['vat'],
-            )
+        if address_values.get('vat'):
+            address_values['vat'] = self._fix_eu_vat_number(address_values['vat'], address_values.get('country_id'))
 
         return address_values, extra_form_data
 
@@ -1469,10 +1475,15 @@ class WebsiteSale(payment_portal.PaymentPortal):
                     " the account settings or contact your administrator."
                 ))
 
+            if vat := partner_sudo.vat:
+                vat = self._fix_eu_vat_number(
+                    vat,
+                    partner_sudo.country_id.id or address_values['country_id'],
+                )
             # Prevent changing the VAT number if invoices have been issued.
             if (
                 'vat' in address_values
-                and address_values['vat'] != partner_sudo.vat
+                and address_values['vat'] != vat
                 and not partner_sudo.can_edit_vat()
             ):
                 invalid_fields.add('vat')
@@ -1634,6 +1645,7 @@ class WebsiteSale(payment_portal.PaymentPortal):
         self._include_country_and_state_in_address(billing_address)
         billing_address, _side_values = self._parse_form_data(billing_address)
         if order_sudo._is_anonymous_cart():
+            fpos_before = order_sudo.fiscal_position_id
 
             # Pricelist are recomputed every time the partner is changed. We don't want to recompute
             # the price with another pricelist at this state since the customer has already accepted
@@ -1649,6 +1661,19 @@ class WebsiteSale(payment_portal.PaymentPortal):
 
             # Add the new partner as follower of the cart
             order_sudo._message_subscribe(order_sudo.partner_id.ids)
+            if order_sudo.fiscal_position_id != fpos_before:
+                # The customer approved a total in the express payment sheet for the previous fiscal
+                # position; recompute the taxes and abort rather than silently charge a different
+                # amount. The JS reloads the page so the updated prices are re-accepted.
+                try:
+                    order_sudo.with_context(is_express_checkout_flow=True)._recompute_taxes()
+                except UserError:
+                    pass  # Don't block the flow if the external tax computation (e.g. Avatax) fails.
+                order_sudo.shop_warning = _(
+                    "Taxes have been updated based on your address."
+                    " Your payment method has not been charged."
+                )
+                return False
         elif not self._are_same_addresses(billing_address, order_sudo.partner_invoice_id):
             # Check if a child partner doesn't already exist with the same informations. The
             # phone isn't always checked because it isn't sent in shipping information with
@@ -1795,6 +1820,10 @@ class WebsiteSale(payment_portal.PaymentPortal):
 
         order_sudo._recompute_taxes()
         order_sudo._recompute_prices()
+        if order_sudo.carrier_id:
+            order_sudo.with_context(
+                keep_pickup_location=True,
+            )._set_delivery_method(order_sudo.carrier_id)
         extra_step = request.website.viewref('website_sale.extra_info')
         if extra_step.active:
             return request.redirect("/shop/extra_info")
@@ -1882,9 +1911,16 @@ class WebsiteSale(payment_portal.PaymentPortal):
     )
     def express_checkout_shipping_address_compute_taxes(self):
         order_sudo = request.website.sale_get_order()
-        order_sudo._recompute_taxes()
+        try:
+            order_sudo.with_context(is_express_checkout_flow=True)._recompute_taxes()
+        except ValidationError:
+            return {'external_tax_error': True}
 
-        return payment_utils.to_minor_currency_units(order_sudo.amount_total, order_sudo.currency_id)
+        amount_without_delivery = order_sudo._compute_amount_total_without_delivery()
+
+        return payment_utils.to_minor_currency_units(
+            amount_without_delivery, order_sudo.currency_id
+        )
 
     def _get_shop_payment_errors(self, order):
         """ Check that there is no error that should block the payment.
@@ -2054,6 +2090,18 @@ class WebsiteSale(payment_portal.PaymentPortal):
         # Check that public orders are allowed.
         if request.env.user._is_public() and request.website.account_on_checkout == 'mandatory':
             return request.redirect('/web/login?redirect=/shop/checkout')
+
+        # Check that the cart does not contain products priced at 0 while the
+        # website forbids the sale of zero-priced products
+        if zero_priced_lines := order_sudo._get_zero_priced_lines():
+            zero_priced_lines.shop_warning = request.env._(
+                "This product is not available for purchase in your country."
+            )
+            order_sudo.shop_warning = request.env._(
+                "Some products in your cart are not available for purchase in your"
+                " country. Please remove them or contact us."
+            )
+            return request.redirect('/shop/cart')
 
     def _check_addresses(self, order_sudo):
         """ Check whether the cart's addresses are complete and valid.
@@ -2281,6 +2329,19 @@ class WebsiteSale(payment_portal.PaymentPortal):
                 domain += [('product_id.product_tmpl_id', '=', int(product_template_id))]
             request.env['website.track'].sudo().search(domain).unlink()
         return {}
+
+    @staticmethod
+    def _fix_eu_vat_number(vat, country_id):
+        ResPartner = request.env['res.partner']
+        if (
+            hasattr(ResPartner, 'check_vat')  # The `base_vat` module is installed.
+            and country_id
+        ):
+            vat = ResPartner.fix_eu_vat_number(
+                country_id,
+                vat,
+            )
+        return vat
 
     @staticmethod
     def _populate_currency_and_pricelist(kwargs):

@@ -15,7 +15,7 @@ registry.category("web_tour.tours").add("pos_pricelist", {
             Dialog.confirm("Open Register"),
             ProductScreen.clickPriceList("Fixed", true, "Public Pricelist"),
             ProductScreen.clickPartnerButton(),
-            ProductScreen.clickCustomer("Deco Addict"),
+            ProductScreen.clickCustomer("Acme Corporation"),
             ProductScreen.clickPriceList("Public Pricelist", true),
             ProductScreen.clickPartnerButton(),
             ProductScreen.clickCustomer("Lumber Inc"),
@@ -42,5 +42,17 @@ registry.category("web_tour.tours").add("pos_pricelist", {
             ...Order.hasTotal(`$ 8.96`),
             ProductScreen.clickPriceList("min_quantity ordering"),
             ProductScreen.closePos(),
+        ].flat(),
+});
+
+registry.category("web_tour.tours").add("test_price_extra_pricelist_based_pricelist", {
+    steps: () =>
+        [
+            Chrome.startPoS(),
+            Dialog.confirm("Open Register"),
+            ProductScreen.clickDisplayedProduct("Whiteboard Pen", true, "1.0"),
+            ...Order.hasTotal(`$ 103.20`),
+            ProductScreen.clickPriceList("Pricelist 2", false),
+            ...Order.hasTotal(`$ 51.60`),
         ].flat(),
 });
