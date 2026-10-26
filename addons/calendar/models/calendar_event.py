@@ -777,8 +777,12 @@ class Meeting(models.Model):
 
         current_attendees = self.filtered('active').attendee_ids
         if 'partner_ids' in values:
-            # we send to all partners and not only the new ones
-            (current_attendees - previous_attendees)._send_mail_to_attendees(
+            # we send to all partners and not only the new ones, but ignore attendees
+            # added AFTER the stop/end date of the event
+            ignore_past_event_attendees = current_attendees.filtered(
+                lambda attendee: attendee.event_id.start < fields.Datetime.now())
+
+            (current_attendees - previous_attendees - ignore_past_event_attendees)._send_mail_to_attendees(
                 self.env.ref('calendar.calendar_template_meeting_invitation', raise_if_not_found=False),
                 force_send=True,
             )
@@ -884,7 +888,7 @@ class Meeting(models.Model):
     @api.model
     def _get_mail_message_access(self, res_ids, operation, model_name=None):
         if operation == 'read' and (not model_name or model_name == 'event.event'):
-            for event in self.browse(res_ids):
+            for event in self.browse(res_ids).with_prefetch(self._prefetch_ids):  # force prefetch, lost otherwise with rebrowsing
                 if event.privacy == "private" and self.env.user.partner_id not in event.attendee_ids.partner_id:
                     return 'write'
         return super()._get_mail_message_access(res_ids, operation, model_name=model_name)
@@ -1503,8 +1507,12 @@ class Meeting(models.Model):
                 event.add('description').value = description
             if meeting.location:
                 event.add('location').value = meeting.location
+            if meeting.videocall_location:
+                event.add('url').value = meeting.videocall_location
             if meeting.rrule:
-                event.add('rrule').value = meeting.rrule
+                # meeting.rrule may be a full dateutil string: "DTSTART:...\nRRULE:FREQ=..."
+                # Take the last line and strip the "RRULE:" prefix if present.
+                event.add('rrule').value = meeting.rrule.splitlines()[-1].replace('RRULE:', '', 1)
 
             if meeting.alarm_ids:
                 for alarm in meeting.alarm_ids:
@@ -1519,7 +1527,7 @@ class Meeting(models.Model):
                         delta = timedelta(hours=duration)
                     elif interval == 'minutes':
                         delta = timedelta(minutes=duration)
-                    trigger.value = delta
+                    trigger.value = -delta  # alarm duration is always towards the past, hence negative delta
                     valarm.add('DESCRIPTION').value = alarm.name or u'Odoo'
             for attendee in meeting.attendee_ids:
                 attendee_add = event.add('attendee')

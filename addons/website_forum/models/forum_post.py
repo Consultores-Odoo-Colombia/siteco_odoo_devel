@@ -478,7 +478,7 @@ class Post(models.Model):
         return True
 
     def reopen(self):
-        if any(post.parent_id or post.state != 'close' for post in self):
+        if any(post.parent_id or post.state != 'close' or not post.can_close for post in self):
             return False
 
         reason_offensive = self.env.ref('website_forum.reason_7')
@@ -660,6 +660,8 @@ class Post(models.Model):
         is created. Nothing is done if the comment's author already answered the
         question. """
         comment_sudo = self.env['mail.message'].sudo().browse(message_id)
+        if comment_sudo.model != 'forum.post':
+            return False
         post = self.browse(comment_sudo.res_id)
         if not comment_sudo.author_id or not comment_sudo.author_id.user_ids:  # only comment posted by users can be converted
             return False
@@ -736,7 +738,8 @@ class Post(models.Model):
         # XDO FIXME: to be correctly fixed with new _get_mail_message_access and filter access rule
         if operation in ('write', 'unlink') and (not model_name or model_name == 'forum.post'):
             # Make sure only author or moderator can edit/delete messages
-            for post in self.browse(res_ids):
+            posts = self.browse(res_ids).with_prefetch(self._prefetch_ids)  # force prefetch, lost otherwise with rebrowsing
+            for post in posts:
                 if not post.can_edit:
                     raise AccessError(_('%d karma required to edit a post.', post.karma_edit))
         return super(Post, self)._get_mail_message_access(res_ids, operation, model_name=model_name)

@@ -14,6 +14,7 @@ from lxml.builder import E
 from psycopg2 import IntegrityError
 from psycopg2.extras import Json
 
+from odoo import fields
 from odoo.exceptions import AccessError, UserError, ValidationError
 from odoo.tests import common, tagged
 from odoo.addons.base.tests.common import TransactionCaseWithUserDemo
@@ -31,6 +32,7 @@ class ViewXMLID(common.TransactionCase):
         self.assertTrue(view)
         self.assertTrue(view.model_data_id)
         self.assertEqual(view.model_data_id.complete_name, 'base.view_company_form')
+
 
 class ViewCase(TransactionCaseWithUserDemo):
     def setUp(self):
@@ -1628,6 +1630,7 @@ class TestTemplating(ViewCase):
         """)
         self.assertEqual(arch, expected)
 
+
 class TestViews(ViewCase):
 
     def test_nonexistent_attribute_removal(self):
@@ -2438,6 +2441,28 @@ class TestViews(ViewCase):
         """
         self.assertValid(arch % 'base.group_no_one')
         self.assertWarning(arch % 'base.dummy')
+
+    def test_groups_field_removed(self):
+        view = self.View.create({
+            'name': 'valid view',
+            'model': 'ir.ui.view',
+            'arch': """
+                <form string="View">
+                    <span class="oe_inline" invisible="0 == 0">
+                        (<field name="name" groups="base.group_no_one"/>)
+                    </span>
+                </form>
+            """,
+        })
+        arch = self.View.get_views([(view.id, view.type)])['views']['form']['arch']
+
+        self.assertEqual(arch, """
+                <form string="View">
+                    <span class="oe_inline" invisible="0 == 0">
+                        ()
+                    </span>
+                </form>
+            """.strip())
 
     def test_attrs_groups_behavior(self):
         view = self.View.create({
@@ -3591,6 +3616,7 @@ class TestViewTranslations(common.TransactionCase):
 
         with self.assertRaises(ValidationError):
             view.write({'mode': 'extension'})
+
 
 class ViewModeField(ViewCase):
     """
@@ -5709,3 +5735,40 @@ class ViewModifiers(ViewCase):
         self.assertFalse(tree.xpath('//div[@id="foo"]'))
         self.assertTrue(tree.xpath('//div[@id="bar"]'))
         self.assertFalse(tree.xpath('//div[@id="stuff"]'))
+
+    def test_create_inherit_view_with_xpath_without_expr(self):
+        """Test that creating inherited view containing <xpath> node without the 'expr' attribute."""
+
+        parent_view = self.env.ref('base.view_partner_form')
+        inherit_arch = """
+            <xpath position="replace">
+                <field name="name"/>
+            </xpath>
+        """
+
+        with self.assertRaises(ValidationError):
+            self.env['ir.ui.view'].create({
+                'name': 'test.xpath.without.expr',
+                'inherit_id': parent_view.id,
+                'arch': inherit_arch,
+            })
+
+
+class TestPropertiesFieldViewValidation(ViewCase):
+
+    def test_properties_field_without_definition_record(self):
+        """A ``properties`` field whose ``definition_record`` is not set
+        (e.g. the module declaring ``definition=`` is absent, as happens
+        during upgrade with custom module fields) must not crash view validation."""
+
+        model_name = 'ir.ui.view.custom'
+        model_class = self.env.registry[model_name]
+        dummy_field = fields.Properties(string="Dummy Properties", name='x_dummy_properties')
+        dummy_field.model_name = model_name
+
+        self.patch(model_class, '_fields', dict(model_class._fields, x_dummy_properties=dummy_field))
+
+        self.assertValid(
+            '<form><field name="x_dummy_properties"/></form>',
+            model=model_name,
+        )

@@ -1,4 +1,5 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
+from freezegun import freeze_time
 
 from odoo.addons.hr_homeworking_calendar.tests.common import TestHrHomeworkingCommon
 
@@ -106,3 +107,32 @@ class TestHrHomeworkingHrEmployeeLocation(TestHrHomeworkingCommon):
 
         # exception should be deleted
         self.assertEqual(len(created_worklocations), 0, 'should have deleted the worklocation record')
+
+    def test_get_work_location_without_hr_rights(self):
+        other_employee = self.env['hr.employee'].create({
+            'name': 'Other Employee',
+            'wednesday_location_id': self.work_office_1.id,
+        })
+        self.env['hr.employee.location'].create({
+            'employee_id': other_employee.id,
+            'date': datetime(2026, 1, 7),
+            'work_location_id': self.work_home.id,
+        })
+
+        res = other_employee.with_user(self.user_employee)._get_worklocation(
+            datetime(2026, 1, 5), datetime(2026, 1, 11)
+        )
+        self.assertEqual(self.work_home.id, res[other_employee.id]['exceptions']['2026-01-07']['work_location_id'])
+
+    def test_get_views_replace_hw_location_by_date(self):
+        view = self.env["ir.ui.view"].create({
+            "arch": """<list><field name="work_location_name" /></list>""",
+            "model": "hr.employee",
+            "type": "list",
+        })
+        # Wednesday January 28 2026
+        with freeze_time("2026-01-28"):
+            got_view = self.env["hr.employee"].get_views([(view.id, "list")])
+        self.assertTrue("work_location_name" in got_view["models"]["hr.employee"]["fields"])
+        self.assertTrue("wednesday_location_id" in got_view["models"]["hr.employee"]["fields"])
+        self.assertEqual(got_view["views"]["list"]["arch"], """<list><field name="wednesday_location_id"/></list>""")

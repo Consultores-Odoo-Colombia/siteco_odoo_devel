@@ -105,7 +105,7 @@ class TestStockValuationLayerRevaluation(TestStockValuationCommon):
         revaluation_wizard.save().action_validate_revaluation()
 
         # Check standard price change
-        self.assertEqual(self.product1.standard_price, 1.33)
+        self.assertAlmostEqual(self.product1.standard_price, 1.3333333)
         self.assertEqual(self.product1.quantity_svl, 3)
 
         # Check the creation of stock.valuation.layer
@@ -144,21 +144,21 @@ class TestStockValuationLayerRevaluation(TestStockValuationCommon):
         self.product1.write({'standard_price': 0.022})
         self._make_in_move(self.product1, 10000)
 
-        self.assertEqual(self.product1.standard_price, 0.02)
+        self.assertAlmostEqual(self.product1.standard_price, 0.022)
         self.assertEqual(self.product1.quantity_svl, 10000)
 
         layer = self.product1.stock_valuation_layer_ids
-        self.assertEqual(layer.value, 200)
+        self.assertEqual(layer.value, 220.0)
 
         # Second Move
         self.product1.write({'standard_price': 0.053})
 
-        self.assertEqual(self.product1.standard_price, 0.05)
+        self.assertEqual(self.product1.standard_price, 0.053)
         self.assertEqual(self.product1.quantity_svl, 10000)
 
         layers = self.product1.stock_valuation_layer_ids
-        self.assertEqual(layers[0].value, 200)
-        self.assertEqual(layers[1].value, 300)
+        self.assertEqual(layers[0].value, 220.0)
+        self.assertEqual(layers[1].value, 280.0)
 
     def test_stock_valuation_layer_revaluation_avco_rounding_5_digits(self):
         """
@@ -337,13 +337,98 @@ class TestStockValuationLayerRevaluation(TestStockValuationCommon):
         self._make_in_move(self.product1, 67104, unit_cost=0.00952)
         self._make_in_move(self.product1, 898, unit_cost=0.00952)
 
-        self.assertEqual(self.product1.standard_price, 0.01)
+        self.assertAlmostEqual(self.product1.standard_price, 0.00952)
         revaluation_wizard = Form(self.env['stock.valuation.layer.revaluation'].with_context(context))
         revaluation_wizard.added_value = 636  # triggers the rounding problem
         revaluation_wizard.account_id = self.stock_valuation_account
         revaluation_wizard.save().action_validate_revaluation()
 
-        self.assertEqual(self.product1.standard_price, 0.02)
+        self.assertAlmostEqual(self.product1.standard_price, 0.0193527)
+
+    def test_fifo_vacuum_anglo_saxon_expense_entry_multicompany(self):
+        """ The anglo-saxon expense revaluation JE created by the FIFO vacuum
+        must be posted in the SVL's company, regardless of env.company.
+        """
+        company_a = self.env.company
+        company_b = self.env['res.company'].create({'name': 'Company B'})
+        self.env.user.write({'company_ids': [Command.link(company_b.id)]})
+        (company_a + company_b).write({'anglo_saxon_accounting': True})
+        in_b, out_b, val_b, exp_b, journal_b = _create_accounting_data(
+            self.env(context={**self.env.context, 'allowed_company_ids': [company_b.id]}))
+
+        self.product1.categ_id.with_company(company_b).write({
+            'property_cost_method': 'fifo',
+            'property_valuation': 'real_time',
+            'property_stock_account_input_categ_id': in_b.id,
+            'property_stock_account_output_categ_id': out_b.id,
+            'property_stock_valuation_account_id': val_b.id,
+            'property_stock_journal': journal_b.id,
+        })
+        self.product1.product_tmpl_id.with_company(company_b).write({
+            'property_account_expense_id': exp_b.id,
+        })
+        self.product1.with_company(company_b).standard_price = 10.0
+        wh_b = self.env['stock.warehouse'].search([('company_id', '=', company_b.id)], limit=1)
+
+        # Out move in B -> negative SVL.
+        out_move = self.env['stock.move'].with_company(company_b).create({
+            'name': 'out 1',
+            'product_id': self.product1.id,
+            'location_id': wh_b.lot_stock_id.id,
+            'location_dest_id': self.customer_location.id,
+            'product_uom': self.uom_unit.id,
+            'product_uom_qty': 1.0,
+            'picking_type_id': wh_b.out_type_id.id,
+            'move_line_ids': [Command.create({
+                'product_id': self.product1.id,
+                'product_uom_id': self.uom_unit.id,
+                'quantity': 1.0,
+                'location_id': wh_b.lot_stock_id.id,
+                'location_dest_id': self.customer_location.id,
+            })],
+        })
+        out_move._action_confirm()
+        out_move.picked = True
+        out_move._action_done()
+        self.assertEqual(out_move.stock_valuation_layer_ids.company_id, company_b)
+
+        # Reconcile the SVL's stock_output line with an invoice JE
+        fake_invoice = self.env['account.move'].create({
+            'move_type': 'entry',
+            'company_id': company_b.id,
+            'journal_id': journal_b.id,
+            'line_ids': [
+                Command.create({'account_id': exp_b.id, 'debit': 10, 'credit': 0}),
+                Command.create({'account_id': out_b.id, 'debit': 0, 'credit': 10}),
+            ],
+        })
+        fake_invoice.action_post()
+        (out_move.stock_valuation_layer_ids.account_move_id.line_ids + fake_invoice.line_ids
+         ).filtered(lambda l: l.account_id == out_b).reconcile()
+
+        # In move in B while env.company = A -> triggers the vacuum.
+        self.assertEqual(self.env.company, company_a)
+        in_move = self.env['stock.move'].create({
+            'name': 'in 1',
+            'product_id': self.product1.id,
+            'location_id': self.supplier_location.id,
+            'location_dest_id': wh_b.lot_stock_id.id,
+            'product_uom': self.uom_unit.id,
+            'product_uom_qty': 1.0,
+            'price_unit': 15.0,
+            'picking_type_id': wh_b.in_type_id.id,
+            'company_id': company_b.id,
+        })
+        in_move._action_confirm()
+        in_move.write({'quantity': 1.0, 'picked': True})
+        in_move._action_done()
+
+        revaluation_je = self.env['account.move'].search([
+            ('ref', 'like', 'Expenses Revaluation of%'),
+            ('stock_move_id', '=', out_move.id),
+        ])
+        self.assertTrue(revaluation_je)
+        self.assertEqual(revaluation_je.company_id, company_b)
 
     def test_multi_company_fifo_svl_negative_revaluation(self):
         """

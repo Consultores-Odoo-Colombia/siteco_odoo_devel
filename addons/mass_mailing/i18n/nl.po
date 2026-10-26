@@ -6,13 +6,15 @@
 # Wil Odoo, 2024
 # Erwin van der Ploeg <erwin@odooexperts.nl>, 2025
 # Manon Rondou, 2025
-# "Manon Rondou (ronm)" <ronm@odoo.com>, 2025.
+# "Manon Rondou (ronm)" <ronm@odoo.com>, 2025, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
+# Bren Driesen <brdri@odoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:36+0000\n"
-"PO-Revision-Date: 2025-08-19 22:20+0000\n"
+"POT-Creation-Date: 2026-04-10 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 11:41+0000\n"
 "Last-Translator: \"Manon Rondou (ronm)\" <ronm@odoo.com>\n"
 "Language-Team: Dutch <https://translate.odoo.com/projects/odoo-18/"
 "mass_mailing/nl/>\n"
@@ -21,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: mass_mailing
 #. odoo-python
@@ -44,11 +46,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__mailing_filter_count
 msgid "# Favorite Filters"
 msgstr "# Favoriete filters"
-
-#. module: mass_mailing
-#: model_terms:ir.ui.view,arch_db:mass_mailing.s_comparisons
-msgid "$18"
-msgstr "$18"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_list_view_form
@@ -74,8 +71,7 @@ msgstr "% van ontvangers"
 #. odoo-python
 #: code:addons/mass_mailing/models/mailing_list.py:0
 msgid "%(contact_name)s subscribed to the following mailing list(s)"
-msgstr ""
-"%(contact_name)s heeft zich geabonneerd op de volgende mailinglijst(en)"
+msgstr "%(contact_name)s heeft zich geabonneerd op de volgende mailinglijst(en)"
 
 #. module: mass_mailing
 #. odoo-python
@@ -112,12 +108,6 @@ msgid "(scheduled for %s)"
 msgstr "(gepland voor %s)"
 
 #. module: mass_mailing
-#: model_terms:ir.ui.view,arch_db:mass_mailing.s_hr_options
-#: model_terms:ir.ui.view,arch_db:mass_mailing.snippet_options
-msgid "100%"
-msgstr "100%"
-
-#. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_res_config_settings__mass_mailing_reports
 msgid "24H Stat Mailing Reports"
 msgstr "24H Stat-mailingrapportages"
@@ -129,27 +119,9 @@ msgid "24H Stats of %(mailing_type)s \"%(mailing_name)s\""
 msgstr "24H-statistieken van %(mailing_type)s \"%(mailing_name)s\""
 
 #. module: mass_mailing
-#: model_terms:ir.ui.view,arch_db:mass_mailing.s_hr_options
-#: model_terms:ir.ui.view,arch_db:mass_mailing.snippet_options
-msgid "25%"
-msgstr "25%"
-
-#. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.snippet_options
 msgid "400px"
 msgstr "400px"
-
-#. module: mass_mailing
-#: model_terms:ir.ui.view,arch_db:mass_mailing.s_hr_options
-#: model_terms:ir.ui.view,arch_db:mass_mailing.snippet_options
-msgid "50%"
-msgstr "50%"
-
-#. module: mass_mailing
-#: model_terms:ir.ui.view,arch_db:mass_mailing.s_hr_options
-#: model_terms:ir.ui.view,arch_db:mass_mailing.snippet_options
-msgid "75%"
-msgstr "75%"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.snippet_options
@@ -204,8 +176,8 @@ msgid ""
 "span>"
 msgstr ""
 "<br/>\n"
-"                                    <span class=\"text-"
-"muted\">Mailinglijsten</span>"
+"                                    <span class=\"text-muted\">"
+"Mailinglijsten</span>"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_list_view_kanban
@@ -287,19 +259,7 @@ msgstr "<font style=\"font-size: 48px;\">Een pittige kop</font>"
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_cover
 msgid ""
 "<font style=\"font-size: 62px; font-weight: bold;\">Catchy Headline</font>"
-msgstr ""
-"<font style=\"font-size: 62px; font-weight: bold;\">Pakkende kop</font>"
-
-#. module: mass_mailing
-#: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_subscription_view_form
-msgid ""
-"<i class=\"fa fa-ban text-danger\" role=\"img\" title=\"This email is "
-"blacklisted for mass mailings\" aria-label=\"Blacklisted\" invisible=\"not "
-"is_blacklisted\" groups=\"base.group_user\"/>"
-msgstr ""
-"<i class=\"fa fa-ban text-danger\" role=\"img\" title=\"This email is "
-"blacklisted for mass mailings\" aria-label=\"Blacklisted\" invisible=\"not "
-"is_blacklisted\" groups=\"base.group_user\"/>"
+msgstr "<font style=\"font-size: 62px; font-weight: bold;\">Pakkende kop</font>"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
@@ -369,7 +329,7 @@ msgstr "<i class=\"fa fa-fw fa-heart\"/> Hartjes"
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_rating_options
 msgid "<i class=\"fa fa-fw fa-refresh me-1\"/> Replace Icon"
-msgstr "<i class=\"fa fa-fw fa-refresh me-1\"/> Pictogram vervangen"
+msgstr "<i class=\"fa fa-fw fa-refresh me-1\"/> Icoon vervangen"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_rating_options
@@ -498,8 +458,7 @@ msgstr ""
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
 msgid "<span name=\"failed_text\">emails could not be sent.</span>"
-msgstr ""
-"<span name=\"failed_text\">e-mails konden niet verzonden worden.</span>"
+msgstr "<span name=\"failed_text\">e-mails konden niet verzonden worden.</span>"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
@@ -514,8 +473,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
 msgid ""
 "<span name=\"next_departure_text\">This mailing is scheduled for </span>"
-msgstr ""
-"<span name=\"next_departure_text\">Deze mailing is gepland voor </span>"
+msgstr "<span name=\"next_departure_text\">Deze mailing is gepland voor </span>"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
@@ -528,8 +486,8 @@ msgid ""
 "<span name=\"refresh_text\">This mailing will be sent as soon as possible.</"
 "span>"
 msgstr ""
-"<span name=\"refresh_text\">Deze mailing wordt zo spoedig mogelijk verzonden."
-"</span>"
+"<span name=\"refresh_text\">Deze mailing wordt zo spoedig mogelijk "
+"verzonden.</span>"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
@@ -556,8 +514,8 @@ msgid ""
 "<span style=\"color: rgb(12 84 96); font-size: 16px; font-weight: bolder;"
 "\">Explain the benefits you offer</span>"
 msgstr ""
-"<span style=\"color: rgb(12 84 96); font-size: 16px; font-weight: bolder;"
-"\">Leg uit welke voordelen je biedt</span>"
+"<span style=\"color: rgb(12 84 96); font-size: 16px; font-weight: bolder;\">"
+"Leg uit welke voordelen je biedt</span>"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_comparisons
@@ -831,7 +789,7 @@ msgid ""
 msgstr ""
 "Pas deze drie kolommen aan je ontwerpbehoefte aan. Om kolommen te "
 "dupliceren, verwijderen of verplaatsen, selecteert je de kolom en gebruik je "
-"de bovenste pictogrammen om je actie uit te voeren."
+"de bovenste iconen om je actie uit te voeren."
 
 #. module: mass_mailing
 #. odoo-javascript
@@ -1208,6 +1166,7 @@ msgstr "Blacklist optie bij afmelden"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_contact_view_search
+#: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_subscription_view_form
 msgid "Blacklisted"
 msgstr "Geblacklist"
 
@@ -1579,8 +1538,8 @@ msgstr ""
 "Kleurblokken zijn een eenvoudige en effectieve manier om je <b>inhoud te "
 "presenteren en te markeren</b>. Kies een afbeelding of een kleur voor de "
 "achtergrond. Je kunt de blokken zelfs vergroten of verkleinen en dupliceren "
-"om je eigen lay-out te maken. Voeg afbeeldingen of pictogrammen toe om de "
-"blokken aan te passen."
+"om je eigen lay-out te maken. Voeg afbeeldingen of iconen toe om de blokken "
+"aan te passen."
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.email_designer_snippets
@@ -3345,8 +3304,8 @@ msgid ""
 "\">Customer Service</span>"
 msgstr ""
 "Michael Fletcher<br/>\n"
-"                   <span style=\"font-size: 12px; font-weight: bolder;"
-"\">Klantenservice</span>"
+"                   <span style=\"font-size: 12px; font-weight: bolder;\">"
+"Klantenservice</span>"
 
 #. module: mass_mailing
 #: model:ir.model.fields.selection,name:mass_mailing.selection__mailing_trace__failure_type__mail_email_missing
@@ -3447,7 +3406,7 @@ msgstr "Nieuwsbrief"
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__activity_calendar_event_id
 msgid "Next Activity Calendar Event"
-msgstr "Volgende activiteitenafspraak"
+msgstr "Volgende activiteit Agenda-afspraak"
 
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__activity_date_deadline
@@ -3801,8 +3760,8 @@ msgid ""
 msgstr ""
 "Optionele vertaaltaal (ISO-code) om te selecteren bij het verzenden van een "
 "e-mail. Indien niet ingesteld, wordt de Engelse versie gebruikt. Dit moet "
-"meestal een placeholder zijn die de juiste taal biedt, bijv. "
-"{{ object.partner_id.lang }}."
+"meestal een placeholder zijn die de juiste taal biedt, bijv. {{ "
+"object.partner_id.lang }}."
 
 #. module: mass_mailing
 #: model:ir.actions.act_window,name:mass_mailing.mailing_subscription_optout_action
@@ -3955,7 +3914,7 @@ msgstr "Promotiecode"
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_text_highlight
 msgid "Put the focus on what you have to say!"
-msgstr "Plaats de focus op wat je te zeggen hebt!"
+msgstr "Leg de focus op wat je te zeggen hebt!"
 
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_rating
@@ -4000,7 +3959,7 @@ msgstr "Klaar voor de start!"
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.view_mail_mass_mailing_form
 msgid "Ready to unleash emails?"
-msgstr ""
+msgstr "Klaar om e-mails te versturen?"
 
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_subscription__opt_out_reason_id
@@ -4142,7 +4101,7 @@ msgstr "Datum beantwoord"
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__reply_to
 msgid "Reply To"
-msgstr "Antwoorden aan"
+msgstr "Antwoorden naar"
 
 #. module: mass_mailing
 #: model:ir.model.fields,field_description:mass_mailing.field_mailing_mailing__reply_to_mode
@@ -4867,6 +4826,11 @@ msgstr ""
 "de talrijke bounces."
 
 #. module: mass_mailing
+#: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_subscription_view_form
+msgid "This email is blacklisted for mass mailings"
+msgstr "Dit e-mailadres staat op de zwarte lijst voor bulkmailings"
+
+#. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.mailing_contact_view_form
 msgid "This email is blacklisted for mass mailings. Click to unblacklist."
 msgstr ""
@@ -4943,8 +4907,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/mass_mailing/models/mailing.py:0
 msgid "To send the winner mailing the campaign should not have been completed."
-msgstr ""
-"Om de winnaar te mailen, had de campagne nog niet voltooid moeten zijn."
+msgstr "Om de winnaar te mailen, had de campagne nog niet voltooid moeten zijn."
 
 #. module: mass_mailing
 #. odoo-python
@@ -5329,6 +5292,11 @@ msgid "Write what the customer would like to know, not what you want to show."
 msgstr "Schrijf op wat de klant zou willen weten, niet wat je wilt laten zien."
 
 #. module: mass_mailing
+#: model_terms:ir.ui.view,arch_db:mass_mailing.social_links
+msgid "X"
+msgstr "X"
+
+#. module: mass_mailing
 #. odoo-python
 #: code:addons/mass_mailing/controllers/main.py:0
 msgid "You are no longer part of our mailing list(s)."
@@ -5456,8 +5424,7 @@ msgstr "Je e-mailadres is momenteel"
 #. module: mass_mailing
 #: model_terms:ir.ui.view,arch_db:mass_mailing.unsubscribe_form
 msgid "Your email is currently <strong>in our block list</strong>."
-msgstr ""
-"Je e-mailadres staat momenteel <strong>in onze blokkeerlijst</strong> ."
+msgstr "Je e-mailadres staat momenteel <strong>in onze blokkeerlijst</strong> ."
 
 #. module: mass_mailing
 #. odoo-python
@@ -5603,3 +5570,27 @@ msgstr "⌙ Actief"
 #: model_terms:ir.ui.view,arch_db:mass_mailing.s_rating_options
 msgid "⌙ Inactive"
 msgstr "⌙ Inactief"
+
+#~ msgid "$18"
+#~ msgstr "$18"
+
+#~ msgid "100%"
+#~ msgstr "100%"
+
+#~ msgid "25%"
+#~ msgstr "25%"
+
+#~ msgid "50%"
+#~ msgstr "50%"
+
+#~ msgid "75%"
+#~ msgstr "75%"
+
+#~ msgid ""
+#~ "<i class=\"fa fa-ban text-danger\" role=\"img\" title=\"This email is "
+#~ "blacklisted for mass mailings\" aria-label=\"Blacklisted\" "
+#~ "invisible=\"not is_blacklisted\" groups=\"base.group_user\"/>"
+#~ msgstr ""
+#~ "<i class=\"fa fa-ban text-danger\" role=\"img\" title=\"This email is "
+#~ "blacklisted for mass mailings\" aria-label=\"Blacklisted\" "
+#~ "invisible=\"not is_blacklisted\" groups=\"base.group_user\"/>"

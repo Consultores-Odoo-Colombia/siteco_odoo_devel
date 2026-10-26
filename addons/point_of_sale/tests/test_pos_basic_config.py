@@ -823,16 +823,17 @@ class TestPoSBasicConfig(TestPoSCommon):
         order_data = self.create_ui_order_data([(self.product3, 1)])
         amount_paid = order_data['amount_paid']
         with (
-            self.assertLogs('odoo.addons.point_of_sale.models.pos_order', level='DEBUG') as cm,
+            self.assertLogs('odoo.addons.point_of_sale.models.pos_order') as cm,
             unittest.mock.patch('odoo.addons.point_of_sale.models.pos_order.randrange', return_value=1996)
         ):
+            self.env['ir.config_parameter'].sudo().set_param('point_of_sale.log_order_data', 'True')
             res = self.env['pos.order'].sync_from_ui([order_data])
             # Basic check for logs on order synchronization
             order_log_str = self.env['pos.order']._get_order_log_representation(order_data)
             odoo_order_id = res['pos.order'][0]['id']
             self.assertEqual(len(cm.output), 4)
             self.assertEqual(cm.output[0], f"INFO:odoo.addons.point_of_sale.models.pos_order:PoS synchronisation #1996 started for PoS orders references: [{order_log_str}]")
-            self.assertTrue(cm.output[1].startswith(f'DEBUG:odoo.addons.point_of_sale.models.pos_order:PoS synchronisation #1996 processing order {order_log_str} order full data: '))
+            self.assertTrue(cm.output[1].startswith(f'INFO:odoo.addons.point_of_sale.models.pos_order:PoS synchronisation #1996 processing order {order_log_str} order full data:'))
             self.assertEqual(cm.output[2], f'INFO:odoo.addons.point_of_sale.models.pos_order:PoS synchronisation #1996 order {order_log_str} created pos.order #{odoo_order_id}')
             self.assertEqual(cm.output[3], 'INFO:odoo.addons.point_of_sale.models.pos_order:PoS synchronisation #1996 finished')
             
@@ -1121,6 +1122,31 @@ class TestPoSBasicConfig(TestPoSCommon):
         self.patch(self.env.cr, 'now', lambda: datetime.now() + timedelta(days=3))
         self.env['pos.order'].sync_from_ui([self.create_ui_order_data([(self.product3, 1)])])
         self.assertEqual(get_top_product_ids(3), [self.product3.id, self.product2.id, self.product1.id])
+
+    def test_ticket_screen_order_data_includes_products(self):
+        """The ticket screen payload must include the orderlines' products
+        and the order's partner."""
+        self.open_new_session(0)
+        self.env['pos.order'].sync_from_ui([
+            self.create_ui_order_data([(self.product1, 1), (self.product2, 1)], customer=self.customer),
+        ])
+        order = self.pos_session.order_ids
+        # Archived products must be sent too.
+        self.product2.action_archive()
+
+        data = order.get_ticket_screen_order_data()
+        line_product_ids = {line['product_id'] for line in data['pos.order.line']}
+        sent_product_ids = {product['id'] for product in data.get('product.product', [])}
+        self.assertEqual(line_product_ids, {self.product1.id, self.product2.id})
+        self.assertTrue(
+            line_product_ids <= sent_product_ids,
+            "The products of the orderlines must be sent with the ticket screen data",
+        )
+        sent_partner_ids = {partner['id'] for partner in data.get('res.partner', [])}
+        self.assertIn(
+            self.customer.id, sent_partner_ids,
+            "The partner of the order must be sent with the ticket screen data",
+        )
 
     def test_closing_entry_by_product(self):
         # set the Group by Product at Closing Entry

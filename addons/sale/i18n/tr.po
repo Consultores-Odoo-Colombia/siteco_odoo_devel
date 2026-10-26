@@ -38,22 +38,23 @@
 # Deniz Guvener_Odoo <degu@odoo.com>, 2025
 # Wil Odoo, 2025
 # Ediz Duman <neps1192@gmail.com>, 2025
-# "Deniz Guvener Unal (degu)" <degu@odoo.com>, 2025.
+# "Deniz Guvener Unal (degu)" <degu@odoo.com>, 2025, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2025-08-13 12:20+0000\n"
-"Last-Translator: \"Deniz Guvener Unal (degu)\" <degu@odoo.com>\n"
-"Language-Team: Turkish <https://translate.odoo.com/projects/odoo-18/sale/tr/"
-">\n"
+"POT-Creation-Date: 2026-04-10 18:38+0000\n"
+"PO-Revision-Date: 2026-10-20 13:10+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"Language-Team: Turkish <https://translate.odoo.com/projects/odoo-18/sale/tr/>"
+"\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_payment_provider_onboarding_wizard___data_fetched
@@ -105,21 +106,6 @@ msgid ""
 msgstr ""
 "(object.state in ('draft', 'sent') and 'Teklif - %s' % (object.name)) or "
 "'Sipariş - %s' % (object.name)"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "2023-12-31"
-msgstr "2023-12-31"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "27.00"
-msgstr "27.00"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "31.05"
-msgstr "31.05"
 
 #. module: sale
 #. odoo-javascript
@@ -201,14 +187,13 @@ msgstr ""
 "        <span style=\"font-weight:bold;\" t-out=\"transaction_sudo.reference "
 "or ''\">SOOO49</span>\n"
 "        tutarında\n"
-"        <span style=\"font-weight:bold;\" t-"
-"out=\"format_amount(transaction_sudo.amount, object.currency_id) or ''\">$ "
-"10.00</span>\n"
+"        <span style=\"font-weight:bold;\" t-out=\"format_amount"
+"(transaction_sudo.amount, object.currency_id) or ''\">$ 10.00</span>\n"
 "        siparişiniz için\n"
-"        <span style=\"font-weight:bold;\" t-out=\"object.name or "
-"''\">S00049</span>\n"
-"        <t t-if=\"transaction_sudo and transaction_sudo.state == "
-"'pending'\">\n"
+"        <span style=\"font-weight:bold;\" t-out=\"object.name or ''\">"
+"S00049</span>\n"
+"        <t t-if=\"transaction_sudo and transaction_sudo.state == 'pending'\">"
+"\n"
 "            beklemede.\n"
 "            <br/>\n"
 "            <t t-if=\"object.currency_id.compare_amounts(object.amount_paid "
@@ -218,9 +203,9 @@ msgstr ""
 "            </t>\n"
 "            <t t-else=\"\">\n"
 "               Bir kez onaylandıktan sonra,\n"
-"                <span style=\"font-weight:bold;\" t-"
-"out=\"format_amount(object.amount_total - object.amount_paid - "
-"transaction_sudo.amount, object.currency_id) or ''\">$ 10.00</span>\n"
+"                <span style=\"font-weight:bold;\" t-out=\"format_amount"
+"(object.amount_total - object.amount_paid - transaction_sudo.amount, "
+"object.currency_id) or ''\">$ 10.00</span>\n"
 "                ödenecek olarak kalacak.\n"
 "            </t>\n"
 "        </t>\n"
@@ -229,9 +214,9 @@ msgstr ""
 "            <t t-if=\"object.currency_id.compare_amounts(object.amount_paid, "
 "object.amount_total) &lt; 0\">\n"
 "                <br/>\n"
-"                <span style=\"font-weight:bold;\" t-"
-"out=\"format_amount(object.amount_total - object.amount_paid, "
-"object.currency_id) or ''\">$ 10.00</span>\n"
+"                <span style=\"font-weight:bold;\" t-out=\"format_amount"
+"(object.amount_total - object.amount_paid, object.currency_id) or ''\">$ "
+"10.00</span>\n"
 "                ödenmesi gereken tutar.\n"
 "            </t>\n"
 "        </t>\n"
@@ -597,8 +582,8 @@ msgstr ""
 "            </t>\n"
 "        </t>\n"
 "        <br/>\n"
-"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/"
-">\n"
+"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/>"
+"\n"
 "        <t t-if=\"documents\">\n"
 "            <br/> \n"
 "            <t t-if=\"len(documents)&gt;1\">\n"
@@ -632,16 +617,16 @@ msgstr ""
 "        <table width=\"100%\" style=\"color: #454748; font-size: 12px; "
 "border-collapse: collapse; white-space: nowrap;\">\n"
 "            <tr style=\"border-bottom: 2px solid #dee2e6;\">\n"
-"                <td style=\"width: 150px;\"><span style=\"font-weight:bold;"
-"\">Ürünler</span></td>\n"
+"                <td style=\"width: 150px;\"><span style=\"font-"
+"weight:bold;\">Ürünler</span></td>\n"
 "                <td/>\n"
 "                <td width=\"15%\" align=\"center\"><span style=\"font-"
 "weight:bold;\">Miktar</span></td>\n"
 "                <td width=\"20%\" align=\"right\">\n"
 "                    <span style=\"font-weight:bold;\">\n"
 "                        <t t-"
-"if=\"object.website_id.show_line_subtotals_tax_selection == "
-"'tax_excluded'\">\n"
+"if=\"object.website_id.show_line_subtotals_tax_selection == 'tax_excluded'\">"
+"\n"
 "                            Vergi Hariç\n"
 "                        </t>\n"
 "                        <t t-else=\"\">\n"
@@ -656,8 +641,8 @@ msgstr ""
 "            <t t-set=\"line_subtotal\" t-value=\"                     "
 "line.price_subtotal                     if "
 "object.website_id.show_line_subtotals_tax_selection == "
-"'tax_excluded'                     else line.price_total                 \"/"
-">\n"
+"'tax_excluded'                     else line.price_total                 \"/>"
+"\n"
 "            <t t-set=\"current_subtotal\" t-value=\"current_subtotal + "
 "line_subtotal\"/>\n"
 "            <t t-if=\"(not hasattr(line, 'is_delivery') or not "
@@ -679,8 +664,8 @@ msgstr ""
 "out=\"line.name or ''\">Ağaçlara Bakım Kursu</span>\n"
 "                                <t t-set=\"current_section\" t-"
 "value=\"line\"/>\n"
-"                                <t t-set=\"current_subtotal\" t-value=\"0\"/"
-">\n"
+"                                <t t-set=\"current_subtotal\" t-value=\"0\"/>"
+"\n"
 "                            </t>\n"
 "                            <t t-elif=\"line.display_type == 'line_note'\">\n"
 "                                <i t-out=\"line.name or ''\">Ağaçlara Bakım "
@@ -701,9 +686,9 @@ msgstr ""
 "                        <t t-set=\"loop_cycle_number\" t-"
 "value=\"loop_cycle_number + 1\"/>\n"
 "                        <td style=\"width: 150px;\">\n"
-"                            <img t-attf-src=\"/web/image/product.product/"
-"{{ line.product_id.id }}/image_128\" style=\"width: 64px; height: 64px; "
-"object-fit: contain;\" alt=\"Product image\"/>\n"
+"                            <img t-attf-src=\"/web/image/product.product/{{ "
+"line.product_id.id }}/image_128\" style=\"width: 64px; height: 64px; object-"
+"fit: contain;\" alt=\"Product image\"/>\n"
 "                        </td>\n"
 "                        <td align=\"left\" t-out=\"line.product_id.name or "
 "''\">\tTaking care of Trees Course</td>\n"
@@ -712,30 +697,26 @@ msgstr ""
 "                        <td width=\"20%\" align=\"right\"><span style=\"font-"
 "weight:bold; white-space: nowrap;\">\n"
 "                        <t t-"
-"if=\"object.website_id.show_line_subtotals_tax_selection == "
-"'tax_excluded'\">\n"
-"                            <t t-"
-"out=\"format_amount(line.price_reduce_taxexcl, object.currency_id) or ''\">$ "
-"10.00</t>\n"
+"if=\"object.website_id.show_line_subtotals_tax_selection == 'tax_excluded'\">"
+"\n"
+"                            <t t-out=\"format_amount"
+"(line.price_reduce_taxexcl, object.currency_id) or ''\">$ 10.00</t>\n"
 "                        </t>\n"
 "                        <t t-else=\"\">\n"
-"                            <t t-"
-"out=\"format_amount(line.price_reduce_taxinc, object.currency_id) or ''\">$ "
-"10.00</t>\n"
+"                            <t t-out=\"format_amount"
+"(line.price_reduce_taxinc, object.currency_id) or ''\">$ 10.00</t>\n"
 "                        </t>\n"
 "                        </span></td>\n"
 "                    </tr>\n"
 "                </table>\n"
 "            </t>\n"
-"            <t t-if=\"current_section and "
-"(                     line_last                     or "
-"object.order_line[line_index+1].display_type == "
+"            <t t-if=\"current_section and (                     line_last"
+"                     or object.order_line[line_index+1].display_type == "
 "'line_section'                     or "
 "object.order_line[line_index+1].product_type == 'combo'                     "
 "or (                         line.combo_item_id                         and "
-"not "
-"object.order_line[line_index+1].combo_item_id                     )                 ) "
-"and not line.is_downpayment\">\n"
+"not object.order_line[line_index+1].combo_item_id                     )"
+"                 ) and not line.is_downpayment\">\n"
 "                <t t-set=\"current_section\" t-value=\"None\"/>\n"
 "                <table width=\"100%\" style=\"color: #454748; font-size: "
 "12px; border-collapse: collapse;\">\n"
@@ -784,8 +765,8 @@ msgstr ""
 "            <tr>\n"
 "                <td style=\"width: 60%\"/>\n"
 "                <td style=\"width: 30%; border-top: 1px solid #dee2e6;\" "
-"align=\"right\"><span style=\"font-weight:bold;\">Vergisiz Tutar:</span></"
-"td>\n"
+"align=\"right\"><span style=\"font-weight:bold;\">Vergisiz Tutar:</span></td>"
+"\n"
 "                <td style=\"width: 10%; border-top: 1px solid #dee2e6;\" "
 "align=\"right\" t-out=\"format_amount(object.amount_untaxed, "
 "object.currency_id) or ''\">$ 10.00</td>\n"
@@ -838,8 +819,8 @@ msgstr ""
 "                        <t t-out=\"tx_sudo.token_id.display_name or ''\"/>\n"
 "                    </t>\n"
 "                    <t t-else=\"\">\n"
-"                        <t t-out=\"tx_sudo.provider_id.sudo().name or ''\"/"
-">\n"
+"                        <t t-out=\"tx_sudo.provider_id.sudo().name or ''\"/>"
+"\n"
 "                    </t>\n"
 "                    (<t t-out=\"format_amount(tx_sudo.amount, "
 "object.currency_id) or ''\">$ 10.00</t>)\n"
@@ -854,8 +835,8 @@ msgstr ""
 "                <td>\n"
 "                    <br/>\n"
 "                    <span style=\"font-weight:bold;\">Alıcı:</span>\n"
-"                    <t t-out=\"object.partner_shipping_id.street or "
-"''\">1201 S Figueroa St</t>\n"
+"                    <t t-out=\"object.partner_shipping_id.street or ''\">"
+"1201 S Figueroa St</t>\n"
 "                    <t t-out=\"object.partner_shipping_id.city or ''\">Los "
 "Angeles</t>\n"
 "                    <t t-out=\"object.partner_shipping_id.state_id.name or "
@@ -968,8 +949,8 @@ msgstr ""
 "        Sizin\n"
 "        <t t-if=\"ctx.get('proforma')\">\n"
 "            Proforma fatura  <t t-out=\"doc_name or ''\">teklif için</t> "
-"<span style=\"font-weight: bold;\" t-out=\"object.name or ''\">S00052</"
-"span>\n"
+"<span style=\"font-weight: bold;\" t-out=\"object.name or ''\">S00052</span>"
+"\n"
 "            <t t-if=\"object.origin\">\n"
 "                (referansla: <t t-out=\"object.origin or ''\"/> )\n"
 "            </t>\n"
@@ -988,8 +969,8 @@ msgstr ""
 "10.00</span>incelemeye hazır.\n"
 "        </t>\n"
 "        <br/>\n"
-"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/"
-">\n"
+"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/>"
+"\n"
 "        <t t-if=\"documents\">\n"
 "            <br/> \n"
 "            <t t-if=\"len(documents)&gt;1\">\n"
@@ -1175,15 +1156,6 @@ msgstr ""
 "<span class=\"fa fa-exclamation-triangle text-warning me-1\" title=\"This "
 "product is archived\" invisible=\"state not in ['draft', 'sent'] or not "
 "is_product_archived\"/>"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-building-o p-2\" title=\"Values set here are "
-"company-specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-"<span class=\"fa fa-lg fa-building-o p-2\" title=\"Values set here are "
-"company-specific.\" groups=\"base.group_multi_company\"/>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.crm_team_salesteams_view_form
@@ -2061,8 +2033,8 @@ msgid ""
 "install)</strong>"
 msgstr ""
 "FedEx ile gönderim maliyetlerini hesapla ve gönder<br/>\n"
-"                                    <strong>(yüklemek için Ana "
-"Sayfa>Uygulamalar'a gidin)</strong>"
+"                                    <strong>(yüklemek için Ana Sayfa>"
+"Uygulamalar'a gidin)</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -2087,8 +2059,8 @@ msgid ""
 "install)</strong>"
 msgstr ""
 "UPS ile gönderim maliyetlerini hesapla ve gönder<br/>\n"
-"                                    <strong>(yüklemek için Ana "
-"Sayfa>Uygulamalar'a gidin)</strong>"
+"                                    <strong>(yüklemek için Ana Sayfa>"
+"Uygulamalar'a gidin)</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -2098,8 +2070,8 @@ msgid ""
 "install)</strong>"
 msgstr ""
 "USPS ile gönderim maliyetlerini hesapla ve gönder<br/>\n"
-"                                    <strong>(yüklemek için Ana "
-"Sayfa>Uygulamalar'a gidin)</strong>"
+"                                    <strong>(yüklemek için Ana Sayfa>"
+"Uygulamalar'a gidin)</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -2491,6 +2463,11 @@ msgstr "Teslim Adresi"
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "Delivery Date"
 msgstr "Teslim Tarihi"
+
+#. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_content
+msgid "Delivery Date:"
+msgstr "Teslim Tarihi:"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_delivery
@@ -3428,8 +3405,7 @@ msgstr "Müşterilerinize sizinle çalıştıkları tüm konular için bir porta
 #. odoo-javascript
 #: code:addons/sale/static/src/js/tours/sale.js:0
 msgid "Let’s create a beautiful quotation in a few clicks ."
-msgstr ""
-"Haydi, yalnızca birkaç tıklamayla güzel görünen bir teklif oluşturalım."
+msgstr "Haydi, yalnızca birkaç tıklamayla güzel görünen bir teklif oluşturalım."
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order_line__linked_line_id
@@ -3831,8 +3807,7 @@ msgstr "Yalnızca onaylanmış peşinatlar dikkate alınır."
 #. odoo-python
 #: code:addons/sale/models/sale_order.py:0
 msgid "Only draft orders can be marked as sent directly."
-msgstr ""
-"Yalnızca taslak siparişler doğrudan gönderilmiş olarak işaretlenebilir."
+msgstr "Yalnızca taslak siparişler doğrudan gönderilmiş olarak işaretlenebilir."
 
 #. module: sale
 #: model:ir.model.constraint,message:sale.constraint_product_attribute_custom_value_sol_custom_value_unique
@@ -4996,8 +4971,7 @@ msgstr "Ürünleri ambalajlayarak paket bazıda farklı ölçü birimleri ile sa
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Sell variants of a product using attributes (size, color, etc.)"
-msgstr ""
-"Nitelikleri (boyut, renk vb.) kullanarak bir ürünün varyantlarını satma"
+msgstr "Nitelikleri (boyut, renk vb.) kullanarak bir ürünün varyantlarını satma"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
@@ -5577,6 +5551,13 @@ msgstr "Sağlanan parametreler geçersizdir."
 
 #. module: sale
 #. odoo-python
+#: code:addons/sale/controllers/portal.py:0
+#: code:addons/sale/wizard/payment_link_wizard.py:0
+msgid "The sale order has expired."
+msgstr ""
+
+#. module: sale
+#. odoo-python
 #: code:addons/sale/wizard/sale_make_invoice_advance.py:0
 msgid "The value of the down payment amount must be positive."
 msgstr "Peşinat miktarı pozitif olmalıdır."
@@ -5679,8 +5660,8 @@ msgid ""
 "This product is packaged by %(pack_size).2f %(pack_name)s. You should sell %"
 "(quantity).2f %(unit)s."
 msgstr ""
-"Bu ürün %(pack_size).2f %(pack_name)s tarafından paketlenmiştir. %"
-"(quantity).2f %(unit)s satmalısınız."
+"Bu ürün %(pack_size).2f %(pack_name)s tarafından paketlenmiştir. %(quantity)"
+".2f %(unit)s satmalısınız."
 
 #. module: sale
 #: model_terms:ir.actions.act_window,help:sale.action_order_report_all
@@ -6012,6 +5993,11 @@ msgstr ""
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Values set here are company-specific."
+msgstr "Burada ayarlanan değerler şirkete özgüdür."
+
+#. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Variant Grid Entry"
 msgstr "Varyant Tablo Girişi"
 
@@ -6306,6 +6292,12 @@ msgid "units"
 msgstr "Birimler"
 
 #. module: sale
+#. odoo-javascript
+#: code:addons/sale/static/src/xml/sale_product_field.xml:0
+msgid "x"
+msgstr "x"
+
+#. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template
 msgid "you confirm acceptance on the behalf of"
 msgstr "adına kabul ettiğinizi onaylıyorsunuz"
@@ -6330,8 +6322,8 @@ msgid ""
 "{{ object.name or 'n/a' }})"
 msgstr ""
 "{{ object.company_id.name }} {{ object.state in ('draft', 'sent') and "
-"(ctx.get('proforma') and 'Proforma' or 'Teklif') or 'Sipariş' }} (Ref "
-"{{ object.name or 'n/a' }})"
+"(ctx.get('proforma') and 'Proforma' or 'Teklif') or 'Sipariş' }} (Ref {{ "
+"object.name or 'n/a' }})"
 
 #. module: sale
 #: model:mail.template,subject:sale.mail_template_sale_cancellation
@@ -6339,5 +6331,21 @@ msgid ""
 "{{ object.company_id.name }} {{ object.type_name }} Cancelled (Ref "
 "{{ object.name or 'n/a' }})"
 msgstr ""
-"{{ object.company_id.name }} {{ object.type_name }} İptal Edildi (Ref "
-"{{ object.name or 'n/a' }})"
+"{{ object.company_id.name }} {{ object.type_name }} İptal Edildi (Ref {{ "
+"object.name or 'n/a' }})"
+
+#~ msgid "2023-12-31"
+#~ msgstr "2023-12-31"
+
+#~ msgid "27.00"
+#~ msgstr "27.00"
+
+#~ msgid "31.05"
+#~ msgstr "31.05"
+
+#~ msgid ""
+#~ "<span class=\"fa fa-lg fa-building-o p-2\" title=\"Values set here are "
+#~ "company-specific.\" groups=\"base.group_multi_company\"/>"
+#~ msgstr ""
+#~ "<span class=\"fa fa-lg fa-building-o p-2\" title=\"Values set here are "
+#~ "company-specific.\" groups=\"base.group_multi_company\"/>"

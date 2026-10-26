@@ -821,10 +821,10 @@ class TestL10nAccountWithholdingTaxesFlows(TestTaxCommon, AnalyticCommon):
             # Receivable line:
             {'name': 'Manual Payment: INV/2024/00001',          'balance': -1150.0},
             # withholding line:
-            {'name': 'WH Tax: 0001',                 'balance': 10.0},
+            {'name': 'WH Tax: 0001',                            'balance': 10.0},
             # base lines:
-            {'name': 'WH Base: 0001',                'balance': 1000.0},
-            {'name': 'WH Base Counterpart: 0001',    'balance': -1000.0},
+            {'name': 'WH Base: 0001',                           'balance': 1000.0},
+            {'name': 'WH Base Counterpart: 0001',               'balance': -1000.0},
         ])
 
         payment.action_draft()
@@ -1159,3 +1159,21 @@ class TestL10nAccountWithholdingTaxesFlows(TestTaxCommon, AnalyticCommon):
             {"balance": 1000.0,     "tax_tag_ids": base_tag_minus.ids},
             {"balance": -1000.0,    "tax_tag_ids": []},
         ])
+
+    def test_payment_register_with_empty_currency(self):
+        withholding_tax = self.percent_tax(
+            -1,
+            is_withholding_tax_on_payment=True,
+            withholding_sequence_id=self.withholding_sequence.id
+        )
+
+        invoice = self._create_invoice_one_line(tax_ids=withholding_tax, price_unit=1000.0)
+
+        payment_register = self.env['account.payment.register']\
+            .with_context(active_model='account.move', active_ids=invoice.ids)\
+            .create({})
+
+        payment_register_form = Form(payment_register)
+        payment_register_form.currency_id = self.env['res.currency']
+
+        self.assertEqual(payment_register.withholding_line_ids.original_base_amount, 1000.0)

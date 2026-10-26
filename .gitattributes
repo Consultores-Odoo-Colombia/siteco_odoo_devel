@@ -1,0 +1,4 @@
+# Siteco: scripts que se ejecutan dentro de la imagen Linux; con CRLF el shebang falla.
+*.sh text eol=lf
+odoo-bin text eol=lf
+setup/odoo text eol=lf

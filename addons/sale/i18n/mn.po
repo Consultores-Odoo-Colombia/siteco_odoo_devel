@@ -25,14 +25,15 @@
 # Bayarkhuu Bataa, 2025
 # Martin Trigaux, 2025
 # Baskhuu Lodoikhuu <baskhuujacara@gmail.com>, 2025
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
+# ca4mi <mail@ca4mi.net>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2025-12-31 16:36+0000\n"
-"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"POT-Creation-Date: 2026-04-10 18:38+0000\n"
+"PO-Revision-Date: 2026-10-20 15:57+0000\n"
+"Last-Translator: ca4mi <mail@ca4mi.net>\n"
 "Language-Team: Mongolian <https://translate.odoo.com/projects/odoo-18/sale/"
 "mn/>\n"
 "Language: mn\n"
@@ -40,7 +41,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_payment_provider_onboarding_wizard___data_fetched
@@ -89,21 +90,6 @@ msgstr ""
 msgid ""
 "(object.state in ('draft', 'sent') and 'Quotation - %s' % (object.name)) or "
 "'Order - %s' % (object.name)"
-msgstr ""
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "2023-12-31"
-msgstr ""
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "27.00"
-msgstr ""
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "31.05"
 msgstr ""
 
 #. module: sale
@@ -694,13 +680,6 @@ msgid ""
 msgstr ""
 
 #. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-building-o p-2\" title=\"Values set here are "
-"company-specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-
-#. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.crm_team_salesteams_view_form
 msgid "<span class=\"flex-grow-1\">/ Month</span>"
 msgstr ""
@@ -794,7 +773,7 @@ msgstr ""
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
 msgid "<strong class=\"d-block mt-3\">Shipping Address</strong>"
-msgstr ""
+msgstr "<strong class=\"d-block mt-3\">Хүргэх хаяг</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
@@ -953,7 +932,7 @@ msgstr "Дансны дугаар"
 #. module: sale
 #: model:ir.actions.act_window,name:sale.action_accrued_revenue_entry
 msgid "Accrued Revenue Entry"
-msgstr ""
+msgstr "Хуримтлуулсан орлогын бичилт"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__message_needaction
@@ -1243,7 +1222,7 @@ msgstr "Дундаж"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
 msgid "Bacon Burger"
-msgstr ""
+msgstr "Бекон бургер"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_payment_provider_onboarding_wizard__journal_name
@@ -1293,6 +1272,11 @@ msgid ""
 "purchase amount, period). Rewards can be discounts (% or amount) or free "
 "products."
 msgstr ""
+"Купон, урамшуулал, бэлгийн карт, үнэнч хэрэглэгчийн хөтөлбөр зэрэг олон "
+"төрлийн хөтөлбөрөөр борлуулалтаа нэмэгдүүлээрэй. Тусгай нөхцөлүүдийг "
+"(бүтээгдэхүүн, харилцагч, худалдан авалтын доод дүн, хугацаа) тохируулах "
+"боломжтой. Урамшуулал нь хөнгөлөлт (% эсвэл мөнгөн дүнгээр) эсвэл үнэгүй "
+"бүтээгдэхүүн байж болно."
 
 #. module: sale
 #. odoo-javascript
@@ -1492,8 +1476,8 @@ msgid ""
 "install)</strong>"
 msgstr ""
 "DHL тээврийн үнэ бодуулж тээвэр гүйцэтгүүлэх<br/>\n"
-"                                    <strong>"
-"(Home&gt;Apps цэсээр орж суулгана уу)</strong>"
+"                                    <strong>(Home&gt;Apps цэсээр орж "
+"суулгана уу)</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -1508,8 +1492,8 @@ msgid ""
 "install)</strong>"
 msgstr ""
 "FedEx -р тээврийн үнэ бодуулж тээвэр гүйцэтгүүлэх<br/>\n"
-"                                    <strong>"
-"(Home&gt;Apps цэсээр орж суулгана уу)</strong>"
+"                                    <strong>(Home&gt;Apps цэсээр орж "
+"суулгана уу)</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -1534,8 +1518,8 @@ msgid ""
 "install)</strong>"
 msgstr ""
 "UPS -р тээврийн үнэ бодуулж тээвэр гүйцэлдүүлэх<br/>\n"
-"                                    <strong>"
-"(Home&gt;Apps цэсээр орж суулгана уу)</strong>"
+"                                    <strong>(Home&gt;Apps цэсээр орж "
+"суулгана уу)</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -1545,8 +1529,8 @@ msgid ""
 "install)</strong>"
 msgstr ""
 "USPS -р тээврийн үнэ бодуулж тээвэр гүйцэлдүүлэх<br/>\n"
-"                                    <strong>"
-"(Home&gt;Apps цэсээр орж суулгаарай)</strong>"
+"                                    <strong>(Home&gt;Apps цэсээр орж "
+"суулгаарай)</strong>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -1585,7 +1569,7 @@ msgstr "Батлах"
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_payment_link_wizard__confirmation_message
 msgid "Confirmation Message"
-msgstr ""
+msgstr "Баталгаажуулах мэдэгдэл"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
@@ -1624,7 +1608,7 @@ msgstr "Улсын код"
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_sale_loyalty
 msgid "Coupons & Loyalty"
-msgstr ""
+msgstr "Купон & Лоялти"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_view_search_inherit_quotation
@@ -1758,7 +1742,7 @@ msgstr "Өөриймшсөн"
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order_line__product_custom_attribute_value_ids
 msgid "Custom Values"
-msgstr ""
+msgstr "Тусгай утгууд"
 
 #. module: sale
 #: model:ir.model.fields.selection,name:sale.selection__sale_payment_provider_onboarding_wizard__payment_method__manual
@@ -1874,7 +1858,7 @@ msgstr "Үнийн саналын хүчинтэй хугацаа"
 #: model:ir.model.fields,field_description:sale.field_sale_order__company_price_include
 #: model:ir.model.fields,field_description:sale.field_sale_order_line__company_price_include
 msgid "Default Sales Price Include"
-msgstr ""
+msgstr "Үндсэн борлуулалтын үнэ багтсан эсэх"
 
 #. module: sale
 #: model:ir.model.fields,help:sale.field_sale_order__company_price_include
@@ -1929,6 +1913,11 @@ msgstr "Хүргэлтийн хаяг"
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "Delivery Date"
 msgstr "Хүргэлтийн огноо"
+
+#. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_content
+msgid "Delivery Date:"
+msgstr ""
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_delivery
@@ -2186,7 +2175,7 @@ msgstr "Ноорог нэхэмжлэлүүд"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "Duplicated Documents"
-msgstr ""
+msgstr "Давхардсан баримтууд"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__duplicated_order_ids
@@ -2440,7 +2429,7 @@ msgstr ""
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__show_update_fpos
 msgid "Has Fiscal Position Changed"
-msgstr ""
+msgstr "Санхүүгийн харгалзаа өөрчлөгдсөн эсэх"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__has_message
@@ -3209,8 +3198,8 @@ msgid ""
 "Once the quotation is confirmed by the customer, it becomes a sales order."
 "<br> You will be able to create an invoice and collect the payment."
 msgstr ""
-"Үнийн санал захиалагчаар баталгаажвал борлуулалтын захиалга болж хувирна."
-"<br> Улмаар та нэхэмжлэл үүсгэх, төлбөр цуглуулах боломжтой болно."
+"Үнийн санал захиалагчаар баталгаажвал борлуулалтын захиалга болж "
+"хувирна.<br> Улмаар та нэхэмжлэл үүсгэх, төлбөр цуглуулах боломжтой болно."
 
 #. module: sale
 #: model_terms:ir.actions.act_window,help:sale.action_orders
@@ -3308,6 +3297,9 @@ msgid ""
 "a placeholder expression that provides the appropriate language, e.g. "
 "{{ object.partner_id.lang }}."
 msgstr ""
+"Имэйл илгээх үед ашиглах орчуулгын нэмэлт хэл (ISO код). Хэрэв тохируулаагүй "
+"бол англи хувилбарыг ашиглана. Ихэвчлэн тохирох хэлийг заах placeholder "
+"илэрхийлэл ашиглана. Жишээ нь: `{{ object.partner_id.lang }}`."
 
 #. module: sale
 #. odoo-python
@@ -3470,7 +3462,7 @@ msgstr "Савлагааны тоо"
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__partner_credit_warning
 msgid "Partner Credit Warning"
-msgstr ""
+msgstr "Харилцагчийн зээлийн анхааруулга"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template
@@ -3982,7 +3974,7 @@ msgstr "Нэгийг хасах"
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order_cancel__render_model
 msgid "Rendering Model"
-msgstr ""
+msgstr "Загварын дүрслэл"
 
 #. module: sale
 #: model:ir.ui.menu,name:sale.menu_sale_report
@@ -4734,7 +4726,7 @@ msgstr "Татвар"
 #. module: sale
 #: model:ir.model.fields,help:sale.field_sale_order_discount__tax_ids
 msgid "Taxes to add on the discount line."
-msgstr ""
+msgstr "Хөнгөлөлтийн мөр дээр ашиглагдах татвар."
 
 #. module: sale
 #. odoo-python
@@ -4761,13 +4753,13 @@ msgstr ""
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_order__terms_type
 msgid "Terms & Conditions format"
-msgstr ""
+msgstr "Нөхцөл болзлын формат"
 
 #. module: sale
 #. odoo-python
 #: code:addons/sale/models/sale_order.py:0
 msgid "Terms & Conditions: %s"
-msgstr ""
+msgstr "Нөхцөл болзол: %s"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_content
@@ -4949,6 +4941,13 @@ msgstr ""
 #. odoo-python
 #: code:addons/sale/controllers/portal.py:0
 msgid "The provided parameters are invalid."
+msgstr ""
+
+#. module: sale
+#. odoo-python
+#: code:addons/sale/controllers/portal.py:0
+#: code:addons/sale/wizard/payment_link_wizard.py:0
+msgid "The sale order has expired."
 msgstr ""
 
 #. module: sale
@@ -5375,6 +5374,11 @@ msgstr ""
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Values set here are company-specific."
+msgstr ""
+
+#. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Variant Grid Entry"
 msgstr "Хувилбарын хүснэгтэн бүртгэл"
 
@@ -5656,6 +5660,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
 msgid "units"
 msgstr "ширхэг"
+
+#. module: sale
+#. odoo-javascript
+#: code:addons/sale/static/src/xml/sale_product_field.xml:0
+msgid "x"
+msgstr ""
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template

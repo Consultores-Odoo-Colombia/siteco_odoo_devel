@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2026-01-01 13:42+0000\n"
+"POT-Creation-Date: 2026-04-10 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 13:40+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Lithuanian <https://translate.odoo.com/projects/odoo-18/"
 "survey/lt/>\n"
@@ -37,11 +37,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural="
-"(n % 10 == 1 && (n % 100 > 19 || n % 100 < 11) ? 0 : "
-"(n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 : n % 1 != "
-"0 ? 2: 3);\n"
-"X-Generator: Weblate 5.14.3\n"
+"Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 "
+": n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_survey__question_count
@@ -52,36 +51,6 @@ msgstr "# Klausimai"
 #: model:ir.model.fields,field_description:survey.field_survey_question__random_questions_count
 msgid "# Questions Randomly Picked"
 msgstr "Atsitiktinių klausimų skaičius"
-
-#. module: survey
-#: model:survey.question.answer,value:survey.vendor_certification_page_2_question_1_choice_4
-msgid "$100"
-msgstr "$100"
-
-#. module: survey
-#: model:survey.question.answer,value:survey.vendor_certification_page_2_question_1_choice_1
-msgid "$20"
-msgstr "$20"
-
-#. module: survey
-#: model:survey.question.answer,value:survey.vendor_certification_page_2_question_1_choice_5
-msgid "$200"
-msgstr "$200"
-
-#. module: survey
-#: model:survey.question.answer,value:survey.vendor_certification_page_2_question_1_choice_6
-msgid "$300"
-msgstr "$300"
-
-#. module: survey
-#: model:survey.question.answer,value:survey.vendor_certification_page_2_question_1_choice_2
-msgid "$50"
-msgstr "$50"
-
-#. module: survey
-#: model:survey.question.answer,value:survey.vendor_certification_page_2_question_1_choice_3
-msgid "$80"
-msgstr "$80"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_progression
@@ -124,11 +93,6 @@ msgid "'Certification - %s' % (object.survey_id.display_name)"
 msgstr "'Sertifikatas - %s' % (object.survey_id.display_name)"
 
 #. module: survey
-#: model_terms:ir.ui.view,arch_db:survey.certification_report_view_general
-msgid "0000000010"
-msgstr "0000000010"
-
-#. module: survey
 #: model:survey.question.answer,value:survey.survey_demo_burger_quiz_p4_q2_sug2
 msgid "10 kg"
 msgstr "10 kg"
@@ -139,29 +103,14 @@ msgid "100 years"
 msgstr "100 metų"
 
 #. module: survey
-#: model:survey.question.answer,value:survey.survey_demo_burger_quiz_p3_q1_sug3
-msgid "1055"
-msgstr "1055"
-
-#. module: survey
 #: model:survey.question.answer,value:survey.survey_demo_burger_quiz_p3_q3_sug3
 msgid "116 years"
 msgstr "116 metų"
 
 #. module: survey
-#: model:survey.question.answer,value:survey.survey_demo_burger_quiz_p3_q1_sug1
-msgid "1227"
-msgstr "1227"
-
-#. module: survey
 #: model:survey.question.answer,value:survey.survey_demo_burger_quiz_p3_q3_sug4
 msgid "127 years"
 msgstr "127 metai"
-
-#. module: survey
-#: model:survey.question.answer,value:survey.survey_demo_burger_quiz_p3_q1_sug2
-msgid "1324"
-msgstr "1324"
 
 #. module: survey
 #: model:survey.question.answer,value:survey.survey_demo_burger_quiz_p2_q1_sug1
@@ -172,11 +121,6 @@ msgstr "1450 km"
 #: model:survey.question.answer,value:survey.survey_demo_burger_quiz_p4_q2_sug3
 msgid "16.2 kg"
 msgstr "16.2 kg"
-
-#. module: survey
-#: model_terms:ir.ui.view,arch_db:survey.certification_report_view_general
-msgid "2023-08-18"
-msgstr "2023-08-18"
 
 #. module: survey
 #: model:survey.question.answer,value:survey.survey_demo_burger_quiz_p2_q1_sug2
@@ -237,8 +181,8 @@ msgid ""
 msgstr ""
 "<br/>\n"
 "\n"
-"                                    <span class=\"text-"
-"muted\">Užregistuotas</span>"
+"                                    <span class=\"text-muted\">"
+"Užregistuotas</span>"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.certification_report_view_general
@@ -491,8 +435,8 @@ msgid ""
 "<span class=\"o_survey_enter fw-bold text-muted ms-2 d-none d-md-inline\">or "
 "press Enter</span>"
 msgstr ""
-"<span class=\"o_survey_enter fw-bold text-muted ms-2 d-none d-md-"
-"inline\">arba paspauskite Enter</span>"
+"<span class=\"o_survey_enter fw-bold text-muted ms-2 d-none d-md-inline\">"
+"arba paspauskite Enter</span>"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_selection_key
@@ -635,8 +579,8 @@ msgstr ""
 msgid ""
 "<span>If you don't like us, please try to be as objective as possible.</span>"
 msgstr ""
-"<span>Jei mes jums nepatinkame, pasistenkite būti kiek įmanoma objektyvesni."
-"</span>"
+"<span>Jei mes jums nepatinkame, pasistenkite būti kiek įmanoma "
+"objektyvesni.</span>"
 
 #. module: survey
 #: model_terms:ir.ui.view,arch_db:survey.survey_question_form
@@ -1190,7 +1134,7 @@ msgstr "Mėlynas rašiklis"
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_invite__body_has_template_value
 msgid "Body content is the same as the template"
-msgstr ""
+msgstr "Laiško turinys toks pat kaip šablone"
 
 #. module: survey
 #: model:survey.question.answer,value:survey.survey_demo_quiz_p3_q4_sug4
@@ -1231,7 +1175,7 @@ msgstr "Kaktusas"
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_invite__can_edit_body
 msgid "Can Edit Body"
-msgstr ""
+msgstr "Galima redaguoti turinį"
 
 #. module: survey
 #: model:survey.question,title:survey.survey_demo_burger_quiz_p4_q3
@@ -2407,8 +2351,7 @@ msgstr ""
 #. module: survey
 #: model:survey.question,question_placeholder:survey.vendor_certification_page_1_question_5
 msgid "If yes, explain what you think is missing, give examples."
-msgstr ""
-"Jei taip, paaiškinkite, ko, jūsų nuomone, trūksta, pateikite pavyzdžių."
+msgstr "Jei taip, paaiškinkite, ko, jūsų nuomone, trūksta, pateikite pavyzdžių."
 
 #. module: survey
 #: model:ir.model.fields,field_description:survey.field_survey_question_answer__value_image
@@ -5727,3 +5670,36 @@ msgid ""
 "⚠️ This question is positioned before some or all of its triggers and could "
 "be skipped."
 msgstr ""
+
+#~ msgid "$100"
+#~ msgstr "$100"
+
+#~ msgid "$20"
+#~ msgstr "$20"
+
+#~ msgid "$200"
+#~ msgstr "$200"
+
+#~ msgid "$300"
+#~ msgstr "$300"
+
+#~ msgid "$50"
+#~ msgstr "$50"
+
+#~ msgid "$80"
+#~ msgstr "$80"
+
+#~ msgid "0000000010"
+#~ msgstr "0000000010"
+
+#~ msgid "1055"
+#~ msgstr "1055"
+
+#~ msgid "1227"
+#~ msgstr "1227"
+
+#~ msgid "1324"
+#~ msgstr "1324"
+
+#~ msgid "2023-08-18"
+#~ msgstr "2023-08-18"

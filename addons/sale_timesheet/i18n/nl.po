@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-12-29 18:38+0000\n"
-"PO-Revision-Date: 2026-01-10 09:09+0000\n"
+"PO-Revision-Date: 2026-10-20 12:46+0000\n"
 "Last-Translator: Bren Driesen <brdri@odoo.com>\n"
 "Language-Team: Dutch <https://translate.odoo.com/projects/odoo-18/"
 "sale_timesheet/nl/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: sale_timesheet
 #. odoo-python
@@ -432,7 +432,7 @@ msgstr "Gefactureerd met een vaste prijs"
 #: model:ir.model.fields.selection,name:sale_timesheet.selection__timesheets_analysis_report__timesheet_invoice_type__billable_milestones
 #: model_terms:ir.ui.view,arch_db:sale_timesheet.timesheet_view_search
 msgid "Billed on Milestones"
-msgstr "Gefactureerd op milstones"
+msgstr "Gefactureerd op mijlpalen"
 
 #. module: sale_timesheet
 #: model:ir.model.fields.selection,name:sale_timesheet.selection__account_analytic_line__timesheet_invoice_type__billable_time
@@ -686,7 +686,7 @@ msgstr "Geweldig team van slimme mensen, in een vriendelijke en open cultuur"
 #. module: sale_timesheet
 #: model:hr.job,name:sale_timesheet.job_labour
 msgid "Handyman"
-msgstr "Handyman"
+msgstr "Klusjesman"
 
 #. module: sale_timesheet
 #: model:ir.model.fields,field_description:sale_timesheet.field_project_task__has_multi_sol
@@ -724,7 +724,7 @@ msgstr "ID"
 #. module: sale_timesheet
 #: model:hr.job,name:sale_timesheet.job_interior_designer
 msgid "Interior Designer"
-msgstr "Interieurontwerper"
+msgstr "Binnenhuisarchitect"
 
 #. module: sale_timesheet
 #: model:product.template,name:sale_timesheet.product_product_interior_designing_product_template
@@ -804,7 +804,7 @@ msgstr "Junior architect (factureer op urenstaten)"
 #. module: sale_timesheet
 #: model:product.template,name:sale_timesheet.product_service_deliver_milestones_product_template
 msgid "Kitchen Assembly (Milestones)"
-msgstr "Keukenassemblage (Milestones)"
+msgstr "Keukenassemblage (Mijlpalen)"
 
 #. module: sale_timesheet
 #: model:ir.model.fields,field_description:sale_timesheet.field_project_create_invoice__write_uid
@@ -871,7 +871,7 @@ msgstr "Methode om de geleverde hoeveelheid bij te werken"
 #. module: sale_timesheet
 #: model_terms:ir.ui.view,arch_db:sale_timesheet.product_template_view_search_sale_timesheet
 msgid "Milestone services"
-msgstr "Milestone diensten"
+msgstr "Mijlpaal diensten"
 
 #. module: sale_timesheet
 #: model_terms:hr.job,website_description:sale_timesheet.job_engineer
@@ -1131,8 +1131,7 @@ msgstr "Offerte"
 #: model_terms:hr.job,website_description:sale_timesheet.job_interior_designer
 #: model_terms:hr.job,website_description:sale_timesheet.job_labour
 msgid "Real responsibilities and challenges in a fast evolving company"
-msgstr ""
-"Echte verantwoordelijkheden en uitdagingen in een snel groeiend bedrijf"
+msgstr "Echte verantwoordelijkheden en uitdagingen in een snel groeiend bedrijf"
 
 #. module: sale_timesheet
 #: model:ir.model.fields,field_description:sale_timesheet.field_project_task__remaining_hours_available
@@ -1515,7 +1514,7 @@ msgstr "Urenstaten (handmatig gefactureerd)"
 #. odoo-python
 #: code:addons/sale_timesheet/models/project_project.py:0
 msgid "Timesheets (Billed on Milestones)"
-msgstr "Urenstaten (gefactureerd op milestones)"
+msgstr "Urenstaten (gefactureerd op mijlpalen)"
 
 #. module: sale_timesheet
 #. odoo-python

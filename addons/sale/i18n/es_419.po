@@ -6,14 +6,15 @@
 # Patricia Gutiérrez Capetillo <pagc@odoo.com>, 2025
 # Wil Odoo, 2025
 # Fernanda Alvarez, 2025
-# "Fernanda Alvarez (mfar)" <mfar@odoo.com>, 2025.
+# "Fernanda Alvarez (mfar)" <mfar@odoo.com>, 2025, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2025-10-08 15:46+0000\n"
-"Last-Translator: \"Fernanda Alvarez (mfar)\" <mfar@odoo.com>\n"
+"POT-Creation-Date: 2026-04-10 18:38+0000\n"
+"PO-Revision-Date: 2026-10-20 12:34+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Spanish (Latin America) <https://translate.odoo.com/projects/"
 "odoo-18/sale/es_419/>\n"
 "Language: es_419\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_sale_payment_provider_onboarding_wizard___data_fetched
@@ -74,21 +75,6 @@ msgid ""
 msgstr ""
 "(object.state in ('draft', 'sent') and 'Cotización - %s' % (object.name)) or "
 "'Orden - %s' % (object.name)"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "2023-12-31"
-msgstr "31-12-2023 "
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "27.00"
-msgstr "27.00"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
-msgid "31.05"
-msgstr "31.05"
 
 #. module: sale
 #. odoo-javascript
@@ -169,14 +155,13 @@ msgstr ""
 "        <span style=\"font-weight:bold;\" t-out=\"transaction_sudo.reference "
 "or ''\">SOOO49</span>\n"
 "        por un total de\n"
-"        <span style=\"font-weight:bold;\" t-"
-"out=\"format_amount(transaction_sudo.amount, object.currency_id) or ''\">$ "
-"10.00</span>\n"
+"        <span style=\"font-weight:bold;\" t-out=\"format_amount"
+"(transaction_sudo.amount, object.currency_id) or ''\">$ 10.00</span>\n"
 "        para la orden\n"
-"        <span style=\"font-weight:bold;\" t-out=\"object.name or "
-"''\">S00049</span>\n"
-"        <t t-if=\"transaction_sudo and transaction_sudo.state == "
-"'pending'\">\n"
+"        <span style=\"font-weight:bold;\" t-out=\"object.name or ''\">"
+"S00049</span>\n"
+"        <t t-if=\"transaction_sudo and transaction_sudo.state == 'pending'\">"
+"\n"
 "            está pendiente.\n"
 "            <br/>\n"
 "            <t t-if=\"object.currency_id.compare_amounts(object.amount_paid "
@@ -186,9 +171,9 @@ msgstr ""
 "            </t>\n"
 "            <t t-else=\"\">\n"
 "                Una vez que se confirmen, faltarán\n"
-"                <span style=\"font-weight:bold;\" t-"
-"out=\"format_amount(object.amount_total - object.amount_paid - "
-"transaction_sudo.amount, object.currency_id) or ''\">$ 10.00</span>\n"
+"                <span style=\"font-weight:bold;\" t-out=\"format_amount"
+"(object.amount_total - object.amount_paid - transaction_sudo.amount, "
+"object.currency_id) or ''\">$ 10.00</span>\n"
 "                por pagar.\n"
 "            </t>\n"
 "        </t>\n"
@@ -197,9 +182,9 @@ msgstr ""
 "            <t t-if=\"object.currency_id.compare_amounts(object.amount_paid, "
 "object.amount_total) &lt; 0\">\n"
 "                <br/>\n"
-"                <span style=\"font-weight:bold;\" t-"
-"out=\"format_amount(object.amount_total - object.amount_paid, "
-"object.currency_id) or ''\">$ 10.00</span>\n"
+"                <span style=\"font-weight:bold;\" t-out=\"format_amount"
+"(object.amount_total - object.amount_paid, object.currency_id) or ''\">$ "
+"10.00</span>\n"
 "                faltan por pagar.\n"
 "            </t>\n"
 "        </t>\n"
@@ -566,8 +551,8 @@ msgstr ""
 "            </t>\n"
 "        </t>\n"
 "        <br/>\n"
-"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/"
-">\n"
+"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/>"
+"\n"
 "        <t t-if=\"documents\">\n"
 "            <br/> \n"
 "            <t t-if=\"len(documents)&gt;1\">\n"
@@ -604,16 +589,16 @@ msgstr ""
 "        <table width=\"100%\" style=\"color: #454748; font-size: 12px; "
 "border-collapse: collapse; white-space: nowrap;\">\n"
 "            <tr style=\"border-bottom: 2px solid #dee2e6;\">\n"
-"                <td style=\"width: 150px;\"><span style=\"font-weight:bold;"
-"\">Productos</span></td>\n"
+"                <td style=\"width: 150px;\"><span style=\"font-"
+"weight:bold;\">Productos</span></td>\n"
 "                <td/>\n"
 "                <td width=\"15%\" align=\"center\"><span style=\"font-"
 "weight:bold;\">Cantidad</span></td>\n"
 "                <td width=\"20%\" align=\"right\">\n"
 "                    <span style=\"font-weight:bold;\">\n"
 "                        <t t-"
-"if=\"object.website_id.show_line_subtotals_tax_selection == "
-"'tax_excluded'\">\n"
+"if=\"object.website_id.show_line_subtotals_tax_selection == 'tax_excluded'\">"
+"\n"
 "                            Sin IVA\n"
 "                        </t>\n"
 "                        <t t-else=\"\">\n"
@@ -628,8 +613,8 @@ msgstr ""
 "            <t t-set=\"line_subtotal\" t-value=\"                     "
 "line.price_subtotal                     if "
 "object.website_id.show_line_subtotals_tax_selection == "
-"'tax_excluded'                     else line.price_total                 \"/"
-">\n"
+"'tax_excluded'                     else line.price_total                 \"/>"
+"\n"
 "            <t t-set=\"current_subtotal\" t-value=\"current_subtotal + "
 "line_subtotal\"/>\n"
 "            <t t-if=\"(not hasattr(line, 'is_delivery') or not "
@@ -651,8 +636,8 @@ msgstr ""
 "out=\"line.name or ''\">Curso sobre el cuidado de los árboles</span>\n"
 "                                <t t-set=\"current_section\" t-"
 "value=\"line\"/>\n"
-"                                <t t-set=\"current_subtotal\" t-value=\"0\"/"
-">\n"
+"                                <t t-set=\"current_subtotal\" t-value=\"0\"/>"
+"\n"
 "                            </t>\n"
 "                            <t t-elif=\"line.display_type == 'line_note'\">\n"
 "                                <i t-out=\"line.name or ''\">Curso sobre el "
@@ -673,9 +658,9 @@ msgstr ""
 "                        <t t-set=\"loop_cycle_number\" t-"
 "value=\"loop_cycle_number + 1\"/>\n"
 "                        <td style=\"width: 150px;\">\n"
-"                            <img t-attf-src=\"/web/image/product.product/"
-"{{ line.product_id.id }}/image_128\" style=\"width: 64px; height: 64px; "
-"object-fit: contain;\" alt=\"Product image\"/>\n"
+"                            <img t-attf-src=\"/web/image/product.product/{{ "
+"line.product_id.id }}/image_128\" style=\"width: 64px; height: 64px; object-"
+"fit: contain;\" alt=\"Product image\"/>\n"
 "                        </td>\n"
 "                        <td align=\"left\" t-out=\"line.product_id.name or "
 "''\">\tCurso sobre el cuidado de los árboles</td>\n"
@@ -684,30 +669,26 @@ msgstr ""
 "                        <td width=\"20%\" align=\"right\"><span style=\"font-"
 "weight:bold; white-space: nowrap;\">\n"
 "                        <t t-"
-"if=\"object.website_id.show_line_subtotals_tax_selection == "
-"'tax_excluded'\">\n"
-"                            <t t-"
-"out=\"format_amount(line.price_reduce_taxexcl, object.currency_id) or ''\">$ "
-"10.00</t>\n"
+"if=\"object.website_id.show_line_subtotals_tax_selection == 'tax_excluded'\">"
+"\n"
+"                            <t t-out=\"format_amount"
+"(line.price_reduce_taxexcl, object.currency_id) or ''\">$ 10.00</t>\n"
 "                        </t>\n"
 "                        <t t-else=\"\">\n"
-"                            <t t-"
-"out=\"format_amount(line.price_reduce_taxinc, object.currency_id) or ''\">$ "
-"10.00</t>\n"
+"                            <t t-out=\"format_amount"
+"(line.price_reduce_taxinc, object.currency_id) or ''\">$ 10.00</t>\n"
 "                        </t>\n"
 "                        </span></td>\n"
 "                    </tr>\n"
 "                </table>\n"
 "            </t>\n"
-"            <t t-if=\"current_section and "
-"(                     line_last                     or "
-"object.order_line[line_index+1].display_type == "
+"            <t t-if=\"current_section and (                     line_last"
+"                     or object.order_line[line_index+1].display_type == "
 "'line_section'                     or "
 "object.order_line[line_index+1].product_type == 'combo'                     "
 "or (                         line.combo_item_id                         and "
-"not "
-"object.order_line[line_index+1].combo_item_id                     )                 ) "
-"and not line.is_downpayment\">\n"
+"not object.order_line[line_index+1].combo_item_id                     )"
+"                 ) and not line.is_downpayment\">\n"
 "                <t t-set=\"current_section\" t-value=\"None\"/>\n"
 "                <table width=\"100%\" style=\"color: #454748; font-size: "
 "12px; border-collapse: collapse;\">\n"
@@ -805,14 +786,14 @@ msgstr ""
 "            </tr>\n"
 "            <tr>\n"
 "                <td>\n"
-"                    <span style=\"font-weight:bold;\">Método de pago:</"
-"span>\n"
+"                    <span style=\"font-weight:bold;\">Método de pago:</span>"
+"\n"
 "                    <t t-if=\"tx_sudo.token_id\">\n"
 "                        <t t-out=\"tx_sudo.token_id.display_name or ''\"/>\n"
 "                    </t>\n"
 "                    <t t-else=\"\">\n"
-"                        <t t-out=\"tx_sudo.provider_id.sudo().name or ''\"/"
-">\n"
+"                        <t t-out=\"tx_sudo.provider_id.sudo().name or ''\"/>"
+"\n"
 "                    </t>\n"
 "                    (<t t-out=\"format_amount(tx_sudo.amount, "
 "object.currency_id) or ''\">$ 10.00</t>)\n"
@@ -828,8 +809,8 @@ msgstr ""
 "                    <br/>\n"
 "                    <span style=\"font-weight:bold;\">Dirección de envío:</"
 "span>\n"
-"                    <t t-out=\"object.partner_shipping_id.street or "
-"''\">1201 S Figueroa St</t>\n"
+"                    <t t-out=\"object.partner_shipping_id.street or ''\">"
+"1201 S Figueroa St</t>\n"
 "                    <t t-out=\"object.partner_shipping_id.city or ''\">Los "
 "Angeles</t>\n"
 "                    <t t-out=\"object.partner_shipping_id.state_id.name or "
@@ -845,8 +826,8 @@ msgstr ""
 "width=\"100%\" style=\"color: #454748; font-size: 12px;\">\n"
 "            <tr>\n"
 "                <td>\n"
-"                    <span style=\"font-weight:bold;\">Método de envío:</"
-"span>\n"
+"                    <span style=\"font-weight:bold;\">Método de envío:</span>"
+"\n"
 "                    <t t-out=\"object.carrier_id.name or ''\"/>\n"
 "                    <t t-if=\"object.amount_delivery == 0.0\">\n"
 "                        (Gratis)\n"
@@ -940,11 +921,11 @@ msgstr ""
 "('draft', 'sent') else 'orden'\"/>\n"
 "        Hola,\n"
 "        <br/><br/>\n"
-"        Su\n"
+"        Tu\n"
 "        <t t-if=\"ctx.get('proforma')\">\n"
-"            factura proforma invoice para la <t t-out=\"doc_name or "
-"''\">cotización</t> <span style=\"font-weight: bold;\" t-out=\"object.name "
-"or ''\">S00052</span>\n"
+"            factura proforma para la <t t-out=\"doc_name or ''\">cotización</"
+"t> <span style=\"font-weight: bold;\" t-out=\"object.name or ''\">S00052</"
+"span>\n"
 "            <t t-if=\"object.origin\">\n"
 "                (con referencia: <t t-out=\"object.origin or ''\"/> )\n"
 "            </t>\n"
@@ -964,16 +945,15 @@ msgstr ""
 "span> está lista para su revisión.\n"
 "        </t>\n"
 "        <br/>\n"
-"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/"
-">\n"
+"        <t t-set=\"documents\" t-value=\"object._get_product_documents()\"/>"
+"\n"
 "        <t t-if=\"documents\">\n"
 "            <br/> \n"
 "            <t t-if=\"len(documents)&gt;1\">\n"
-"                Aquí hay algunos documentos adicionales que podrían "
-"interesarle:\n"
+"                Aquí hay otros documentos que podrían interesarte:\n"
 "            </t>\n"
 "            <t t-else=\"\">\n"
-"                Aquí hay otro documento que podría interesarle:\n"
+"                Aquí hay otro documento que podría interesarte:\n"
 "            </t>\n"
 "            <ul style=\"margin-bottom: 0;\">\n"
 "                <t t-foreach=\"documents\" t-as=\"document\">\n"
@@ -986,7 +966,7 @@ msgstr ""
 "            </ul>\n"
 "        </t>\n"
 "        <br/>\n"
-"        No dude en contactarnos si tiene alguna pregunta.\n"
+"        No dudes en contactarnos si tienes alguna pregunta.\n"
 "        <t t-if=\"not is_html_empty(object.user_id.signature)\" data-o-mail-"
 "quote-container=\"1\">\n"
 "            <br/><br/>\n"
@@ -1086,8 +1066,8 @@ msgstr "<i class=\"fa fa-fw fa-clock-o\"/> En espera de pago"
 msgid ""
 "<i class=\"fa fa-fw fa-money me-1\" aria-label=\"Quotations\" role=\"img\"/>"
 msgstr ""
-"<i class=\"fa fa-fw fa-money me-1\" aria-label=\"Cotizaciones\" role=\"img\"/"
-">"
+"<i class=\"fa fa-fw fa-money me-1\" aria-label=\"Cotizaciones\" "
+"role=\"img\"/>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.portal_my_quotations
@@ -1151,16 +1131,6 @@ msgstr ""
 "<span class=\"fa fa-exclamation-triangle text-warning me-1\" title=\"Este "
 "producto está archivado\" invisible=\"state not in ['draft', 'sent'] or not "
 "is_product_archived\"/>"
-
-#. module: sale
-#: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
-msgid ""
-"<span class=\"fa fa-lg fa-building-o p-2\" title=\"Values set here are "
-"company-specific.\" groups=\"base.group_multi_company\"/>"
-msgstr ""
-"<span class=\"fa fa-lg fa-building-o p-2\" title=\"Los valores que se "
-"configuren aquí son específicos para la empresa.\" "
-"groups=\"base.group_multi_company\"/>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.crm_team_salesteams_view_form
@@ -1269,8 +1239,7 @@ msgstr "<span>Advertencia: esta cotización incluye productos archivados</span>
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "<span>Warning: this order might be a duplicate of</span>"
-msgstr ""
-"<span>Advertencia: Es posible que esta orden sea un duplicado de</span>"
+msgstr "<span>Advertencia: Es posible que esta orden sea un duplicado de</span>"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.report_saleorder_document
@@ -1974,7 +1943,7 @@ msgstr "Haga clic aquí para agregar algún producto o servicio a su cotización
 #. odoo-javascript
 #: code:addons/sale/static/src/xml/sales_team_progress_bar_template.xml:0
 msgid "Click to define an invoicing target"
-msgstr "Haga clic para definir un objetivo de facturación"
+msgstr "Haz clic para definir un objetivo de facturación"
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template
@@ -2483,6 +2452,11 @@ msgstr "Dirección de entrega"
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
 msgid "Delivery Date"
 msgstr "Fecha de entrega"
+
+#. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_content
+msgid "Delivery Date:"
+msgstr "Fecha de entrega:"
 
 #. module: sale
 #: model:ir.model.fields,field_description:sale.field_res_config_settings__module_delivery
@@ -3068,8 +3042,8 @@ msgid ""
 "If the sale is locked, you can not modify it anymore. However, you will "
 "still be able to invoice or deliver."
 msgstr ""
-"La venta no se puede modificar si está bloqueada. Sin embargo, todavía la "
-"podrá facturar o entregar."
+"No podrás modificar la venta si está bloqueada, pero todavía la podrás "
+"facturar o entregar."
 
 #. module: sale
 #: model:ir.model.fields,help:sale.field_product_packaging__sales
@@ -3479,7 +3453,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Manage Promotions, Coupons, Loyalty cards, Gift cards & eWallet"
 msgstr ""
-"Gestione sus promociones, cupones, tarjetas de lealtad, tarjetas de regalo y "
+"Gestiona promociones, cupones, tarjetas de lealtad, tarjetas de regalo y "
 "monederos electrónicos"
 
 #. module: sale
@@ -3765,9 +3739,9 @@ msgid ""
 "to track if something gets invoiced or delivered).\n"
 "                Set the quantity to 0 instead."
 msgstr ""
-"Una vez confirmada la orden de venta ya no es posible quitar ninguna de las "
+"Una vez que confirmas una orden de venta, no puedes eliminar ninguna de sus "
 "líneas (son necesarias para determinar si algo se factura o se entrega).\n"
-"                En su lugar, establezca la cantidad en 0."
+"Establece la cantidad en 0."
 
 #. module: sale
 #: model_terms:ir.actions.act_window,help:sale.act_res_partner_2_sale_order
@@ -3882,8 +3856,8 @@ msgstr ""
 "Idioma de traducción opcional (código ISO) a seleccionar para el envío de "
 "correos electrónicos. Si no se selecciona esta opción, se utilizará la "
 "versión en inglés. Por lo general, se usa una expresión de marcador de "
-"posición para indicar el idioma adecuado, por ejemplo, "
-"{{ object.partner_id.lang }}."
+"posición para indicar el idioma adecuado, por ejemplo, {{ "
+"object.partner_id.lang }}."
 
 #. module: sale
 #. odoo-python
@@ -4819,8 +4793,7 @@ msgstr "Líneas de las órdenes de venta listas para facturar"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_sales_order_line_filter
 msgid "Sales Order Lines related to a Sales Order of mine"
-msgstr ""
-"Líneas de órdenes de venta relacionadas con una de mis órdenes de venta"
+msgstr "Líneas de órdenes de venta relacionadas con una de mis órdenes de venta"
 
 #. module: sale
 #. odoo-python
@@ -4897,7 +4870,7 @@ msgstr "Ventas: Cancelación de orden"
 #. module: sale
 #: model:mail.template,name:sale.mail_template_sale_confirmation
 msgid "Sales: Order Confirmation"
-msgstr "Ventas: confirmación de orden"
+msgstr "Ventas: Confirmación de la orden"
 
 #. module: sale
 #: model:mail.template,name:sale.mail_template_sale_payment_executed
@@ -5000,8 +4973,7 @@ msgstr "Vender productos por múltiplo de número de unidad por paquete"
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Sell variants of a product using attributes (size, color, etc.)"
-msgstr ""
-"Venda variantes de sus productos con atributos (tamaño, color, entre otros)"
+msgstr "Vende variantes de un producto con atributos (talla, color, etc.)."
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.view_order_form
@@ -5589,6 +5561,13 @@ msgstr "Los parámetros proporcionados no son válidos."
 
 #. module: sale
 #. odoo-python
+#: code:addons/sale/controllers/portal.py:0
+#: code:addons/sale/wizard/payment_link_wizard.py:0
+msgid "The sale order has expired."
+msgstr "La orden de venta ha expirado."
+
+#. module: sale
+#. odoo-python
 #: code:addons/sale/wizard/sale_make_invoice_advance.py:0
 msgid "The value of the down payment amount must be positive."
 msgstr "El importe del anticipo debe ser un valor positivo."
@@ -6029,6 +6008,11 @@ msgstr ""
 
 #. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
+msgid "Values set here are company-specific."
+msgstr "Los valores establecidos aquí son específicos de la empresa."
+
+#. module: sale
+#: model_terms:ir.ui.view,arch_db:sale.res_config_settings_view_form
 msgid "Variant Grid Entry"
 msgstr "Entrada de la tabla de variante"
 
@@ -6325,6 +6309,12 @@ msgid "units"
 msgstr "unidades"
 
 #. module: sale
+#. odoo-javascript
+#: code:addons/sale/static/src/xml/sale_product_field.xml:0
+msgid "x"
+msgstr "x"
+
+#. module: sale
 #: model_terms:ir.ui.view,arch_db:sale.sale_order_portal_template
 msgid "you confirm acceptance on the behalf of"
 msgstr "confirma la aceptación en nombre de"
@@ -6349,8 +6339,8 @@ msgid ""
 "{{ object.name or 'n/a' }})"
 msgstr ""
 "{{ object.company_id.name }} {{ object.state in ('draft', 'sent') and "
-"(ctx.get('proforma') and 'Proforma' or 'Cotización') or 'Orden' }} (Ref "
-"{{ object.name or 'n/a' }})"
+"(ctx.get('proforma') and 'Proforma' or 'Cotización') or 'Orden' }} (Ref {{ "
+"object.name or 'n/a' }})"
 
 #. module: sale
 #: model:mail.template,subject:sale.mail_template_sale_cancellation
@@ -6358,5 +6348,22 @@ msgid ""
 "{{ object.company_id.name }} {{ object.type_name }} Cancelled (Ref "
 "{{ object.name or 'n/a' }})"
 msgstr ""
-"{{ object.company_id.name }} {{ object.type_name }} Cancelada (Ref "
-"{{ object.name or 'n/a' }})"
+"{{ object.company_id.name }} {{ object.type_name }} Cancelada (Ref {{ "
+"object.name or 'n/a' }})"
+
+#~ msgid "2023-12-31"
+#~ msgstr "31-12-2023 "
+
+#~ msgid "27.00"
+#~ msgstr "27.00"
+
+#~ msgid "31.05"
+#~ msgstr "31.05"
+
+#~ msgid ""
+#~ "<span class=\"fa fa-lg fa-building-o p-2\" title=\"Values set here are "
+#~ "company-specific.\" groups=\"base.group_multi_company\"/>"
+#~ msgstr ""
+#~ "<span class=\"fa fa-lg fa-building-o p-2\" title=\"Los valores que se "
+#~ "configuren aquí son específicos para la empresa.\" "
+#~ "groups=\"base.group_multi_company\"/>"

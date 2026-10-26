@@ -1,25 +1,28 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* purchase
+# * purchase
 #
 # Translators:
 # Wil Odoo, 2024
 # Malaz Abuidris <msea@odoo.com>, 2025
-#
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
+# "Malaz Siddig Elsayed Abuidris (msea)" <msea@odoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:36+0000\n"
-"PO-Revision-Date: 2024-09-25 09:41+0000\n"
-"Last-Translator: Malaz Abuidris <msea@odoo.com>, 2025\n"
-"Language-Team: Arabic (https://app.transifex.com/odoo/teams/41243/ar/)\n"
+"POT-Creation-Date: 2026-04-10 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 12:04+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"Language-Team: Arabic <https://translate.odoo.com/projects/odoo-18/purchase/"
+"ar/>\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
-"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: purchase
 #: model:ir.actions.report,print_report_name:purchase.action_report_purchase_order
@@ -150,8 +153,8 @@ msgstr ""
 "        </t>\n"
 "        متوقع في \n"
 "        <t t-if=\"object.date_planned\">\n"
-"            <span style=\"font-weight:bold;\" t-"
-"out=\"format_date(object.date_planned) or ''\">05/05/2021</span>.\n"
+"            <span style=\"font-weight:bold;\" t-out=\"format_date"
+"(object.date_planned) or ''\">05/05/2021</span>.\n"
 "        </t>\n"
 "         <t t-else=\"\">\n"
 "            <span style=\"font-weight:bold;\">غير محدد</span>.\n"
@@ -218,9 +221,8 @@ msgstr ""
 "        <t t-if=\"object.partner_ref\">\n"
 "            مع المرجع: <t t-out=\"object.partner_ref or ''\">REF_XXX</t>\n"
 "        </t>\n"
-"        وتبلغ قيمته <span style=\"font-weight:bold;\" t-"
-"out=\"format_amount(object.amount_total, object.currency_id) or ''\">$ "
-"10.00</span>\n"
+"        وتبلغ قيمته <span style=\"font-weight:bold;\" t-out=\"format_amount"
+"(object.amount_total, object.currency_id) or ''\">$ 10.00</span>\n"
 "        من <t t-out=\"object.company_id.name or ''\">شركتك</t>. \n"
 "        <br/><br/>\n"
 "        <t t-if=\"object.date_planned\">\n"
@@ -415,8 +417,8 @@ msgid ""
 "                        <span class=\"o_form_label\" invisible=\"state in "
 "('draft', 'sent')\">Purchase Order </span>"
 msgstr ""
-"<span class=\"o_form_label\" invisible=\"state not in ('draft', 'sent')"
-"\">+طلب عرض سعر </span>\n"
+"<span class=\"o_form_label\" invisible=\"state not in ('draft', 'sent')\">"
+"+طلب عرض سعر </span>\n"
 "                        <span class=\"o_form_label\" invisible=\"state in "
 "('draft', 'sent')\">أمر شراء </span> "
 
@@ -1332,8 +1334,7 @@ msgstr ""
 msgid ""
 "Depicts the date within which the Quotation should be confirmed and "
 "converted into a purchase order."
-msgstr ""
-"يمثل التاريخ الذي يجب أن يتم تأكيد عرض السعر فيه وتحويله إلى أمر شراء. "
+msgstr "يمثل التاريخ الذي يجب أن يتم تأكيد عرض السعر فيه وتحويله إلى أمر شراء. "
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_order_line__name
@@ -1934,6 +1935,12 @@ msgstr ""
 
 #. module: purchase
 #. odoo-python
+#: code:addons/purchase/models/purchase_order.py:0
+msgid "New"
+msgstr "جديد"
+
+#. module: purchase
+#. odoo-python
 #: code:addons/purchase/controllers/portal.py:0
 msgid "Newest"
 msgstr "الأحدث"
@@ -2214,7 +2221,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/purchase/models/purchase_bill_line_match.py:0
 msgid "Please select bill lines with the same vendor."
-msgstr ""
+msgstr "يرجى تحديد بنود الفاتورة التي تحمل نفس البائع."
 
 #. module: purchase
 #: model:ir.model.fields,field_description:purchase.field_purchase_bill_line_match__pol_id
@@ -3277,8 +3284,8 @@ msgid ""
 "There is no invoiceable line. If a product has a control policy based on "
 "received quantity, please make sure that a quantity has been received."
 msgstr ""
-"ليس هناك بند قابل للفوترة. إذا كان لمنتج سياسة تحكّم بناءً على الكمية "
-"المستلمة، يرجى التأكد من أنه قد تم استلام كمية. "
+"ليس هناك بند قابل للفوترة. إذا كان لمنتج سياسة تحكّم بناءً على الكمية المستلمة"
+"، يرجى التأكد من أنه قد تم استلام كمية. "
 
 #. module: purchase
 #: model_terms:ir.actions.act_window,help:purchase.action_purchase_order_report_all
@@ -3310,8 +3317,8 @@ msgid ""
 "This default value is applied to any new product created. This can be "
 "changed in the product detail form."
 msgstr ""
-"يتم تطبيق القيمة الافتراضية على أي منتج عند إنشائه. يمكن تغيير ذلك في "
-"استمارة تفاصيل المنتج. "
+"يتم تطبيق القيمة الافتراضية على أي منتج عند إنشائه. يمكن تغيير ذلك في استمارة "
+"تفاصيل المنتج. "
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.view_product_supplier_inherit
@@ -3746,10 +3753,10 @@ msgid ""
 msgstr ""
 "عند إنشاء أمر شراء، قم بإلقاء نظرة على معدل <i>التوصيل في الوقد المحدد</i> "
 "الخاص بالمورّد: نسبة المنتجات التي تم شحنها في الوقت المحدد. إذا كانت النسبة "
-"منخفضة جداً، قم بتفعيل <i>التذكيرات التلقائية</i> قبل عدة أيام من تاريخ "
-"الشحن، وسوف يقوم أودو بإرسال بريد إلكتروني إلى المورّد لطلب تأكيد تواريخ "
-"الشحنة وإبقائك على علم في حال حدوث أي تأخير. للحصول على إحصائيات أداء "
-"المورّد، اضغط على معدل التوصيل في الوقت المحدد. "
+"منخفضة جداً، قم بتفعيل <i>التذكيرات التلقائية</i> قبل عدة أيام من تاريخ الشحن"
+"، وسوف يقوم أودو بإرسال بريد إلكتروني إلى المورّد لطلب تأكيد تواريخ الشحنة "
+"وإبقائك على علم في حال حدوث أي تأخير. للحصول على إحصائيات أداء المورّد، اضغط "
+"على معدل التوصيل في الوقت المحدد. "
 
 #. module: purchase
 #: model_terms:digest.tip,tip_description:purchase.digest_tip_purchase_1
@@ -3759,10 +3766,10 @@ msgid ""
 "clicking on a button in the email, the information is added on the purchase "
 "order. Use filters to track orders that have not been acknowledged."
 msgstr ""
-"عند إرسال أمر شراء عبر البريد الإلكتروني، يقوم أودو بطلب اعتراف المورّد "
-"باستلام الأمر. يقوم المورّد بالاعتراف بالأمر عن طريق الضغط على زر في رسالة "
-"البريد الإلكتروني، وتتم إضافة المعلومات في أمر الشراء. استخدم عوامل التصفية "
-"لتتبع الأوامر التي لم يتم الاعتراف بها. "
+"عند إرسال أمر شراء عبر البريد الإلكتروني، يقوم أودو بطلب اعتراف المورّد باستلام "
+"الأمر. يقوم المورّد بالاعتراف بالأمر عن طريق الضغط على زر في رسالة البريد "
+"الإلكتروني، وتتم إضافة المعلومات في أمر الشراء. استخدم عوامل التصفية لتتبع "
+"الأوامر التي لم يتم الاعتراف بها. "
 
 #. module: purchase
 #: model:ir.model.fields,help:purchase.field_purchase_order__partner_id
@@ -3829,8 +3836,8 @@ msgid ""
 msgstr ""
 "يحتوي عرض السعر الخاص بك على منتجات من الشركة %(product_company)s بينما "
 "ينتمي عرض سعرك إلى الشركة %(quote_company)s. \n"
-"يرجى تغيير شركة عرض السعر أو إزالة المنتجات من الشركات الأخرى (%"
-"(bad_products)s). "
+"يرجى تغيير شركة عرض السعر أو إزالة المنتجات من الشركات الأخرى (%(bad_products)"
+"s). "
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.portal_my_purchase_order

@@ -15,13 +15,14 @@
 # Katrin Kampura, 2024
 # Tairi Tiimann, 2024
 # Siim Raasuke, 2024
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
+# Odoo Translation Bot <c3p@odoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:36+0000\n"
-"PO-Revision-Date: 2025-11-20 19:03+0000\n"
+"POT-Creation-Date: 2026-04-10 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 17:00+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Estonian <https://translate.odoo.com/projects/odoo-18/"
 "purchase/et/>\n"
@@ -30,7 +31,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: purchase
 #: model:ir.actions.report,print_report_name:purchase.action_report_purchase_order
@@ -323,8 +324,8 @@ msgid ""
 "                        <span class=\"o_form_label\" invisible=\"state in "
 "('draft', 'sent')\">Purchase Order </span>"
 msgstr ""
-"<span class=\"o_form_label\" invisible=\"state not in ('draft', 'sent')"
-"\">Hinnapäring </span>\n"
+"<span class=\"o_form_label\" invisible=\"state not in ('draft', 'sent')\">"
+"Hinnapäring </span>\n"
 "                        <span class=\"o_form_label\" invisible=\"state in "
 "('draft', 'sent')\">Ostutellimus </span>"
 
@@ -350,8 +351,8 @@ msgid ""
 "<span class=\"text-muted\" invisible=\"not "
 "mail_reminder_confirmed\">(confirmed by vendor)</span>"
 msgstr ""
-"<span class=\"text-muted\" invisible=\"not "
-"mail_reminder_confirmed\">(tarnija poolt kinnitatud)</span>"
+"<span class=\"text-muted\" invisible=\"not mail_reminder_confirmed\">"
+"(tarnija poolt kinnitatud)</span>"
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.view_partner_property_form
@@ -795,8 +796,7 @@ msgstr "Automaatne täitmine eelmise ostutellimuse alusel."
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
 msgid "Automatically lock confirmed orders to prevent editing"
-msgstr ""
-"Lukustage automaatselt kinnitatud tellimused, et nende muutmist vältida"
+msgstr "Lukustage automaatselt kinnitatud tellimused, et nende muutmist vältida"
 
 #. module: purchase
 #: model_terms:ir.ui.view,arch_db:purchase.res_config_settings_view_form_purchase
@@ -1843,6 +1843,12 @@ msgstr "Nimi"
 #: model_terms:ir.ui.view,arch_db:purchase.purchase_order_form
 msgid "Name, TIN, Email, or Reference"
 msgstr "Nimi, TIN, e-post või viide"
+
+#. module: purchase
+#. odoo-python
+#: code:addons/purchase/models/purchase_order.py:0
+msgid "New"
+msgstr "Uus"
 
 #. module: purchase
 #. odoo-python

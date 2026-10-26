@@ -16,16 +16,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:36+0000\n"
-"PO-Revision-Date: 2026-01-17 09:04+0000\n"
-"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"POT-Creation-Date: 2026-02-20 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 10:08+0000\n"
+"Last-Translator: Anonymous <noreply@weblate.org>\n"
 "Language-Team: Hindi <https://translate.odoo.com/projects/odoo-18/crm/hi/>\n"
 "Language: hi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_team__lead_all_assigned_month_count
@@ -103,8 +103,8 @@ msgid ""
 "<b>Drag &amp; drop opportunities</b> between columns as you progress in your "
 "sales cycle."
 msgstr ""
-"जैसे-जैसे आप अपनी सेल साइकल में आगे बढ़ते हैं, कॉलम के बीच <b>अवसरों को खींचें और छोड़ें (ड्रैग एंड ड्रॉप करें)"
-"</b>।"
+"जैसे-जैसे आप अपनी सेल साइकल में आगे बढ़ते हैं, कॉलम के बीच <b>अवसरों को खींचें और छोड़ें (ड्रैग एंड "
+"ड्रॉप करें)</b>।"
 
 #. module: crm
 #. odoo-javascript
@@ -171,10 +171,10 @@ msgid ""
 "                                    <span class=\"o_stat_text\" "
 "invisible=\"duplicate_lead_count &gt; 1\">Similar Lead</span>"
 msgstr ""
-"<span class=\"o_stat_text\" invisible=\"duplicate_lead_count &lt; 2\">मिलती-जुलती"
-" लीड</span>\n"
-"                                    <span class=\"o_stat_text\" invisible="
-"\"duplicate_lead_count &gt; 1\">मिलती-जुलती लीड</span>"
+"<span class=\"o_stat_text\" invisible=\"duplicate_lead_count &lt; 2\">मिलती-"
+"जुलती लीड</span>\n"
+"                                    <span class=\"o_stat_text\" "
+"invisible=\"duplicate_lead_count &gt; 1\">मिलती-जुलती लीड</span>"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.utm_campaign_view_form
@@ -184,8 +184,8 @@ msgid ""
 "invisible=\"use_leads\">Opportunities</span>"
 msgstr ""
 "<span class=\"o_stat_text\" invisible=\"not use_leads\">लीड</span>\n"
-"                        <span class=\"o_stat_text\" "
-"invisible=\"use_leads\">अवसर</span>"
+"                        <span class=\"o_stat_text\" invisible=\"use_leads\">"
+"अवसर</span>"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_lost_reason_view_form
@@ -195,15 +195,6 @@ msgstr "<span class=\"o_stat_text\"> लीड</span>"
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_lead_view_form
 msgid "<span class=\"oe_grey p-2 text-nowrap d-none d-sm-block\"> at </span>"
-msgstr ""
-
-#. module: crm
-#: model_terms:ir.ui.view,arch_db:crm.crm_lead_view_form
-msgid ""
-"<span class=\"oe_grey p-2\" groups=\"crm.group_use_recurring_revenues\"> + </"
-"span>\n"
-"                                        <span class=\"oe_grey p-2\" "
-"groups=\"!crm.group_use_recurring_revenues\"> at </span>"
 msgstr ""
 
 #. module: crm
@@ -302,7 +293,7 @@ msgid ""
 "                    <td valign=\"top\" style=\"font-size: 13px;\">\n"
 "                        <div>\n"
 "                            Hi <t t-out=\"object.partner_id and "
-"object.partner_id.name or ''\">Deco Addict</t>,<br/><br/>\n"
+"object.partner_id.name or ''\">Acme Corporation</t>,<br/><br/>\n"
 "                            Welcome to <t t-out=\"object.company_id.name or "
 "''\">My Company (San Francisco)</t>.\n"
 "                            It's great to meet you! Now that you're on "
@@ -455,8 +446,8 @@ msgid ""
 "Activities marked as Done on Leads will appear here, providing an overview "
 "of lead interactions."
 msgstr ""
-"लीड्स पर 'पूरा हो गया' के रूप में मार्क की गई गतिविधियां यहां दिखाई देंगी, जिससे लीड के इंटरैक्शन का ओवरव्यू "
-"मिलेगा।"
+"लीड्स पर 'पूरा हो गया' के रूप में मार्क की गई गतिविधियां यहां दिखाई देंगी, जिससे लीड के "
+"इंटरैक्शन का ओवरव्यू मिलेगा।"
 
 #. module: crm
 #: model:ir.model,name:crm.model_mail_activity
@@ -512,7 +503,8 @@ msgid ""
 "                    (e.g. \"Demo Preparation Process\", "
 "\"Qualification\", ...)"
 msgstr ""
-"ऐक्टिविटी प्लान का उपयोग कुछ ही क्लिक में गतिविधियों की सूची असाइन करने के लिए किया जाता है\n"
+"ऐक्टिविटी प्लान का उपयोग कुछ ही क्लिक में गतिविधियों की सूची असाइन करने के लिए किया "
+"जाता है\n"
 "                    (जैसे: \"डेमो तैयार करने की प्रक्रिया\", \"क्वालिफ़िकेशन\", ...)"
 
 #. module: crm
@@ -630,9 +622,10 @@ msgid ""
 "                                        To work with the CRM, you should <a "
 "name=\"%d\" type=\"action\" tabindex=\"-1\">join a team.</a>"
 msgstr ""
-"चूंकि आप किसी सेल्स टीम के सदस्य नहीं हैं, आपको <b>डिफ़ॉल्ट रूप से पहली टीम</b> की पाइपलाइन दिखाई जाती है.\n"
-"                                        सीआरएम के साथ काम करने के लिए, आपको <a name="
-"\"%d\" type=\"action\" tabindex=\"-1\">एक टीम में शामिल होना चाहिए.</a>"
+"चूंकि आप किसी सेल्स टीम के सदस्य नहीं हैं, आपको <b>डिफ़ॉल्ट रूप से पहली टीम</b> की "
+"पाइपलाइन दिखाई जाती है.\n"
+"                                        सीआरएम के साथ काम करने के लिए, आपको <a "
+"name=\"%d\" type=\"action\" tabindex=\"-1\">एक टीम में शामिल होना चाहिए.</a>"
 
 #. module: crm
 #. odoo-python
@@ -643,9 +636,10 @@ msgid ""
 "                                        To work with the CRM, you should "
 "join a team."
 msgstr ""
-"आप किसी सेल्स टीम के सदस्य नहीं हैं, इसलिए <b>डिफ़ॉल्ट रूप से पहली टीम</b> की पाइपलाइन दिखाई जाती है.\n"
-"                                        सीआरएम के साथ काम करने के लिए, आपको एक टीम में "
-"शामिल होना चाहिए।"
+"आप किसी सेल्स टीम के सदस्य नहीं हैं, इसलिए <b>डिफ़ॉल्ट रूप से पहली टीम</b> की पाइपलाइन "
+"दिखाई जाती है.\n"
+"                                        सीआरएम के साथ काम करने के लिए, आपको एक "
+"टीम में शामिल होना चाहिए।"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.sales_team_form_view_in_crm
@@ -754,7 +748,8 @@ msgstr ""
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead__phone_blacklisted
 msgid "Blacklisted Phone is Phone"
-msgstr "'ब्लैकलिस्टेड फ़ोन' फ़ील्ड में दर्ज किया गया मान वास्तव में एक फ़ोन नंबर है"
+msgstr ""
+"'ब्लैकलिस्टेड फ़ोन' फ़ील्ड में दर्ज किया गया मान वास्तव में एक फ़ोन नंबर है"
 
 #. module: crm
 #. odoo-python
@@ -845,8 +840,8 @@ msgid ""
 "Check this box to filter and qualify incoming requests as leads before "
 "converting them into opportunities and assigning them to a salesperson."
 msgstr ""
-"आने वाले अनुरोधों को अवसरों में बदलने और असाइन करने से पहले, उन्हें फ़िल्टर और योग्य लीड बनाने के लिए इस बॉक्"
-"स को चुनें।"
+"आने वाले अनुरोधों को अवसरों में बदलने और असाइन करने से पहले, उन्हें फ़िल्टर और योग्य लीड बनाने "
+"के लिए इस बॉक्स को चुनें।"
 
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_team__use_opportunities
@@ -877,8 +872,8 @@ msgid ""
 "Click on the breadcrumb to go back to your Pipeline. Odoo will save all "
 "modifications as you navigate."
 msgstr ""
-"अपनी पाइपलाइन पर वापस जाने के लिए ब्रेडक्रंब पर क्लिक करें. नेविगेट करते समय Odoo सभी बदलावों को सेव "
-"कर लेगा।"
+"अपनी पाइपलाइन पर वापस जाने के लिए ब्रेडक्रंब पर क्लिक करें. नेविगेट करते समय Odoo सभी "
+"बदलावों को सेव कर लेगा।"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_activity_report__date_closed
@@ -1337,7 +1332,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:crm.selection__crm_lead2opportunity_partner__action__nothing
 #: model:ir.model.fields.selection,name:crm.selection__crm_lead2opportunity_partner_mass__action__nothing
 msgid "Do not link to a customer"
-msgstr ""
+msgstr "ग्राहक से लिंक न करें"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_team_member_view_form
@@ -1450,8 +1445,8 @@ msgid ""
 "Enter here the internal requirements for this stage (ex: Offer sent to "
 "customer). It will appear as a tooltip over the stage's name."
 msgstr ""
-"इस स्टेज के लिए ज़रूरी अंदरूनी शर्तें यहां डालें (उदाहरण: ग्राहक को ऑफ़र भेजा गया). यह स्टेज के नाम पर टूलटि"
-"प के रूप में दिखेगा।"
+"इस स्टेज के लिए ज़रूरी अंदरूनी शर्तें यहां डालें (उदाहरण: ग्राहक को ऑफ़र भेजा गया). यह स्टेज के "
+"नाम पर टूलटिप के रूप में दिखेगा।"
 
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_lead__date_deadline
@@ -1802,7 +1797,8 @@ msgid ""
 "Invalid repeat frequency. Consider changing frequency type instead of using "
 "large numbers."
 msgstr ""
-"दोहराने की फ़्रीक्वेंसी अमान्य है. बड़े नंबरों का इस्तेमाल करने के बजाय फ़्रीक्वेंसी टाइप को बदलने पर विचार करें।"
+"दोहराने की फ़्रीक्वेंसी अमान्य है. बड़े नंबरों का इस्तेमाल करने के बजाय फ़्रीक्वेंसी टाइप को बदलने "
+"पर विचार करें।"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_lead__message_is_follower
@@ -2081,8 +2077,9 @@ msgid ""
 "the treatment delays or number of leads per state. You can sort out your "
 "leads analysis by different groups to get accurate grained analysis."
 msgstr ""
-"लीड्स एनालिसिस से आपको सीआरएम डेटा देखने में मदद करती है, जैसे काम में कितनी देरी हुई या किस स्टेट में कितनी ली"
-"ड हैं. बेहतर और बारीकी से जानकारी पाने के लिए आप डेटा को अलग-अलग ग्रुप में छांट सकते हैं।"
+"लीड्स एनालिसिस से आपको सीआरएम डेटा देखने में मदद करती है, जैसे काम में कितनी देरी हुई या "
+"किस स्टेट में कितनी लीड हैं. बेहतर और बारीकी से जानकारी पाने के लिए आप डेटा को अलग-अलग "
+"ग्रुप में छांट सकते हैं।"
 
 #. module: crm
 #. odoo-python
@@ -2126,8 +2123,8 @@ msgid ""
 "Leads that you selected that have duplicates. If the list is empty, it means "
 "that no duplicates were found"
 msgstr ""
-"वे लीड्स जिन्हें आपने चुना है और जिनमें डुप्लीकेट हैं. अगर यह सूची खाली है, तो इसका मतलब है कि कोई डुप्लीकेट नहीं"
-" मिला"
+"वे लीड्स जिन्हें आपने चुना है और जिनमें डुप्लीकेट हैं. अगर यह सूची खाली है, तो इसका मतलब है कि "
+"कोई डुप्लीकेट नहीं मिला"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_lead2opportunity_partner_mass
@@ -2174,8 +2171,8 @@ msgid ""
 "Linked partner (optional). Usually created when converting the lead. You can "
 "find a partner by its Name, TIN, Email or Internal Reference."
 msgstr ""
-"लिंक किया गया पार्टनर (वैकल्पिक). आमतौर पर लीड को कन्वर्ट करते समय बनाया जाता है. आप पार्टनर को उसके ना"
-"म, टीआईएन, ईमेल या इंटरनल रेफ़रेंस से ढूंढ सकते हैं।"
+"लिंक किया गया पार्टनर (वैकल्पिक). आमतौर पर लीड को कन्वर्ट करते समय बनाया जाता है. आप "
+"पार्टनर को उसके नाम, टीआईएन, ईमेल या इंटरनल रेफ़रेंस से ढूंढ सकते हैं।"
 
 #. module: crm
 #: model:ir.model.fields,field_description:crm.field_crm_team__alias_incoming_local
@@ -2199,8 +2196,8 @@ msgid ""
 "Looks like nothing is planned. :(<br><br><i>Tip: Schedule activities to keep "
 "track of everything you have to do!</i>"
 msgstr ""
-"लगता है कुछ भी प्लान नहीं है. :(<br><br><i>सुझाव: आपको जो कुछ भी करना है, उसका ट्रैक रखने के लिए "
-"गतिविधियां शेड्यूल करें!</i>"
+"लगता है कुछ भी प्लान नहीं है. :(<br><br><i>सुझाव: आपको जो कुछ भी करना है, उसका ट्रैक "
+"रखने के लिए गतिविधियां शेड्यूल करें!</i>"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_lead_view_form
@@ -2263,8 +2260,8 @@ msgid ""
 "Make and receive calls from Odoo with Ringover's dialer. Track calls, SMS "
 "messages, and get AI-powered transcripts of your conversations."
 msgstr ""
-"रिंगओवर के डायलर की मदद से Odoo से कॉल करें और पाएं. कॉल, एसएमएस मैसेज को ट्रैक करें, और बातचीत के "
-"एआई-पावर्ड ट्रांसक्रिप्ट पाएं।"
+"रिंगओवर के डायलर की मदद से Odoo से कॉल करें और पाएं. कॉल, एसएमएस मैसेज को ट्रैक करें, और "
+"बातचीत के एआई-पावर्ड ट्रांसक्रिप्ट पाएं।"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.res_config_settings_view_form
@@ -2368,7 +2365,8 @@ msgid ""
 "Member assignment domain for user %(user)s and team %(team)s is incorrectly "
 "formatted"
 msgstr ""
-"उपयोगकर्ता %(user)s और टीम %(team)s के लिए सदस्य असाइनमेंट डोमेन गलत तरीके से फ़ॉर्मेट किया गया है"
+"उपयोगकर्ता %(user)s और टीम %(team)s के लिए सदस्य असाइनमेंट डोमेन गलत तरीके से फ़ॉर्मेट "
+"किया गया है"
 
 #. module: crm
 #: model:ir.actions.act_window,name:crm.action_merge_opportunities
@@ -2549,8 +2547,8 @@ msgid ""
 "No allocated leads to %(team_name)s team and its salespersons because no "
 "unassigned lead matches its domain."
 msgstr ""
-"%(team_name)s टीम और उसके सेल्सपर्सन को कोई लीड बांटी नहीं की गई है, क्योंकि कोई भी असाइन नहीं की गई ली"
-"ड इसके डोमेन से मेल नहीं खाती।"
+"%(team_name)s टीम और उसके सेल्सपर्सन को कोई लीड बांटी नहीं की गई है, क्योंकि कोई भी "
+"असाइन नहीं की गई लीड इसके डोमेन से मेल नहीं खाती।"
 
 #. module: crm
 #. odoo-python
@@ -2559,8 +2557,8 @@ msgid ""
 "No allocated leads to %(team_name)s team because it has no capacity. Add "
 "capacity to its salespersons."
 msgstr ""
-"%(team_name)s टीम को कोई लीड बांटी नहीं की गई है, क्योंकि इसकी कोई क्षमता नहीं है. इसके सेल्सपर्सन में "
-"क्षमता जोड़ें।"
+"%(team_name)s टीम को कोई लीड बांटी नहीं की गई है, क्योंकि इसकी कोई क्षमता नहीं है. "
+"इसके सेल्सपर्सन में क्षमता जोड़ें।"
 
 #. module: crm
 #. odoo-python
@@ -2569,8 +2567,8 @@ msgid ""
 "No allocated leads to any team or salesperson. Check your Sales Teams and "
 "Salespersons configuration as well as unassigned leads."
 msgstr ""
-"किसी भी टीम या सेल्सपर्सन को कोई लीड बांटी नहीं की गई है. अपनी सेल्स टीमों और सेल्सपर्सन के कॉन्फ़िगरेशन के "
-"साथ-साथ असाइन नहीं की गई लीड्स की भी जांच करें।"
+"किसी भी टीम या सेल्सपर्सन को कोई लीड बांटी नहीं की गई है. अपनी सेल्स टीमों और सेल्सपर्सन "
+"के कॉन्फ़िगरेशन के साथ-साथ असाइन नहीं की गई लीड्स की भी जांच करें।"
 
 #. module: crm
 #: model_terms:ir.actions.act_window,help:crm.crm_opportunity_report_action
@@ -2585,7 +2583,8 @@ msgid ""
 "No lead assigned to salespersons because no unassigned lead matches their "
 "domains."
 msgstr ""
-"सेल्सपर्सन को कोई लीड नहीं दी गई, क्योंकि कोई भी बिना असाइन की गई लीड उनके डोमेन से मेल नहीं खाती है।"
+"सेल्सपर्सन को कोई लीड नहीं दी गई, क्योंकि कोई भी बिना असाइन की गई लीड उनके डोमेन से "
+"मेल नहीं खाती है।"
 
 #. module: crm
 #. odoo-python
@@ -2594,8 +2593,8 @@ msgid ""
 "No new lead allocated to %(team_name)s team because no unassigned lead "
 "matches its domain."
 msgstr ""
-"%(team_name)s टीम को कोई नई लीड बांटी नहीं गई, क्योंकि बिना असाइन की गई कोई भी लीड इसके डोमेन से मेल "
-"नहीं खाती है।"
+"%(team_name)s टीम को कोई नई लीड बांटी नहीं गई, क्योंकि बिना असाइन की गई कोई भी "
+"लीड इसके डोमेन से मेल नहीं खाती है।"
 
 #. module: crm
 #. odoo-python
@@ -2680,7 +2679,8 @@ msgid ""
 "                    up potential sales and better forecast your future "
 "revenues."
 msgstr ""
-"संभावित बिक्री पर नज़र रखने और अपने भविष्य के रेवेन्यू का बेहतर पूर्वानुमान लगाने के लिए Odoo आपको\n"
+"संभावित बिक्री पर नज़र रखने और अपने भविष्य के रेवेन्यू का बेहतर पूर्वानुमान लगाने के लिए Odoo "
+"आपको\n"
 "                    अपनी सेल्स पाइपलाइन को ट्रैक करने में मदद करता है।"
 
 #. module: crm
@@ -3302,7 +3302,8 @@ msgid ""
 "Set Recurring Plans on Opportunities to display the contracts' renewal "
 "periodicity<br>(e.g: Monthly, Yearly)."
 msgstr ""
-"कॉन्ट्रैक्ट रिन्यूअल की अवधि (जैसे: मासिक, वार्षिक) दिखाने के लिए अवसरों पर रिकरिंग प्लान सेट करें।"
+"कॉन्ट्रैक्ट रिन्यूअल की अवधि (जैसे: मासिक, वार्षिक) दिखाने के लिए अवसरों पर रिकरिंग प्लान "
+"सेट करें।"
 
 #. module: crm
 #: model_terms:ir.actions.act_window,help:crm.crm_stage_action
@@ -3382,7 +3383,8 @@ msgid ""
 "Specific team that uses this stage. Other teams will not be able to see or "
 "use this stage."
 msgstr ""
-"खास टीम जो इस स्टेज का इस्तेमाल करती है. दूसरी टीमें इस स्टेज को न तो देख सकेंगी और न ही इस्तेमाल कर सकेंगी।"
+"खास टीम जो इस स्टेज का इस्तेमाल करती है. दूसरी टीमें इस स्टेज को न तो देख सकेंगी और न ही "
+"इस्तेमाल कर सकेंगी।"
 
 #. module: crm
 #. odoo-python
@@ -3541,8 +3543,8 @@ msgid ""
 "The email address associated with this channel. New emails received will "
 "automatically create new leads assigned to the channel."
 msgstr ""
-"इस चैनल से जुड़ा ईमेल एड्रेस. जब भी कोई ग्राहक इस खास ईमेल पर मैसेज भेजेगा, सिस्टम उसे एक लीड के रूप में"
-" दर्ज कर लेगा और उसे सही टीम या चैनल को भेज देगा।"
+"इस चैनल से जुड़ा ईमेल एड्रेस. जब भी कोई ग्राहक इस खास ईमेल पर मैसेज भेजेगा, सिस्टम उसे एक "
+"लीड के रूप में दर्ज कर लेगा और उसे सही टीम या चैनल को भेज देगा।"
 
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_team__alias_model_id
@@ -3592,7 +3594,8 @@ msgid ""
 "The success rate is computed based on the stage, but you can add more fields "
 "in the statistical analysis."
 msgstr ""
-"सफलता दर की गणना स्टेज के आधार पर होती है, लेकिन आप सांख्यिकीय विश्लेषण में और फ़ील्ड जोड़ सकते हैं।"
+"सफलता दर की गणना स्टेज के आधार पर होती है, लेकिन आप सांख्यिकीय विश्लेषण में और फ़ील्ड जोड़ "
+"सकते हैं।"
 
 #. module: crm
 #: model_terms:ir.actions.act_window,help:crm.crm_opportunity_report_action_lead
@@ -3618,7 +3621,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:crm.res_config_settings_view_form
 msgid "This can be used to compute statistical probability to close a lead"
 msgstr ""
-"किसी लीड के बंद होने (सफल होने) की सांख्यिकीय संभावना की गणना करने के लिए इसका उपयोग करें"
+"किसी लीड के बंद होने (सफल होने) की सांख्यिकीय संभावना की गणना करने के लिए इसका उपयोग "
+"करें"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_lead_view_form
@@ -3639,7 +3643,8 @@ msgstr ""
 #: model:ir.model.fields,help:crm.field_crm_lead__lang_code
 msgid "This field is used to set/get locales for user"
 msgstr ""
-"उपयोगकर्ता के लिए लोकेल (भाषा और क्षेत्र) सेट करने या हासिल करने के लिए इस फ़ील्ड का उपयोग करें"
+"उपयोगकर्ता के लिए लोकेल (भाषा और क्षेत्र) सेट करने या हासिल करने के लिए इस फ़ील्ड का "
+"उपयोग करें"
 
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_lead__campaign_id
@@ -3660,14 +3665,16 @@ msgstr "यह डिलीवरी का तरीका है, जैसे
 msgid ""
 "This is the source of the link, e.g. Search Engine, another domain, or name "
 "of email list"
-msgstr "यह लिंक का सोर्स है, जैसे- सर्च इंजन, कोई अन्य डोमेन, या ईमेल सूची का नाम"
+msgstr ""
+"यह लिंक का सोर्स है, जैसे- सर्च इंजन, कोई अन्य डोमेन, या ईमेल सूची का नाम"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_lead_view_form
 msgid ""
 "This phone number is blacklisted for SMS Marketing. Click to unblacklist."
 msgstr ""
-"यह फ़ोन नंबर एसएमएस मार्केटिंग के लिए ब्लैकलिस्ट किया गया है. ब्लैकलिस्ट से हटाने के लिए क्लिक करें।"
+"यह फ़ोन नंबर एसएमएस मार्केटिंग के लिए ब्लैकलिस्ट किया गया है. ब्लैकलिस्ट से हटाने के लिए "
+"क्लिक करें।"
 
 #. module: crm
 #: model:ir.model.fields,help:crm.field_crm_stage__fold
@@ -3745,7 +3752,8 @@ msgid ""
 "To prevent data loss, Leads and Opportunities can only be merged by groups "
 "of %(max_length)s."
 msgstr ""
-"डेटा खोने से रोकने के लिए, लीड और अवसरों को सिर्फ़ %(max_length)s के समूहों में ही मर्ज किया जा सकता है।"
+"डेटा खोने से रोकने के लिए, लीड और अवसरों को सिर्फ़ %(max_length)s के समूहों में ही मर्ज "
+"किया जा सकता है।"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.view_crm_case_leads_filter
@@ -3867,8 +3875,8 @@ msgid ""
 "Use Lost Reasons to report on why opportunities are lost (e.g.\"Undercut by "
 "competitors\")."
 msgstr ""
-"अवसर क्यों हाथ से निकल गए, इसकी रिपोर्ट करने के लिए 'खोने की वजह' का इस्तेमाल करें "
-"(जैसे \"प्रतियोगियों द्वारा कम कीमत\")।"
+"अवसर क्यों हाथ से निकल गए, इसकी रिपोर्ट करने के लिए 'खोने की वजह' का इस्तेमाल करें (जैसे "
+"\"प्रतियोगियों द्वारा कम कीमत\")।"
 
 #. module: crm
 #: model:ir.model.fields.selection,name:crm.selection__crm_lead2opportunity_partner_mass__action__each_exist_or_create
@@ -3886,7 +3894,8 @@ msgid ""
 "                    prospects you import, etc."
 msgstr ""
 "अवसर या ग्राहक बनाने से पहले क्वालिफ़िकेशन जांच\n"
-"                    के लिए 'लीड्स' का इस्तेमाल करें. यह आपको मिला कोई बिज़नेस कार्ड,,\n"
+"                    के लिए 'लीड्स' का इस्तेमाल करें. यह आपको मिला कोई बिज़नेस "
+"कार्ड,,\n"
 "                    वेबसाइट पर भरा गया फ़ॉर्म या इंपोर्ट की गई फाइल\n"
 "                    हो सकती है।"
 
@@ -3899,9 +3908,10 @@ msgid ""
 "qualified, the lead can be converted into a business opportunity and/or a "
 "new customer in your address book."
 msgstr ""
-"अगर आपको कोई अवसर या ग्राहक बनाने से पहले योग्यता कदम चाहिए, तो लीड्स का उपयोग करें. यह एक बिज़नेस कार्"
-"ड, आपकी वेबसाइट पर भरा गया संपर्क फ़ॉर्म, या इंपोर्ट की गई अयोग्य प्रॉस्पेक्ट्स की फ़ाइल हो सकती है. योग्य "
-"होने पर, लीड को बिज़नेस अवसर और/या आपकी एड्रेस बुक में एक नया ग्राहक बनाया जा सकता है।"
+"अगर आपको कोई अवसर या ग्राहक बनाने से पहले योग्यता कदम चाहिए, तो लीड्स का उपयोग करें. "
+"यह एक बिज़नेस कार्ड, आपकी वेबसाइट पर भरा गया संपर्क फ़ॉर्म, या इंपोर्ट की गई अयोग्य "
+"प्रॉस्पेक्ट्स की फ़ाइल हो सकती है. योग्य होने पर, लीड को बिज़नेस अवसर और/या आपकी एड्रेस "
+"बुक में एक नया ग्राहक बनाया जा सकता है।"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_action_helper
@@ -3915,7 +3925,8 @@ msgid ""
 "Use the <i>New</i> button, or send an email to %(email_link)s to test the "
 "email gateway."
 msgstr ""
-"ईमेल गेटवे का टेस्ट करने के लिए <i>नया</i> बटन का इस्तेमाल करें या %(email_link)s पर ईमेल भेजें।"
+"ईमेल गेटवे का टेस्ट करने के लिए <i>नया</i> बटन का इस्तेमाल करें या %(email_link)s पर "
+"ईमेल भेजें।"
 
 #. module: crm
 #: model_terms:digest.tip,tip_description:crm.digest_tip_crm_7
@@ -3923,7 +3934,8 @@ msgid ""
 "Use the CRM Forecast Kanban to easily define when Opportunities are expected "
 "to be won."
 msgstr ""
-"यह तय करने के लिए कि अवसर कब तक जीते जा सकते हैं, सीआरएम फोरकास्ट कानबन का इस्तेमाल करें।"
+"यह तय करने के लिए कि अवसर कब तक जीते जा सकते हैं, सीआरएम फोरकास्ट कानबन का इस्तेमाल करें"
+"।"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.crm_action_helper
@@ -4088,7 +4100,8 @@ msgid ""
 "                    documents, track all discussions, and much more."
 msgstr ""
 "आप अवसरों से मीटिंग्स और फ़ोन कॉल की \n"
-"                    योजना बना सकेंगे, उन्हें कोटेशन में बदल सकेंगे, संबंधित दस्तावेज़ अटैच कर सकेंगे\n"
+"                    योजना बना सकेंगे, उन्हें कोटेशन में बदल सकेंगे, संबंधित दस्तावेज़ अटैच कर "
+"सकेंगे\n"
 "                    सभी डिस्कशन को ट्रैक कर सकेंगे और बहुत कुछ कर सकेंगे।"
 
 #. module: crm
@@ -4105,6 +4118,11 @@ msgstr "पिन"
 #: model_terms:ir.ui.view,arch_db:crm.sales_team_form_view_in_crm
 msgid "alias"
 msgstr "उपनाम"
+
+#. module: crm
+#: model_terms:ir.ui.view,arch_db:crm.crm_lead_view_form
+msgid "at"
+msgstr "पर"
 
 #. module: crm
 #: model_terms:ir.ui.view,arch_db:crm.quick_create_opportunity_form

@@ -6,15 +6,16 @@
 # Wil Odoo, 2025
 # Pedro M. Baeza <pedro.baeza@tecnativa.com>, 2025
 # Larissa Manderfeld, 2025
-# "Larissa Manderfeld (lman)" <lman@odoo.com>, 2025.
-# "Noemi Pla Garcia (nopl)" <nopl@odoo.com>, 2025.
+# "Larissa Manderfeld (lman)" <lman@odoo.com>, 2025, 2026.
+# "Noemi Pla Garcia (nopl)" <nopl@odoo.com>, 2025, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:36+0000\n"
-"PO-Revision-Date: 2025-10-16 08:31+0000\n"
-"Last-Translator: \"Noemi Pla Garcia (nopl)\" <nopl@odoo.com>\n"
+"POT-Creation-Date: 2026-03-20 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 10:13+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Spanish <https://translate.odoo.com/projects/odoo-18/hr/es/>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -22,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_res_company__hr_presence_control_email_amount
@@ -103,8 +104,8 @@ msgid ""
 "<b>Congratulations!</b> May I recommend you to setup an <a "
 "href=\"%s\">onboarding plan?</a>"
 msgstr ""
-"<b>¡Enhorabuena!</b> ¿Puedo recomendarle que configure un <a "
-"href=\"%s\">plan de incorporación?</a>"
+"<b>¡Enhorabuena!</b> ¿Puedo recomendarle que configure un <a href=\"%s\">"
+"plan de incorporación?</a>"
 
 #. module: hr
 #: model_terms:ir.ui.view,arch_db:hr.hr_department_view_kanban
@@ -326,7 +327,7 @@ msgstr "Actividades"
 #: model:ir.model.fields,field_description:hr.field_hr_department__activity_exception_decoration
 #: model:ir.model.fields,field_description:hr.field_hr_employee__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "Decoración de Actividad de Excepción"
+msgstr "Indicador de excepción de actividad"
 
 #. module: hr
 #: model:ir.model,name:hr.model_mail_activity_plan
@@ -1417,6 +1418,11 @@ msgid "Employee's Country"
 msgstr "País del empleado"
 
 #. module: hr
+#: model:ir.model.fields,field_description:hr.field_res_users__employee_country_code
+msgid "Employee's Country Code"
+msgstr ""
+
+#. module: hr
 #: model_terms:ir.ui.view,arch_db:hr.hr_employee_public_view_kanban
 #: model_terms:ir.ui.view,arch_db:hr.hr_kanban_view_employees
 #: model_terms:ir.ui.view,arch_db:hr.res_users_view_form_profile
@@ -1469,7 +1475,7 @@ msgstr "Etiquetas de empleados"
 #. odoo-python
 #: code:addons/hr/models/hr_employee.py:0
 msgid "Employees profile"
-msgstr ""
+msgstr "Perfil de los empleados"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_job__contract_type_id
@@ -2280,7 +2286,7 @@ msgstr "Siguiente evento en el calendario de actividades."
 #: model:ir.model.fields,field_description:hr.field_hr_department__activity_date_deadline
 #: model:ir.model.fields,field_description:hr.field_hr_employee__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Fecha límite de la siguiente actividad"
+msgstr "Fecha límite de la próxima actividad"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_department__activity_summary
@@ -2842,8 +2848,7 @@ msgstr "¿Listo para reclutar más eficazmente?"
 #: model_terms:hr.job,website_description:hr.job_marketing
 #: model_terms:hr.job,website_description:hr.job_trainee
 msgid "Real responsibilities and challenges in a fast evolving company"
-msgstr ""
-"Responsabilidades y desafíos reales en una compañía en rápida evolución"
+msgstr "Responsabilidades y desafíos reales en una compañía en rápida evolución"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_hr_departure_reason__name
@@ -3270,6 +3275,7 @@ msgstr ""
 
 #. module: hr
 #: model:ir.model.fields,help:hr.field_hr_employee__company_country_code
+#: model:ir.model.fields,help:hr.field_res_users__employee_country_code
 msgid ""
 "The ISO country code in two chars. \n"
 "You can use this field for quick search."
@@ -3766,6 +3772,9 @@ msgid ""
 "You are not allowed to access \"Employee\" (hr.employee) records.\n"
 "We can redirect you to the public employee list."
 msgstr ""
+"No tienes permiso para acceder a los registros de «Empleados» (hr.employee)"
+".\n"
+"Podemos redirigirte a la lista pública de empleados."
 
 #. module: hr
 #. odoo-python

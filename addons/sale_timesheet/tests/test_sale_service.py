@@ -542,6 +542,31 @@ class TestSaleService(TestCommonSaleTimesheet):
         self.assertEqual(timesheet.so_line, prepaid_service_sol, "The SOL should be the same than one containing the prepaid service product.")
         self.assertEqual(prepaid_service_sol.remaining_hours, 2, "The remaining hours should not change.")
 
+    def test_remaining_hours_recomputation(self):
+        """ The stored remaining_hours must follow the UoM and the service policy of the SOL. """
+        uom_day = self.env.ref('uom.product_uom_day')
+        sale_order = self.env['sale.order'].create({'partner_id': self.partner_b.id})
+        sol = self.env['sale.order.line'].create({
+            'order_id': sale_order.id,
+            'product_id': self.product_order_timesheet1.id,
+            'product_uom_qty': 2,
+        })
+        self.assertEqual(sol.remaining_hours, 2)
+
+        sol.product_uom = uom_day
+        self.assertEqual(sol.remaining_hours, 16, "2 days ordered should be 16 remaining hours.")
+
+        sol.product_uom = self.uom_hour
+        self.assertEqual(sol.remaining_hours, 2, "2 hours ordered should be 2 remaining hours.")
+
+        self.product_order_timesheet1.service_policy = 'delivered_timesheet'
+        self.assertFalse(sol.remaining_hours_available)
+        self.assertFalse(sol.remaining_hours, "A SOL that is no longer prepaid should have no remaining hours.")
+
+        self.product_order_timesheet1.service_policy = 'ordered_prepaid'
+        self.assertTrue(sol.remaining_hours_available)
+        self.assertEqual(sol.remaining_hours, 2, "A SOL that becomes prepaid again should have its remaining hours back.")
+
     def test_several_uom_sol_to_planned_hours(self):
         allocated_hours_for_uom = {
             'day': 8.0,
@@ -695,12 +720,11 @@ class TestSaleService(TestCommonSaleTimesheet):
             The conversion to time should be processed as follows :
                 H : qty = uom_qty [Hours]
                 D : qty = uom_qty * 8 [Hours]
-                U : qty =  uom_qty [Hours]
                 Other : qty = 0
 
             Test Cases:
             ==========
-            1) Create a 4 SOL on a SO With different UOM
+            1) Create a 3 SOL on a SO With different UOM
             2) Confirm the SO
             3) Check the project allocated hour is correctly set
             4) Repeat with different timesheet encoding UOM
@@ -718,18 +742,13 @@ class TestSaleService(TestCommonSaleTimesheet):
             'product_uom': self.env.ref('uom.product_uom_hour').id, # 8 hours
         }, {
             'order_id': self.sale_order.id,
-            'product_id': self.product_delivery_timesheet3.id,
+            'product_id': self.product_service_delivered_timesheet.id,
             'product_uom_qty': 1,
             'product_uom': self.env.ref('uom.product_uom_dozen').id, # 0 hours
-        }, {
-            'order_id': self.sale_order.id,
-            'product_id': self.product_delivery_timesheet3.id,
-            'product_uom_qty': 6,
-            'product_uom': self.env.ref('uom.product_uom_unit').id, # 6 hours
         }])
         self.sale_order.action_confirm()
         allocated_hours = self.sale_order.project_ids.allocated_hours
-        self.assertEqual(16 + 8 + 6, allocated_hours,
+        self.assertEqual(16 + 8, allocated_hours,
                          "Project's allocated hours should add up correctly.")
 
         self.env.company.timesheet_encode_uom_id = self.env.ref('uom.product_uom_day')

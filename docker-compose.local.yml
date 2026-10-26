@@ -2,20 +2,18 @@
 # Odoo 18 CE — Stack LOCAL de desarrollo (no usar en Coolify)
 # =============================================================================
 # Uso:
-#   docker compose -f docker-compose.local.yml up -d          # db + redis + adminer
+#   docker compose -f docker-compose.local.yml up -d
+#       → Levanta PostgreSQL 16 + Redis 7 + Adminer.
 #   docker compose -f docker-compose.local.yml --profile full up -d --build
-#                                                             # + odoo en contenedor
+#       → Además levanta Odoo 18 CE construido desde Dockerfile.
 #
-# Diseñado para los dos flujos de desarrollo:
-#   1. Odoo en el host (.venv + ./odoo-bin -c odoo.conf): levanta solo db/redis;
-#      los puertos quedan publicados en 127.0.0.1 con las credenciales que ya
-#      espera odoo.conf (odoo / password123).
-#   2. Odoo dockerizado: agrega --profile full para construir la imagen local
-#      con hot-reload de ./addons.
+# Modelo mutable-friendly: la imagen base trae Odoo. Puedes colocar addons en
+# ./custom_addons (o cualquier subdirectorio bajo ./) y montarlos en
+# /mnt/extra-addons. También puedes poner un requirements.txt en la raíz del
+# directorio montado para instalar librerías adicionales en runtime.
 #
 # Al usar -f explícito, docker-compose.override.yml NO se auto-carga.
-# El docker-compose.yml de la raíz es exclusivo para Coolify (Traefik + red
-# externa `coolify`) y no debe usarse localmente.
+# docker-compose.yml de la raíz es exclusivo para Coolify.
 # =============================================================================
 
 services:
@@ -24,10 +22,9 @@ services:
     restart: unless-stopped
     shm_size: '${DB_SHM_SIZE:-512mb}'
     environment:
-      # Alineado con odoo.conf del host (db_user/db_password).
       POSTGRES_USER: '${POSTGRES_USER:-odoo}'
       POSTGRES_PASSWORD: '${POSTGRES_PASSWORD:-password123}'
-      POSTGRES_DB: '${POSTGRES_DB:-postgres}'
+      POSTGRES_DB: '${POSTGRES_DB:-odoo}'
       PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_INITDB_ARGS: '--lc-collate=C'
     ports:
@@ -50,6 +47,10 @@ services:
       - redis-server
       - '--appendonly'
       - 'yes'
+      - '--maxmemory'
+      - '${REDIS_MAXMEMORY:-512mb}'
+      - '--maxmemory-policy'
+      - allkeys-lru
     ports:
       - '127.0.0.1:6379:6379'
     healthcheck:
@@ -70,20 +71,13 @@ services:
       - '127.0.0.1:8080:8080'
 
   odoo:
-    # Solo con: --profile full
+    # Solo arranca con: --profile full
     profiles: [full]
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        PYTHON_VERSION: '${PYTHON_VERSION:-3.11-slim}'
-        OS_VARIANT: '${OS_VARIANT:-bookworm}'
-        ODOO_VERSION: '${ODOO_VERSION:-18.0}'
-        WKHTMLTOX_VERSION: '${WKHTMLTOX_VERSION:-0.12.6.1-3}'
-        ODOO_USER: '${ODOO_USER:-odoo}'
-        ODOO_BASEPATH: '${ODOO_BASEPATH:-/opt/odoo}'
-        APP_UID: '${APP_UID:-101}'
-        APP_GID: '${APP_GID:-101}'
+        PG_MAJOR: '${PG_MAJOR:-16}'
     restart: unless-stopped
     depends_on:
       db:
@@ -102,20 +96,40 @@ services:
       ODOO_SESSION_REDIS: '1'
       ODOO_SESSION_REDIS_HOST: redis
       ODOO_SESSION_REDIS_PORT: '6379'
+      ODOO_SESSION_REDIS_PREFIX: '${ODOO_SESSION_REDIS_PREFIX:-session}'
       HTTP_INTERFACE: 0.0.0.0
       HTTP_PORT: '8069'
-      # Dev: monoproceso, gestor de BD visible, logs verbosos.
+      ADMIN_PASSWORD: '${ADMIN_PASSWORD:-password123}'
+      ODOO_ADMIN_PASSWORD: '${ADMIN_PASSWORD:-password123}'
+      # Dev: auto-inicializar la BD en el primer arranque.
+      ODOO_AUTO_INIT: '1'
+      ODOO_INIT_MODULES: '${ODOO_INIT_MODULES:-base}'
+      # Dev: monoproceso, gestor de BD visible, datos demo y logs verbosos.
       WORKERS: 0
       LIST_DB: 'True'
       WITHOUT_DEMO: 'False'
       LOG_LEVEL: '${LOG_LEVEL:-debug}'
-      FORCE_RECONFIG: '${FORCE_RECONFIG:-0}'
+      LOG_HANDLER: ':INFO'
+      PROXY_MODE: 'False'
+      FORCE_RECONFIG: '${FORCE_RECONFIG:-1}'
+      RESET_ADMIN_PASSWD: '${RESET_ADMIN_PASSWD:-1}'
+      LIMIT_TIME_CPU: '${LIMIT_TIME_CPU:-600}'
+      LIMIT_TIME_REAL: '${LIMIT_TIME_REAL:-1200}'
+      # Librerías pip extra separadas por espacio, ej: "pdf2image reportlab".
+      ODOO_EXTRA_PIP: '${ODOO_EXTRA_PIP:-}'
     volumes:
-      - 'odoo-data:/var/lib/odoo/data'
-      - 'odoo-logs:/var/lib/odoo/logs'
-      # Hot-reload de addons locales durante desarrollo.
-      - './addons:/mnt/extra-addons:delegated'
+      - 'odoo-data:/var/lib/odoo'
+      # En dev puedes montar addons locales para hot-reload.
+      # Crea el directorio ./custom_addons si vas a usarlo.
+      - './custom_addons:/mnt/extra-addons:delegated'
+      # Template de config: el entrypoint lo expande a /var/lib/odoo/odoo.conf
       - './docker/odoo.conf:/etc/odoo/odoo.conf.template:ro'
+    healthcheck:
+      test: [CMD, curl, '-sf', 'http://127.0.0.1:8069/web/health']
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
     stop_grace_period: 30s
 
 volumes:

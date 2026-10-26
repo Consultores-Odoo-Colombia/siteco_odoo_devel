@@ -30,15 +30,15 @@
 # Carles Antoli <carlesantoli@hotmail.com>, 2024
 # Martin Trigaux, 2024
 # Wil Odoo, 2025
-# Santiago Payà <santiagopim@gmail.com>, 2025
+# Santiago Payà <santiagopim@gmail.com>, 2025, 2026.
 # Noemi Pla, 2025
-# "Noemi Pla Garcia (nopl)" <nopl@odoo.com>, 2025.
+# "Noemi Pla Garcia (nopl)" <nopl@odoo.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:36+0000\n"
-"PO-Revision-Date: 2025-11-17 13:55+0000\n"
+"POT-Creation-Date: 2026-03-20 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 10:08+0000\n"
 "Last-Translator: Santiago Payà <santiagopim@gmail.com>\n"
 "Language-Team: Catalan <https://translate.odoo.com/projects/odoo-18/hr/ca/>\n"
 "Language: ca\n"
@@ -46,7 +46,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: hr
 #: model:ir.model.fields,field_description:hr.field_res_company__hr_presence_control_email_amount
@@ -286,8 +286,7 @@ msgstr "Lloc de temps complet<br> Salari atractiu."
 #. module: hr
 #: model:ir.model.constraint,message:hr.constraint_hr_employee_user_uniq
 msgid "A user cannot be linked to multiple employees in the same company."
-msgstr ""
-"Un usuari no es pot vincular a diversos empleats de la mateixa empresa."
+msgstr "Un usuari no es pot vincular a diversos empleats de la mateixa empresa."
 
 #. module: hr
 #. odoo-javascript
@@ -1417,6 +1416,11 @@ msgid "Employee's Country"
 msgstr "País de l'empleat"
 
 #. module: hr
+#: model:ir.model.fields,field_description:hr.field_res_users__employee_country_code
+msgid "Employee's Country Code"
+msgstr ""
+
+#. module: hr
 #: model_terms:ir.ui.view,arch_db:hr.hr_employee_public_view_kanban
 #: model_terms:ir.ui.view,arch_db:hr.hr_kanban_view_employees
 #: model_terms:ir.ui.view,arch_db:hr.res_users_view_form_profile
@@ -1669,8 +1673,7 @@ msgstr "Departaments de recursos humans"
 #. module: hr
 #: model:ir.actions.server,name:hr.ir_cron_data_check_work_permit_validity_ir_actions_server
 msgid "HR Employee: check work permit validity"
-msgstr ""
-"Empleat de recursos humans: comprovar la validesa del permís de treball"
+msgstr "Empleat de recursos humans: comprovar la validesa del permís de treball"
 
 #. module: hr
 #. odoo-javascript
@@ -1817,8 +1820,7 @@ msgstr "Nº identificació"
 #: model:ir.model.fields,help:hr.field_hr_employee__message_needaction
 #: model:ir.model.fields,help:hr.field_hr_job__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr ""
-"Si està marcat, hi ha nous missatges que requereixen la vostra atenció."
+msgstr "Si està marcat, hi ha nous missatges que requereixen la vostra atenció."
 
 #. module: hr
 #: model:ir.model.fields,help:hr.field_hr_department__message_has_error
@@ -3112,7 +3114,7 @@ msgstr "Nom complet del cònjuge"
 #. module: hr
 #: model_terms:ir.ui.view,arch_db:hr.view_employee_filter
 msgid "Start Date"
-msgstr "Data inicial"
+msgstr "Data d'inici"
 
 #. module: hr
 #: model_terms:ir.ui.view,arch_db:hr.res_users_view_form_profile
@@ -3250,6 +3252,7 @@ msgstr ""
 
 #. module: hr
 #: model:ir.model.fields,help:hr.field_hr_employee__company_country_code
+#: model:ir.model.fields,help:hr.field_res_users__employee_country_code
 msgid ""
 "The ISO country code in two chars. \n"
 "You can use this field for quick search."
@@ -3442,7 +3445,7 @@ msgstr "Aprenent"
 #: model_terms:hr.job,website_description:hr.job_marketing
 #: model_terms:hr.job,website_description:hr.job_trainee
 msgid "Trainings"
-msgstr "Entrenaments"
+msgstr "Formacions"
 
 #. module: hr
 #: model:ir.model.fields,help:hr.field_hr_department__activity_exception_decoration

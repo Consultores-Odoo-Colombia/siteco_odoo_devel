@@ -6,10 +6,10 @@ import { Dropdown } from "@web/core/dropdown/dropdown";
 import { DropdownItem } from "@web/core/dropdown/dropdown_item";
 import { useDropdownState } from "@web/core/dropdown/dropdown_hooks";
 import { deserializeDateTime } from "@web/core/l10n/dates";
-import { rpc } from "@web/core/network/rpc";
+import { rpc, ConnectionLostError } from "@web/core/network/rpc";
 import { registry } from "@web/core/registry";
 import { useService } from "@web/core/utils/hooks";
-import { isIosApp } from "@web/core/browser/feature_detection";
+import { _t } from "@web/core/l10n/translation";
 const { DateTime } = luxon;
 
 export class ActivityMenu extends Component {
@@ -19,10 +19,12 @@ export class ActivityMenu extends Component {
 
     setup() {
         this.ui = useState(useService("ui"));
+        this.notification = useService("notification");
         this.employee = false;
         this.state = useState({
             checkedIn: false,
-            isDisplayed: false
+            isDisplayed: false,
+            gettingPosition: false,
         });
         this.date_formatter = registry.category("formatters").get("float_time")
         this.dropdown = useDropdownState();
@@ -53,28 +55,54 @@ export class ActivityMenu extends Component {
         }
     }
 
+    async checking(latitude = false, longitude = false) {
+        try {
+            await rpc("/hr_attendance/systray_check_in_out", {
+                latitude,
+                longitude
+            })
+            this.searchReadEmployee();
+        } catch (error) {
+            if(error instanceof ConnectionLostError) {
+                this.notification.add(
+                    _t("Connection lost. Check in/out could not be recorded."), 
+                    { 
+                        title: _t("Attendance Error"),
+                        type: "danger",
+                        sticky: false,
+                    }
+                );
+            }else{
+                throw error;
+            }
+        } finally {
+            this.state.gettingPosition = false;
+        }
+    };
+
     async signInOut() {
         this.dropdown.close();
-        if (!isIosApp()) { // iOS app lacks permissions to call `getCurrentPosition`
+
+        if (this.state.gettingPosition) {
+            return;
+        }
+        this.state.gettingPosition = true;
+
+        if (navigator.geolocation && navigator.onLine) {
             navigator.geolocation.getCurrentPosition(
                 async ({coords: {latitude, longitude}}) => {
-                    await rpc("/hr_attendance/systray_check_in_out", {
-                        latitude,
-                        longitude
-                    })
-                    await this.searchReadEmployee()
+                    await this.checking(latitude, longitude);
                 },
-                async err => {
-                    await rpc("/hr_attendance/systray_check_in_out")
-                    await this.searchReadEmployee()
+                async () => {
+                    await this.checking();
                 },
                 {
                     enableHighAccuracy: true,
+                    timeout: 10000,
                 }
-            )
+            );
         } else {
-            await rpc("/hr_attendance/systray_check_in_out")
-            await this.searchReadEmployee()
+            await this.checking();
         }
     }
 }

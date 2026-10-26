@@ -326,6 +326,21 @@ class ProductTemplateAttributeValue(models.Model):
         return ['attribute_id', 'attribute_line_id', 'product_attribute_value_id', 'price_extra', 'name', 'is_custom', 'html_color', 'image']
 
 
+class ProductTemplateAttributeExclusion(models.Model):
+    _name = 'product.template.attribute.exclusion'
+    _inherit = ['product.template.attribute.exclusion', 'pos.load.mixin']
+
+    @api.model
+    def _load_pos_data_domain(self, data):
+        loaded_product_tmpl_ids = list({p['product_tmpl_id'] for p in data['product.product']['data']})
+        loaded_ptav_ids = list({ptav['id'] for ptav in data['product.template.attribute.value']['data']})
+        return [('product_tmpl_id', 'in', loaded_product_tmpl_ids), ('product_template_attribute_value_id', 'in', loaded_ptav_ids)]
+
+    @api.model
+    def _load_pos_data_fields(self, config_id):
+        return ['value_ids', 'product_template_attribute_value_id']
+
+
 class ProductPackaging(models.Model):
     _name = 'product.packaging'
     _inherit = ['product.packaging', 'pos.load.mixin']
@@ -374,7 +389,7 @@ class Uom(models.Model):
 
         domain = self._load_pos_data_domain(data)
         return {
-            'data': self.with_context({**self.env.context}).search_read(domain, fields, load=False),
+            'data': self.with_context({**self.env.context, 'active_test': False}).search_read(domain, fields, load=False),
             'fields': fields,
         }
 

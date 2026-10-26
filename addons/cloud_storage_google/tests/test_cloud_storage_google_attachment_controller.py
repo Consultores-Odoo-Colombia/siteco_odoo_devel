@@ -56,6 +56,7 @@ class TestCloudStorageAttachmentController(
                                 "id": attachment.id,
                                 "mimetype": "text/x-python",
                                 "name": "__init__.py",
+                                "res_model": attachment.res_model,
                                 "res_name": False,
                                 "size": 0,
                                 "thread": False,
@@ -65,6 +66,11 @@ class TestCloudStorageAttachmentController(
                             }
                         ],
                     },
-                    "upload_info": {"method": "PUT", "response_status": 200, "url": "[url]"},
+                    "upload_info": {
+                        "headers": {"Content-Type": "text/x-python"},
+                        "method": "PUT",
+                        "response_status": 200,
+                        "url": "[url]",
+                    },
                 },
             )

@@ -3,19 +3,19 @@
 # * mrp
 #
 # Translators:
-# Ryoko Tsuda <ryoko@quartile.co>, 2024, 2025.
+# Ryoko Tsuda <ryoko@quartile.co>, 2024, 2025, 2026.
 # Wil Odoo, 2024
 # Junko Augias, 2025
 # "Junko Augias (juau)" <juau@odoo.com>, 2025, 2026.
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
-# Yoshi Tashiro <tashiro@quartile.co>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
+# Yoshi Tashiro <tashiro@quartile.co>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:36+0000\n"
-"PO-Revision-Date: 2026-01-10 09:08+0000\n"
-"Last-Translator: \"Junko Augias (juau)\" <juau@odoo.com>\n"
+"POT-Creation-Date: 2026-04-10 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 11:54+0000\n"
+"Last-Translator: Ryoko Tsuda <ryoko@quartile.co>\n"
 "Language-Team: Japanese <https://translate.odoo.com/projects/odoo-18/mrp/ja/>"
 "\n"
 "Language: ja\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_production__state
@@ -37,9 +37,9 @@ msgid ""
 " * Done: The MO is closed, the stock moves are posted. \n"
 " * Cancelled: The MO has been cancelled, can't be confirmed anymore."
 msgstr ""
-" * ドラフト: 製造オーダはまだ確認されていません。\n"
-" * 確認済: 製造オーダが確認済で、在庫規則および構成品の再オーダがトリガされて"
-"います。\n"
+" * 下書き: 製造オーダはまだ確認されていません。\n"
+" * 確認済: 製造オーダが確認済で、在庫ルールおよび構成品の再オーダがトリガされ"
+"ています。\n"
 " * 進行中: 製造が開始されています。(製造オーダ又は作業オーダ上)\n"
 " * クローズ対象: 製品が完成し、製造オーダをクローズする必要があります。\n"
 " * 完了: 製造オーダがクローズされ、在庫移動が計上されています。\n"
@@ -221,19 +221,8 @@ msgid ""
 msgstr ""
 "1 ステップ: 在庫から構成品を消費して製造。\n"
 "              2 ステップ: 在庫から構成品をピッキングして製造。\n"
-"              3 ステップ: 在庫から構成品をピッキングして製造し、最終プロダク"
-"トを製造エリアから在庫に移動。"
-
-#. module: mrp
-#: model_terms:ir.ui.view,arch_db:mrp.report_mrporder
-msgid "100"
-msgstr "100"
-
-#. module: mrp
-#: model_terms:ir.ui.view,arch_db:mrp.report_mrp_production_components
-#: model_terms:ir.ui.view,arch_db:mrp.report_mrp_workorder
-msgid "12345678901"
-msgstr "12345678901"
+"              3 ステップ: 在庫から構成品をピッキングして製造し、最終"
+"プロダクトを製造エリアから在庫に移動。"
 
 #. module: mrp
 #: model_terms:product.template,description:mrp.product_product_computer_desk_leg_product_template
@@ -241,39 +230,9 @@ msgid "18″ x 2½″ Square Leg"
 msgstr "18″ x 2½″ 角柱"
 
 #. module: mrp
-#: model_terms:ir.ui.view,arch_db:mrp.report_mrporder
-msgid "2023-09-15"
-msgstr "2023-09-15"
-
-#. module: mrp
-#: model_terms:ir.ui.view,arch_db:mrp.report_mrp_production_components
-msgid "25"
-msgstr "25"
-
-#. module: mrp
-#: model_terms:ir.ui.view,arch_db:mrp.report_mrporder
-msgid "50"
-msgstr "50"
-
-#. module: mrp
-#: model_terms:ir.ui.view,arch_db:mrp.report_mrporder
-msgid "58"
-msgstr "58"
-
-#. module: mrp
-#: model_terms:ir.ui.view,arch_db:mrp.report_mrporder
-msgid "60"
-msgstr "60"
-
-#. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrp_production_components
 msgid "8 GB RAM"
 msgstr "8 GB RAM"
-
-#. module: mrp
-#: model_terms:ir.ui.view,arch_db:mrp.report_mrporder
-msgid "987654321098"
-msgstr "987654321098"
 
 #. module: mrp
 #. odoo-javascript
@@ -628,8 +587,7 @@ msgstr "製造オーダがすでに完了済かキャンセルされています
 #: code:addons/mrp/models/stock_warehouse.py:0
 msgid ""
 "A product with a kit-type bill of materials can not have a reordering rule."
-msgstr ""
-"キットタイプ部品表のあるプロダクトは再オーダ規則を持つことはできません。"
+msgstr "キットタイプ部品表のあるプロダクトは再オーダルールを持つことはできません。"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_rule__action
@@ -650,7 +608,7 @@ msgstr "要アクション"
 #: model:ir.model.fields,field_description:mrp.field_mrp_routing_workcenter__active
 #: model:ir.model.fields,field_description:mrp.field_mrp_workcenter__active
 msgid "Active"
-msgstr "アクティブ"
+msgstr "有効"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_production__activity_ids
@@ -699,9 +657,9 @@ msgid ""
 "finished products as well. Without this option you only do: A + B = C. With "
 "the option: A + B = C + D."
 msgstr ""
-"副産物を部品表に加えます。 これは、いくつかの完成品を得るためにも使用されま"
-"す。 このオプションを指定しないと、A + B = Cとなるのみですが、オプションを指"
-"定するとA + B = C + Dとなります。"
+"副産物を部品表に加えます。 これは、いくつかの完成品を得るためにも使用されます"
+"。 このオプションを指定しないと、A + B = Cとなるのみですが、オプションを指定"
+"するとA + B = C + Dとなります。"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.res_config_settings_view_form
@@ -930,8 +888,8 @@ msgid ""
 "Automatically print the lot/SN label when the \"Create a new serial/lot "
 "number\" button is used."
 msgstr ""
-"\"新しいロット/シリアル番号を作成\"ボタンを使用すると、自動的にロット/シリア"
-"ル番号ラベルを印刷します。"
+"\"新しいロット/シリアル番号を作成\"ボタンを使用すると、自動的にロット/"
+"シリアル番号ラベルを印刷します。"
 
 #. module: mrp
 #. odoo-javascript
@@ -952,7 +910,7 @@ msgstr "利用可能プロダクト"
 #: model:ir.model.fields.selection,name:mrp.selection__mrp_workcenter_productivity_loss_type__loss_type__availability
 #: model_terms:ir.ui.view,arch_db:mrp.report_mrp_bom
 msgid "Availability"
-msgstr "利用可能"
+msgstr "利用可能性"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.oee_search_view
@@ -1071,8 +1029,8 @@ msgstr "バックオーダ付番"
 #: model:ir.model.fields,help:mrp.field_mrp_production__backorder_sequence
 msgid "Backorder sequence, if equals to 0 means there is not related backorder"
 msgstr ""
-"バックオーダ付番が0に等しい場合は、関連するバックオーダがないことを意味しま"
-"す。"
+"バックオーダ付番が0に等しい場合は、関連するバックオーダがないことを意味します"
+"。"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_workorder__barcode
@@ -1190,7 +1148,7 @@ msgstr "作業区をブロック"
 #: model:ir.model.fields.selection,name:mrp.selection__mrp_production__consumption__strict
 #: model:ir.model.fields.selection,name:mrp.selection__mrp_workcenter__working_state__blocked
 msgid "Blocked"
-msgstr "不許可"
+msgstr "ブロック中"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_routing_workcenter__blocked_by_operation_ids
@@ -1512,7 +1470,7 @@ msgstr "構成品ステータス"
 #. odoo-javascript
 #: code:addons/mrp/static/src/mrp_forecasted/forecasted_details.xml:0
 msgid "Component of Draft MO"
-msgstr "ドラフト製造オーダの構成品"
+msgstr "下書き製造オーダの構成品"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_batch_produce__component_separator
@@ -1525,7 +1483,7 @@ msgstr "構成品セパレータ"
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_production_form_view
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_production_workorder_form_view_inherit
 msgid "Components"
-msgstr "構成要素"
+msgstr "構成品"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_production__components_availability_state
@@ -1578,7 +1536,7 @@ msgstr "最終計算"
 #. module: mrp
 #: model:ir.model,name:mrp.model_res_config_settings
 msgid "Config Settings"
-msgstr "コンフィグ設定"
+msgstr "構成設定"
 
 #. module: mrp
 #: model:ir.ui.menu,name:mrp.menu_mrp_configuration
@@ -1808,8 +1766,8 @@ msgid ""
 "started simultaneously."
 msgstr ""
 "工程レベルの依存関係を作成すると、計画とMO確認時の作業オーダのステータスの両"
-"方に影響を与えることができます。この機能にチェックを入れ、何も指定しない場"
-"合、Odooはすべての工程を同時に開始できるものと見なします。"
+"方に影響を与えることができます。この機能にチェックを入れ、何も指定しない場合"
+"、Odooはすべての工程を同時に開始できるものと見なします。"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_move__created_production_id
@@ -1900,8 +1858,8 @@ msgstr ""
 "またはその子品が含まれます。\n"
 "このショップの倉庫の保管ロケーションに保管されているか、またはその子のいずれ"
 "かに保管されています。\n"
-"それ以外の場合は、「内部」タイプの在庫ロケーションに保管されているロケーショ"
-"ンが含まれます。"
+"それ以外の場合は、「内部」タイプの在庫ロケーションに保管されている"
+"ロケーションが含まれます。"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_workorder__qty_producing
@@ -1990,9 +1948,9 @@ msgid ""
 "be multiplied by two. However, note that both time before and after "
 "production will only be counted once."
 msgstr ""
-"この作業区で並行して(同時に)生産できる個数のデフォルト数(プロダクト単位)。"
-"例：生産能力が5で、10個生産する必要がある場合、部品表に記載されている作業時間"
-"は2の倍数になります。ただし、生産前後の時間は1回のみカウントされます。"
+"この作業区で並行して(同時に)生産できる個数のデフォルト数(プロダクト単位)。例"
+"：生産能力が5で、10個生産する必要がある場合、部品表に記載されている作業時間は"
+"2の倍数になります。ただし、生産前後の時間は1回のみカウントされます。"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_consumption_warning_line__product_uom_id
@@ -2061,7 +2019,7 @@ msgstr "プロダクトの一部を下請業者に委託"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_production__delivery_count
 msgid "Delivery Orders"
-msgstr "配送"
+msgstr "出荷オーダ"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_routing_workcenter__note
@@ -2179,7 +2137,7 @@ msgstr "完了"
 #: model_terms:ir.ui.view,arch_db:mrp.view_mrp_production_filter
 #: model_terms:ir.ui.view,arch_db:mrp.view_mrp_production_workorder_form_view_filter
 msgid "Draft"
-msgstr "ドラフト"
+msgstr "下書き"
 
 #. module: mrp
 #: model:product.template,name:mrp.product_product_drawer_drawer_product_template
@@ -2416,7 +2374,7 @@ msgstr "Font awesomeのアイコン 例. fa-tasks"
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.view_mrp_consumption_warning_form
 msgid "Force"
-msgstr "強制する"
+msgstr "強制"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_production_form_view
@@ -2464,7 +2422,7 @@ msgstr "予測された問題"
 #. odoo-javascript
 #: code:addons/mrp/static/src/components/bom_overview_table/mrp_bom_overview_table.xml:0
 msgid "Free to Use"
-msgstr "引当なし"
+msgstr "利用可能"
 
 #. module: mrp
 #. odoo-javascript
@@ -2703,7 +2661,7 @@ msgstr "チェックした場合は、新しいメッセージに注意が必要
 #: model:ir.model.fields,help:mrp.field_mrp_workcenter__message_has_error
 #: model:ir.model.fields,help:mrp.field_mrp_workcenter__message_has_sms_error
 msgid "If checked, some messages have a delivery error."
-msgstr "チェックした場合は、一部のメッセージに配信エラーが発生されました。"
+msgstr "チェックされている場合、一部のメッセージで送信エラーが発生しています。"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_production__propagate_cancel
@@ -2721,8 +2679,8 @@ msgid ""
 "If the active field is set to False, it will allow you to hide the resource "
 "record without removing it."
 msgstr ""
-"アクティブ項目をFalse にセットすると、リソースレコードは削除することなく非表"
-"示にできます。"
+"有効項目をFalse にセットすると、リソースレコードは削除することなく非表示にで"
+"きます。"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_stock_picking_type__auto_print_mrp_reception_report_labels
@@ -2757,8 +2715,8 @@ msgid ""
 "If this checkbox is ticked, Odoo will automatically print the product labels "
 "of a MO when it is done."
 msgstr ""
-"このチェックボックスにチェックすると、Odooは製造オーダが完了すると自動的にプ"
-"ロダクトラベルを印刷します。"
+"このチェックボックスにチェックすると、Odooは製造オーダが完了すると自動的に"
+"プロダクトラベルを印刷します。"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_stock_picking_type__auto_print_done_production_order
@@ -3032,8 +2990,8 @@ msgid ""
 "Latest component availability status for this MO. If green, then the MO's "
 "readiness status is ready, as per BOM configuration."
 msgstr ""
-"この製造オーダの最新の構成品利用可能ステータス。緑の場合、部品表構成に従っ"
-"て、製造オーダの準備状況は準備完了です。"
+"この製造オーダの最新の構成品利用可能ステータス。緑の場合、部品表構成に従って"
+"、製造オーダの準備状況は準備完了です。"
 
 #. module: mrp
 #: model_terms:product.template,description:mrp.product_product_wood_ply_product_template
@@ -3056,7 +3014,7 @@ msgstr "リードタイム"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_workorder__leave_id
 msgid "Leave"
-msgstr "解除"
+msgstr "休暇"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_product_document__attached_on_mrp
@@ -3195,7 +3153,7 @@ msgstr "製造オーダ原価"
 #. odoo-javascript
 #: code:addons/mrp/static/src/components/mo_overview_display_filter/mrp_mo_overview_display_filter.js:0
 msgid "MO Costs"
-msgstr "製造オーダー原価"
+msgstr "製造オーダ原価"
 
 #. module: mrp
 #: model:mail.message.subtype,description:mrp.mrp_mo_in_done
@@ -3314,12 +3272,12 @@ msgstr "製造(1ステップ)"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_warehouse__manufacture_mto_pull_id
 msgid "Manufacture MTO Rule"
-msgstr "製造MTO（受注生産）規則"
+msgstr "製造MTO（受注生産）ルール"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_warehouse__manufacture_pull_id
 msgid "Manufacture Rule"
-msgstr "製造規則"
+msgstr "製造ルール"
 
 #. module: mrp
 #. odoo-python
@@ -3449,8 +3407,8 @@ msgid ""
 "                workers and/or machines, they are used for costing, "
 "scheduling, capacity planning, etc."
 msgstr ""
-"製造工程は作業区で処理されます。作業区は作業員および/または機械で構成され、コ"
-"スト計算、\n"
+"製造工程は作業区で処理されます。作業区は作業員および/または機械で構成され、"
+"コスト計算、\n"
 "　　　　スケジューリング、生産能力計画などに使用されます。"
 
 #. module: mrp
@@ -3462,8 +3420,8 @@ msgid ""
 "scheduling, capacity planning, etc.\n"
 "                They can be defined via the configuration menu."
 msgstr ""
-"製造工程は作業区で処理されます。作業区は作業員および/または機械で構成され、コ"
-"スト計算、\n"
+"製造工程は作業区で処理されます。作業区は作業員および/または機械で構成され、"
+"コスト計算、\n"
 "　　　　スケジューリング、生産能力計画などに使用されます。\n"
 "　　　　それらは設定メニューから定義できます。"
 
@@ -3539,7 +3497,7 @@ msgstr "メッセージ"
 #. module: mrp
 #: model:ir.model,name:mrp.model_stock_warehouse_orderpoint
 msgid "Minimum Inventory Rule"
-msgstr "最小在庫規則"
+msgstr "最小在庫ルール"
 
 #. module: mrp
 #. odoo-javascript
@@ -3832,7 +3790,7 @@ msgstr "生成された製造オーダ数"
 #: model:ir.model.fields,help:mrp.field_mrp_unbuild__message_needaction_counter
 #: model:ir.model.fields,help:mrp.field_mrp_workcenter__message_needaction_counter
 msgid "Number of messages requiring action"
-msgstr "アクションを必要とするメッセージの数"
+msgstr "対応が必要なメッセージ数"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_bom__message_has_error_counter
@@ -3873,8 +3831,8 @@ msgid ""
 "of the reports."
 msgstr ""
 "OdooはデフォルトでPDFプレビューを開きます。もしすぐに印刷したいのであれば、\n"
-"                                バーコードオペレータと同じローカルネットワー"
-"ク上にあるコンピュータにIoTアプリ\n"
+"                                バーコードオペレータと同じ"
+"ローカルネットワーク上にあるコンピュータにIoTアプリ\n"
 "                                をインストールしてレポートのルーティンを設定"
 "して下さい。"
 
@@ -3893,7 +3851,7 @@ msgstr "手持在庫"
 #: code:addons/mrp/models/mrp_production.py:0
 msgid ""
 "Only manufacturing orders in either a draft or confirmed state can be %s."
-msgstr "ドラフト状態または確定状態の製造オーダーのみ%sであることが可能です。"
+msgstr "下書き状態または確定状態の製造オーダーのみ%sであることが可能です。"
 
 #. module: mrp
 #. odoo-python
@@ -4008,7 +3966,7 @@ msgstr "この工程が開始する前に完了する必要のある工程"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_production__orderpoint_id
 msgid "Orderpoint"
-msgstr "オーダポイント"
+msgstr "補充ルール"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_workcenter__order_ids
@@ -4147,7 +4105,7 @@ msgstr "構成品をピッキング、製造しプロダクトを格納(3ステ�
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_warehouse__pbm_mto_pull_id
 msgid "Picking Before Manufacturing MTO Rule"
-msgstr "製造MTO規則前のピッキング"
+msgstr "製造MTOルール前のピッキング"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_warehouse__pbm_type_id
@@ -4379,12 +4337,12 @@ msgstr "調達:スケジューラーを実行する"
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_production_form_view
 #: model_terms:ir.ui.view,arch_db:mrp.view_mrp_batch_produce_form
 msgid "Produce"
-msgstr "生産"
+msgstr "製造"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_production_form_view
 msgid "Produce All"
-msgstr "全て生産"
+msgstr "すべて製造"
 
 #. module: mrp
 #: model:ir.model,name:mrp.model_mrp_batch_produce
@@ -4490,7 +4448,7 @@ msgstr "プロダクトライフサイクル管理(PLM)"
 #. module: mrp
 #: model:ir.model,name:mrp.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr "プロダクトの移動(在庫移動ライン)"
+msgstr "プロダクト移動(在庫移動明細行)"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_move__product_qty_available
@@ -4596,7 +4554,7 @@ msgstr "構成品用生産オーダ"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_move__production_id
 msgid "Production Order for finished products"
-msgstr "生産済プロダクトの製造オーダ"
+msgstr "完成品の製造オーダ"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_workorder__production_state
@@ -4612,7 +4570,7 @@ msgstr "生産 作業区"
 #. odoo-javascript
 #: code:addons/mrp/static/src/mrp_forecasted/forecasted_details.xml:0
 msgid "Production of Draft MO"
-msgstr "ドラフト製造オーダの生産"
+msgstr "下書き製造オーダの生産"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.view_mrp_production_workorder_form_view_filter
@@ -4685,7 +4643,7 @@ msgstr "品質ワークシート"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_warn_insufficient_qty_unbuild__quant_ids
 msgid "Quant"
-msgstr "Quant"
+msgstr "在庫数量"
 
 #. module: mrp
 #. odoo-javascript
@@ -4959,7 +4917,7 @@ msgstr "工順作業区"
 #: model:ir.model.fields,field_description:mrp.field_mrp_unbuild__message_has_sms_error
 #: model:ir.model.fields,field_description:mrp.field_mrp_workcenter__message_has_sms_error
 msgid "SMS Delivery error"
-msgstr "SMS送信エラー"
+msgstr "SMS配信エラー"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_production_split_line__date
@@ -5380,7 +5338,7 @@ msgstr "製造工程後のピッキング"
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_warehouse__sam_rule_id
 msgid "Stock After Manufacturing Rule"
-msgstr "製造規則後の在庫"
+msgstr "製造ルール後の在庫"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_mrp_workorder__production_availability
@@ -5415,7 +5373,7 @@ msgstr "在庫補充レポート"
 #. module: mrp
 #: model:ir.model,name:mrp.model_stock_rule
 msgid "Stock Rule"
-msgstr "在庫規則"
+msgstr "在庫ルール"
 
 #. module: mrp
 #: model:ir.model.fields,field_description:mrp.field_stock_warehouse__sam_loc_id
@@ -5425,7 +5383,7 @@ msgstr "製造ロケーション後の在庫"
 #. module: mrp
 #: model:ir.model,name:mrp.model_report_stock_report_stock_rule
 msgid "Stock rule report"
-msgstr "在庫規則レポート"
+msgstr "在庫ルールレポート"
 
 #. module: mrp
 #. odoo-python
@@ -5483,8 +5441,7 @@ msgstr "タグ名"
 msgid ""
 "Technical Field used to decide whether the button \"Allocation\" should be "
 "displayed."
-msgstr ""
-"”割り当て”ボタンを表示するかどうかを決定するために使用される技術フィールド。"
+msgstr "”割り当て”ボタンを表示するかどうかを決定するために使用される技術フィールド。"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_workcenter__has_routing_lines
@@ -5542,8 +5499,8 @@ msgid ""
 "The attribute value %(attribute)s set on product %(product)s does not match "
 "the BoM product %(bom_product)s."
 msgstr ""
-"適用値 %(attribute)s(プロダクト %(product)sに設定されたもの)は部品表プロダク"
-"ト %(bom_product)sと一致しません。"
+"適用値 %(attribute)s(プロダクト %(product)sに設定されたもの)は部品表"
+"プロダクト %(bom_product)sと一致しません。"
 
 #. module: mrp
 #. odoo-python
@@ -5655,8 +5612,7 @@ msgstr "解体予定数量は正の数である必要があります。"
 msgid ""
 "The serial number %(number)s used for byproduct %(product_name)s has already "
 "been produced"
-msgstr ""
-"シリアルナンバー%(number)s(副産品%(product_name)sに使用)はすでに生産済です"
+msgstr "シリアルナンバー%(number)s(副産品%(product_name)sに使用)はすでに生産済です"
 
 #. module: mrp
 #. odoo-python
@@ -5664,8 +5620,7 @@ msgstr ""
 msgid ""
 "The serial number %(number)s used for component %(component)s has already "
 "been consumed"
-msgstr ""
-"シリアルナンバー%(number)s(構成品%(component)sに使用)はすでに生産済です"
+msgstr "シリアルナンバー%(number)s(構成品%(component)sに使用)はすでに生産済です"
 
 #. module: mrp
 #: model:ir.model.constraint,message:mrp.constraint_mrp_workcenter_tag_tag_name_unique
@@ -5889,7 +5844,7 @@ msgstr "消費待ち"
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.view_mrp_production_filter
 msgid "To Do"
-msgstr "未処理"
+msgstr "未着手"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_workcenter_kanban
@@ -5923,7 +5878,7 @@ msgstr "今日"
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_unbuild_search_view
 #: model_terms:ir.ui.view,arch_db:mrp.view_mrp_production_filter
 msgid "Today Activities"
-msgstr "本日の活動"
+msgstr "今日の活動"
 
 #. module: mrp
 #: model:ir.model.fields.selection,name:mrp.selection__mrp_production__search_date_category__day_1
@@ -6051,7 +6006,7 @@ msgstr "処理タイプ"
 #: model:ir.model.fields,help:mrp.field_mrp_routing_workcenter__activity_exception_decoration
 #: model:ir.model.fields,help:mrp.field_mrp_unbuild__activity_exception_decoration
 msgid "Type of the exception activity on record."
-msgstr "記録上の例外活動の種類。"
+msgstr "レコード上の例外の活動タイプ。"
 
 #. module: mrp
 #. odoo-python
@@ -6209,8 +6164,8 @@ msgid ""
 "Use Manufacturing Orders (MO) to build finished products while consuming "
 "components: i.e. 1 Table = 4 Table Legs + 1 Table Top"
 msgstr ""
-"製造オーダ（MO）を使って、部品を消費しながら完成品を組み立てます：例: 1テーブ"
-"ル＝4テーブル脚＋1テーブルトップ"
+"製造オーダ（MO）を使って、部品を消費しながら完成品を組み立てます：例: 1"
+"テーブル＝4テーブル脚＋1テーブルトップ"
 
 #. module: mrp
 #: model:res.groups,name:mrp.group_mrp_workorder_dependencies
@@ -6391,7 +6346,7 @@ msgid ""
 msgstr ""
 "調達が、同じ工程タイプが設定された'生産'ルートを持つとき、同じ工程タイプの部"
 "品表を使用して、そのプロダクトの製造オーダの作成を試みます。これにより、異な"
-"る部品表で異なる製造オーダのトリガとなる在庫規則を定義できます。"
+"る部品表で異なる製造オーダのトリガとなる在庫ルールを定義できます。"
 
 #. module: mrp
 #: model:ir.model.fields,help:mrp.field_mrp_bom_line__manual_consumption
@@ -6609,8 +6564,8 @@ msgid ""
 "                    Operations are defined in the bill of materials or added "
 "in the manufacturing order directly."
 msgstr ""
-"作業オーダは、製造オーダの一部として行う工程です。工程は部品表で定義される"
-"か、または、製造オーダに直接追加されます。"
+"作業オーダは、製造オーダの一部として行う工程です。工程は部品表で定義されるか"
+"、または、製造オーダに直接追加されます。"
 
 #. module: mrp
 #: model_terms:ir.actions.act_window,help:mrp.action_mrp_workorder_production
@@ -6622,8 +6577,8 @@ msgid ""
 "            Operations are defined in the bill of materials or added in the "
 "manufacturing order directly."
 msgstr ""
-"作業オーダは、製造オーダの一部として行う工程です。工程は部品表で定義される"
-"か、または、製造オーダに直接追加されます。"
+"作業オーダは、製造オーダの一部として行う工程です。工程は部品表で定義されるか"
+"、または、製造オーダに直接追加されます。"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_workcenter_kanban
@@ -6711,8 +6666,7 @@ msgstr "ワークシートURL"
 msgid ""
 "Write one line per finished product to produce, with serial numbers as "
 "follows:\n"
-msgstr ""
-"製造する完成プロダクト1個につき1行、シリアル番号を以下のように記入します:\n"
+msgstr "製造する完成プロダクト1個につき1行、シリアル番号を以下のように記入します:\n"
 
 #. module: mrp
 #: model:ir.model.fields.selection,name:mrp.selection__mrp_production__search_date_category__yesterday
@@ -6740,8 +6694,8 @@ msgid ""
 "You can not create a kit-type bill of materials for products that have at "
 "least one reordering rule."
 msgstr ""
-"少なくとも1つの再オーダ規則を持つプロダクト用のキットタイプ部品表を作成するこ"
-"とはできません。"
+"少なくとも1つの再オーダルールを持つプロダクト用のキットタイプ部品表を作成する"
+"ことはできません。"
 
 #. module: mrp
 #. odoo-python
@@ -6929,9 +6883,8 @@ msgid ""
 "'Performance'. Create one from the Manufacturing app, menu: Configuration / "
 "Productivity Losses."
 msgstr ""
-"カテゴリ「パフォーマンス」内に少なくとも1つのアクティブでない生産性ロスを定義"
-"する必要があります。製造アプリのメニュー 設定 / 生産性ロス で作成してくださ"
-"い。"
+"カテゴリ「パフォーマンス」内に少なくとも1つの有効でない生産性ロスを定義する必"
+"要があります。製造アプリのメニュー 設定 / 生産性ロス で作成してください。"
 
 #. module: mrp
 #. odoo-python
@@ -7013,7 +6966,7 @@ msgstr "製造オーダに構成品として追加されました。"
 msgid ""
 "it is moved via a transfer, such as a receipt or a delivery order for "
 "instance."
-msgstr "例えば、入荷または配送オーダなどの転送によって移動されます。"
+msgstr "例えば、入荷または出荷オーダなどの転送によって移動されます。"
 
 #. module: mrp
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_routing_workcenter_form_view
@@ -7075,3 +7028,27 @@ msgstr "分割"
 #: model_terms:ir.ui.view,arch_db:mrp.mrp_routing_workcenter_form_view
 msgid "work orders"
 msgstr "作業オーダ"
+
+#~ msgid "100"
+#~ msgstr "100"
+
+#~ msgid "12345678901"
+#~ msgstr "12345678901"
+
+#~ msgid "2023-09-15"
+#~ msgstr "2023-09-15"
+
+#~ msgid "25"
+#~ msgstr "25"
+
+#~ msgid "50"
+#~ msgstr "50"
+
+#~ msgid "58"
+#~ msgstr "58"
+
+#~ msgid "60"
+#~ msgstr "60"
+
+#~ msgid "987654321098"
+#~ msgstr "987654321098"

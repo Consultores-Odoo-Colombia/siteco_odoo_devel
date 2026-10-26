@@ -289,6 +289,14 @@ export class WebsiteSnippetsMenu extends weSnippetEditor.SnippetsMenu {
             }
         });
 
+        // TODO: Remove in master. This should be replaced with a simple
+        // `style="margin: 0 12px;"` in the snippet template, similar to
+        // the one used for building carousel items.
+        const imageGalleryCarouselEl = html.querySelector(".s_image_gallery.o_slideshow .carousel");
+        if (imageGalleryCarouselEl) {
+            imageGalleryCarouselEl.style.margin = "0 12px";
+        }
+
         // TODO remove in master: fixes the selector for the "Ratio" setting in
         // cards, preventing the setting of a parent to leak onto children when
         // cards are nested.
@@ -373,6 +381,14 @@ export class WebsiteSnippetsMenu extends weSnippetEditor.SnippetsMenu {
                     if (res.isValid) {
                         await this.orm.write("website", [websiteId], {google_maps_api_key: valueAPIKey});
                         invalidated = true;
+                        if (apiKey) {
+                            this.notification.add(
+                                _t(
+                                    "Google Maps configuration has changed. Please reload the page for changes to take effect."
+                                ),
+                                { type: "warning", sticky: true }
+                            );
+                        }
                         if (close) {
                             close();
                         } else {

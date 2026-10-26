@@ -7,13 +7,13 @@
 # Wil Odoo, 2024
 # 何彬 <vnsoft.he@gmail.com>, 2024
 # Chloe Wang, 2024
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:38+0000\n"
-"PO-Revision-Date: 2025-11-21 06:37+0000\n"
+"POT-Creation-Date: 2026-04-10 18:39+0000\n"
+"PO-Revision-Date: 2026-10-20 13:40+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.odoo.com/"
 "projects/odoo-18/web_editor/zh_Hans/>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: web_editor
 #. odoo-javascript
@@ -79,16 +79,6 @@ msgid "(URL or Embed)"
 msgstr "（网址或嵌入）"
 
 #. module: web_editor
-#: model_terms:ir.ui.view,arch_db:web_editor.snippet_options
-msgid "100%"
-msgstr "100%"
-
-#. module: web_editor
-#: model_terms:ir.ui.view,arch_db:web_editor.snippet_options_image_optimization_widgets
-msgid "1977"
-msgstr "1977"
-
-#. module: web_editor
 #. odoo-javascript
 #: code:addons/web_editor/static/src/xml/editor.xml:0
 #: model_terms:ir.ui.view,arch_db:web_editor.snippet_options
@@ -100,16 +90,6 @@ msgstr "1x"
 #: code:addons/web_editor/static/src/js/wysiwyg/wysiwyg.js:0
 msgid "2 columns"
 msgstr "2 栏"
-
-#. module: web_editor
-#: model_terms:ir.ui.view,arch_db:web_editor.colorpicker
-msgid "25"
-msgstr "25"
-
-#. module: web_editor
-#: model_terms:ir.ui.view,arch_db:web_editor.snippet_options
-msgid "25%"
-msgstr "25%"
 
 #. module: web_editor
 #. odoo-javascript
@@ -157,21 +137,11 @@ msgid "5 Stars"
 msgstr "5 星"
 
 #. module: web_editor
-#: model_terms:ir.ui.view,arch_db:web_editor.snippet_options
-msgid "50%"
-msgstr "50%"
-
-#. module: web_editor
 #. odoo-javascript
 #: code:addons/web_editor/static/src/xml/editor.xml:0
 #: model_terms:ir.ui.view,arch_db:web_editor.snippet_options
 msgid "5x"
 msgstr "5x"
-
-#. module: web_editor
-#: model_terms:ir.ui.view,arch_db:web_editor.colorpicker
-msgid "90"
-msgstr "90"
 
 #. module: web_editor
 #: model_terms:ir.ui.view,arch_db:web_editor.colorpicker
@@ -1499,8 +1469,7 @@ msgstr "图标"
 msgid ""
 "If you discard the current edits, all unsaved changes will be lost. You can "
 "cancel to return to edit mode."
-msgstr ""
-"如果您放弃当前的编辑，所有未保存的更改都将丢失。您可以取消以返回编辑模式。"
+msgstr "如果您放弃当前的编辑，所有未保存的更改都将丢失。您可以取消以返回编辑模式。"
 
 #. module: web_editor
 #. odoo-javascript
@@ -2870,8 +2839,8 @@ msgid ""
 "This type of image is not supported for cropping.<br/>If you want to crop "
 "it, please first download it from the original source and upload it in Odoo."
 msgstr ""
-"这种类型的图像不支持裁剪。<br/>如果您想裁剪，请先从原始来源下载并在Odoo中上"
-"传。"
+"这种类型的图像不支持裁剪。<br/>如果您想裁剪，请先从原始来源下载并在Odoo中上传"
+"。"
 
 #. module: web_editor
 #. odoo-javascript
@@ -3341,6 +3310,24 @@ msgstr "websocket消息处理"
 #: model_terms:ir.ui.view,arch_db:web_editor.snippet_options
 msgid "www.example.com"
 msgstr "www.example.com"
+
+#~ msgid "100%"
+#~ msgstr "100%"
+
+#~ msgid "1977"
+#~ msgstr "1977"
+
+#~ msgid "25"
+#~ msgstr "25"
+
+#~ msgid "25%"
+#~ msgstr "25%"
+
+#~ msgid "50%"
+#~ msgstr "50%"
+
+#~ msgid "90"
+#~ msgstr "90"
 
 #~ msgid "Hide Dailymotion logo"
 #~ msgstr "隐藏Dailymotion标志"

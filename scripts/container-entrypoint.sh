@@ -1,54 +1,44 @@
 #!/usr/bin/env bash
 # =============================================================================
-# Odoo 18 Container Entrypoint — Production
+# Siteco Odoo 18 CE — Mutable-friendly Entrypoint
 # =============================================================================
-# Handles:
-#   1. Waiting for PostgreSQL readiness
-#   2. First-run database initialization (--init base)
-#   3. Expanding environment variables into odoo.conf via envsubst
-#   4. Graceful shutdown via SIGTERM
+# Responsabilidades:
+#   1. Esperar a PostgreSQL y Redis.
+#   2. Preparar venv mutable en /var/lib/odoo/venv (copia base + instala extras).
+#   3. Instalar requirements.txt desde /mnt/extra-addons en cada arranque.
+#   4. Expandir /etc/odoo/odoo.conf.template → /var/lib/odoo/odoo.conf.
+#   5. Forzar regeneración de admin_passwd si RESET_ADMIN_PASSWD=1.
+#   6. Auto-inicializar BD si ODOO_AUTO_INIT=1 y no existe ir_module_module.
+#   7. Lanzar Odoo con graceful shutdown.
 # =============================================================================
 set -euo pipefail
 
 # ---------------------------------------------------------------------------
-# Unified database variables (compatible with multiple naming conventions)
+# Database / Redis variables (múltiples convenciones)
 # ---------------------------------------------------------------------------
 DB_HOST="${DB_HOST:-${DB_PORT_5432_TCP_ADDR:-${PGHOST:-db}}}"
 DB_PORT="${DB_PORT:-${DB_PORT_5432_TCP_PORT:-${PGPORT:-5432}}}"
 DB_USER="${DB_USER:-${DB_ENV_POSTGRES_USER:-${PGUSER:-odoo}}}"
 DB_PASSWORD="${DB_PASSWORD:-${DB_ENV_POSTGRES_PASSWORD:-${PGPASSWORD:-odoo}}}"
 DB_NAME="${DBNAME:-${ODOO_DB_NAME:-${POSTGRES_DB:-odoo}}}"
+export DB_NAME
 
 ODOO_INIT_MODULES="${ODOO_INIT_MODULES:-base}"
 ODOO_BASEPATH="${ODOO_BASEPATH:-/opt/odoo}"
+ODOO_VENV_BASE="${ODOO_VENV_BASE:-/opt/odoo/venv}"
+ODOO_VENV_RUNTIME="${ODOO_VENV_RUNTIME:-/var/lib/odoo/venv}"
 
-# ODOO_AUTO_INIT=1 makes the entrypoint create the database with --init on first
-# boot (legacy behavior). Default 0 = container starts with no DB and the
-# operator creates it interactively via /web/database/manager using the master
-# password (admin_passwd in odoo.conf, sourced from ADMIN_PASSWORD).
 ODOO_AUTO_INIT="${ODOO_AUTO_INIT:-0}"
+FORCE_RECONFIG="${FORCE_RECONFIG:-0}"
+RESET_ADMIN_PASSWD="${RESET_ADMIN_PASSWD:-0}"
 
-# Files persisted in the odoo-data volume
 DATA_DIR="/var/lib/odoo"
 CREDENTIALS_FILE="${DATA_DIR}/initial-credentials.txt"
-
-# Persistent runtime config — survives container restarts so Odoo's
-# master password hash (admin_passwd) is not overwritten on every boot.
 RUNTIME_CONF="${DATA_DIR}/odoo.conf"
 
-# Set FORCE_RECONFIG=1 to regenerate the config from the template,
-# e.g. after changing env vars. Default: only generate if missing.
-FORCE_RECONFIG="${FORCE_RECONFIG:-0}"
-
-# ---------------------------------------------------------------------------
-# Logging helper
-# ---------------------------------------------------------------------------
 log() { echo "[entrypoint $(date -u +'%Y-%m-%dT%H:%M:%SZ')] $*"; }
 log_err() { echo "[entrypoint $(date -u +'%Y-%m-%dT%H:%M:%SZ')] ERROR: $*" >&2; }
 
-# ---------------------------------------------------------------------------
-# Graceful shutdown handler
-# ---------------------------------------------------------------------------
 _term() {
   log "Received SIGTERM — shutting down gracefully..."
   kill -TERM "${CHILD_PID}" 2>/dev/null || true
@@ -58,7 +48,7 @@ _term() {
 trap _term SIGTERM SIGINT
 
 # ---------------------------------------------------------------------------
-# Expand env vars in odoo.conf → writable copy
+# Expand env vars in odoo.conf template → writable copy
 # ---------------------------------------------------------------------------
 _expand_conf() {
   local src="$1" dest="$2"
@@ -67,24 +57,20 @@ _expand_conf() {
 import os, re
 
 def expand_vars(text):
-    # Simple approach: replace ${VAR:-default} patterns
-    # Find all ${...} patterns
     pattern = re.compile(r'\$\{([^}]+)\}')
-    
+
     def repl(match):
         var_expr = match.group(1)
         if ':-' in var_expr:
             var_name, default = var_expr.split(':-', 1)
-            # Match bash ${VAR:-default}: use default if unset OR empty string
             return os.environ.get(var_name) or default
         else:
             return os.environ.get(var_expr, '')
-    
+
     return pattern.sub(repl, text)
 
 text = open(os.environ['CONF_FILE'], encoding='utf-8').read()
-expanded = expand_vars(text)
-print(expanded, end='')
+print(expand_vars(text), end='')
 PY
     log "Configuration expanded from ${src}"
   else
@@ -94,7 +80,7 @@ PY
 }
 
 # ---------------------------------------------------------------------------
-# Hash password using Odoo's crypto context (no venv dependency)
+# Hash password (pbkdf2_sha512)
 # ---------------------------------------------------------------------------
 _hash_password() {
   local raw_pass="$1"
@@ -106,16 +92,46 @@ print(ctx.hash('${raw_pass}'))
 }
 
 # ---------------------------------------------------------------------------
-# Main logic
+# Prepare mutable venv on persistent volume
 # ---------------------------------------------------------------------------
+_prepare_runtime_venv() {
+  log "Preparing mutable venv at ${ODOO_VENV_RUNTIME}..."
 
-# If called with flags (e.g. -u, -i), prepend odoo-bin
+  if [[ ! -f "${ODOO_VENV_RUNTIME}/bin/python" ]]; then
+    log "No runtime venv found — cloning base venv..."
+    mkdir -p "${ODOO_VENV_RUNTIME}"
+    cp -a "${ODOO_VENV_BASE}/." "${ODOO_VENV_RUNTIME}/"
+    log "Runtime venv cloned from base image"
+  fi
+
+  # Asegurar pip actualizado en runtime venv
+  "${ODOO_VENV_RUNTIME}/bin/pip" install --upgrade "pip<25" "setuptools<81" "wheel<0.46" >/dev/null 2>&1 || true
+
+  # Instalar requirements.txt de addons a posteriori
+  if [[ -f "/mnt/extra-addons/requirements.txt" ]]; then
+    log "Installing /mnt/extra-addons/requirements.txt into runtime venv..."
+    if "${ODOO_VENV_RUNTIME}/bin/pip" install --prefer-binary -r "/mnt/extra-addons/requirements.txt"; then
+      log "Runtime requirements installed"
+    else
+      log_err "Failed to install some requirements from /mnt/extra-addons/requirements.txt — continuing anyway"
+    fi
+  fi
+
+  # Instalar librerías individuales si se pasan por env
+  if [[ -n "${ODOO_EXTRA_PIP:-}" ]]; then
+    log "Installing extra pip packages: ${ODOO_EXTRA_PIP}"
+    "${ODOO_VENV_RUNTIME}/bin/pip" install --prefer-binary ${ODOO_EXTRA_PIP} || log_err "Some extra pip packages failed"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# Main
+# ---------------------------------------------------------------------------
 if [[ "${1:-}" == "-"* ]]; then
   set -- "${ODOO_BASEPATH}/odoo-bin" "$@"
 fi
 
 if [[ "${1:-}" == *"odoo-bin" ]]; then
-  # Ensure data directory exists
   mkdir -p "${DATA_DIR}"
 
   # --- Wait for PostgreSQL ---
@@ -132,34 +148,39 @@ if [[ "${1:-}" == *"odoo-bin" ]]; then
   done
   log "PostgreSQL is ready"
 
-  # --- Expand env vars in config template → persistent runtime config ---
-  # The runtime config is written to the persistent volume so that Odoo can
-  # save changes (e.g. hashed master password) and they survive restarts.
+  # --- Prepare mutable venv ---
+  _prepare_runtime_venv
+
+  # --- Expand config ---
   if [[ ! -f "${RUNTIME_CONF}" || "${FORCE_RECONFIG}" == "1" ]]; then
     _expand_conf "/etc/odoo/odoo.conf.template" "${RUNTIME_CONF}"
+
+    # Force admin_passwd regeneration from ADMIN_PASSWORD
+    if [[ "${RESET_ADMIN_PASSWD}" == "1" ]]; then
+      admin_password="${ADMIN_PASSWORD:-${ODOO_ADMIN_PASSWORD:-admin}}"
+      hashed=$(_hash_password "${admin_password}")
+      sed -i -E "s|^\s*admin_passwd\s*=.*|admin_passwd = ${hashed}|" "${RUNTIME_CONF}"
+      log "admin_passwd regenerated from ADMIN_PASSWORD/ODOO_ADMIN_PASSWORD"
+    fi
+
     log "Runtime config written to ${RUNTIME_CONF}"
   else
     log "Using existing runtime config at ${RUNTIME_CONF} (set FORCE_RECONFIG=1 to regenerate)"
   fi
 
-  # Unset ODOO_RC so Odoo's configmanager doesn't auto-read the raw template
-  # (which contains unexpanded ${VAR} placeholders). The expanded config is
-  # passed explicitly via -c "${RUNTIME_CONF}".
-  unset ODOO_RC
-  unset OPENERP_SERVER
+  unset ODOO_RC OPENERP_SERVER
 
-  # --- First-run initialization (ODOO_AUTO_INIT=1 to enable) ---
+  # --- Auto-init database ---
   if [[ "${ODOO_AUTO_INIT}" == "1" ]]; then
     TABLE_EXISTS=$(PGPASSWORD="${DB_PASSWORD}" psql \
       -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" -d "${DB_NAME}" \
       -tAc "SELECT 1 FROM information_schema.tables WHERE table_name='ir_module_module';" 2>/dev/null || echo "")
 
     if [[ "${TABLE_EXISTS}" != "1" ]]; then
-      ADMIN_PASSWORD="${ODOO_ADMIN_PASSWORD:-admin}"
+      ADMIN_PASSWORD="${ODOO_ADMIN_PASSWORD:-${ADMIN_PASSWORD:-admin}}"
 
       log "Database '${DB_NAME}' not initialized. Running --init ${ODOO_INIT_MODULES}..."
-
-      "${ODOO_BASEPATH}/odoo-bin" \
+      "${ODOO_VENV_RUNTIME}/bin/odoo-bin" \
         -c "${RUNTIME_CONF}" \
         -d "${DB_NAME}" \
         --db_host="${DB_HOST}" \
@@ -170,14 +191,12 @@ if [[ "${1:-}" == *"odoo-bin" ]]; then
         --stop-after-init \
         --without-demo=all
 
-      # Set admin password
       log "Setting admin user password..."
       HASHED_PASS=$(_hash_password "${ADMIN_PASSWORD}")
       PGPASSWORD="${DB_PASSWORD}" psql \
         -h "${DB_HOST}" -p "${DB_PORT}" -U "${DB_USER}" -d "${DB_NAME}" \
         -c "UPDATE res_users SET password = '${HASHED_PASS}' WHERE login = 'admin';"
 
-      # Write credentials file (readable only by owner)
       cat > "${CREDENTIALS_FILE}" <<EOF
 === Odoo Initial Credentials ===
 Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
@@ -198,11 +217,10 @@ EOF
       log "Initialization completed."
     fi
   else
-    log "ODOO_AUTO_INIT=0 — skipping auto-init. Go to /web/database/manager to create the database (master password = ADMIN_PASSWORD)."
+    log "ODOO_AUTO_INIT=0 — skipping auto-init. Use /web/database/manager or set ODOO_AUTO_INIT=1."
   fi
 
-  # Strip any existing -c / --config args from $@ (e.g. from CMD) so we don't
-  # pass the raw template path to odoo-bin. Only the expanded config is used.
+  # --- Strip -c/--config from original args and append runtime config ---
   cleaned_args=()
   skip_next=false
   for arg in "$@"; do
@@ -211,23 +229,44 @@ EOF
       continue
     fi
     case "${arg}" in
-      -c|--config) skip_next=true ;; # drop -c and its value
-      -c=*|--config=*) ;;            # drop --config=<path>
+      -c|--config) skip_next=true ;;
+      -c=*|--config=*) ;;
       *) cleaned_args+=("${arg}") ;;
     esac
   done
 
-  # Rebuild args: odoo-bin + expanded config + DB overrides
+  # --- Opciones que deben poder cambiarse desde Coolify en cada despliegue ---
+  # odoo.conf solo se regenera si falta o con FORCE_RECONFIG=1 (así no se pisa
+  # el admin_passwd que Odoo escribe ahí), de modo que cambiar LIST_DB o
+  # DBFILTER en las variables del servicio no tenía ningún efecto. Los flags de
+  # línea de comando se aplican en cada arranque y tienen prioridad sobre el
+  # archivo, sin necesidad de regenerarlo.
+  env_overrides=()
+  case "${LIST_DB:-}" in
+    [Ff]alse|FALSE|0|[Nn]o|[Oo]ff) env_overrides+=(--no-database-list) ;;
+  esac
+  if [[ -n "${DBFILTER:-}" ]]; then
+    env_overrides+=("--db-filter=${DBFILTER}")
+  fi
+
   set -- "${cleaned_args[@]}" \
     -c "${RUNTIME_CONF}" \
-    "--db_host=${DB_HOST}" \
-    "--db_port=${DB_PORT}" \
-    "--db_user=${DB_USER}" \
-    "--db_password=${DB_PASSWORD}"
+    --db_host="${DB_HOST}" \
+    --db_port="${DB_PORT}" \
+    --db_user="${DB_USER}" \
+    --db_password="${DB_PASSWORD}" \
+    --database="${DB_NAME}" \
+    "${env_overrides[@]}"
 fi
 
-# --- Exec Odoo (PID 1) ---
-log "Starting: $*"
-exec "$@" &
-CHILD_PID=$!
-wait "${CHILD_PID}"
+# La línea de arranque va a los logs del contenedor (y a Coolify): sin enmascarar
+# dejaba la contraseña de la base a la vista de cualquiera con acceso a logs.
+safe_args=()
+for arg in "$@"; do
+  case "${arg}" in
+    --db_password=*) safe_args+=("--db_password=***") ;;
+    *) safe_args+=("${arg}") ;;
+  esac
+done
+log "Starting: ${safe_args[*]}"
+exec "$@"

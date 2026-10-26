@@ -9,15 +9,16 @@
 # Ilya Rozhkov, 2025
 # Anastasiia Koroleva, 2025
 # "Anastasiia Koroleva (koan)" <koan@odoo.com>, 2025, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-15 18:38+0000\n"
-"PO-Revision-Date: 2026-01-10 09:09+0000\n"
+"POT-Creation-Date: 2026-07-17 17:37+0000\n"
+"PO-Revision-Date: 2026-10-20 12:32+0000\n"
 "Last-Translator: \"Anastasiia Koroleva (koan)\" <koan@odoo.com>\n"
-"Language-Team: Russian <https://translate.odoo.com/projects/odoo-18/mail/ru/"
-">\n"
+"Language-Team: Russian <https://translate.odoo.com/projects/odoo-18/mail/ru/>"
+"\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +26,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: mail
 #. odoo-python
@@ -168,9 +169,9 @@ msgstr ""
 "%(new_line)s%(new_line)sВведите %(bold_start)s@имя_пользователя%(bold_end)s, "
 "чтобы упомянуть кого-то и привлечь его внимание.%(new_line)sВведите %"
 "(bold_start)s#канал%(bold_end)s, чтобы упомянуть канал.%(new_line)sВведите %"
-"(bold_start)s/команда%(bold_end)s, чтобы выполнить команду.%"
-"(new_line)sВведите %(bold_start)s:сокращение%(bold_end)s, чтобы вставить "
-"готовый ответ в ваше сообщение."
+"(bold_start)s/команда%(bold_end)s, чтобы выполнить команду.%(new_line)"
+"sВведите %(bold_start)s:сокращение%(bold_end)s, чтобы вставить готовый ответ "
+"в ваше сообщение."
 
 #. module: mail
 #. odoo-javascript
@@ -202,8 +203,8 @@ msgid ""
 "(open_save)ssave%(close_save)s%(close_em)s"
 msgstr ""
 "%(open_samp)sEscape%(close_samp)s, %(open_em)sчтобы %(open_cancel)sотменить%"
-"(close_cancel)s%(close_em)s, %(open_samp)sEnter%(close_samp)s, %"
-"(open_em)sчтобы %(open_save)sсохранить%(close_save)s%(close_em)s"
+"(close_cancel)s%(close_em)s, %(open_samp)sEnter%(close_samp)s, %(open_em)"
+"sчтобы %(open_save)sсохранить%(close_save)s%(close_em)s"
 
 #. module: mail
 #. odoo-javascript
@@ -215,7 +216,7 @@ msgstr "еще %(recipientCount)s"
 #. odoo-javascript
 #: code:addons/mail/static/src/discuss/core/web/discuss_core_web_service.js:0
 msgid "%(user)s just connected for the first time. Wish them luck!"
-msgstr ""
+msgstr "%(user)s впервые в системе. Пожелайте удачи!"
 
 #. module: mail
 #. odoo-python
@@ -441,8 +442,8 @@ msgid ""
 "Start your message with <i>'/'</i> to get the list of possible commands.</p>"
 msgstr ""
 "<p><b>Напишите сообщение</b> участникам канала.</p> <p>Вы можете уведомить "
-"кого-то, используя <i>'@'</i>, или сослаться на другой канал с помощью "
-"<i>'#'</i>. Начните сообщение с <i>'/'</i>, чтобы получить список доступных "
+"кого-то, используя <i>'@'</i>, или сослаться на другой канал с помощью <i>"
+"'#'</i>. Начните сообщение с <i>'/'</i>, чтобы получить список доступных "
 "команд.</p>"
 
 #. module: mail
@@ -593,8 +594,7 @@ msgstr ""
 #. odoo-python
 #: code:addons/mail/models/mail_scheduled_message.py:0
 msgid "A Scheduled Message cannot be scheduled in the past"
-msgstr ""
-"Запланированное сообщение не может быть запланировано на прошедшую дату"
+msgstr "Запланированное сообщение не может быть запланировано на прошедшую дату"
 
 #. module: mail
 #: model:ir.model.constraint,message:mail.constraint_bus_presence_partner_or_guest_exists
@@ -914,8 +914,8 @@ msgid ""
 msgstr ""
 "Планы активностей используются для назначения списка активностей в несколько "
 "кликов\n"
-"                    (напр., «Адаптация», «Работа с потенциальным клиентом», "
-"«Встреча по вехе проекта» и т. д.)"
+"                    (напр., «Адаптация», «Работа с потенциальным клиентом», «"
+"Встреча по вехе проекта» и т. д.)"
 
 #. module: mail
 #: model:ir.model,name:mail.model_mail_activity_schedule
@@ -959,24 +959,34 @@ msgid "Add Reaction"
 msgstr "Добавить реакцию"
 
 #. module: mail
-#. odoo-javascript
-#: code:addons/mail/static/src/core/common/message_actions.js:0
-msgid "Add a Reaction"
-msgstr "Добавить реакцию"
-
-#. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Add a Tenor GIF API key to enable GIFs support."
-msgstr "Добавьте ключ Tenor GIF API, чтобы включить поддержку GIF-изображений."
+msgid ""
+"Add a Klipy GIF API key to enable GIFs support. If you were using a Tenor "
+"GIF API key (service shutdown on June 30, 2026), please replace it here with "
+"a Klipy GIF API key"
+msgstr ""
+"Добавьте ключ API Klipy GIF, чтобы включить поддержку GIF-файлов. Если вы "
+"использовали ключ API Tenor GIF (сервис будет закрыт 30 июня 2026 года), "
+"пожалуйста, замените его здесь на ключ API Klipy GIF"
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_res_config_settings__tenor_api_key
 msgid ""
-"Add a Tenor GIF API key to enable GIFs support. https://"
-"developers.google.com/tenor/guides/quickstart#setup"
+"Add a Klipy GIF API key to enable GIFs support. https://docs.klipy.com/"
+"getting-started\n"
+"If you were using a Tenor GIF API key (service shutdown on June 30, 2026), "
+"please replace it here with a Klipy GIF API key"
 msgstr ""
-"Добавьте ключ Tenor GIF API, чтобы включить поддержку GIF-изображений. "
-"https://developers.google.com/tenor/guides/quickstart#setup"
+"Добавьте ключ API Klipy GIF, чтобы включить поддержку GIF-файлов. https://"
+"docs.klipy.com/getting-started\n"
+"Если вы использовали ключ API Tenor GIF (сервис будет закрыт 30 июня 2026 "
+"года), пожалуйста, замените его здесь на ключ API Klipy GIF"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/message_actions.js:0
+msgid "Add a Reaction"
+msgstr "Добавить реакцию"
 
 #. module: mail
 #. odoo-javascript
@@ -1158,9 +1168,8 @@ msgid ""
 "(alias_model_name)s (%(matching_id)s) and used by the %(parent_name)s %"
 "(parent_model_name)s."
 msgstr ""
-"Псевдоним %(matching_name)s (%(current_id)s) уже связан с %"
-"(alias_model_name)s (%(matching_id)s) и используется %(parent_name)s %"
-"(parent_model_name)s."
+"Псевдоним %(matching_name)s (%(current_id)s) уже связан с %(alias_model_name)"
+"s (%(matching_id)s) и используется %(parent_name)s %(parent_model_name)s."
 
 #. module: mail
 #. odoo-python
@@ -1169,8 +1178,8 @@ msgid ""
 "Alias %(matching_name)s (%(current_id)s) is already linked with %"
 "(alias_model_name)s (%(matching_id)s)."
 msgstr ""
-"Псевдоним %(matching_name)s (%(current_id)s) уже связан с %"
-"(alias_model_name)s (%(matching_id)s)."
+"Псевдоним %(matching_name)s (%(current_id)s) уже связан с %(alias_model_name)"
+"s (%(matching_id)s)."
 
 #. module: mail
 #: model:ir.model.fields,field_description:mail.field_mail_alias__alias_contact
@@ -2721,8 +2730,7 @@ msgstr "Создать новый «%(document)s»"
 #. odoo-python
 #: code:addons/mail/models/mail_thread.py:0
 msgid "Create new %(document)s by sending an email to %(email_link)s"
-msgstr ""
-"Создать новый документ «%(document)s», отправив email на %(email_link)s"
+msgstr "Создать новый документ «%(document)s», отправив email на %(email_link)s"
 
 #. module: mail
 #. odoo-javascript
@@ -3994,19 +4002,31 @@ msgstr "Не удалось отправить сообщение. Нажмит�
 #. odoo-python
 #: code:addons/mail/models/mail_render_mixin.py:0
 msgid ""
-"Failed to render QWeb template: %(template_src)s\n"
+"Failed to render QWeb template for %(template_label)s\n"
+"Target Model: %(model_name)s\n"
+"Language context: %(lang_context)s\n"
+"Error: %(error_details)s\n"
 "\n"
-"%(template_traceback)s)"
+"Template Source Snippet:\n"
+"%(template_src)s"
 msgstr ""
-"Не удалось сформировать шаблон QWeb: %(template_src)s\n"
+"Ошибка обработки шаблона QWeb для %(template_label)s\n"
+"Целевая модель: %(model_name)s\n"
+"Языковой контекст: %(lang_context)s\n"
+"Ошибка: %(error_details)s\n"
 "\n"
-"%(template_traceback)s)"
+"Фрагмент исходного кода шаблона:\n"
+"%(template_src)s"
 
 #. module: mail
 #. odoo-python
 #: code:addons/mail/models/mail_render_mixin.py:0
-msgid "Failed to render inline_template template: %(template_txt)s"
-msgstr "Не удалось сформировать встроенный шаблон: %(template_txt)s"
+msgid ""
+"Failed to render inline_template template: %(template_txt)s\n"
+"Error details: %(error)s"
+msgstr ""
+"Ошибка обработки шаблона (inline_template): %(template_txt)s\n"
+"Подробности ошибки: %(error)s"
 
 #. module: mail
 #. odoo-python
@@ -4916,6 +4936,16 @@ msgstr ""
 "Если вы хотите использовать Twilio в качестве поставщика серверов TURN/STUN"
 
 #. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
+msgid ""
+"If you were using a Tenor API key, please replace it with a Klipy API key in "
+"the General Settings."
+msgstr ""
+"Если вы использовали ключ API Tenor, пожалуйста, замените его на ключ API "
+"Klipy в разделе «Общие настройки»."
+
+#. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_resend_message_view_form
 msgid "Ignore all"
 msgstr "Игнорировать все"
@@ -5402,8 +5432,7 @@ msgstr ""
 #. module: mail
 #: model:ir.model.fields,help:mail.field_mail_tracking_duration_mixin__duration_tracking
 msgid "JSON that maps ids from a many2one field to seconds spent"
-msgstr ""
-"JSON, который сопоставляет ID из поля many2one с затраченными секундами"
+msgstr "JSON, который сопоставляет ID из поля many2one с затраченными секундами"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.discuss_channel_view_kanban
@@ -5484,6 +5513,32 @@ msgstr "Ключ"
 #: model_terms:ir.ui.view,arch_db:mail.message_notification_limit_email
 msgid "Kind Regards"
 msgstr "С наилучшими пожеланиями"
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_api_key
+msgid "Klipy API key"
+msgstr "Ключ API Klipy"
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Klipy GIF API key"
+msgstr "Ключ API Klipy GIF"
+
+#. module: mail
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Klipy GIF content filter"
+msgstr ""
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_gif_limit
+#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
+msgid "Klipy GIF limits"
+msgstr ""
+
+#. module: mail
+#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_content_filter
+msgid "Klipy content filter"
+msgstr ""
 
 #. module: mail
 #. odoo-javascript
@@ -5931,6 +5986,12 @@ msgid "Mail Template Reset"
 msgstr "Сброс шаблона письма"
 
 #. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Mail Template: '%(name)s' (ID: %(record_id)s)"
+msgstr "Шаблон письма: '%(name)s' (ID: %(record_id)s)"
+
+#. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.model_search_view
 msgid "Mail Thread"
 msgstr "Обсуждение"
@@ -6081,6 +6142,12 @@ msgstr "Отметить как непрочитанное"
 #: code:addons/mail/static/src/core/web/activity_list_popover_item.xml:0
 msgid "Mark as done"
 msgstr "Отметить как выполненное"
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Mass Mailing Template: '%(name)s' (ID: %(record_id)s)"
+msgstr "Шаблон массовой рассылки: '%(name)s' (ID: %(record_id)s)"
 
 #. module: mail
 #. odoo-javascript
@@ -6728,6 +6795,12 @@ msgstr "Нет сообщений в истории"
 
 #. module: mail
 #. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "No language detected in context"
+msgstr "В контексте не обнаружен язык"
+
+#. module: mail
+#. odoo-python
 #: code:addons/mail/wizard/mail_resend_message.py:0
 msgid "No message_id found in context"
 msgstr "В контексте не найден message_id"
@@ -7341,8 +7414,8 @@ msgid ""
 "tracking message-id instead of original document discussion thread. \n"
 " This has an impact on the generated message-id."
 msgstr ""
-"Исходное обсуждение: Ответы попадают в ветку обсуждения исходного "
-"документа. \n"
+"Исходное обсуждение: Ответы попадают в ветку обсуждения исходного документа. "
+"\n"
 " Другой email-адрес: Ответы отправляются на email-адрес, указанный в "
 "отслеживаемом message-id, а не в ветку обсуждения исходного документа. \n"
 " Это влияет на генерируемый message-id."
@@ -8762,6 +8835,12 @@ msgstr "Поиск серверов входящей почты"
 
 #. module: mail
 #. odoo-javascript
+#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
+msgid "Search Klipy"
+msgstr "Поиск в Klipy"
+
+#. module: mail
+#. odoo-javascript
 #: code:addons/mail/static/src/core/common/search_messages_panel.js:0
 msgid "Search Message"
 msgstr "Поиск сообщения"
@@ -8803,12 +8882,6 @@ msgstr "Кнопка поиска"
 #: code:addons/mail/static/src/discuss/core/public_web/sub_channel_list.xml:0
 msgid "Search by name"
 msgstr "Поиск по названию"
-
-#. module: mail
-#. odoo-javascript
-#: code:addons/mail/static/src/discuss/gif_picker/common/gif_picker.xml:0
-msgid "Search for a GIF"
-msgstr "Найти GIF"
 
 #. module: mail
 #. odoo-javascript
@@ -9163,8 +9236,7 @@ msgstr "Горячая клавиша"
 #. module: mail
 #: model:ir.model.fields,help:mail.field_mail_message_translation__target_lang
 msgid "Shortened language code used as the target for the translation request."
-msgstr ""
-"Сокращенный код языка, используемый как целевой для запроса на перевод."
+msgstr "Сокращенный код языка, используемый как целевой для запроса на перевод."
 
 #. module: mail
 #. odoo-javascript
@@ -9626,6 +9698,12 @@ msgstr "Создание шаблона из редактора требует �
 #. module: mail
 #. odoo-python
 #: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Template name not identified"
+msgstr "Имя шаблона не определено"
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
 msgid ""
 "Template rendering should only be called with a list of IDs. Received “%"
 "(res_ids)s” instead."
@@ -9650,36 +9728,6 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:mail.view_email_template_search
 msgid "Templates"
 msgstr "Шаблоны"
-
-#. module: mail
-#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_api_key
-msgid "Tenor API key"
-msgstr "Ключ API Tenor"
-
-#. module: mail
-#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Tenor GIF API key"
-msgstr "Ключ API Tenor GIF"
-
-#. module: mail
-#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Tenor GIF content filter"
-msgstr "Фильтр контента Tenor GIF"
-
-#. module: mail
-#: model_terms:ir.ui.view,arch_db:mail.res_config_settings_view_form
-msgid "Tenor GIF limits"
-msgstr "Лимиты Tenor GIF"
-
-#. module: mail
-#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_gif_limit
-msgid "Tenor Gif Limit"
-msgstr "Лимит Tenor GIF"
-
-#. module: mail
-#: model:ir.model.fields,field_description:mail.field_res_config_settings__tenor_content_filter
-msgid "Tenor content filter"
-msgstr "Фильтр контента Tenor"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.view_email_server_form
@@ -9761,8 +9809,8 @@ msgid ""
 "\"%(plan_name)s\" because it is limited to the model \"%"
 "(activity_type_model)s\"."
 msgstr ""
-"Тип активности \"%(activity_type_name)s\" несовместим с планом \"%"
-"(plan_name)s\", поскольку он ограничен моделью \"%(activity_type_model)s\"."
+"Тип активности \"%(activity_type_name)s\" несовместим с планом \"%(plan_name)"
+"s\", поскольку он ограничен моделью \"%(activity_type_model)s\"."
 
 #. module: mail
 #. odoo-python
@@ -9861,8 +9909,8 @@ msgid ""
 "contact us at %(default_email)s instead."
 msgstr ""
 "Сообщение ниже не могло быть принято адресом %(alias_display_name)s.\n"
-"                 Только %(contact_description)s могут с ним связываться.<br /"
-"><br />\n"
+"                 Только %(contact_description)s могут с ним "
+"связываться.<br /><br />\n"
 "                 Убедитесь, что вы используете правильный адрес, или "
 "свяжитесь с нами по адресу %(default_email)s."
 
@@ -10135,8 +10183,8 @@ msgstr ""
 msgid ""
 "Those values are not supported when posting or notifying: %(param_names)s"
 msgstr ""
-"Эти значения не поддерживаются при публикации или уведомлении: %"
-"(param_names)s"
+"Эти значения не поддерживаются при публикации или уведомлении: %(param_names)"
+"s"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.view_mail_search
@@ -10472,8 +10520,8 @@ msgstr ""
 "- 'Отправить письмо': опубликовать сообщение, заметку или отправить письмо "
 "(Обсуждения)\n"
 "- 'Отправить SMS': отправить SMS, записать их в документы (SMS) - 'Добавить/"
-"удалить подписчиков': добавить или удалить подписчиков у записи "
-"(Обсуждения)\n"
+"удалить подписчиков': добавить или удалить подписчиков у записи (Обсуждения)"
+"\n"
 "- 'Создать запись': создать новую запись с новыми значениями\n"
 "- 'Выполнить код': блок кода Python, который будет выполнен\n"
 "- 'Отправить Webhook-уведомление': отправить POST-запрос во внешнюю систему "
@@ -10615,10 +10663,28 @@ msgid "Unmute Conversation"
 msgstr "Включить звук в беседе"
 
 #. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/common/message.js:0
+msgid "Unnamed"
+msgstr "Без названия"
+
+#. module: mail
 #. odoo-python
 #: code:addons/mail/models/mail_tracking_value.py:0
 msgid "Unnamed %(record_model_name)s (%(record_id)s)"
 msgstr "%(record_model_name)s без названия (%(record_id)s)"
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Unnamed Mail Template"
+msgstr "Шаблон письма без названия"
+
+#. module: mail
+#. odoo-python
+#: code:addons/mail/models/mail_render_mixin.py:0
+msgid "Unnamed Mailing"
+msgstr "Рассылка без названия"
 
 #. module: mail
 #. odoo-javascript
@@ -11427,6 +11493,12 @@ msgstr "Вы можете безопасно проигнорировать эт
 
 #. module: mail
 #. odoo-python
+#: code:addons/mail/models/mail_alias_domain.py:0
+msgid "You cannot assign an empty domain name."
+msgstr "Нельзя указывать пустое доменное имя."
+
+#. module: mail
+#. odoo-python
 #: code:addons/mail/models/mail_activity_type.py:0
 msgid "You cannot delete %(activity_names)s as it is required in various apps."
 msgstr ""
@@ -11807,8 +11879,8 @@ msgstr "например, «Приветственное письмо»"
 msgid ""
 "e.g. \"Welcome to MyCompany\" or \"Nice to meet you, {{ object.name }}\""
 msgstr ""
-"например, «Добро пожаловать в MyCompany» или «Рады знакомству, "
-"{{ object.name }}»"
+"например, «Добро пожаловать в MyCompany» или «Рады знакомству, {{ "
+"object.name }}»"
 
 #. module: mail
 #: model_terms:ir.ui.view,arch_db:mail.mail_alias_domain_view_form
@@ -11929,8 +12001,8 @@ msgstr "только что назначил вам следующую акти�
 
 #. module: mail
 #: model:ir.model.fields,help:mail.field_res_config_settings__tenor_content_filter
-msgid "https://developers.google.com/tenor/guides/content-filtering"
-msgstr "https://developers.google.com/tenor/guides/content-filtering"
+msgid "https://docs.klipy.com/migrate-from-tenor/content-filtering"
+msgstr ""
 
 #. module: mail
 #. odoo-javascript
@@ -12240,6 +12312,56 @@ msgstr "{{ object.partner_id.lang }}"
 #: code:addons/mail/models/discuss/discuss_channel_member.py:0
 msgid "“%(member_name)s” in “%(channel_name)s”"
 msgstr "«%(member_name)s» в «%(channel_name)s»"
+
+#. module: mail
+#. odoo-javascript
+#: code:addons/mail/static/src/core/web/activity.js:0
+msgid "“%s”"
+msgstr "«%s»"
+
+#~ msgid "Search for a GIF"
+#~ msgstr "Найти GIF"
+
+#~ msgid "Add a Tenor GIF API key to enable GIFs support."
+#~ msgstr ""
+#~ "Добавьте ключ Tenor GIF API, чтобы включить поддержку GIF-изображений."
+
+#~ msgid ""
+#~ "Add a Tenor GIF API key to enable GIFs support. https://"
+#~ "developers.google.com/tenor/guides/quickstart#setup"
+#~ msgstr ""
+#~ "Добавьте ключ Tenor GIF API, чтобы включить поддержку GIF-изображений. "
+#~ "https://developers.google.com/tenor/guides/quickstart#setup"
+
+#~ msgid "Tenor API key"
+#~ msgstr "Ключ API Tenor"
+
+#~ msgid "Tenor GIF API key"
+#~ msgstr "Ключ API Tenor GIF"
+
+#~ msgid "Tenor GIF content filter"
+#~ msgstr "Фильтр контента Tenor GIF"
+
+#~ msgid "Tenor GIF limits"
+#~ msgstr "Лимиты Tenor GIF"
+
+#~ msgid "Tenor Gif Limit"
+#~ msgstr "Лимит Tenor GIF"
+
+#~ msgid "Tenor content filter"
+#~ msgstr "Фильтр контента Tenor"
+
+#~ msgid "https://developers.google.com/tenor/guides/content-filtering"
+#~ msgstr "https://developers.google.com/tenor/guides/content-filtering"
+
+#~ msgid ""
+#~ "Failed to render QWeb template: %(template_src)s\n"
+#~ "\n"
+#~ "%(template_traceback)s)"
+#~ msgstr ""
+#~ "Не удалось сформировать шаблон QWeb: %(template_src)s\n"
+#~ "\n"
+#~ "%(template_traceback)s)"
 
 #~ msgid "%(user)s connected. This is their first connection. Wish them luck."
 #~ msgstr "%(user)s в сети. Это первое подключение. Пожелайте удачи."

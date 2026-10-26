@@ -336,6 +336,11 @@ class TestProjectSharing(TestProjectSharingCommon):
         with self.assertRaisesRegex(AccessError, "top-secret records"):
             Task.with_context(default_child_ids=[Command.update(self.task_no_collabo.id, {'name': 'Foo'})]).create({'name': 'foo'})
         with self.assertRaisesRegex(AccessError, "top-secret records"):
+            self.task_no_collabo.parent_id = self.task_no_collabo.create({'name': 'parent collabo'})
+            task = Task.with_context(default_child_ids=[Command.unlink(self.task_no_collabo.id)]).create({'name': 'foo'})
+            task.env.invalidate_all()
+            self.assertTrue(self.task_no_collabo.parent_id, "Task should still be there, no delete is sent")
+        with self.assertRaisesRegex(AccessError, "top-secret records"):
             Task.with_context(default_child_ids=[Command.delete(self.task_no_collabo.id)]).create({'name': 'foo'})
         with self.assertRaisesRegex(AccessError, "top-secret records"):
             Task.with_context(default_child_ids=[Command.unlink(self.task_no_collabo.id)]).create({'name': 'foo'})
@@ -356,9 +361,13 @@ class TestProjectSharing(TestProjectSharingCommon):
         with self.assertRaisesRegex(AccessError, "not allowed to create 'Project Tags'"):
             Task.with_context(default_tag_ids=[Command.create({'name': 'Bar'})]).create({'name': 'foo'})
         with self.assertRaisesRegex(AccessError, "not allowed to modify 'Project Tags'"):
-            Task.with_context(default_tag_ids=[Command.update(self.task_tag.id, {'name': 'Bar'})]).create({'name': 'foo'})
+            task = Task.with_context(default_tag_ids=[Command.update(self.task_tag.id, {'name': 'Bar'})]).create({'name': 'foo'})
+            task.env.invalidate_all()
+            self.assertNotEqual(self.task_tag.name, 'Bar')
         with self.assertRaisesRegex(AccessError, "not allowed to delete 'Project Tags'"):
             Task.with_context(default_tag_ids=[Command.delete(self.task_tag.id)]).create({'name': 'foo'})
+            task.env.invalidate_all()
+            self.assertTrue(self.task_tag.exists())
 
         task = Task.create({'name': 'foo', 'tag_ids': [Command.link(self.task_tag.id)]})
         self.assertEqual(task.tag_ids, self.task_tag)
@@ -378,6 +387,8 @@ class TestProjectSharing(TestProjectSharingCommon):
             3.1) Try to change the project of the new task with this user.
             3.2) Create a sub-task
             3.3) Create a second sub-task
+            4.1) Restrict to edit with limited access and try to edit a task with and without following it
+            4.2) Restrict to read and check he can no longer edit the tasks, even if he is within the followers
         """
         # 1) Give the 'read' access mode to a portal user in a project and try to create task with this user.
         with self.assertRaises(AccessError, msg="Should not accept the portal user create a task in the project when he has not the edit access right."):
@@ -475,6 +486,44 @@ class TestProjectSharing(TestProjectSharingCommon):
         task.write({'tag_ids': [Command.set([self.task_tag.id])]})
         self.assertEqual(task.tag_ids, self.task_tag)
 
+        # 4.1) Restrict the collaborator access to edit with limited access, restricting the collaborator to edit task
+        # on which he is in the followers only
+        self.env['project.share.wizard'].create({
+            'res_model': 'project.project',
+            'res_id': self.project_cows.id,
+            'collaborator_ids': [
+                Command.create({'partner_id': self.user_portal.partner_id.id, 'access_mode': 'edit_limited'}),
+            ],
+        })
+        self.assertTrue(self.project_cows.collaborator_ids.limited_access)
+
+        # Removing the collaborator from the followers prevents him to edit the task
+        task.sudo().message_partner_ids -= self.user_portal.partner_id
+        with self.assertRaises(AccessError):
+            task.write({'name': 'foo'})
+
+        # Adding the collaborator back to the followers grants him to edit the task
+        task.sudo().message_partner_ids += self.user_portal.partner_id
+        task.write({'name': 'foo'})
+
+        # 4.2) Restrict the access to read and check he can no longer edit the tasks, even if he is within the followers
+        self.env['project.share.wizard'].create({
+            'res_model': 'project.project',
+            'res_id': self.project_cows.id,
+            'collaborator_ids': [
+                Command.create({'partner_id': self.user_portal.partner_id.id, 'access_mode': 'read'}),
+                # Create a second collaborator with edit just so that the project sharing record rules
+                # do not get automatically disabled when removing the last remaining edit collaborator
+                Command.create({'partner_id': self.env['res.partner'].create({'name': 'Alain'}).id, 'access_mode': 'edit'}),
+            ],
+        })
+        # Sanity check: Assert the project sharing record rule is still active
+        self.assertTrue(self.env.ref('project.project_task_rule_portal_project_sharing').active)
+
+        # Assert the collaborator can no longer write on the task despite he is still in the followers of the task
+        self.assertIn(self.user_portal.partner_id, task.sudo().message_partner_ids)
+        with self.assertRaises(AccessError):
+            task.write({'name': 'foo'})
 
     def test_portal_user_cannot_see_all_assignees(self):
         """ Test when the portal sees a task he cannot see all the assignees.

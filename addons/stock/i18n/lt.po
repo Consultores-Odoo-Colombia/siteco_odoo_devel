@@ -28,14 +28,14 @@
 # digitouch UAB <digitouchagencyeur@gmail.com>, 2024
 # Linas Versada <linaskrisiukenas@gmail.com>, 2025
 # Wil Odoo, 2025
-# Gustas Putvinskas <gustas@vialaurea.com>, 2025.
-# Weblate <noreply-mt-weblate@weblate.org>, 2025.
+# Gustas Putvinskas <gustas@vialaurea.com>, 2025, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:36+0000\n"
-"PO-Revision-Date: 2025-11-21 06:38+0000\n"
+"POT-Creation-Date: 2026-04-10 18:37+0000\n"
+"PO-Revision-Date: 2026-10-20 14:06+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Lithuanian <https://translate.odoo.com/projects/odoo-18/stock/"
 "lt/>\n"
@@ -44,9 +44,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=4; plural=(n % 10 == 1 && (n % 100 > 19 || n % 100 < "
-"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? "
-"1 : n % 1 != 0 ? 2: 3);\n"
-"X-Generator: Weblate 5.12.2\n"
+"11) ? 0 : (n % 10 >= 2 && n % 10 <=9) && (n % 100 > 19 || n % 100 < 11) ? 1 "
+": n % 1 != 0 ? 2: 3);\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: stock
 #. odoo-python
@@ -64,6 +64,14 @@ msgstr ""
 msgid ""
 "\n"
 "(%(serial_number)s) exists in location %(location)s"
+msgstr ""
+
+#. module: stock
+#. odoo-python
+#: code:addons/stock/models/stock_move.py:0
+msgid ""
+"\n"
+"Package: %s"
 msgstr ""
 
 #. module: stock
@@ -396,46 +404,9 @@ msgid "1 Week"
 msgstr ""
 
 #. module: stock
-#: model_terms:ir.ui.view,arch_db:stock.report_package_barcode
-msgid "12.0"
-msgstr ""
-
-#. module: stock
-#: model_terms:ir.ui.view,arch_db:stock.report_generic_barcode
-msgid "1234567890"
-msgstr ""
-
-#. module: stock
-#: model_terms:ir.ui.view,arch_db:stock.report_lot_label
-msgid "12345678901"
-msgstr ""
-
-#. module: stock
 #: model:ir.model.fields.selection,name:stock.selection__stock_picking_type__product_label_format__2x7xprice
 msgid "2 x 7 with price"
 msgstr ""
-
-#. module: stock
-#: model_terms:ir.ui.view,arch_db:stock.report_package_barcode
-msgid "2021-9-01"
-msgstr ""
-
-#. module: stock
-#: model_terms:ir.ui.view,arch_db:stock.report_package_barcode_small
-msgid "2023-01-01"
-msgstr "2023-01-01"
-
-#. module: stock
-#: model_terms:ir.ui.view,arch_db:stock.report_picking
-msgid "2023-09-24"
-msgstr ""
-
-#. module: stock
-#: model_terms:ir.ui.view,arch_db:stock.report_delivery_document
-#: model_terms:ir.ui.view,arch_db:stock.report_package_barcode
-#: model_terms:ir.ui.view,arch_db:stock.report_picking
-msgid "3.00"
-msgstr "3.00"
 
 #. module: stock
 #: model:ir.model.fields.selection,name:stock.selection__lot_label_layout__print_format__4x12
@@ -461,11 +432,6 @@ msgstr ""
 #. module: stock
 #: model:ir.model.fields.selection,name:stock.selection__stock_picking_type__product_label_format__4x7xprice
 msgid "4 x 7 with price"
-msgstr ""
-
-#. module: stock
-#: model_terms:ir.ui.view,arch_db:stock.report_package_barcode
-msgid "54326786758"
 msgstr ""
 
 #. module: stock
@@ -754,7 +720,7 @@ msgstr "<strong>Pristatyta</strong>"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
 msgid "<strong>Delivery address</strong>"
-msgstr ""
+msgstr "<strong>Pristatymo Adresas</strong>"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.stock_inventory_conflict_form_view
@@ -872,7 +838,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock.report_delivery_document
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
 msgid "<strong>Warehouse Address</strong>"
-msgstr ""
+msgstr "<strong>Sandėlio Adresas</strong>"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_picking
@@ -1110,7 +1076,7 @@ msgstr "Visos kategorijos"
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.stock_storage_category_form
 msgid "All Companies"
-msgstr ""
+msgstr "Visos įmonės"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.stock_putaway_list
@@ -1400,7 +1366,7 @@ msgstr ""
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_warehouse_orderpoint_tree_editable
 msgid "Automate"
-msgstr ""
+msgstr "Automatizuoti"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_stock_rule__auto
@@ -4115,8 +4081,7 @@ msgstr ""
 msgid ""
 "If this shipment was split, then this field links to the shipment which "
 "contains the already processed part."
-msgstr ""
-"Jeigu siunta buvo išskaidyta, šis laukas nurodo apdorotos siuntos dalį."
+msgstr "Jeigu siunta buvo išskaidyta, šis laukas nurodo apdorotos siuntos dalį."
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move__picking_type_entire_packs
@@ -4193,6 +4158,9 @@ msgid ""
 "office within 8 days of the delivery of the goods or the provision of the "
 "services."
 msgstr ""
+"Kad pretenzija būtų priimtina, „My Company“ (Čikaga) turi būti informuota "
+"apie bet kokią pretenziją registruotu laišku, išsiųstu į jos registruotą "
+"buveinę per 8 dienas nuo prekių pristatymo arba paslaugų suteikimo."
 
 #. module: stock
 #. odoo-javascript
@@ -4858,8 +4826,7 @@ msgstr "Palikti tuščią"
 #: model:ir.model.fields,help:stock.field_stock_route__company_id
 #: model:ir.model.fields,help:stock.field_stock_rule__route_company_id
 msgid "Leave this field empty if this route is shared between all companies"
-msgstr ""
-"Palikite šį laukelį tuščią, jei šia vieta yra dalijamasi visų kompanijų"
+msgstr "Palikite šį laukelį tuščią, jei šia vieta yra dalijamasi visų kompanijų"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.report_stock_rule
@@ -4887,8 +4854,7 @@ msgstr ""
 #: model:ir.model.fields,help:stock.field_stock_quant__company_id
 #: model:ir.model.fields,help:stock.field_stock_quant_relocate__company_id
 msgid "Let this field empty if this location is shared between companies"
-msgstr ""
-"Palikite šį laukelį tuščią, jei šia vieta yra dalijamasi tarp kompanijų"
+msgstr "Palikite šį laukelį tuščią, jei šia vieta yra dalijamasi tarp kompanijų"
 
 #. module: stock
 #: model_terms:ir.ui.view,arch_db:stock.view_move_form
@@ -5959,8 +5925,7 @@ msgstr "Papildomas adresas, kur bus pristatyti produktai."
 #: model:ir.model.fields,help:stock.field_stock_location__posy
 #: model:ir.model.fields,help:stock.field_stock_location__posz
 msgid "Optional localization details, for information purpose only"
-msgstr ""
-"Papildomi lokalizacijos duomenys, naudojami tik informaciniais tikslais"
+msgstr "Papildomi lokalizacijos duomenys, naudojami tik informaciniais tikslais"
 
 #. module: stock
 #: model:ir.model.fields,help:stock.field_stock_move__returned_move_ids
@@ -8354,7 +8319,7 @@ msgstr ""
 #. module: stock
 #: model:mail.template,name:stock.mail_template_data_delivery_confirmation
 msgid "Shipping: Send by Email"
-msgstr ""
+msgstr "Pristatymas: siųsti el. paštu"
 
 #. module: stock
 #: model:ir.model.fields,field_description:stock.field_res_config_settings__module_delivery_shiprocket
@@ -11448,3 +11413,9 @@ msgstr "vienetai"
 msgid ""
 "{{ object.company_id.name }} Delivery Order (Ref {{ object.name or 'n/a' }})"
 msgstr ""
+
+#~ msgid "2023-01-01"
+#~ msgstr "2023-01-01"
+
+#~ msgid "3.00"
+#~ msgstr "3.00"

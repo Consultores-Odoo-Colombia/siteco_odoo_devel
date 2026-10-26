@@ -1,6 +1,8 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
-from odoo.exceptions import ValidationError
+from freezegun import freeze_time
+
+from odoo.exceptions import UserError, ValidationError
 from odoo.fields import Command
 from odoo.tests import new_test_user, tagged
 from odoo.tools.float_utils import float_compare
@@ -161,6 +163,31 @@ class TestLoyalty(TestSaleCouponCommon):
         # During the cancel process, we are trying to get `use_count` of the coupon,
         # and we call the `_compute_use_count` that is also in pos_loyalty.
         # This last one will try to find related POS lines while user have not access to POS.
+        order._action_cancel()
+        self.assertFalse(order.coupon_point_ids)
+
+    def test_salesperson_can_cancel_order_with_coupons(self):
+        """Test that a salesperson can cancel an order with coupon points without access error."""
+        user_salesman = new_test_user(
+            self.env, login="user_salesman", groups="sales_team.group_sale_salesman"
+        )
+        self.env["loyalty.program"].create({
+            "name": "10% Discount",
+            "program_type": "coupons",
+            "trigger": "auto",
+            "reward_ids": [Command.create({"reward_type": "discount", "discount": 10})],
+        })
+        order = (
+            self
+            .env["sale.order"]
+            .with_user(user_salesman)
+            .create({
+                "partner_id": self.partner.id,
+                "order_line": [Command.create({"product_id": self.product_a.id})],
+            })
+        )
+        order.action_confirm()
+        self.assertTrue(order.coupon_point_ids)
         order._action_cancel()
         self.assertFalse(order.coupon_point_ids)
 
@@ -1005,23 +1032,35 @@ class TestLoyalty(TestSaleCouponCommon):
 
     def test_ewallet_applied_ewallet_topup_in_order(self):
         self.ewallet.points = 10
-
+        ewallet_top_up = Command.create({
+            'product_id': self.env.ref('loyalty.ewallet_product_50').id,
+            'product_uom_qty': 1,
+            'price_unit': 50,
+        })
         order = self.env['sale.order'].create({
             'partner_id': self.partner.id,
             'order_line': [Command.create({
                 'product_id': self.product_a.id,
                 'points_cost': 100,
                 'product_uom_qty': 1,
-            }), Command.create({
-                'product_id': self.env.ref('loyalty.ewallet_product_50').id,
-                'product_uom_qty': 1,
-            })],
+            }),
+                ewallet_top_up
+            ],
         })
         order._update_programs_and_rewards()
         self._claim_reward(order, self.ewallet_program, coupon=self.ewallet)
         order.action_confirm()
 
         self.assertEqual(self.ewallet.points, 50)
+
+        # Case 2: eWallet top-up should be excluded from the discountable amount when paying with an eWallet
+        order = self.env['sale.order'].create({
+            'partner_id': self.partner.id,
+            'order_line': [ewallet_top_up],
+        })
+        order._update_programs_and_rewards()
+        with self.assertRaisesRegex(UserError, "There is nothing to discount"):
+            self._claim_reward(order, self.ewallet_program, coupon=self.ewallet)
 
     def test_discount_reward_claimable_only_once(self):
         """
@@ -1192,3 +1231,20 @@ class TestLoyalty(TestSaleCouponCommon):
         loyalty_card.action_archive()
         claimable_rewards = sale_order._get_claimable_rewards()
         self.assertFalse(claimable_rewards.get(loyalty_card))
+
+    @freeze_time("2026-01-10")
+    def test_expired_ewallet_is_not_claimable(self):
+        self.ewallet.expiration_date = '2026-01-01'
+        sale_order = self.empty_order
+        sale_order.write({
+            'partner_id': self.partner.id,
+            'order_line': [
+                Command.create({
+                    'product_id': self.product_a.id,
+                }),
+            ],
+        })
+        sale_order.action_open_reward_wizard()
+        sale_order._update_programs_and_rewards()
+        claimable_rewards = sale_order._get_claimable_rewards()
+        self.assertFalse(claimable_rewards.get(self.ewallet))

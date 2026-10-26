@@ -7,7 +7,7 @@ import uuid
 from urllib.parse import urljoin
 
 from odoo import api, fields, models
-from odoo.addons.l10n_tw_edi_ecpay.utils import call_ecpay_api, transfer_time
+from odoo.addons.l10n_tw_edi_ecpay.utils import call_ecpay_api, transfer_time, convert_utc_time_to_tw_time
 from odoo.exceptions import UserError
 from odoo.tools import float_round
 
@@ -175,10 +175,11 @@ class AccountMove(models.Model):
     def _compute_show_reset_to_draft_button(self):
         # EXTEND 'account'
         super()._compute_show_reset_to_draft_button()
-        if self.move_type == "out_invoice":
-            self.filtered(lambda m: m.l10n_tw_edi_state and m.l10n_tw_edi_state != "invalid").show_reset_to_draft_button = False
-        elif self.move_type == "out_refund":
-            self.filtered(lambda m: m.l10n_tw_edi_refund_state).show_reset_to_draft_button = False
+        for move in self:
+            if move.move_type == 'out_invoice' and move.l10n_tw_edi_state and move.l10n_tw_edi_state != 'invalid':
+                move.show_reset_to_draft_button = False
+            if move.move_type == 'out_refund' and move.l10n_tw_edi_refund_state:
+                move.show_reset_to_draft_button = False
 
     def _need_cancel_request(self):
         # EXTENDS 'account'
@@ -418,8 +419,12 @@ class AccountMove(models.Model):
         if (self.l10n_tw_edi_is_print or self.partner_id.vat) and not self.partner_id.contact_address:
             errors.append(self.env._("Please fill in the customer address for printing Ecpay invoice."))
 
-        if not self.partner_id.email and not self.partner_id.phone:
-            errors.append(self.env._("Please fill in the customer email or phone number for Ecpay invoice creation."))
+        if self.l10n_tw_edi_is_b2b:
+            if not self.partner_id.email and not self.partner_id.phone:
+                errors.append(self.env._("Please fill in the customer email or phone number for Ecpay invoice creation."))
+        else:
+            if not self.partner_id.mobile and not self.partner_id.phone and not self.partner_id.email:
+                errors.append(self.env._("Please fill in the customer mobile, phone, or email for Ecpay invoice creation."))
 
         if self.partner_id.phone:
             formatted_phone = self._reformat_phone_number(self.partner_id.phone)
@@ -496,10 +501,11 @@ class AccountMove(models.Model):
             if not is_allowance:
                 line.l10n_tw_edi_ecpay_item_sequence = index
 
+            # ItemRemark is in TW Chinese Characters because the official document uses TW Chinese Characters
             if self.l10n_tw_edi_is_b2b and is_allowance:
                 item_list.append({
                     "OriginalInvoiceNumber": self.l10n_tw_edi_ecpay_invoice_id,
-                    "OriginalInvoiceDate": self.l10n_tw_edi_invoice_create_date.strftime("%Y-%m-%d"),
+                    "OriginalInvoiceDate": convert_utc_time_to_tw_time(self.l10n_tw_edi_invoice_create_date),
                     "OriginalSequenceNumber": line.l10n_tw_edi_ecpay_item_sequence,
                     "ItemName": line.name[:100],
                     "ItemCount": quantity,
@@ -515,6 +521,7 @@ class AccountMove(models.Model):
                     "ItemPrice": item_price,
                     "ItemTaxType": line.tax_ids[0].l10n_tw_edi_tax_type if tax_type != "4" and line.tax_ids else "",
                     "ItemAmount": item_amount,
+                    "ItemRemark": f"商品單位: {line.product_uom_id.name[:6]}" if line.product_uom_id else ""
                 })
             if self.l10n_tw_edi_is_b2b:
                 sale_amount += item_amount
@@ -567,7 +574,10 @@ class AccountMove(models.Model):
         self._l10n_tw_edi_check_before_generate_invoice_json()
         tax_type, special_tax_type, is_zero_tax_rate = self._l10n_tw_edi_determine_tax_types()
         self.l10n_tw_edi_related_number = base64.urlsafe_b64encode(uuid.uuid4().bytes)[:20]
-        formatted_phone = self._reformat_phone_number(self.partner_id.phone) if self.partner_id.phone else ""
+        raw_phone = self.partner_id.phone
+        if not self.l10n_tw_edi_is_b2b and self.partner_id.mobile:  # B2C prioritzes mobile
+            raw_phone = self.partner_id.mobile
+        formatted_phone = self._reformat_phone_number(raw_phone) if raw_phone else ""
         product_lines = self.invoice_line_ids.filtered(lambda line: line.display_type == "product")
         vat = "1" if product_lines[0].tax_ids and product_lines[0].tax_ids[0].price_include else "0"
 
@@ -648,7 +658,7 @@ class AccountMove(models.Model):
 
             json_data.update({
                 "InvoiceNo": self.l10n_tw_edi_ecpay_invoice_id,
-                "InvoiceDate": self.l10n_tw_edi_invoice_create_date.strftime("%Y-%m-%d %H:%M:%S"),
+                "InvoiceDate": convert_utc_time_to_tw_time(self.l10n_tw_edi_invoice_create_date),
             })
         else:
             json_data.update({
@@ -733,7 +743,7 @@ class AccountMove(models.Model):
             json_data.update({
                 "InvoiceCategory": 0,
                 "InvoiceNumber": self.l10n_tw_edi_ecpay_invoice_id,
-                "InvoiceDate": self.l10n_tw_edi_invoice_create_date.strftime("%Y-%m-%d %H:%M:%S"),
+                "InvoiceDate": convert_utc_time_to_tw_time(self.l10n_tw_edi_invoice_create_date),
             })
 
         response_data = call_ecpay_api("/GetIssue", json_data, self.company_id, self.l10n_tw_edi_is_b2b)
@@ -760,7 +770,7 @@ class AccountMove(models.Model):
 
         json_data = {
             "MerchantID": self.company_id.sudo().l10n_tw_edi_ecpay_merchant_id,
-            "InvoiceDate": self.l10n_tw_edi_invoice_create_date.strftime("%Y-%m-%d %H:%M:%S"),
+            "InvoiceDate": convert_utc_time_to_tw_time(self.l10n_tw_edi_invoice_create_date),
             "Reason": self.l10n_tw_edi_invalidate_reason
         }
 

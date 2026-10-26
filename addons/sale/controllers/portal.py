@@ -77,12 +77,12 @@ class CustomerPortal(payment_portal.PaymentPortal):
 
         pager_values = portal_pager(
             url=url,
-            total=SaleOrder.search_count(domain),
+            total=SaleOrder.search_count(domain) if SaleOrder.has_access('read') else 0,
             page=page,
             step=self._items_per_page,
             url_args=url_args,
         )
-        orders = SaleOrder.search(domain, order=sort_order, limit=self._items_per_page, offset=pager_values['offset'])
+        orders = SaleOrder.search(domain, order=sort_order, limit=self._items_per_page, offset=pager_values['offset']) if SaleOrder.has_access('read') else SaleOrder
 
         values.update({
             'date': date_begin,
@@ -113,6 +113,13 @@ class CustomerPortal(payment_portal.PaymentPortal):
         request.session['my_orders_history'] = values['orders'].ids[:100]
         return request.render("sale.portal_my_orders", values)
 
+    # ------------------------------------------------------------
+    # My Order
+    # ------------------------------------------------------------
+
+    def _sale_order_get_page_view_values(self, order_sudo, access_token, values, history_session_key, **kwargs):
+        return self._get_page_view_values(order_sudo, access_token, values, history_session_key, False, **kwargs)
+
     @http.route(['/my/orders/<int:order_id>'], type='http', auth="public", website=True)
     def portal_order_page(
         self,
@@ -139,9 +146,14 @@ class CustomerPortal(payment_portal.PaymentPortal):
 
         # If the route is fetched from the link previewer avoid triggering that quotation is viewed.
         is_link_preview = request.httprequest.headers.get('Odoo-Link-Preview')
-        if request.env.user.share and access_token and is_link_preview != 'True':
-            # If a public/portal user accesses the order with the access token
-            # Log a note on the chatter.
+        if (
+            request.env.user.share
+            and access_token
+            and is_link_preview != "True"
+            and order_sudo.state in ["draft", "sent"]
+        ):
+            # If a public/portal user accesses the order which is in draft or sent state with the
+            # access token. Log a note on the chatter.
             today = fields.Date.today().isoformat()
             session_obj_date = request.session.get('view_quote_%s' % order_sudo.id)
             if session_obj_date != today:
@@ -184,8 +196,8 @@ class CustomerPortal(payment_portal.PaymentPortal):
         else:
             history_session_key = 'my_orders_history'
 
-        values = self._get_page_view_values(
-            order_sudo, access_token, values, history_session_key, False, **kw)
+        values = self._sale_order_get_page_view_values(
+            order_sudo, access_token, values, history_session_key, **kw)
 
         return request.render('sale.sale_order_portal_template', values)
 
@@ -292,7 +304,7 @@ class CustomerPortal(payment_portal.PaymentPortal):
         if not order_sudo._has_to_be_paid():
             order_sudo._validate_order()
 
-        pdf = request.env['ir.actions.report'].sudo()._render_qweb_pdf('sale.action_report_saleorder', [order_sudo.id])[0]
+        pdf = request.env['ir.actions.report'].sudo().with_context(sale_include_signature=True)._render_qweb_pdf('sale.action_report_saleorder', [order_sudo.id])[0]
 
         order_sudo.message_post(
             attachments=[('%s.pdf' % order_sudo.name, pdf)],
@@ -428,6 +440,9 @@ class PaymentPortal(payment_portal.PaymentPortal):
                 access_token, order_sudo.partner_invoice_id.id, amount, order_sudo.currency_id.id
             ):
                 raise ValidationError(_("The provided parameters are invalid."))
+
+            if order_sudo.is_expired:
+                raise ValidationError(_("The sale order has expired."))
 
             kwargs.update({
                 # To display on the payment form; will be later overwritten when creating the tx.

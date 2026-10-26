@@ -9,6 +9,7 @@ import {
     listGroupToTable,
     normalizeColors,
     normalizeRem,
+    splitSelectors,
 } from "@mail/views/web/fields/html_mail_field/convert_inline";
 import { beforeEach, describe, expect, getFixture, test } from "@odoo/hoot";
 import { enableTransitions } from "@odoo/hoot-mock";
@@ -460,8 +461,8 @@ describe("Convert Bootstrap grids to tables", () => {
                     /<td[^>]*>\(0, 0\)<\/td>/,
                     `<td>` +
                         `<table cellspacing="0" cellpadding="0" border="0" width="100%" align="center" ` +
-                        `role="presentation" style="width: 100% !important; border-collapse: collapse; text-align: inherit; ` +
-                        `font-size: unset; line-height: inherit;"><tr>` +
+                        `role="presentation" style="width: 100% !important; border-collapse: separate; border-spacing: 0px; text-align: inherit; ` +
+                        `font-size: unset; line-height: inherit; height: 100%;"><tr>` +
                         `<td class="card-header"><span>HEADER</span></td>` +
                         `</tr></table></td>`
                 )
@@ -469,8 +470,8 @@ describe("Convert Bootstrap grids to tables", () => {
                     /<td[^>]*>\(1, 0\)<\/td>/,
                     `<td>` +
                         `<table cellspacing="0" cellpadding="0" border="0" width="100%" align="center" ` +
-                        `role="presentation" style="width: 100% !important; border-collapse: collapse; text-align: inherit; ` +
-                        `font-size: unset; line-height: inherit;"><tr>` +
+                        `role="presentation" style="width: 100% !important; border-collapse: separate; border-spacing: 0px; text-align: inherit; ` +
+                        `font-size: unset; line-height: inherit; height: 100%;"><tr>` +
                         `<td class="card-body"><h2 class="card-title">TITLE</h2><small>BODY <img></small></td>` +
                         `</tr></table></td>`
                 )
@@ -478,8 +479,8 @@ describe("Convert Bootstrap grids to tables", () => {
                     /<td[^>]*>\(2, 0\)<\/td>/,
                     `<td>` +
                         `<table cellspacing="0" cellpadding="0" border="0" width="100%" align="center" ` +
-                        `role="presentation" style="width: 100% !important; border-collapse: collapse; text-align: inherit; ` +
-                        `font-size: unset; line-height: inherit;"><tr>` +
+                        `role="presentation" style="width: 100% !important; border-collapse: separate; border-spacing: 0px; text-align: inherit; ` +
+                        `font-size: unset; line-height: inherit; height: 100%;"><tr>` +
                         `<td class="card-footer"><a href="#" class="btn">FOOTER</a></td>` +
                         `</tr></table></td>`
                 ),
@@ -886,6 +887,23 @@ describe("Convert classes to inline styles", () => {
             }
         );
         styleSheet.deleteRule(0);
+    });
+
+    test("strip theme color classes after inlining their styles", async () => {
+        const bgColor = "rgb(17, 24, 39)";
+        const style = document.createElement("style");
+        style.textContent = `.bg-o-color-5 { background-color: ${bgColor} !important; }`;
+        const fixture = getFixture();
+        fixture.append(style);
+
+        editable.innerHTML = `<div class="bg-o-color-5 keep-me">Hello</div>`;
+        fixture.append(editable);
+
+        classToStyle(editable, getCSSRules(editable.ownerDocument));
+
+        const block = editable.querySelector(".keep-me");
+        expect(block).toHaveStyle({ backgroundColor: bgColor });
+        expect(block).not.toHaveClass("bg-o-color-5");
     });
 
     test("simplify border/margin/padding styles", async () => {
@@ -1325,6 +1343,21 @@ describe("Convert classes to inline styles", () => {
             { message: "should have removed all specific flex styles" }
         );
         styleSheet.deleteRule(0);
+        styleSheet.insertRule(
+            `
+            .test-inline-flex {
+                display: inline-flex;
+            }
+        `,
+            0
+        );
+        editable.innerHTML = `<div class="test-inline-flex"></div>`;
+        classToStyle(editable, getCSSRules(editable.ownerDocument));
+        expect(editable).toHaveInnerHTML(
+            `<div class="test-inline-flex" style="box-sizing:border-box;display:inline-block;"></div>`,
+            { message: "should have replaced the inline-flex display with inline-block" }
+        );
+        styleSheet.deleteRule(0);
 
         // @todo to adapt when hoot has a better way to remove it
     });
@@ -1491,5 +1524,21 @@ describe("Properly add MSO conditions", () => {
         ).toEqual(`[if mso]><div>efgh</div><![endif]`, {
             message: "Should remove nested mso hide condition",
         });
+    });
+});
+
+describe("splitSelectors method", () => {
+    test("no parentheses", async () => {
+        expect(splitSelectors("abc, def, ghi")).toEqual(["abc", "def", "ghi"]);
+    });
+    test("one depth parentheses", async () => {
+        expect(splitSelectors("abc:has(xyz), def, ghi")).toEqual(["abc:has(xyz)", "def", "ghi"]);
+    });
+    test("two depth parentheses", async () => {
+        expect(splitSelectors("abc:has(xyz:not(.ooo)), def, ghi")).toEqual([
+            "abc:has(xyz:not(.ooo))",
+            "def",
+            "ghi",
+        ]);
     });
 });

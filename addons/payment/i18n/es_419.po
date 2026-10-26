@@ -7,13 +7,13 @@
 # Wil Odoo, 2024
 # Fernanda Alvarez, 2025
 #
-# "Fernanda Alvarez (mfar)" <mfar@odoo.com>, 2025.
+# "Fernanda Alvarez (mfar)" <mfar@odoo.com>, 2025, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-15 18:39+0000\n"
-"PO-Revision-Date: 2025-12-18 18:36+0000\n"
+"POT-Creation-Date: 2026-04-03 18:40+0000\n"
+"PO-Revision-Date: 2026-10-21 22:33+0000\n"
 "Last-Translator: \"Fernanda Alvarez (mfar)\" <mfar@odoo.com>\n"
 "Language-Team: Spanish (Latin America) <https://translate.odoo.com/projects/"
 "odoo-18/payment/es_419/>\n"
@@ -23,7 +23,7 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14.3\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_provider_onboarding_wizard___data_fetched
@@ -86,11 +86,10 @@ msgid ""
 "transactions you intend to capture can only be captured in full. Handle the "
 "transactions individually to capture a partial amount.\"/>"
 msgstr ""
-"<i class=\"fa fa-info-circle oe_inline\" "
-"invisible=\"support_partial_capture != 'full_only'\" title=\"Algunas de las "
-"transacciones que intenta capturar, solo se pueden capturar completas. "
-"Maneje las transacciones individualmente para capturar un importe parcial.\"/"
-">"
+"<i class=\"fa fa-info-circle oe_inline\" invisible=\"support_partial_capture "
+"!= 'full_only'\" title=\"Algunas de las transacciones que intenta capturar, "
+"solo se pueden capturar completas. Maneje las transacciones individualmente "
+"para capturar un importe parcial.\"/>"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.token_form
@@ -444,7 +443,7 @@ msgstr "Aplicar"
 #. module: payment
 #: model:payment.method,name:payment.payment_method_appota
 msgid "Appota"
-msgstr ""
+msgstr "Appota"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_token_form
@@ -656,7 +655,7 @@ msgstr "Belfius"
 #. module: payment
 #: model:payment.method,name:payment.payment_method_benefit
 msgid "Benefit"
-msgstr "Prestación"
+msgstr "Benefit"
 
 #. module: payment
 #: model:payment.method,name:payment.payment_method_bharatqr
@@ -1052,7 +1051,7 @@ msgstr "Desactivado"
 #. module: payment
 #: model:payment.method,name:payment.payment_method_discover
 msgid "Discover"
-msgstr "Descubrir"
+msgstr "Discover"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_capture_wizard__display_name
@@ -1444,7 +1443,7 @@ msgstr "KrungThai Bank"
 #. module: payment
 #: model:payment.method,name:payment.payment_method_kfh
 msgid "Kuwait Finance House"
-msgstr ""
+msgstr "Kuwait Finance House"
 
 #. module: payment
 #: model:payment.method,name:payment.payment_method_linepay
@@ -1549,8 +1548,7 @@ msgstr "Magna"
 msgid ""
 "Making a request to the provider is not possible because the provider is "
 "disabled."
-msgstr ""
-"No es posible hacer una solicitud al proveedor porque está desactivado."
+msgstr "No es posible hacer una solicitud al proveedor porque está desactivado."
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.portal_my_home_payment
@@ -1575,7 +1573,7 @@ msgstr "Captura manual permitida"
 #. module: payment
 #: model:payment.method,name:payment.payment_method_mastercard
 msgid "MasterCard"
-msgstr "MasterCard"
+msgstr "Mastercard"
 
 #. module: payment
 #: model:ir.model.fields,field_description:payment.field_payment_provider__maximum_amount
@@ -1636,7 +1634,7 @@ msgstr "MoMo"
 #. module: payment
 #: model:payment.method,name:payment.payment_method_mobile_money
 msgid "Mobile money"
-msgstr " Dinero móvil"
+msgstr "Dinero móvil"
 
 #. module: payment
 #: model:payment.method,name:payment.payment_method_mobile_pay
@@ -2119,7 +2117,7 @@ msgstr "Asistente de proveedor de pago de comprador"
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.availability_report
 msgid "Payment providers"
-msgstr "Proveedores de pag"
+msgstr "Proveedores de pago"
 
 #. module: payment
 #: model:ir.actions.server,name:payment.cron_post_process_payment_tx_ir_actions_server
@@ -3064,12 +3062,12 @@ msgstr "VISA"
 #. module: payment
 #: model:payment.method,name:payment.payment_method_vnptwallet
 msgid "VNPT Money"
-msgstr ""
+msgstr "VNPT Money"
 
 #. module: payment
 #: model:payment.method,name:payment.payment_method_vpbank
 msgid "VP Bank"
-msgstr ""
+msgstr "VP Bank"
 
 #. module: payment
 #: model:ir.model.fields.selection,name:payment.selection__payment_transaction__operation__validation
@@ -3084,7 +3082,7 @@ msgstr "Venmo"
 #. module: payment
 #: model:payment.method,name:payment.payment_method_vietcapital
 msgid "Viet Capital"
-msgstr ""
+msgstr "Viet Capital"
 
 #. module: payment
 #: model:payment.method,name:payment.payment_method_vietcom
@@ -3094,7 +3092,7 @@ msgstr "Vietcombank"
 #. module: payment
 #: model:payment.method,name:payment.payment_method_viettelpay
 msgid "Viettel Pay"
-msgstr ""
+msgstr "Viettel Pay"
 
 #. module: payment
 #: model:payment.method,name:payment.payment_method_vipps
@@ -3110,6 +3108,11 @@ msgstr "Importe restante nulo"
 #: model_terms:ir.ui.view,arch_db:payment.payment_transaction_form
 msgid "Void Transaction"
 msgstr "Transacción vacía"
+
+#. module: payment
+#: model:payment.method,name:payment.payment_method_wero
+msgid "WERO"
+msgstr "WERO"
 
 #. module: payment
 #: model:payment.method,name:payment.payment_method_wallets_india
@@ -3186,7 +3189,7 @@ msgstr "Transferencia bancaria"
 #. module: payment
 #: model:payment.method,name:payment.payment_method_woori
 msgid "Woori Bank"
-msgstr ""
+msgstr "Woori Bank"
 
 #. module: payment
 #: model:payment.provider,name:payment.payment_provider_worldline
@@ -3354,7 +3357,7 @@ msgstr "Aún no se ha procesado su pago."
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_status
 msgid "Your payment is on its way!"
-msgstr "Su pago está en camino. "
+msgstr "¡Tu pago está en camino!"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.state_header
@@ -3364,7 +3367,7 @@ msgstr "Se ha guardado su método de pago."
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.form
 msgid "Your payment methods"
-msgstr "Sus métodos de pago"
+msgstr "Tus métodos de pago"
 
 #. module: payment
 #: model_terms:ir.ui.view,arch_db:payment.payment_transaction_form
@@ -3380,7 +3383,7 @@ msgstr "Zalopay"
 #: model:ir.model.fields,field_description:payment.field_payment_transaction__partner_zip
 #: model:payment.method,name:payment.payment_method_zip
 msgid "Zip"
-msgstr "Código postal"
+msgstr "Zip"
 
 #. module: payment
 #: model:payment.method,name:payment.payment_method_cofidis
@@ -3400,6 +3403,7 @@ msgstr "el pago express es incompatible"
 
 #. module: payment
 #: model:payment.method,name:payment.payment_method_ideal
+#: model:payment.method,name:payment.payment_method_ideal_brand
 msgid "iDEAL"
 msgstr "iDEAL"
 

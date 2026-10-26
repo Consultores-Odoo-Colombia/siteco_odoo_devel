@@ -1,27 +1,31 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* im_livechat
+# * im_livechat
 #
 # Translators:
 # Martin Trigaux, 2024
 # Wil Odoo, 2024
 #
+# Alina Lisnenko <alina.lisnenko@erp.co.ua>, 2026.
+# Weblate <noreply-mt-weblate@weblate.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2024-09-25 09:41+0000\n"
-"Last-Translator: Wil Odoo, 2024\n"
-"Language-Team: Ukrainian (https://app.transifex.com/odoo/teams/41243/uk/)\n"
+"POT-Creation-Date: 2026-04-03 18:39+0000\n"
+"PO-Revision-Date: 2026-10-20 10:57+0000\n"
+"Last-Translator: Alina Lisnenko <alina.lisnenko@erp.co.ua>\n"
+"Language-Team: Ukrainian <https://translate.odoo.com/projects/odoo-18/"
+"im_livechat/uk/>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
-"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
-"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
-"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 "
+"? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > "
+"14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % "
+"100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: im_livechat
 #. odoo-python
@@ -71,8 +75,7 @@ msgstr "%s (копія)"
 #: code:addons/im_livechat/models/discuss_channel.py:0
 msgid ""
 "'%(input_email)s' does not look like a valid email. Can you please try again?"
-msgstr ""
-"'%(input_email)s' виглядає як недійсний email. Можете спробувати знову?"
+msgstr "'%(input_email)s' виглядає як недійсний email. Можете спробувати знову?"
 
 #. module: im_livechat
 #: model:ir.model.fields,help:im_livechat.field_im_livechat_channel_rule__action
@@ -113,8 +116,7 @@ msgstr ""
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.chatbot_test_script_page
 msgid "<i class=\"oi oi-fw oi-arrow-right\"/>Back to edit mode"
-msgstr ""
-"<i class=\"oi oi-fw oi-arrow-right\"/>Повернутися до режиму редагування"
+msgstr "<i class=\"oi oi-fw oi-arrow-right\"/>Повернутися до режиму редагування"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
@@ -124,7 +126,7 @@ msgstr "<i title=\"Remove operator\" class=\"fa fa-fw fa-lg fa-close\"/>"
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.discuss_channel_view_kanban
 msgid "<span class=\"fw-bold\">Country: </span>"
-msgstr ""
+msgstr "<span class=\"fw-bold\">Країна: </span>"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.livechat_email_template
@@ -147,8 +149,8 @@ msgid ""
 "<span>Reminder: This step will only be played if no operator is available.</"
 "span>"
 msgstr ""
-"<span>Нагадування: Цей крок буде відтворено, лише якщо оператор недоступний."
-"</span>"
+"<span>Нагадування: Цей крок буде відтворено, лише якщо оператор "
+"недоступний.</span>"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.chatbot_script_view_form
@@ -220,7 +222,7 @@ msgstr "Активно"
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
 msgid "Add the following code to the &lt;head&gt; section of your website:"
-msgstr ""
+msgstr "Додайте наступний код в &lt;хедер&gt; вашого вебсайту:"
 
 #. module: im_livechat
 #: model:res.groups,name:im_livechat.im_livechat_group_manager
@@ -232,6 +234,8 @@ msgstr "Адміністратор"
 msgid ""
 "Alternatively, share this URL with your customers or suppliers via email:"
 msgstr ""
+"Або ж поділіться цією URL-адресою зі своїми клієнтами чи постачальниками "
+"електронною поштою:"
 
 #. module: im_livechat
 #. odoo-javascript
@@ -471,6 +475,7 @@ msgstr "Чатботи"
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
 msgid "Choose the live chat channel you want to display on your website."
 msgstr ""
+"Виберіть канал живого чату, який ви хочете відображати на своєму вебсайті."
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.chatbot_test_script_page
@@ -510,12 +515,6 @@ msgstr "Контакт"
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_report_operator__channel_id
 msgid "Conversation"
 msgstr "Розмова"
-
-#. module: im_livechat
-#. odoo-javascript
-#: code:addons/im_livechat/static/src/embed/common/chatbot/chatbot_service.js:0
-msgid "Conversation ended..."
-msgstr "Розмова завершена..."
 
 #. module: im_livechat
 #. odoo-python
@@ -754,12 +753,12 @@ msgstr "Поясніть свою примітку"
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
 msgid "FOR OTHER WEBSITES"
-msgstr ""
+msgstr "ДЛЯ ІНШИХ ВЕБСАЙТІВ"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
 msgid "FOR WEBSITES BUILT WITH ODOO"
-msgstr ""
+msgstr "ДЛЯ ВЕБСАЙТІВ ЗРОБЛЕНИХ НА ODOO"
 
 #. module: im_livechat
 #: model:ir.model.fields.selection,name:im_livechat.selection__chatbot_script__first_step_warning__first_step_invalid
@@ -818,6 +817,9 @@ msgid ""
 "<strong>Settings</strong> &gt; <strong>Email</strong> &amp; "
 "<strong>Marketing.</strong>"
 msgstr ""
+"Перейдіть до <strong>Вебсайту</strong> &gt; <strong>Налаштування</strong> "
+"&gt; <strong>Налаштування</strong> &gt; <strong>Email</strong> &amp; <strong>"
+"Маркетинг.</strong>"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.discuss_channel_view_search
@@ -991,7 +993,7 @@ msgstr "Приєднатися"
 #. odoo-javascript
 #: code:addons/im_livechat/static/src/core/web/livechat_channel_model_patch.js:0
 msgid "Join %s"
-msgstr ""
+msgstr "Приєднатися %s"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
@@ -1052,6 +1054,8 @@ msgid ""
 "Learn how to display a live chat bubble on your website and start chatting "
 "with visitors in a few easy steps."
 msgstr ""
+"Дізнайтеся, як відобразити бульбашку живого чату на своєму веб-сайті та "
+"почати спілкуватися з відвідувачами за кілька простих кроків."
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_kanban
@@ -1062,7 +1066,7 @@ msgstr "Відпустка"
 #. odoo-javascript
 #: code:addons/im_livechat/static/src/core/web/livechat_channel_model_patch.js:0
 msgid "Leave %s"
-msgstr ""
+msgstr "Відключитися %s"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
@@ -1384,7 +1388,7 @@ msgstr "Опції"
 #: model:ir.model.fields,field_description:im_livechat.field_mail_mail__parent_author_name
 #: model:ir.model.fields,field_description:im_livechat.field_mail_message__parent_author_name
 msgid "Parent Author Name"
-msgstr "Бітьківське імʼя автора "
+msgstr "Бітьківське імʼя автора"
 
 #. module: im_livechat
 #: model:ir.model.fields,field_description:im_livechat.field_mail_mail__parent_body
@@ -1439,6 +1443,11 @@ msgstr "Зроблено"
 #: model:ir.model.fields.selection,name:im_livechat.selection__chatbot_script_step__step_type__question_selection
 msgid "Question"
 msgstr "Запитання"
+
+#. module: im_livechat
+#: model:ir.model,name:im_livechat.model_ir_qweb
+msgid "Qweb"
+msgstr "Qweb"
 
 #. module: im_livechat
 #. odoo-python
@@ -1642,7 +1651,7 @@ msgstr "Дата сессії"
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.discuss_channel_view_form
 msgid "Session Form"
-msgstr "Форма сессії"
+msgstr "Форма сесії"
 
 #. module: im_livechat
 #: model:ir.actions.act_window,name:im_livechat.im_livechat_report_channel_action
@@ -1714,7 +1723,7 @@ msgstr "Тип кроку"
 #. odoo-python
 #: code:addons/im_livechat/models/chatbot_script.py:0
 msgid "Step of type 'Question' must have answers."
-msgstr ""
+msgstr "Крок типу «Запитання» повинен містити відповіді."
 
 #. module: im_livechat
 #. odoo-javascript
@@ -1768,8 +1777,8 @@ msgid ""
 "chat button will be hidden on the specified URL from the visitors located in "
 "these 2 countries. This feature requires GeoIP installed on your server."
 msgstr ""
-"Це правило застосовуватиметься лише до цих країн. Приклад: якщо ви вибрали "
-"«Бельгію» та «Сполучені Штати» та встановили дію «Приховати», кнопка чату "
+"Це правило застосовуватиметься лише до цих країн. Приклад: якщо ви вибрали «"
+"Бельгію» та «Сполучені Штати» та встановили дію «Приховати», кнопка чату "
 "буде прихована за вказаною URL-адресою від відвідувачів, які перебувають у "
 "цих 2 країнах. Ця функція вимагає встановлення GeoIP на вашому сервері."
 
@@ -1818,6 +1827,12 @@ msgstr "Цього місяця"
 #: model_terms:ir.ui.view,arch_db:im_livechat.rating_rating_view_search_livechat
 msgid "This Week"
 msgstr "Цього тижня"
+
+#. module: im_livechat
+#. odoo-javascript
+#: code:addons/im_livechat/static/src/embed/common/chatbot/chatbot_service.js:0
+msgid "This conversation has ended."
+msgstr "Ця розмова завершена."
 
 #. module: im_livechat
 #: model:ir.model.fields,help:im_livechat.field_im_livechat_channel__default_message
@@ -1870,7 +1885,7 @@ msgstr "Оброблені сесії"
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.im_livechat_channel_view_form
 msgid "Turn on the <strong>Live Chat</strong> feature."
-msgstr ""
+msgstr "Включіть функцію <strong>Live Chat</strong>re."
 
 #. module: im_livechat
 #: model:ir.model.fields,field_description:im_livechat.field_im_livechat_channel_rule__regex_url
@@ -2010,7 +2025,7 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/im_livechat/static/src/embed/common/close_confirmation.xml:0
 msgid "Yes, leave conversation"
-msgstr ""
+msgstr "Так, покинути розмову"
 
 #. module: im_livechat
 #: model_terms:ir.ui.view,arch_db:im_livechat.livechat_email_template
@@ -2049,19 +2064,19 @@ msgstr ""
 #. odoo-javascript
 #: code:addons/im_livechat/static/src/core/web/livechat_channel_model_patch.js:0
 msgid "You joined %s."
-msgstr ""
+msgstr "Ви долучилися %s."
 
 #. module: im_livechat
 #. odoo-javascript
 #: code:addons/im_livechat/static/src/core/web/livechat_channel_model_patch.js:0
 msgid "You left %s."
-msgstr ""
+msgstr "Ви відключилися %s."
 
 #. module: im_livechat
 #. odoo-javascript
 #: code:addons/im_livechat/static/src/embed/common/close_confirmation.xml:0
 msgid "You're about to leave the conversation, proceed?"
-msgstr ""
+msgstr "Ви збираєтеся вийти з розмови, продовжити?"
 
 #. module: im_livechat
 #: model_terms:ir.actions.act_window,help:im_livechat.discuss_channel_action
@@ -2114,3 +2129,6 @@ msgstr "секунди"
 #: model_terms:ir.ui.view,arch_db:im_livechat.livechat_email_template
 msgid "{{author_name}}"
 msgstr "{{author_name}}"
+
+#~ msgid "Conversation ended..."
+#~ msgstr "Розмова завершена..."

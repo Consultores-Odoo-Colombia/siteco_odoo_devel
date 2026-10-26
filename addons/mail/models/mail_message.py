@@ -349,17 +349,18 @@ class Message(models.Model):
         """ Helper returning records on which 'operation' on mail.message is
         allowed, based on '_get_mail_message_access' behavior and potential
         model override. """
-        documents_all = self.env[doc_model].with_context(active_test=False).browse(doc_res_ids)
-        documents_per_operation = defaultdict(self.env[doc_model].browse)
-        for document in documents_all:
+        DocumentModel = self.env[doc_model].with_context(active_test=False).with_prefetch(doc_res_ids)
+        documents_ids_per_operation = defaultdict(OrderedSet)
+        for document in DocumentModel.browse(doc_res_ids):
             if hasattr(document, '_get_mail_message_access'):
-                doc_operation = self.env[document._name]._get_mail_message_access(document.ids, operation)  # why not giving model here?
+                doc_operation = DocumentModel._get_mail_message_access(document.ids, operation)  # why not giving model here?
             else:
                 doc_operation = self.env['mail.thread']._get_mail_message_access(document.ids, operation, model_name=document._name)
-            documents_per_operation[doc_operation] |= document
+            documents_ids_per_operation[doc_operation].add(document.id)
 
         forbidden_doc_ids = set()
-        for record_operation, records in documents_per_operation.items():
+        for record_operation, documents_ids in documents_ids_per_operation.items():
+            records = self.env[doc_model].browse(documents_ids)
             try:
                 operation_result = records._check_access(record_operation)
             except MissingError:
@@ -544,11 +545,9 @@ class Message(models.Model):
                     message.get('message_type') != 'user_notification'):
                 model_docid_msgids[message['model']][message['res_id']].append(mid)
         for model, docid_msgids in model_docid_msgids.items():
-            allowed = self._filter_records_for_message_operation(model, docid_msgids, operation)
-            for doc_id, msg_ids in docid_msgids.items():
-                if doc_id in allowed.ids:
-                    for mid in msg_ids:
-                        messages_to_check.pop(mid)
+            for doc_id in self._filter_records_for_message_operation(model, docid_msgids, operation).ids:
+                for mid in docid_msgids.get(doc_id, []):
+                    messages_to_check.pop(mid)
 
         if not messages_to_check:
             return forbidden
@@ -726,7 +725,7 @@ class Message(models.Model):
                 if vals_lst:
                     self.env['mail.tracking.value'].sudo().create(vals_lst)
                 if other_cmd:
-                    message.sudo().write({'tracking_value_ids': tracking_values_cmd})
+                    message.write({'tracking_value_ids': other_cmd})
 
             if message.is_thread_message(values):
                 message._invalidate_documents(values.get('model'), values.get('res_id'))

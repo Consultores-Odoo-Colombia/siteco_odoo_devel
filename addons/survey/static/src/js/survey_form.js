@@ -261,7 +261,7 @@ publicWidget.registry.SurveyFormWidget = publicWidget.Widget.extend(SurveyPreloa
             options.previousPageId = parseInt(target.dataset['previousPageId']);
         } else if (target.value === 'next_skipped') {
             options.nextSkipped = true;
-        } else if (target.value === 'finish') {
+        } else if (target.value === 'finish' && !this.options.sessionInProgress) {
             options.isFinish = true;
         }
         this._submitForm(options);
@@ -1181,7 +1181,8 @@ publicWidget.registry.SurveyFormWidget = publicWidget.Widget.extend(SurveyPreloa
         form.querySelector('button[type="submit"]').classList.add('d-none');
         const nextPageBtn = form.querySelector('button[id="next_page"]');
         nextPageBtn.classList.remove('d-none');
-        nextPageBtn.addEventListener('click', () => {
+        nextPageBtn.addEventListener('click', (ev) => {
+            ev.preventDefault();
             this._nextScreen(submitPromise, options);
         });
         // Replacing the original onKeyDown listener to block everything except for the

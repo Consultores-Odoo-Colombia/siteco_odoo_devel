@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# 	* product
+# * product
 #
 # Translators:
 # Robert Frykelius <robert.frykelius@linserv.se>, 2024
@@ -22,20 +22,22 @@
 # Kim Asplund <kim.asplund@gmail.com>, 2024
 # Lasse L, 2024
 # Jakob Krabbe <jakob.krabbe@vertel.se>, 2025
-#
+# Hanna Kharraziha <hakha@odoo.com>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-29 18:37+0000\n"
-"PO-Revision-Date: 2024-09-25 09:41+0000\n"
-"Last-Translator: Jakob Krabbe <jakob.krabbe@vertel.se>, 2025\n"
-"Language-Team: Swedish (https://app.transifex.com/odoo/teams/41243/sv/)\n"
+"POT-Creation-Date: 2026-04-10 18:38+0000\n"
+"PO-Revision-Date: 2026-10-20 12:25+0000\n"
+"Last-Translator: Hanna Kharraziha <hakha@odoo.com>\n"
+"Language-Team: Swedish <https://translate.odoo.com/projects/odoo-18/product/"
+"sv/>\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 2026.8.1\n"
 
 #. module: product
 #. odoo-python
@@ -60,16 +62,6 @@ msgstr "# Produktvarianter"
 #: model:ir.model.fields,field_description:product.field_product_category__product_count
 msgid "# Products"
 msgstr "# Produkter"
-
-#. module: product
-#: model_terms:ir.ui.view,arch_db:product.report_pricelist_page
-msgid "$14.00"
-msgstr "$14.00"
-
-#. module: product
-#: model_terms:ir.ui.view,arch_db:product.report_pricelist_page
-msgid "$15.00"
-msgstr "$15.00"
 
 #. module: product
 #. odoo-python
@@ -159,8 +151,8 @@ msgstr "- %(amount)s rabatt"
 msgid ""
 "- Barcode \"%(barcode)s\" already assigned to product(s): %(product_list)s"
 msgstr ""
-"- Streckkod \"%(barcode)s\" redan tilldelad till produkt(er): %"
-"(product_list)s"
+"- Streckkod \"%(barcode)s\" redan tilldelad till produkt(er): %(product_list)"
+"s"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_attribute__create_variant
@@ -191,19 +183,9 @@ msgid "1 year warranty extension"
 msgstr "1 års garantiförlängning"
 
 #. module: product
-#: model_terms:ir.ui.view,arch_db:product.report_packagingbarcode
-msgid "10"
-msgstr "10"
-
-#. module: product
 #: model_terms:ir.ui.view,arch_db:product.report_pricelist_page
 msgid "10 Units"
 msgstr "10 enheter"
-
-#. module: product
-#: model_terms:ir.ui.view,arch_db:product.report_packagingbarcode
-msgid "123456789012"
-msgstr "123456789012"
 
 #. module: product
 #: model:product.template,description_sale:product.product_product_4_product_template
@@ -255,8 +237,8 @@ msgid ""
 "<i class=\"fa fa-money\" role=\"img\" aria-label=\"Currency\" "
 "title=\"Currency\"/>"
 msgstr ""
-"<i class=\"fa fa-money\" role=\"img\" aria-label=\"Valuta\" title=\"Valuta\"/"
-">"
+"<i class=\"fa fa-money\" role=\"img\" aria-label=\"Valuta\" "
+"title=\"Valuta\"/>"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_template_form_view
@@ -323,8 +305,7 @@ msgstr ""
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.product_variant_easy_edit_view
 msgid "<span>All general settings about this product are managed on</span>"
-msgstr ""
-"<span>Alla generella inställningar för denna produkt hanteras av</span>"
+msgstr "<span>Alla generella inställningar för denna produkt hanteras av</span>"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.report_packagingbarcode
@@ -432,13 +413,12 @@ msgstr "En produkt använder redan streckkoden"
 #. odoo-python
 #: code:addons/product/models/product_template.py:0
 msgid "A sellable combo product can only contain sellable products."
-msgstr ""
-"En säljbar kombinationsprodukt kan endast innehålla säljbara produkter."
+msgstr "En säljbar kombinationsprodukt kan endast innehålla säljbara produkter."
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_document__access_token
 msgid "Access Token"
-msgstr "Åtkomsttecken"
+msgstr "Åtkomsttoken"
 
 #. module: product
 #: model_terms:ir.ui.view,arch_db:product.report_pricelist_page
@@ -495,14 +475,14 @@ msgstr "Aktiviteter"
 #: model:ir.model.fields,field_description:product.field_product_product__activity_exception_decoration
 #: model:ir.model.fields,field_description:product.field_product_template__activity_exception_decoration
 msgid "Activity Exception Decoration"
-msgstr "Aktivitet undantaget dekoration"
+msgstr "Stilmarkeringar för undantagsaktiviteter"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist__activity_state
 #: model:ir.model.fields,field_description:product.field_product_product__activity_state
 #: model:ir.model.fields,field_description:product.field_product_template__activity_state
 msgid "Activity State"
-msgstr "Aktivitetstillstånd"
+msgstr "Aktivitetsstatus"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist__activity_type_icon
@@ -660,7 +640,7 @@ msgstr "Ansök på"
 #: model_terms:ir.ui.view,arch_db:product.product_template_search_view
 #: model_terms:ir.ui.view,arch_db:product.product_variant_easy_edit_view
 msgid "Archived"
-msgstr "Arkiverad"
+msgstr "Arkiverade"
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_supplierinfo__sequence
@@ -1436,7 +1416,7 @@ msgstr "Låda med två utdragsmöjligheter."
 #. module: product
 #: model:product.attribute,name:product.product_attribute_3
 msgid "Duration"
-msgstr "Varaktighet"
+msgstr "Tidsperiod"
 
 #. module: product
 #: model:ir.model.fields.selection,name:product.selection__product_label_layout__print_format__dymo
@@ -1787,7 +1767,9 @@ msgstr "Ikon för att indikera en undantagsaktivitet."
 #: model:ir.model.fields,help:product.field_product_product__message_needaction
 #: model:ir.model.fields,help:product.field_product_template__message_needaction
 msgid "If checked, new messages require your attention."
-msgstr "Om markerad så finns det meddelanden som kräver din uppmärksamhet."
+msgstr ""
+"Om rutan är markerad, så finns det nya meddelanden som kräver din "
+"uppmärksamhet."
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_category__message_has_error
@@ -1795,7 +1777,7 @@ msgstr "Om markerad så finns det meddelanden som kräver din uppmärksamhet."
 #: model:ir.model.fields,help:product.field_product_product__message_has_error
 #: model:ir.model.fields,help:product.field_product_template__message_has_error
 msgid "If checked, some messages have a delivery error."
-msgstr "Om markerad, en del meddelanden har leveransfel."
+msgstr "Om rutan är markerad, så har vissa meddelanden leveransfel."
 
 #. module: product
 #: model:ir.model.fields,help:product.field_product_supplierinfo__product_id
@@ -1823,8 +1805,7 @@ msgstr ""
 #: model:ir.model.fields,help:product.field_product_template__active
 msgid ""
 "If unchecked, it will allow you to hide the product without removing it."
-msgstr ""
-"Om icke ikryssat, tillåter dig att gömma produkten utan att radera den."
+msgstr "Om icke ikryssat, tillåter dig att gömma produkten utan att radera den."
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_attribute_value__image
@@ -1931,8 +1912,7 @@ msgstr "Intern referens"
 #. module: product
 #: model:ir.model.fields,help:product.field_product_product__barcode
 msgid "International Article Number used for product identification."
-msgstr ""
-"European Article Number eller EAN som används för produktidentifiering."
+msgstr "European Article Number eller EAN som används för produktidentifiering."
 
 #. module: product
 #. odoo-javascript
@@ -1978,6 +1958,11 @@ msgstr "Är en offentlig handling"
 #: model:ir.model.fields.selection,name:product.selection__res_config_settings__product_weight_in_lbs__0
 msgid "Kilograms"
 msgstr "Kilogram"
+
+#. module: product
+#: model:product.attribute.value,name:product.size_attribute_l
+msgid "L"
+msgstr ""
 
 #. module: product
 #: model:product.template,name:product.product_product_6_product_template
@@ -2097,6 +2082,11 @@ msgstr ""
 "Kontakta oss för en offert."
 
 #. module: product
+#: model:product.attribute.value,name:product.size_attribute_m
+msgid "M"
+msgstr ""
+
+#. module: product
 #: model:ir.model.fields,help:product.field_product_template_attribute_value__exclude_for
 msgid ""
 "Make this attribute value not compatible with other values of the product or "
@@ -2147,7 +2137,7 @@ msgstr "Meddelande"
 #: model:ir.model.fields,field_description:product.field_product_product__message_has_error
 #: model:ir.model.fields,field_description:product.field_product_template__message_has_error
 msgid "Message Delivery error"
-msgstr "Fel vid leverans meddelande"
+msgstr "Leveransfel för meddelande"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_category__message_ids
@@ -2247,14 +2237,14 @@ msgstr "Nästa Kalenderhändelse för Aktivitet"
 #: model:ir.model.fields,field_description:product.field_product_product__activity_date_deadline
 #: model:ir.model.fields,field_description:product.field_product_template__activity_date_deadline
 msgid "Next Activity Deadline"
-msgstr "Nästa slutdatum för aktivitet"
+msgstr "Tidsgräns för nästa aktivitet"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist__activity_summary
 #: model:ir.model.fields,field_description:product.field_product_product__activity_summary
 #: model:ir.model.fields,field_description:product.field_product_template__activity_summary
 msgid "Next Activity Summary"
-msgstr "Nästa aktivitetssammanställning"
+msgstr "Sammanfattning av nästa aktivitet"
 
 #. module: product
 #: model:ir.model.fields,field_description:product.field_product_pricelist__activity_type_id
@@ -3167,6 +3157,11 @@ msgid "Rule Tip"
 msgstr "Regel Tips"
 
 #. module: product
+#: model:product.attribute.value,name:product.size_attribute_s
+msgid "S"
+msgstr ""
+
+#. module: product
 #: model:ir.model.fields,field_description:product.field_product_product__sale_ok
 #: model:ir.model.fields,field_description:product.field_product_template__sale_ok
 #: model_terms:ir.ui.view,arch_db:product.product_template_form_view
@@ -3336,10 +3331,10 @@ msgid ""
 "Today: Activity date is today\n"
 "Planned: Future activities."
 msgstr ""
-"Status baserad på aktiviteter\n"
-"Försenade: Leveranstidpunkten har passerat\n"
-"Idag: Aktivitetsdatum är idag\n"
-"Kommande: Framtida aktiviteter."
+"Status baserat på aktivitetsdatum:\n"
+"Försenade: Aktivitetsdatum har redan passerat.\n"
+"Idag: Aktivitetsdatum är dagens datum.\n"
+"Planerade: Kommande aktiviteter."
 
 #. module: product
 #: model:product.attribute.value,name:product.product_attribute_value_1
@@ -4489,3 +4484,15 @@ msgstr "till"
 #: code:addons/product/static/src/js/pricelist_report/product_pricelist_report.xml:0
 msgid "xlsx"
 msgstr "xlsx"
+
+#~ msgid "$14.00"
+#~ msgstr "$14.00"
+
+#~ msgid "$15.00"
+#~ msgstr "$15.00"
+
+#~ msgid "10"
+#~ msgstr "10"
+
+#~ msgid "123456789012"
+#~ msgstr "123456789012"
