@@ -101,7 +101,7 @@ services:
       - odoo-net
 
   odoo:
-    image: '${ODOO_IMAGE:-ghcr.io/juanca2918/odoo18-ce:siteco-odoo-v2.6.1}'
+    image: '${ODOO_IMAGE:-ghcr.io/juanca2918/odoo18-ce:siteco-odoo-v2.7.0}'
     restart: unless-stopped
     logging: *default-logging
     depends_on:
@@ -148,7 +148,11 @@ services:
       WITHOUT_DEMO: all
 
       # --- Database manager ---
-      LIST_DB: '${LIST_DB:-True}'
+      # False por defecto: con True, /web/database/manager (backup, borrar,
+      # restaurar) queda abierto en internet tras la master password. Ponlo en
+      # True solo mientras lo uses y reinicia; el entrypoint lo aplica sin
+      # FORCE_RECONFIG.
+      LIST_DB: '${LIST_DB:-False}'
 
       # --- Server-wide modules ---
       # Añade aquí session_redis si instalas ese addon de OCA.

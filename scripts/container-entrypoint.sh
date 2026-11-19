@@ -83,11 +83,12 @@ PY
 # Hash password (pbkdf2_sha512)
 # ---------------------------------------------------------------------------
 _hash_password() {
-  local raw_pass="$1"
-  python3 -c "
+  # Por entorno y no dentro del código: una ' o una \ en la clave rompía el hash.
+  RAW_PASS="$1" python3 -c "
+import os
 from passlib.context import CryptContext
 ctx = CryptContext(schemes=['pbkdf2_sha512'])
-print(ctx.hash('${raw_pass}'))
+print(ctx.hash(os.environ['RAW_PASS']))
 "
 }
 
@@ -208,13 +209,8 @@ Password : ${ADMIN_PASSWORD}
 EOF
       chmod 600 "${CREDENTIALS_FILE}"
 
-      log "================================================================"
-      log " INITIAL CREDENTIALS"
-      log " Odoo User : admin"
-      log " Password  : ${ADMIN_PASSWORD}"
-      log " (also saved in ${CREDENTIALS_FILE})"
-      log "================================================================"
-      log "Initialization completed."
+      # La clave no va al log: los logs del contenedor los ve cualquiera con acceso a Coolify.
+      log "Initialization completed. Admin credentials saved in ${CREDENTIALS_FILE}"
     fi
   else
     log "ODOO_AUTO_INIT=0 — skipping auto-init. Use /web/database/manager or set ODOO_AUTO_INIT=1."
