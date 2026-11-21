@@ -2,3 +2,4 @@
 *.sh text eol=lf
 odoo-bin text eol=lf
 setup/odoo text eol=lf
+CORE_UPSTREAM_COMMIT text eol=lf
