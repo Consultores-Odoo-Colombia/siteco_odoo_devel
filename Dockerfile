@@ -103,7 +103,14 @@ WORKDIR ${ODOO_HOME}
 # -----------------------------------------------------------------------------
 COPY --chown=odoo:odoo requirements.txt ./requirements.txt
 # Fix cbor2==5.4.2 source build failure on Python 3.11 (missing pkg_resources).
-RUN sed -E "s/^cbor2==5\.4\.2(\s*;.*)?$/cbor2==5.4.6\1/" requirements.txt > /tmp/requirements-docker.txt && cat /tmp/requirements-docker.txt
+# Security bumps for the py3.11 pins: Pillow CVE-2023-4863, cryptography CVE-2023-0286
+# (pyopenssl 21 is incompatible with cryptography>=37, so it moves too).
+RUN sed -E \
+        -e "s/^cbor2==5\.4\.2(\s*;.*)?$/cbor2==5.4.6\1/" \
+        -e "s/^Pillow==9\.4\.0/Pillow==10.4.0/" \
+        -e "s/^cryptography==3\.4\.8/cryptography==42.0.8/" \
+        -e "s/^pyopenssl==21\.0\.0/pyopenssl==24.1.0/" \
+        requirements.txt > /tmp/requirements-docker.txt && cat /tmp/requirements-docker.txt
 
 USER odoo
 RUN set -eux; \

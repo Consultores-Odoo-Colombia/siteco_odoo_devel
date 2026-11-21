@@ -1,0 +1,66 @@
+# Construye la imagen de Odoo 18 CE, comprueba las versiones parcheadas y la publica en GHCR.
+# Se dispara al empujar un tag "siteco-odoo-v*" (p. ej. siteco-odoo-v2.7.1) o a mano desde Actions.
+name: Docker image
+
+on:
+  push:
+    tags: ['siteco-odoo-v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag de la imagen (p. ej. siteco-odoo-v2.7.1)'
+        required: true
+
+env:
+  IMAGE: ghcr.io/juanca2918/odoo18-ce
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Tag de la imagen
+        id: meta
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+        run: echo "tag=${INPUT_TAG:-$GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # v3.12.0
+
+      - name: Build (sin publicar)
+        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # v6.19.2
+        with:
+          context: .
+          load: true
+          tags: ${{ env.IMAGE }}:${{ steps.meta.outputs.tag }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Falla si vuelven las versiones con CVE (Pillow 9.x, cryptography 3.x).
+      - name: Comprobar versiones parcheadas
+        run: |
+          docker run --rm --entrypoint /opt/odoo/venv/bin/python \
+            "$IMAGE:${{ steps.meta.outputs.tag }}" -c '
+          import PIL, cryptography, OpenSSL
+          print("Pillow", PIL.__version__, "| cryptography", cryptography.__version__, "| pyOpenSSL", OpenSSL.__version__)
+          assert tuple(map(int, PIL.__version__.split(".")[:2])) >= (10, 0), "Pillow vulnerable"
+          assert int(cryptography.__version__.split(".")[0]) >= 41, "cryptography vulnerable"
+          import odoo; print("odoo", odoo.release.version)
+          '
+
+      # El paquete vive en la cuenta personal juanca2918, por eso GITHUB_TOKEN no basta:
+      # hace falta un PAT con write:packages en los secretos GHCR_USERNAME / GHCR_TOKEN.
+      - uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # v3.7.0
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.GHCR_USERNAME }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Push
+        run: |
+          docker tag "$IMAGE:${{ steps.meta.outputs.tag }}" "$IMAGE:latest"
+          docker push "$IMAGE:${{ steps.meta.outputs.tag }}"
+          docker push "$IMAGE:latest"
