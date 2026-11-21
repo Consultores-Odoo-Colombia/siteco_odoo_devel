@@ -116,7 +116,9 @@ USER odoo
 RUN set -eux; \
     python -m venv "${ODOO_VENV_BASE}"; \
     "${ODOO_VENV_BASE}/bin/pip" install --upgrade "pip<25" "setuptools<81" "wheel<0.46"; \
-    "${ODOO_VENV_BASE}/bin/pip" install --prefer-binary -r /tmp/requirements-docker.txt
+    "${ODOO_VENV_BASE}/bin/pip" install --prefer-binary -r /tmp/requirements-docker.txt; \
+    # Sello de paquetes: el entrypoint re-clona el venv persistente si cambia.
+    "${ODOO_VENV_BASE}/bin/pip" freeze > "${ODOO_VENV_BASE}/.image-freeze"
 
 # -----------------------------------------------------------------------------
 # 4. Copiar Odoo e instalar editable

@@ -98,6 +98,14 @@ print(ctx.hash(os.environ['RAW_PASS']))
 _prepare_runtime_venv() {
   log "Preparing mutable venv at ${ODOO_VENV_RUNTIME}..."
 
+  # Si la imagen trae otros paquetes base (p. ej. parches de seguridad), el venv
+  # persistente quedaría con los viejos: se re-crea y abajo se reinstalan los extras.
+  if [[ -f "${ODOO_VENV_RUNTIME}/bin/python" ]] && \
+     ! cmp -s "${ODOO_VENV_BASE}/.image-freeze" "${ODOO_VENV_RUNTIME}/.image-freeze"; then
+    log "Base image packages changed — rebuilding runtime venv"
+    rm -rf "${ODOO_VENV_RUNTIME:?}"
+  fi
+
   if [[ ! -f "${ODOO_VENV_RUNTIME}/bin/python" ]]; then
     log "No runtime venv found — cloning base venv..."
     mkdir -p "${ODOO_VENV_RUNTIME}"
