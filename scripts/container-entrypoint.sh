@@ -177,6 +177,15 @@ if [[ "${1:-}" == *"odoo-bin" ]]; then
     log "Using existing runtime config at ${RUNTIME_CONF} (set FORCE_RECONFIG=1 to regenerate)"
   fi
 
+  # Instancias con odoo.conf de una imagen anterior: se agrega la carpeta del
+  # distribuidor AL FINAL del addons_path (los módulos de Siteco siguen ganando)
+  # sin regenerar el resto de la configuración. Idempotente.
+  if grep -qE '^\s*addons_path\s*=' "${RUNTIME_CONF}" \
+     && ! grep -qE '^\s*addons_path\s*=.*/mnt/distribuidor-addons' "${RUNTIME_CONF}"; then
+    sed -i -E 's|^(\s*addons_path\s*=.*[^[:space:]])\s*$|\1,/mnt/distribuidor-addons|' "${RUNTIME_CONF}"
+    log "addons_path: /mnt/distribuidor-addons agregado al final"
+  fi
+
   unset ODOO_RC OPENERP_SERVER
 
   # --- Auto-init database ---
