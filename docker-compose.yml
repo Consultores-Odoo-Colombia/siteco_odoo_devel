@@ -1,5 +1,5 @@
 # =============================================================================
-# Siteco Odoo 18 CE + PostgreSQL 16 + Redis 7 — Coolify Production Compose
+# Siteco Odoo 18 CE + PostgreSQL 16 — Coolify Production Compose
 # =============================================================================
 # Modelo mutable-friendly:
 #   - La imagen Docker trae Odoo 18 CE base.
@@ -22,11 +22,8 @@
 #   2. Poner RESET_ADMIN_PASSWD=1 y reiniciar una vez.
 #   3. Volver RESET_ADMIN_PASSWD=0.
 #
-# Redis sessions:
-#   - Odoo CE 18 NO tiene soporte nativo de sesiones Redis.
-#   - Si deseas usar Redis para sesiones, instala el addon session_redis (OCA)
-#     en /mnt/extra-addons y añadelo a SERVER_WIDE_MODULES=base,web,session_redis.
-#   - Las variables ODOO_SESSION_REDIS_* de abajo serán usadas por ese addon.
+# Sin Redis: Odoo CE no tiene ningún cliente de Redis, sería un contenedor sin
+# uso (igual que en los compose de Odoo 19 y 20).
 #
 # Coolify:
 #   - Autogenera SERVICE_USER_*, SERVICE_PASSWORD_* y las inyecta como .env.
@@ -76,38 +73,12 @@ services:
     networks:
       - odoo-net
 
-  redis:
-    image: 'redis:${REDIS_VERSION:-7-alpine}'
-    restart: unless-stopped
-    logging: *default-logging
-    command:
-      - redis-server
-      - '--appendonly'
-      - 'yes'
-      - '--maxmemory'
-      - '${REDIS_MAXMEMORY:-512mb}'
-      - '--maxmemory-policy'
-      - allkeys-lru
-      - '--tcp-keepalive'
-      - '60'
-    healthcheck:
-      test: [CMD, redis-cli, ping]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    volumes:
-      - 'redis-data:/data'
-    networks:
-      - odoo-net
-
   odoo:
     image: '${ODOO_IMAGE:-ghcr.io/juanca2918/odoo18-ce:siteco-odoo-v2.7.0}'
     restart: unless-stopped
     logging: *default-logging
     depends_on:
       db:
-        condition: service_healthy
-      redis:
         condition: service_healthy
     environment:
       # --- PostgreSQL connection ---
@@ -116,12 +87,6 @@ services:
       DB_PASSWORD: '${SERVICE_PASSWORD_POSTGRES}'
       DBNAME: '${POSTGRES_DB:-odoo}'
       DBFILTER: '${DBFILTER:-.*}'
-
-      # --- Redis sessions (requiere addon session_redis de OCA) ---
-      ODOO_SESSION_REDIS: '${ODOO_SESSION_REDIS:-1}'
-      ODOO_SESSION_REDIS_HOST: '${ODOO_SESSION_REDIS_HOST:-redis}'
-      ODOO_SESSION_REDIS_PORT: '${ODOO_SESSION_REDIS_PORT:-6379}'
-      ODOO_SESSION_REDIS_PREFIX: '${ODOO_SESSION_REDIS_PREFIX:-session}'
 
       # --- HTTP server ---
       HTTP_INTERFACE: 0.0.0.0
@@ -155,7 +120,6 @@ services:
       LIST_DB: '${LIST_DB:-False}'
 
       # --- Server-wide modules ---
-      # Añade aquí session_redis si instalas ese addon de OCA.
       SERVER_WIDE_MODULES: '${SERVER_WIDE_MODULES:-base,web}'
 
       # --- Workers / performance ---
@@ -242,6 +206,5 @@ networks:
 
 volumes:
   db-data:
-  redis-data:
   odoo-data:
   odoo-modules:

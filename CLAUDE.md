@@ -32,7 +32,7 @@ source .venv/bin/activate
 
 ### 2. Docker Compose (canonical for dev and prod)
 
-`docker-compose.yml` defines `db` (Postgres 16), `redis` (7-alpine, used for Odoo session store + cache), and `odoo`. `docker-compose.override.yml` is auto-loaded in dev and adds:
+`docker-compose.yml` defines `db` (Postgres 16) and `odoo` (no Redis: Odoo CE has no Redis client). `docker-compose.override.yml` is auto-loaded in dev and adds:
 
 - the `build:` context (without override, prod pulls `${ODOO_IMAGE}` from GHCR)
 - a bind mount of `./addons → /mnt/extra-addons` for hot-reload
@@ -49,7 +49,7 @@ docker compose exec odoo odoo-venv pip install <pkg>    # install into the conta
 docker compose exec odoo odoo-venv run python -V
 ```
 
-Persistence relies on named volumes `db-data`, `redis-data`, `odoo-data`, `odoo-logs`, `odoo-modules`. `docker compose down -v` wipes them — including the master password and DB.
+Persistence relies on named volumes `db-data`, `odoo-data`, `odoo-logs`, `odoo-modules`. `docker compose down -v` wipes them — including the master password and DB.
 
 ### 3. Production server
 
@@ -74,10 +74,6 @@ A few quirks worth knowing:
 - The Dockerfile pulls Odoo `requirements.txt` *from GitHub* (`raw.githubusercontent.com/odoo/odoo/${ODOO_VERSION}/requirements.txt`), not from the local checkout. The vendored `requirements.txt` here is for host-side venv use.
 - The image installs Odoo as `pip install --editable /opt/odoo` so `odoo-bin` resolves the bundled `odoo/` package, not whatever is bind-mounted at `/mnt/extra-addons`.
 - Custom addons reach the container *only* via the `odoo-modules` named volume (prod) or the `./addons` bind mount (dev override). To ship a custom module in the prod image you must either copy it in via a Dockerfile change or place it in the `odoo-modules` volume on the host.
-
-## Redis session store
-
-`docker/odoo.conf` template wires `session_redis`, `redis_host`, `redis_port`, `redis_db`, `redis_prefix` from env vars. This relies on the *upstream* Odoo build supporting these options — if a future upgrade drops them, sessions silently fall back to filesystem and Redis becomes a no-op. Verify after Odoo version bumps.
 
 ## Conventions and gotchas
 
