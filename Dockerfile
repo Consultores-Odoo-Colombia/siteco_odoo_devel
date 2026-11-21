@@ -93,8 +93,8 @@ RUN set -eux; \
 RUN set -eux; \
     groupadd -g 101 odoo; \
     useradd -m -d /home/odoo -u 101 -g odoo -s /bin/bash odoo; \
-    mkdir -p ${ODOO_HOME} ${ODOO_VENV_BASE} /var/lib/odoo/data /var/lib/odoo/logs /var/lib/odoo/venv /mnt/extra-addons /etc/odoo; \
-    chown -R odoo:odoo ${ODOO_HOME} /var/lib/odoo /mnt/extra-addons /etc/odoo
+    mkdir -p ${ODOO_HOME} ${ODOO_VENV_BASE} /var/lib/odoo/data /var/lib/odoo/logs /var/lib/odoo/venv /mnt/extra-addons /mnt/distribuidor-addons /etc/odoo; \
+    chown -R odoo:odoo ${ODOO_HOME} /var/lib/odoo /mnt/extra-addons /mnt/distribuidor-addons /etc/odoo
 
 WORKDIR ${ODOO_HOME}
 

@@ -1,5 +1,15 @@
 # Changelog — imagen ghcr.io/juanca2918/odoo18-ce
 
+## v2.8.0 — 2026-11-21
+
+### Añadido
+- `/mnt/distribuidor-addons` al final de `addons_path`: carpeta de módulos propios del
+  distribuidor (volumen `odoo-distribuidor` que monta siteco-soluciones). Va de último,
+  así un módulo con el mismo nombre que uno de Siteco o del núcleo queda ignorado.
+- El entrypoint agrega esa ruta al `odoo.conf` ya generado de instancias existentes,
+  sin regenerar el resto (no hace falta `FORCE_RECONFIG=1`).
+- No se instala `requirements.txt` del distribuidor: solo el de `/mnt/extra-addons`.
+
 ## v2.7.0 — 2026-10-26
 
 ### Corregido
